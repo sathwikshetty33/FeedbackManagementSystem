@@ -40,22 +40,28 @@ class ListUserEvents(APIView):
 
     def get(self, request):
         user = request.user
-        now = timezone.now()
-
+        
         try:
             student = Student.objects.get(user=user)
             semester = student.semester
+            # Get events visible to this student's semester or anyone
             events = Event.objects.filter(
                 visibility__in=[semester, 'anyone'],
             )
         except Student.DoesNotExist:
             try:
                 teacher = Teacher.objects.get(user=user)
+                # Get events visible to teachers or anyone
                 events = Event.objects.filter(
                     visibility__in=['teachers', 'anyone'],
                 )
             except Teacher.DoesNotExist:
                 return Response({"error": "User is neither a student nor a teacher"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Filter out events that the user has already claimed
+        claimed_events = EventGiven.objects.filter(user=user).values_list('event_id', flat=True)
+        events = events.exclude(id__in=claimed_events)
+        
         serializer = EventSerializer(events, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
@@ -167,3 +173,51 @@ class EventDetailAPIView(APIView):
         event = self.get_event(pk)
         event.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class ClaimEventAttendance(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, event_id):
+        user = request.user
+        
+        try:
+            event = Event.objects.get(id=event_id)
+            
+            # Check if user has already claimed this event
+            if EventGiven.objects.filter(user=user, event=event).exists():
+                return Response({"error": "You have already attended this event"}, status=status.HTTP_400_BAD_REQUEST)
+            
+            # Check if user is eligible to claim this event
+            try:
+                student = Student.objects.get(user=user)
+                if event.visibility not in [student.semester, 'anyone']:
+                    return Response({"error": "You are not eligible for this event"}, status=status.HTTP_403_FORBIDDEN)
+            except Student.DoesNotExist:
+                try:
+                    Teacher.objects.get(user=user)
+                    if event.visibility not in ['teachers', 'anyone']:
+                        return Response({"error": "You are not eligible for this event"}, status=status.HTTP_403_FORBIDDEN)
+                except Teacher.DoesNotExist:
+                    return Response({"error": "User is neither a student nor a teacher"}, status=status.HTTP_400_BAD_REQUEST)
+            
+            # Create the attendance record
+            EventGiven.objects.create(user=user, event=event)
+            
+            return Response({"success": "Event attendance recorded successfully"}, status=status.HTTP_201_CREATED)
+            
+        except Event.DoesNotExist:
+            return Response({"error": "Event not found"}, status=status.HTTP_404_NOT_FOUND)
+        
+class ListAttendedEvents(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        
+        # Get all events that the user has claimed
+        attended_events_ids = EventGiven.objects.filter(user=user).values_list('event_id', flat=True)
+        attended_events = Event.objects.filter(id__in=attended_events_ids)
+        
+        serializer = EventSerializer(attended_events, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
