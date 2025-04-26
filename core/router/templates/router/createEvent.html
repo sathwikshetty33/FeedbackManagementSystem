@@ -310,7 +310,7 @@
             
             // Determine API endpoint and method based on mode
             const method = isEditMode ? 'PUT' : 'POST';
-            const endpoint = isEditMode ? `/events/events/${eventId}/` : '/events/events/';
+            const endpoint = isEditMode ? `/events/events/${eventId}/` : '/events/create-events/';
             
             // Send request
             fetch(endpoint, {
