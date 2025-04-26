@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Event Form</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        header {
+            background-color: #1a237e;
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        .form-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+
+        .form-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            background-color: #3f51b5;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background-color: #303f9f;
+        }
+
+        .btn-danger {
+            background-color: #f44336;
+        }
+
+        .btn-danger:hover {
+            background-color: #d32f2f;
+        }
+
+        .btn-success {
+            background-color: #4CAF50;
+        }
+
+        .btn-success:hover {
+            background-color: #388E3C;
+        }
+
+        .logout-btn {
+            background-color: #f44336;
+        }
+
+        .logout-btn:hover {
+            background-color: #d32f2f;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .error-message {
+            color: #f44336;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Admin Dashboard</h1>
+        <div>
+            <span id="adminName">Admin</span>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="form-container">
+            <div class="form-header">
+                <h2 id="formTitle">Create New Event</h2>
+                <a href="/admin-dashboard/" class="btn">Back to Events</a>
+            </div>
+
+            <form id="eventForm">
+                <div class="form-group">
+                    <label for="eventName">Event Name</label>
+                    <input type="text" id="eventName" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="eventDescription">Description</label>
+                    <textarea id="eventDescription" name="description" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="eventStartTime">Start Time</label>
+                    <input type="datetime-local" id="eventStartTime" name="start_time" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="eventEndTime">End Time</label>
+                    <input type="datetime-local" id="eventEndTime" name="end_time" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="eventVisibility">Visibility</label>
+                    <select id="eventVisibility" name="visibility" required>
+                        <option value="anyone">Anyone</option>
+                        <option value="teachers">Teachers Only</option>
+                        <option value="1">Semester 1</option>
+                        <option value="2">Semester 2</option>
+                        <option value="3">Semester 3</option>
+                        <option value="4">Semester 4</option>
+                        <option value="5">Semester 5</option>
+                        <option value="6">Semester 6</option>
+                        <option value="7">Semester 7</option>
+                        <option value="8">Semester 8</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="eventFormUrl">Registration Form URL</label>
+                    <input type="url" id="eventFormUrl" name="form_url" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="eventWorksheetUrl">Worksheet URL</label>
+                    <input type="url" id="eventWorksheetUrl" name="worksheet_url" required>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-danger" onclick="goBack()">Cancel</button>
+                    <button type="submit" class="btn btn-success" id="submitBtn">Save Event</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Hidden input to store event ID from Django template context -->
+    <input type="hidden" id="eventContextId" value="{{ id }}">
+
+    <script>
+        let isEditMode = false;
+        let eventId = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if admin is logged in
+            const adminToken = localStorage.getItem('adminToken');
+            if (!adminToken) {
+                window.location.href = '/';
+                return;
+            }
+
+            // Get the event ID from the hidden input (populated by Django template)
+            const eventContextIdElement = document.getElementById('eventContextId');
+            const eventContextIdValue = eventContextIdElement ? eventContextIdElement.value : '';
+            
+            // Check if we have a valid event ID (not empty and not "None")
+            if (eventContextIdValue && eventContextIdValue !== 'None' && eventContextIdValue !== '0') {
+                isEditMode = true;
+                eventId = eventContextIdValue;
+                document.getElementById('formTitle').textContent = 'Edit Event';
+                document.getElementById('submitBtn').textContent = 'Update Event';
+                fetchEventDetails(eventId);
+            }
+
+            // Set up form submission
+            document.getElementById('eventForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                saveEvent();
+            });
+        });
+
+        function fetchEventDetails(id) {
+            const adminToken = localStorage.getItem('adminToken');
+            
+            fetch(`/events/events/${id}/`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${adminToken}`
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch event details');
+                }
+                return response.json();
+            })
+            .then(event => {
+                // Populate form fields
+                document.getElementById('eventName').value = event.name;
+                document.getElementById('eventDescription').value = event.description;
+                
+                // Format datetime-local inputs
+                const startDate = new Date(event.start_time);
+                const endDate = new Date(event.end_time);
+                
+                document.getElementById('eventStartTime').value = formatDateForInput(startDate);
+                document.getElementById('eventEndTime').value = formatDateForInput(endDate);
+                
+                document.getElementById('eventVisibility').value = event.visibility;
+                document.getElementById('eventFormUrl').value = event.form_url;
+                document.getElementById('eventWorksheetUrl').value = event.worksheet_url;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error loading event details: ' + error.message);
+            });
+        }
+
+        function formatDateForInput(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            
+            return `${year}-${month}-${day}T${hours}:${minutes}`;
+        }
+
+        function saveEvent() {
+            const adminToken = localStorage.getItem('adminToken');
+            
+            // Get form data
+            const name = document.getElementById('eventName').value;
+            const description = document.getElementById('eventDescription').value;
+            const startTime = document.getElementById('eventStartTime').value;
+            const endTime = document.getElementById('eventEndTime').value;
+            const visibility = document.getElementById('eventVisibility').value;
+            const formUrl = document.getElementById('eventFormUrl').value;
+            const worksheetUrl = document.getElementById('eventWorksheetUrl').value;
+            
+            // Validate form
+            if (!name || !description || !startTime || !endTime || !visibility || !formUrl || !worksheetUrl) {
+                alert('Please fill out all fields');
+                return;
+            }
+            
+            // Prepare request data
+            const eventData = {
+                name,
+                description,
+                start_time: new Date(startTime).toISOString(),
+                end_time: new Date(endTime).toISOString(),
+                visibility,
+                form_url: formUrl,
+                worksheet_url: worksheetUrl
+            };
+            
+            // Determine API endpoint and method based on mode
+            const method = isEditMode ? 'PUT' : 'POST';
+            const endpoint = isEditMode ? `/events/events/${eventId}/` : '/events/events/';
+            
+            // Send request
+            fetch(endpoint, {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${adminToken}`
+                },
+                body: JSON.stringify(eventData)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to save event');
+                }
+                return response.json();
+            })
+            .then(data => {
+                alert(isEditMode ? 'Event updated successfully' : 'Event created successfully');
+                window.location.href = '/admin-dashboard/';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error saving event: ' + error.message);
+            });
+        }
+        
+        function goBack() {
+            window.location.href = '/admin-dashboard/';
+        }
+        
+        function logout() {
+            localStorage.removeItem('adminToken');
+            localStorage.removeItem('adminId');
+            window.location.href = '/index/';
+        }
+    </script>
+</body>
+</html>

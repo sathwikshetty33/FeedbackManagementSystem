@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Events</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        header {
+            background-color: #1a237e;
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            background-color: #3f51b5;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background-color: #303f9f;
+        }
+
+        .btn-danger {
+            background-color: #f44336;
+        }
+
+        .btn-danger:hover {
+            background-color: #d32f2f;
+        }
+
+        .btn-success {
+            background-color: #4CAF50;
+        }
+
+        .btn-success:hover {
+            background-color: #388E3C;
+        }
+
+        .btn-warning {
+            background-color: #FF9800;
+        }
+
+        .btn-warning:hover {
+            background-color: #F57C00;
+        }
+
+        .btn-info {
+            background-color: #2196F3;
+        }
+
+        .btn-info:hover {
+            background-color: #1976D2;
+        }
+
+        .logout-btn {
+            background-color: #f44336;
+        }
+
+        .logout-btn:hover {
+            background-color: #d32f2f;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background-color: #3f51b5;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        .actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 2rem;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .modal-title {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #333;
+        }
+
+        .insights-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .insights-section h4 {
+            margin-top: 0;
+            color: #1a237e;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 0.5rem;
+        }
+
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border-left-color: #3f51b5;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Admin Dashboard</h1>
+        <div>
+            <span id="adminName">Admin</span>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="dashboard-header">
+            <h2>Events Management</h2>
+            <a href="/admin-create/" class="btn btn-success">Create New Event</a>
+        </div>
+
+        <div id="eventsTable">
+            <div class="loading">Loading events...</div>
+        </div>
+    </div>
+
+    <!-- Insights Modal -->
+    <div id="insightsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="insightsModalTitle">Feedback Insights</h3>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <div id="insightsContent">
+                <!-- Insights will be loaded here -->
+            </div>
+            <div class="modal-footer" style="display: flex; justify-content: space-between; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #eee;">
+                <button class="btn btn-success" onclick="downloadInsights()">Download Insights</button>
+                <button class="btn" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if admin is logged in
+            const adminToken = localStorage.getItem('adminToken');
+            if (!adminToken) {
+                window.location.href = '/';
+                return;
+            }
+
+            // Load events
+            loadEvents();
+        });
+
+        function loadEvents() {
+            const eventsTable = document.getElementById('eventsTable');
+            const adminToken = localStorage.getItem('adminToken');
+            
+            fetch('/events/events/', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${adminToken}`
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch events');
+                }
+                return response.json();
+            })
+            .then(events => {
+                if (events.length === 0) {
+                    eventsTable.innerHTML = `
+                        <div class="empty-state">
+                            <h3>No events found</h3>
+                            <p>Create your first event to get started.</p>
+                            <a href="/admin/events/create/" class="btn btn-success">Create New Event</a>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // Generate table HTML
+                let tableHTML = `
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Start Time</th>
+                                <th>End Time</th>
+                                <th>Visibility</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+                
+                events.forEach(event => {
+                    const startTime = new Date(event.start_time).toLocaleString();
+                    const endTime = new Date(event.end_time).toLocaleString();
+                    
+                    tableHTML += `
+                        <tr>
+                            <td>${event.id}</td>
+                            <td>${event.name}</td>
+                            <td>${startTime}</td>
+                            <td>${endTime}</td>
+                            <td><span class="badge">${getVisibilityLabel(event.visibility)}</span></td>
+                            <td class="actions">
+                                <button class="btn btn-info" onclick="generateInsights(${event.id}, '${event.name}')">Generate Insights</button>
+                                <a href="/admin-create/${event.id}/" class="btn btn-warning">Edit</a>
+                                <button class="btn btn-danger" onclick="deleteEvent(${event.id})">Delete</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+                
+                tableHTML += `
+                        </tbody>
+                    </table>
+                `;
+                
+                eventsTable.innerHTML = tableHTML;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                eventsTable.innerHTML = `
+                    <div class="empty-state">
+                        <h3>Error loading events</h3>
+                        <p>${error.message}</p>
+                    </div>
+                `;
+            });
+        }
+        
+        function deleteEvent(eventId) {
+            if (!confirm('Are you sure you want to delete this event?')) {
+                return;
+            }
+            
+            const adminToken = localStorage.getItem('adminToken');
+            
+            fetch(`/events/events/${eventId}/`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${adminToken}`
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to delete event');
+                }
+                // Reload events after successful deletion
+                loadEvents();
+                alert('Event deleted successfully');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error deleting event: ' + error.message);
+            });
+        }
+        
+        function getVisibilityLabel(visibility) {
+            const visibilityMap = {
+                '1': 'Semester 1',
+                '2': 'Semester 2',
+                '3': 'Semester 3',
+                '4': 'Semester 4',
+                '5': 'Semester 5',
+                '6': 'Semester 6',
+                '7': 'Semester 7',
+                '8': 'Semester 8',
+                'anyone': 'Anyone',
+                'teachers': 'Teachers Only'
+            };
+            
+            return visibilityMap[visibility] || visibility;
+        }
+        
+        function logout() {
+            localStorage.removeItem('adminToken');
+            localStorage.removeItem('adminId');
+            window.location.href = '/index/';
+        }
+
+        // Insights generation functions
+        function generateInsights(eventId, eventName) {
+            const modal = document.getElementById('insightsModal');
+            const modalTitle = document.getElementById('insightsModalTitle');
+            const insightsContent = document.getElementById('insightsContent');
+            
+            modalTitle.textContent = `Feedback Insights: ${eventName}`;
+            insightsContent.innerHTML = `<div class="spinner"></div><p style="text-align: center;">Generating insights from feedback data...</p>`;
+            
+            modal.style.display = 'block';
+            
+            const adminToken = localStorage.getItem('adminToken');
+            
+            // Call the insights generation API
+            fetch('/insights/generate-insights/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${adminToken}`
+                },
+                body: JSON.stringify({ event_id: eventId })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to generate insights');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Display insights in the modal
+                displayInsights(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                insightsContent.innerHTML = `
+                    <div class="empty-state">
+                        <h3>Error generating insights</h3>
+                        <p>${error.message}</p>
+                    </div>
+                `;
+            });
+        }
+        
+        function displayInsights(data) {
+            const insightsContent = document.getElementById('insightsContent');
+            
+            if (data.error) {
+                insightsContent.innerHTML = `
+                    <div class="empty-state">
+                        <h3>Error</h3>
+                        <p>${data.error}</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            const insights = data.insights;
+            let html = '';
+            
+            // Overall sentiment
+            if (insights.overall_sentiment || insights.sentiment_analysis) {
+                html += `
+                    <div class="insights-section">
+                        <h4>Overall Sentiment</h4>
+                        <p>${insights.overall_sentiment || insights.sentiment_analysis}</p>
+                    </div>
+                `;
+            }
+            
+            // Areas of improvement
+            if (insights.key_areas_of_improvement || insights.areas_of_improvement) {
+                html += `<div class="insights-section"><h4>Areas for Improvement</h4><ul>`;
+                
+                const improvements = insights.key_areas_of_improvement || insights.areas_of_improvement;
+                if (Array.isArray(improvements)) {
+                    improvements.forEach(item => {
+                        html += `<li>${item}</li>`;
+                    });
+                } else {
+                    html += `<li>${improvements}</li>`;
+                }
+                
+                html += `</ul></div>`;
+            }
+            
+            // Strengths
+            if (insights.strengths || insights.positive_feedback) {
+                html += `<div class="insights-section"><h4>Strengths & Positive Feedback</h4><ul>`;
+                
+                const strengths = insights.strengths || insights.positive_feedback;
+                if (Array.isArray(strengths)) {
+                    strengths.forEach(item => {
+                        html += `<li>${item}</li>`;
+                    });
+                } else {
+                    html += `<li>${strengths}</li>`;
+                }
+                
+                html += `</ul></div>`;
+            }
+            
+            // Trend analysis
+            if (insights.trend_analysis) {
+                html += `
+                    <div class="insights-section">
+                        <h4>Trend Analysis</h4>
+                        <p>${insights.trend_analysis}</p>
+                    </div>
+                `;
+            }
+            
+            // Action items
+            if (insights.recommended_action_items || insights.action_items) {
+                html += `<div class="insights-section"><h4>Recommended Actions</h4><ul>`;
+                
+                const actions = insights.recommended_action_items || insights.action_items;
+                if (Array.isArray(actions)) {
+                    actions.forEach(item => {
+                        html += `<li>${item}</li>`;
+                    });
+                } else {
+                    html += `<li>${actions}</li>`;
+                }
+                
+                html += `</ul></div>`;
+            }
+            
+            // Handle raw insights if structured format wasn't provided
+            if (insights.raw_insights) {
+                html += `
+                    <div class="insights-section">
+                        <h4>Detailed Analysis</h4>
+                        <pre style="white-space: pre-wrap; background-color: #f5f5f5; padding: 1rem; border-radius: 4px;">${insights.raw_insights}</pre>
+                    </div>
+                `;
+            }
+            
+            // Store insights data for download
+            window.currentInsights = {
+                eventName: data.event_name,
+                insights: insights
+            };
+            
+            insightsContent.innerHTML = html;
+        }
+        
+        function closeModal() {
+            const modal = document.getElementById('insightsModal');
+            modal.style.display = 'none';
+        }
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('insightsModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+        
+        function downloadInsights() {
+            if (!window.currentInsights) {
+                alert('No insights data available for download');
+                return;
+            }
+            
+            const eventName = window.currentInsights.eventName;
+            const insights = window.currentInsights.insights;
+            
+            // Format insights for download
+            let content = `# Feedback Insights: ${eventName}\n\n`;
+            
+            // Overall sentiment
+            if (insights.overall_sentiment || insights.sentiment_analysis) {
+                content += `## Overall Sentiment\n${insights.overall_sentiment || insights.sentiment_analysis}\n\n`;
+            }
+            
+            // Areas of improvement
+            if (insights.key_areas_of_improvement || insights.areas_of_improvement) {
+                content += `## Areas for Improvement\n`;
+                
+                const improvements = insights.key_areas_of_improvement || insights.areas_of_improvement;
+                if (Array.isArray(improvements)) {
+                    improvements.forEach(item => {
+                        content += `- ${item}\n`;
+                    });
+                } else {
+                    content += `- ${improvements}\n`;
+                }
+                
+                content += '\n';
+            }
+            
+            // Strengths
+            if (insights.strengths || insights.positive_feedback) {
+                content += `## Strengths & Positive Feedback\n`;
+                
+                const strengths = insights.strengths || insights.positive_feedback;
+                if (Array.isArray(strengths)) {
+                    strengths.forEach(item => {
+                        content += `- ${item}\n`;
+                    });
+                } else {
+                    content += `- ${strengths}\n`;
+                }
+                
+                content += '\n';
+            }
+            
+            // Trend analysis
+            if (insights.trend_analysis) {
+                content += `## Trend Analysis\n${insights.trend_analysis}\n\n`;
+            }
+            
+            // Action items
+            if (insights.recommended_action_items || insights.action_items) {
+                content += `## Recommended Actions\n`;
+                
+                const actions = insights.recommended_action_items || insights.action_items;
+                if (Array.isArray(actions)) {
+                    actions.forEach(item => {
+                        content += `- ${item}\n`;
+                    });
+                } else {
+                    content += `- ${actions}\n`;
+                }
+                
+                content += '\n';
+            }
+            
+            // Raw insights
+            if (insights.raw_insights) {
+                content += `## Detailed Analysis\n${insights.raw_insights}\n\n`;
+            }
+            
+            // Generate date stamp
+            const date = new Date();
+            content += `\nGenerated on: ${date.toLocaleString()}`;
+            
+            // Create blob and download
+            const blob = new Blob([content], { type: 'text/markdown' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${eventName.replace(/\s+/g, '-').toLowerCase()}-insights.md`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - Campus Events</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        header {
+            background-color: #1a237e;
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        .dashboard-header {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #3f51b5;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+
+        .user-details h2 {
+            margin: 0;
+            margin-bottom: 0.5rem;
+        }
+
+        .user-type {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .events-section {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+
+        .events-filters {
+            display: flex;
+            margin-bottom: 1rem;
+            gap: 1rem;
+        }
+
+        .filter-button {
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #fff;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-button.active {
+            background-color: #3f51b5;
+            color: white;
+            border-color: #3f51b5;
+        }
+
+        .events-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .event-card {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .event-header {
+            background-color: #3f51b5;
+            color: white;
+            padding: 1rem;
+        }
+
+        .event-body {
+            padding: 1rem;
+        }
+
+        .event-footer {
+            padding: 1rem;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .event-time {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .event-visibility {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .logout-btn {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .logout-btn:hover {
+            background-color: #d32f2f;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid #3f51b5;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .auth-error {
+            text-align: center;
+            padding: 2rem;
+            background-color: #ffebee;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+        }
+
+        .auth-error h2 {
+            color: #c62828;
+        }
+
+        .auth-error button {
+            background-color: #3f51b5;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+            margin-top: 1rem;
+        }
+
+        .event-status {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .status-ongoing {
+            color: #388e3c;
+        }
+
+        .status-past {
+            color: #d32f2f;
+        }
+
+        .status-upcoming {
+            color: #1976d2;
+        }
+
+        @media (max-width: 768px) {
+            .events-list {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .user-info {
+                flex-direction: column;
+                margin-bottom: 1rem;
+            }
+
+            .user-avatar {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+
+            .events-filters {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+    </div>
+
+    <header>
+        <h1>Campus Events Dashboard</h1>
+        <div id="userStatus"></div>
+    </header>
+
+    <div class="container" id="dashboardContainer">
+        <!-- Content will be loaded dynamically -->
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            authenticateUser();
+        });
+
+        function authenticateUser() {
+            const studentToken = localStorage.getItem('studentToken');
+            const teacherToken = localStorage.getItem('teacherToken');
+            const adminToken = localStorage.getItem('adminToken');
+            
+            if (!studentToken && !teacherToken && !adminToken) {
+                showAuthError('No authentication token found. Please login first.');
+                return;
+            }
+            
+            // Check if student token is valid
+            if (studentToken) {
+                checkUserType('student', studentToken);
+            } 
+            // Check if teacher token is valid
+            else if (teacherToken) {
+                checkUserType('teacher', teacherToken);
+            }
+            // For admin, we'll just assume the token is valid for this example
+            else if (adminToken) {
+                loadDashboard('admin');
+            }
+        }
+
+        function checkUserType(type, token) {
+            const endpoint = type === 'student' ? '/auth/student-check/' : '/auth/teacher-check/';
+            
+            fetch(endpoint, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Token ${token}`
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Invalid ${type} token`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                loadDashboard(type);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showAuthError(`Authentication failed: ${error.message}`);
+            });
+        }
+
+        function showAuthError(message) {
+            const dashboardContainer = document.getElementById('dashboardContainer');
+            
+            dashboardContainer.innerHTML = `
+                <div class="auth-error">
+                    <h2>Authentication Error</h2>
+                    <p>${message}</p>
+                    <button onclick="redirectToLogin()">Go to Login Page</button>
+                </div>
+            `;
+            
+            hideLoading();
+        }
+
+        function redirectToLogin() {
+            window.location.href = '/index/';  // Redirect to the login page
+        }
+
+        function loadDashboard(userType) {
+            const dashboardContainer = document.getElementById('dashboardContainer');
+            const userStatus = document.getElementById('userStatus');
+            
+            // Create user avatar initial based on userType
+            const initialLetter = userType.charAt(0).toUpperCase();
+            
+            dashboardContainer.innerHTML = `
+                <div class="dashboard-header">
+                    <div class="user-info">
+                        <div class="user-avatar">${initialLetter}</div>
+                        <div class="user-details">
+                            <h2>Welcome back!</h2>
+                            <span class="user-type">${userType.charAt(0).toUpperCase() + userType.slice(1)}</span>
+                        </div>
+                    </div>
+                    <button class="logout-btn" onclick="logout()">Logout</button>
+                </div>
+
+                <div class="events-section">
+                    <h2>Your Events</h2>
+                    <div class="events-filters">
+                        <button class="filter-button active" data-filter="all">All Events</button>
+                        <button class="filter-button" data-filter="upcoming">Upcoming</button>
+                        <button class="filter-button" data-filter="ongoing">Ongoing</button>
+                        <button class="filter-button" data-filter="past">Past Events</button>
+                    </div>
+                    <div class="events-list" id="eventsList">
+                        <p>Loading events...</p>
+                    </div>
+                </div>
+            `;
+            
+            userStatus.innerHTML = `
+                <span>${userType.charAt(0).toUpperCase() + userType.slice(1)} Dashboard</span>
+            `;
+            
+            // Load events for the authenticated user
+            loadUserEvents(userType);
+            
+            // Setup event filters
+            setupEventFilters();
+            
+            // Hide loading overlay
+            hideLoading();
+        }
+
+        function loadUserEvents(userType) {
+            const eventsList = document.getElementById('eventsList');
+            let token;
+            
+            if (userType === 'student') {
+                token = localStorage.getItem('studentToken');
+            } else if (userType === 'teacher') {
+                token = localStorage.getItem('teacherToken');
+            } else if (userType === 'admin') {
+                token = localStorage.getItem('adminToken');
+                // For admin, we might want to load all events
+                // But since we don't have a specific API endpoint for that, we'll use the user events endpoint
+            }
+            
+            fetch('/events/events/', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Token ${token}`
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch events');
+                }
+                return response.json();
+            })
+            .then(events => {
+                eventsList.innerHTML = '';
+                
+                if (events.length === 0) {
+                    eventsList.innerHTML = '<p>No events available for you at this time.</p>';
+                    return;
+                }
+                
+                // Store events in a data attribute for filtering
+                eventsList.setAttribute('data-events', JSON.stringify(events));
+                
+                // Display all events initially
+                displayEvents(events);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                eventsList.innerHTML = '<p>Failed to load events. Please try again later.</p>';
+            });
+        }
+
+        function displayEvents(events) {
+            const eventsList = document.getElementById('eventsList');
+            eventsList.innerHTML = '';
+            
+            if (events.length === 0) {
+                eventsList.innerHTML = '<p>No events match the selected filter.</p>';
+                return;
+            }
+            
+            events.forEach(event => {
+                const startTime = new Date(event.start_time);
+                const endTime = new Date(event.end_time);
+                const now = new Date();
+                
+                const isUpcoming = startTime > now;
+                const isPast = endTime < now;
+                const isOngoing = startTime <= now && endTime >= now;
+                
+                const statusClass = isUpcoming ? 'upcoming' : isPast ? 'past' : 'ongoing';
+                const statusText = isUpcoming ? 'Upcoming' : isPast ? 'Past Event' : 'Ongoing';
+                const statusClassName = isUpcoming ? 'status-upcoming' : isPast ? 'status-past' : 'status-ongoing';
+                
+                const eventCard = document.createElement('div');
+                eventCard.className = `event-card ${statusClass}`;
+                
+                // Main content of the event card
+                let eventContent = `
+                    <div class="event-header">
+                        <h3>${event.name}</h3>
+                    </div>
+                    <div class="event-body">
+                        <div class="event-status ${statusClassName}">${statusText}</div>
+                        <p>${event.description}</p>
+                        <p class="event-time">
+                            <strong>Start:</strong> ${startTime.toLocaleString()}<br>
+                            <strong>End:</strong> ${endTime.toLocaleString()}
+                        </p>
+                        <span class="event-visibility">${getVisibilityLabel(event.visibility)}</span>
+                    </div>
+                `;
+                
+                // Only add links for ongoing events
+                if (isOngoing) {
+                    eventContent += `
+                        <div class="event-footer">
+                            <a href="${event.form_url}" target="_blank">Registration Form</a>
+                        </div>
+                    `;
+                } else {
+                    // For past and upcoming events, add a footer without links
+                    eventContent += `
+                        <div class="event-footer">
+                            <span>${isUpcoming ? 'Registration will open soon' : 'Event has ended'}</span>
+                        </div>
+                    `;
+                }
+                
+                eventCard.innerHTML = eventContent;
+                eventsList.appendChild(eventCard);
+            });
+        }
+
+        function setupEventFilters() {
+            const filterButtons = document.querySelectorAll('.filter-button');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    button.classList.add('active');
+                    
+                    // Get filter value
+                    const filter = button.getAttribute('data-filter');
+                    
+                    // Filter events
+                    filterEvents(filter);
+                });
+            });
+        }
+
+        function filterEvents(filter) {
+            const eventsList = document.getElementById('eventsList');
+            const eventsData = JSON.parse(eventsList.getAttribute('data-events'));
+            const now = new Date();
+            
+            let filteredEvents;
+            
+            if (filter === 'all') {
+                filteredEvents = eventsData;
+            } else if (filter === 'upcoming') {
+                filteredEvents = eventsData.filter(event => {
+                    const startTime = new Date(event.start_time);
+                    return startTime > now;
+                });
+            } else if (filter === 'ongoing') {
+                filteredEvents = eventsData.filter(event => {
+                    const startTime = new Date(event.start_time);
+                    const endTime = new Date(event.end_time);
+                    return startTime <= now && endTime >= now;
+                });
+            } else if (filter === 'past') {
+                filteredEvents = eventsData.filter(event => {
+                    const endTime = new Date(event.end_time);
+                    return endTime < now;
+                });
+            }
+            
+            displayEvents(filteredEvents);
+        }
+
+        function getVisibilityLabel(visibility) {
+            const visibilityMap = {
+                '1': 'Semester 1',
+                '2': 'Semester 2',
+                '3': 'Semester 3',
+                '4': 'Semester 4',
+                '5': 'Semester 5',
+                '6': 'Semester 6',
+                '7': 'Semester 7',
+                '8': 'Semester 8',
+                'anyone': 'Anyone',
+                'teachers': 'Teachers Only'
+            };
+            
+            return visibilityMap[visibility] || visibility;
+        }
+
+        function logout() {
+            // Clear all tokens from local storage
+            localStorage.removeItem('studentToken');
+            localStorage.removeItem('studentId');
+            localStorage.removeItem('teacherToken');
+            localStorage.removeItem('teacherId');
+            localStorage.removeItem('adminToken');
+            
+            // Redirect to login page
+            window.location.href = '/index/';
+        }
+
+        function hideLoading() {
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            loadingOverlay.style.display = 'none';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Events</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        header {
+            background-color: #1a237e;
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        .login-section {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .login-tabs {
+            display: flex;
+            margin-bottom: 1rem;
+        }
+
+        .login-tab {
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+
+        .login-tab.active {
+            border-bottom: 2px solid #3f51b5;
+            color: #3f51b5;
+            font-weight: bold;
+        }
+
+        .login-form {
+            display: none;
+        }
+
+        .login-form.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        button {
+            background-color: #3f51b5;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #303f9f;
+        }
+
+        .events-section {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+
+        .events-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .event-card {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .event-header {
+            background-color: #3f51b5;
+            color: white;
+            padding: 1rem;
+        }
+
+        .event-body {
+            padding: 1rem;
+        }
+
+        .event-footer {
+            padding: 1rem;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .event-time {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .event-visibility {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .logout-btn {
+            background-color: #f44336;
+        }
+
+        .logout-btn:hover {
+            background-color: #d32f2f;
+        }
+
+        .login-status {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border-radius: 4px;
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .events-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Campus Events</h1>
+        <div id="loginStatus"></div>
+    </header>
+
+    <div class="container">
+        <div class="login-section" id="loginSection">
+            <div class="login-tabs">
+                <div class="login-tab active" data-tab="student">Student Login</div>
+                <div class="login-tab" data-tab="teacher">Teacher Login</div>
+                <div class="login-tab" data-tab="admin">Admin Login</div>
+            </div>
+
+            <div class="login-form active" id="studentLoginForm">
+                <h2>Student Login</h2>
+                <div class="form-group">
+                    <label for="studentUsername">Username</label>
+                    <input type="text" id="studentUsername" required>
+                </div>
+                <div class="form-group">
+                    <label for="studentPassword">Password</label>
+                    <input type="password" id="studentPassword" required>
+                </div>
+                <button type="button" onclick="loginStudent()">Login</button>
+                <p id="studentLoginError" style="color: red;"></p>
+            </div>
+
+            <div class="login-form" id="teacherLoginForm">
+                <h2>Teacher Login</h2>
+                <div class="form-group">
+                    <label for="teacherUsername">Username</label>
+                    <input type="text" id="teacherUsername" required>
+                </div>
+                <div class="form-group">
+                    <label for="teacherPassword">Password</label>
+                    <input type="password" id="teacherPassword" required>
+                </div>
+                <button type="button" onclick="loginTeacher()">Login</button>
+                <p id="teacherLoginError" style="color: red;"></p>
+            </div>
+
+            <div class="login-form" id="adminLoginForm">
+                <h2>Admin Login</h2>
+                <div class="form-group">
+                    <label for="adminUsername">Username</label>
+                    <input type="text" id="adminUsername" required>
+                </div>
+                <div class="form-group">
+                    <label for="adminPassword">Password</label>
+                    <input type="password" id="adminPassword" required>
+                </div>
+                <button type="button" onclick="loginAdmin()">Login</button>
+                <p id="adminLoginError" style="color: red;"></p>
+            </div>
+        </div>
+
+        <div class="login-status" id="userLoggedInStatus"></div>
+
+        <div class="events-section">
+            <h2>Available Events</h2>
+            <div class="events-list" id="eventsList">
+                <!-- Events will be loaded here dynamically -->
+                <div class="loading">Loading events...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle between login tabs
+        const loginTabs = document.querySelectorAll('.login-tab');
+        const loginForms = document.querySelectorAll('.login-form');
+
+        loginTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabName = tab.getAttribute('data-tab');
+                
+                loginTabs.forEach(t => t.classList.remove('active'));
+                loginForms.forEach(f => f.classList.remove('active'));
+                
+                tab.classList.add('active');
+                document.getElementById(`${tabName}LoginForm`).classList.add('active');
+            });
+        });
+
+        // Load events when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadEvents();
+        });
+
+        function showLoggedInStatus(userType) {
+            const loginSection = document.getElementById('loginSection');
+            const userLoggedInStatus = document.getElementById('userLoggedInStatus');
+            const loginStatus = document.getElementById('loginStatus');
+
+            loginSection.style.display = 'none';
+            userLoggedInStatus.style.display = 'block';
+            userLoggedInStatus.innerHTML = `
+                <p>You are logged in as ${userType}.</p>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            `;
+            
+            loginStatus.innerHTML = `
+                <span>Logged in as ${userType}</span>
+                <button class="logout-btn" onclick="logout()" style="margin-left: 10px; padding: 5px 10px; font-size: 0.8rem;">Logout</button>
+            `;
+        }
+
+        function loginStudent() {
+            const username = document.getElementById('studentUsername').value;
+            const password = document.getElementById('studentPassword').value;
+            const errorElement = document.getElementById('studentLoginError');
+            
+            if (!username || !password) {
+                errorElement.textContent = 'Please enter both username and password';
+                return;
+            }
+
+            // API call to student login endpoint
+            fetch('/auth/student-login/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Login failed');
+                }
+                return response.json();
+            })
+            .then(data => {
+                localStorage.setItem('studentToken', data.token);
+                localStorage.setItem('studentId', data.hospId);
+                showLoggedInStatus('student');
+                window.location.href = '/'; 
+            })
+            .catch(error => {
+                errorElement.textContent = 'Invalid username or password';
+                console.error('Error:', error);
+            });
+        }
+
+        function loginTeacher() {
+            const username = document.getElementById('teacherUsername').value;
+            const password = document.getElementById('teacherPassword').value;
+            const errorElement = document.getElementById('teacherLoginError');
+            
+            if (!username || !password) {
+                errorElement.textContent = 'Please enter both username and password';
+                return;
+            }
+
+            // API call to teacher login endpoint
+            fetch('/auth/teacher-login/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Login failed');
+                }
+                return response.json();
+            })
+            .then(data => {
+                localStorage.setItem('teacherToken', data.token);
+                localStorage.setItem('teacherId', data.hospId);
+                showLoggedInStatus('teacher');
+                window.location.href = '/';  // Redirect to dashboard
+            })
+            .catch(error => {
+                errorElement.textContent = 'Invalid username or password';
+                console.error('Error:', error);
+            });
+        }
+
+        function loginAdmin() {
+            const username = document.getElementById('adminUsername').value;
+            const password = document.getElementById('adminPassword').value;
+            const errorElement = document.getElementById('adminLoginError');
+            
+            if (!username || !password) {
+                errorElement.textContent = 'Please enter both username and password';
+                return;
+            }
+
+            // API call to admin login endpoint
+            fetch('/auth/admin-login/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Login failed');
+                }
+                return response.json();
+            })
+            .then(data => {
+                localStorage.setItem('adminToken', data.token);
+                localStorage.setItem('adminId', data.hospId);
+                showLoggedInStatus('admin');
+                window.location.href = '/admin-dashboard/';  
+            })
+            .catch(error => {
+                errorElement.textContent = 'Invalid username or password';
+                console.error('Error:', error);
+            });
+        }
+
+        function logout() {
+            localStorage.removeItem('studentToken');
+            localStorage.removeItem('studentId');
+            localStorage.removeItem('teacherToken');
+            localStorage.removeItem('teacherId');
+            localStorage.removeItem('adminToken');
+            localStorage.removeItem('adminId');
+            
+            const loginSection = document.getElementById('loginSection');
+            const userLoggedInStatus = document.getElementById('userLoggedInStatus');
+            const loginStatus = document.getElementById('loginStatus');
+            
+            loginSection.style.display = 'block';
+            userLoggedInStatus.style.display = 'none';
+            loginStatus.innerHTML = '';
+            
+            // Reload events
+            loadEvents();
+        }
+
+        function loadEvents() {
+            const eventsList = document.getElementById('eventsList');
+            
+            // Always fetch all events from the events endpoint regardless of auth status
+            fetch('/events/', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch events');
+                }
+                return response.json();
+            })
+            .then(events => {
+                eventsList.innerHTML = '';
+                
+                if (events.length === 0) {
+                    eventsList.innerHTML = '<p>No events available at this time.</p>';
+                    return;
+                }
+                
+                events.forEach(event => {
+                    const startTime = new Date(event.start_time);
+                    const endTime = new Date(event.end_time);
+                    
+                    const eventCard = document.createElement('div');
+                    eventCard.className = 'event-card';
+                    eventCard.innerHTML = `
+                        <div class="event-header">
+                            <h3>${event.name}</h3>
+                        </div>
+                        <div class="event-body">
+                            <p>${event.description}</p>
+                            <p class="event-time">
+                                <strong>Start:</strong> ${startTime.toLocaleString()}<br>
+                                <strong>End:</strong> ${endTime.toLocaleString()}
+                            </p>
+                            <span class="event-visibility">${getVisibilityLabel(event.visibility)}</span>
+                        </div>
+                        <div class="event-footer">
+                            <a href="${event.form_url}" target="_blank">Registration Form</a>
+                        </div>
+                    `;
+                    
+                    eventsList.appendChild(eventCard);
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                eventsList.innerHTML = '<p>Failed to load events. Please try again later.</p>';
+            });
+        }
+
+        function getVisibilityLabel(visibility) {
+            const visibilityMap = {
+                '1': 'Semester 1',
+                '2': 'Semester 2',
+                '3': 'Semester 3',
+                '4': 'Semester 4',
+                '5': 'Semester 5',
+                '6': 'Semester 6',
+                '7': 'Semester 7',
+                '8': 'Semester 8',
+                'anyone': 'Anyone',
+                'teachers': 'Teachers Only'
+            };
+            
+            return visibilityMap[visibility] || visibility;
+        }
+    </script>
+</body>
+</html>
