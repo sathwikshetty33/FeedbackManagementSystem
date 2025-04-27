@@ -22,7 +22,7 @@ pipeline {
                 echo "Creating docker containers"
                 sh '''
                     cd core
-                    docker-compose up --no-cache
+                    docker-compose up -d --build
                 '''
             }
         }
