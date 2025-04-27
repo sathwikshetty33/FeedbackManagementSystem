@@ -9,7 +9,7 @@ pipeline {
                 checkout scm
                 
                 withCredentials([
-                    string(credentialsId: 'fms/GROQ_API_KEY', variable: 'GROQ_API_KEY')
+                    string(credentialsId: 'fms', variable: 'GROQ_API_KEY')
                 ]) {
                     sh '''
                         touch core/.env
