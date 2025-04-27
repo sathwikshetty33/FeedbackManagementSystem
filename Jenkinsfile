@@ -2,7 +2,6 @@ pipeline {
     agent any
     environment {
         APP_NAME = "FeedbackManagementSystem"
-        BUILD_VERSION = "${BUILD_NUMBER}"
     }
     stages {
         stage('Clone Repository') {
