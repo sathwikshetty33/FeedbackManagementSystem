@@ -6,8 +6,16 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                echo "Cloning repository..."
-                git url: 'https://github.com/sathwikshetty33/FeedbackManagementSystem', branch: 'main'
+                checkout scm
+                
+                withCredentials([
+                    string(credentialsId: 'fms/GROQ_API_KEY', variable: 'GROQ_API_KEY')
+                ]) {
+                    sh '''
+                        touch core/.env
+                        echo "GROQ_API_KEY=${GROQ_API_KEY}" > core/.env
+                    '''
+                } 
             }
         }
         
@@ -17,6 +25,7 @@ pipeline {
                 echo "Taking down all containers and removing orphans"
             }
         }   
+        
         stage('Docker-compose-up') {
             steps {
                 echo "Creating docker containers"
