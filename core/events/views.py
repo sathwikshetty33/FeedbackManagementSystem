@@ -25,7 +25,11 @@ import string
 from django.utils import timezone
 from .serializers import *
 
-
+class all_events(APIView):
+    def get(self, request):
+        events = Event.objects.all()
+        serializer = EventSerializer(events, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 class ListAvailableEvents(APIView):
     permission_classes = [AllowAny]
 

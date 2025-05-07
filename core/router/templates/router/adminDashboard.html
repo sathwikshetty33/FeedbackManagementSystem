@@ -274,7 +274,7 @@
             const eventsTable = document.getElementById('eventsTable');
             const adminToken = localStorage.getItem('adminToken');
             
-            fetch('/events/events/', {
+            fetch('/events/all-events/', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
