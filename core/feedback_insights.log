@@ -1,0 +1,122 @@
+2025-05-08 07:30:35,855 - insights.views - INFO - Logging system initialized
+2025-05-08 07:30:48,665 - django.utils.autoreload - INFO - /home/sathwik/feedbackmanagementsystem/core/core/settings.py changed, reloading.
+2025-05-08 07:30:50,874 - insights.views - INFO - Logging system initialized
+2025-05-08 07:30:56,426 - django.request - WARNING - Not Found: /favicon.ico
+2025-05-08 07:30:59,192 - insights.views - INFO - Received feedback analysis request
+2025-05-08 07:30:59,193 - insights.views - INFO - Looking up event with ID: 6
+2025-05-08 07:30:59,194 - insights.views - INFO - Extracting data from worksheet: https://docs.google.com/spreadsheets/d/1STyEshSdfP5ilAJrjxLRRZCXnoQRYBa8fxlWJYFHPzU/edit?usp=sharing
+2025-05-08 07:30:59,194 - insights.views - INFO - Attempting to extract data from: https://docs.google.com/spreadsheets/d/1STyEshSdfP5ilAJrjxLRRZCXnoQRYBa8fxlWJYFHPzU/edit?usp=sharing
+2025-05-08 07:30:59,194 - insights.views - INFO - Generated export URL: https://docs.google.com/spreadsheets/d/1STyEshSdfP5ilAJrjxLRRZCXnoQRYBa8fxlWJYFHPzU/export?format=csv
+2025-05-08 07:31:00,314 - insights.views - INFO - Successfully extracted 46 records from sheet
+2025-05-08 07:31:00,314 - insights.views - INFO - Using RAG approach for dataset with 46 records
+2025-05-08 07:31:00,315 - insights.views - INFO - Starting RAG insights generation process
+2025-05-08 07:31:00,315 - insights.views - INFO - Starting feedback data preprocessing
+2025-05-08 07:31:00,315 - insights.views - INFO - Dropping irrelevant columns: ['Timestamp', 'Email Address', 'Student USN', 'Student Name', '2. Able to identify, formulate and solve engineering problems', '3. Learn to design solutions for complex computer science and systems, considering public health, safety, and cultural, societal, and environmental factors.', '9. Able to function effectively as an individual and as a member or leader in diverse, multidisciplinary teams.', '\n11. Acquired project management and finance skills, including budgeting and resource allocation, and can lead projects effectively.', '14. Identify, formulate, predict and solve real-world problems by applying Artificial Intelligence & Machine Learning principles.']
+2025-05-08 07:31:00,318 - insights.views - INFO - Preprocessing complete. Retained 10 relevant columns
+2025-05-08 07:31:00,319 - insights.views - INFO - Split dataset into 4 chunks
+2025-05-08 07:31:00,319 - insights.views - INFO - Processing chunk 1/4
+2025-05-08 07:31:00,319 - insights.views - INFO - Extracting insights from chunk with 15 rows
+2025-05-08 07:34:23,551 INFO autoreload Watching for file changes with StatReloader
+2025-05-08 07:34:24,296 INFO views Logging system initialized
+2025-05-08 07:34:46,895 INFO views Received feedback analysis request
+2025-05-08 07:34:46,895 INFO views Looking up event with ID: 6
+2025-05-08 07:34:46,896 INFO views Extracting data from worksheet: https://docs.google.com/spreadsheets/d/1STyEshSdfP5ilAJrjxLRRZCXnoQRYBa8fxlWJYFHPzU/edit?usp=sharing
+2025-05-08 07:34:46,896 INFO views Attempting to extract data from: https://docs.google.com/spreadsheets/d/1STyEshSdfP5ilAJrjxLRRZCXnoQRYBa8fxlWJYFHPzU/edit?usp=sharing
+2025-05-08 07:34:46,896 INFO views Generated export URL: https://docs.google.com/spreadsheets/d/1STyEshSdfP5ilAJrjxLRRZCXnoQRYBa8fxlWJYFHPzU/export?format=csv
+2025-05-08 07:34:47,906 INFO views Successfully extracted 46 records from sheet
+2025-05-08 07:34:47,906 INFO views Using RAG approach for dataset with 46 records
+2025-05-08 07:34:47,907 INFO views Starting RAG insights generation process
+2025-05-08 07:34:47,907 INFO views Starting feedback data preprocessing
+2025-05-08 07:34:47,907 INFO views Dropping irrelevant columns: ['Timestamp', 'Email Address', 'Student USN', 'Student Name', '2. Able to identify, formulate and solve engineering problems', '3. Learn to design solutions for complex computer science and systems, considering public health, safety, and cultural, societal, and environmental factors.', '9. Able to function effectively as an individual and as a member or leader in diverse, multidisciplinary teams.', '\n11. Acquired project management and finance skills, including budgeting and resource allocation, and can lead projects effectively.', '14. Identify, formulate, predict and solve real-world problems by applying Artificial Intelligence & Machine Learning principles.']
+2025-05-08 07:34:47,909 INFO views Preprocessing complete. Retained 10 relevant columns
+2025-05-08 07:34:47,909 INFO views Split dataset into 4 chunks
+2025-05-08 07:34:47,909 INFO views Processing chunk 1/4
+2025-05-08 07:34:47,909 INFO views Extracting insights from chunk with 15 rows
+2025-05-08 07:35:08,460 WARNING views Failed to parse Ollama response as JSON
+2025-05-08 07:35:08,460 INFO views Processing chunk 2/4
+2025-05-08 07:35:08,460 INFO views Extracting insights from chunk with 15 rows
+2025-05-08 07:37:22,771 INFO views Processing chunk 3/4
+2025-05-08 07:37:22,771 INFO views Extracting insights from chunk with 15 rows
+2025-05-08 07:37:38,116 INFO views Processing chunk 4/4
+2025-05-08 07:37:38,116 INFO views Extracting insights from chunk with 1 rows
+2025-05-08 07:38:02,384 INFO views Synthesizing insights from 4 successful chunks
+2025-05-08 07:38:02,384 INFO views Synthesizing insights from all chunks
+2025-05-08 07:39:16,926 INFO views Successfully generated insights for event 6
+2025-05-13 06:07:15,701 INFO autoreload Watching for file changes with StatReloader
+2025-05-13 06:07:17,045 INFO views Logging system initialized
+2025-05-13 06:07:44,881 INFO views Received feedback analysis request
+2025-05-13 06:07:44,881 INFO views Looking up event with ID: 8
+2025-05-13 06:07:44,883 INFO views Extracting data from worksheet: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/edit?usp=sharing
+2025-05-13 06:07:44,883 INFO views Attempting to extract data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/edit?usp=sharing
+2025-05-13 06:07:44,883 INFO views Generated export URL: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+2025-05-13 06:07:46,196 INFO views Successfully extracted 7 records from sheet
+2025-05-13 06:07:46,196 INFO views Using RAG approach for dataset with 7 records
+2025-05-13 06:07:46,196 INFO views Starting RAG insights generation process
+2025-05-13 06:07:46,196 INFO views Starting feedback data preprocessing
+2025-05-13 06:07:46,196 INFO views Dropping irrelevant columns: ['Timestamp', 'Name']
+2025-05-13 06:07:46,201 INFO views Preprocessing complete. Retained 2 relevant columns
+2025-05-13 06:07:46,201 INFO views Split dataset into 1 chunks
+2025-05-13 06:07:46,201 INFO views Processing chunk 1/1
+2025-05-13 06:07:46,201 INFO views Extracting insights from chunk with 7 rows
+2025-05-13 06:07:57,652 INFO views Received feedback analysis request
+2025-05-13 06:07:57,653 INFO views Looking up event with ID: 6
+2025-05-13 06:07:57,653 INFO views Extracting data from worksheet: https://docs.google.com/spreadsheets/d/1STyEshSdfP5ilAJrjxLRRZCXnoQRYBa8fxlWJYFHPzU/edit?usp=sharing
+2025-05-13 06:07:57,654 INFO views Attempting to extract data from: https://docs.google.com/spreadsheets/d/1STyEshSdfP5ilAJrjxLRRZCXnoQRYBa8fxlWJYFHPzU/edit?usp=sharing
+2025-05-13 06:07:57,654 INFO views Generated export URL: https://docs.google.com/spreadsheets/d/1STyEshSdfP5ilAJrjxLRRZCXnoQRYBa8fxlWJYFHPzU/export?format=csv
+2025-05-13 06:07:58,979 INFO views Successfully extracted 46 records from sheet
+2025-05-13 06:07:58,979 INFO views Using RAG approach for dataset with 46 records
+2025-05-13 06:07:58,980 INFO views Starting RAG insights generation process
+2025-05-13 06:07:58,980 INFO views Starting feedback data preprocessing
+2025-05-13 06:07:58,980 INFO views Dropping irrelevant columns: ['Timestamp', 'Email Address', 'Student USN', 'Student Name', '2. Able to identify, formulate and solve engineering problems', '3. Learn to design solutions for complex computer science and systems, considering public health, safety, and cultural, societal, and environmental factors.', '9. Able to function effectively as an individual and as a member or leader in diverse, multidisciplinary teams.', '\n11. Acquired project management and finance skills, including budgeting and resource allocation, and can lead projects effectively.', '14. Identify, formulate, predict and solve real-world problems by applying Artificial Intelligence & Machine Learning principles.']
+2025-05-13 06:07:58,984 INFO views Preprocessing complete. Retained 10 relevant columns
+2025-05-13 06:07:58,984 INFO views Split dataset into 4 chunks
+2025-05-13 06:07:58,984 INFO views Processing chunk 1/4
+2025-05-13 06:07:58,985 INFO views Extracting insights from chunk with 15 rows
+2025-05-13 06:10:01,462 INFO views Synthesizing insights from 1 successful chunks
+2025-05-13 06:10:01,463 INFO views Synthesizing insights from all chunks
+2025-05-13 06:10:15,916 INFO views Processing chunk 2/4
+2025-05-13 06:10:15,917 INFO views Extracting insights from chunk with 15 rows
+2025-05-13 06:12:15,125 INFO views Processing chunk 3/4
+2025-05-13 06:12:15,125 INFO views Extracting insights from chunk with 15 rows
+2025-05-13 06:14:19,917 INFO views Successfully generated insights for event 8
+2025-05-13 06:14:43,120 INFO views Processing chunk 4/4
+2025-05-13 06:14:43,120 INFO views Extracting insights from chunk with 1 rows
+2025-05-13 06:15:10,143 INFO autoreload Watching for file changes with StatReloader
+2025-05-13 06:15:10,876 INFO views Logging system initialized
+2025-05-13 06:15:17,049 INFO views Received feedback analysis request
+2025-05-13 06:15:17,053 ERROR views Ollama service is not available
+2025-05-13 06:15:17,054 ERROR log Service Unavailable: /insights/generate-insights/
+2025-05-13 06:24:14,195 INFO autoreload Watching for file changes with StatReloader
+2025-05-13 06:24:14,812 INFO views Logging system initialized
+2025-05-13 06:24:23,293 INFO views Initialized with: Ollama API URL=http://localhost:11434/api/generate, Max workers=2, Chunk size=10, Request timeout=60s
+2025-05-13 06:24:23,295 INFO views Received feedback analysis request
+2025-05-13 06:24:23,296 INFO views Checking Ollama health at: http://localhost:11434/api/health
+2025-05-13 06:24:23,300 ERROR views Ollama service returned non-200 status: 404
+2025-05-13 06:24:23,301 ERROR log Service Unavailable: /insights/generate-insights/
+2025-05-13 06:28:22,873 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-13 06:28:23,436 INFO autoreload Watching for file changes with StatReloader
+2025-05-13 06:28:24,673 INFO views Logging system initialized
+2025-05-13 06:28:30,968 INFO views Initialized with: Ollama API URL=http://localhost:11434/api/generate, Max workers=2, Chunk size=10, Request timeout=60s
+2025-05-13 06:28:30,969 INFO views Received feedback analysis request
+2025-05-13 06:28:30,970 INFO views Checking Ollama health at: http://localhost:11434/api/version
+2025-05-13 06:28:30,976 INFO views Ollama service and required model are available
+2025-05-13 06:28:30,976 INFO views Looking up event with ID: 6
+2025-05-13 06:28:30,977 INFO views Extracting data from worksheet: https://docs.google.com/spreadsheets/d/1STyEshSdfP5ilAJrjxLRRZCXnoQRYBa8fxlWJYFHPzU/edit?usp=sharing
+2025-05-13 06:28:30,977 INFO views Extracting data from: https://docs.google.com/spreadsheets/d/1STyEshSdfP5ilAJrjxLRRZCXnoQRYBa8fxlWJYFHPzU/edit?usp=sharing
+2025-05-13 06:28:32,336 INFO views Successfully extracted 46 records from sheet
+2025-05-13 06:28:32,337 INFO views Using RAG approach for dataset with 46 records
+2025-05-13 06:28:32,337 INFO views Starting RAG insights generation for dataset with 46 rows
+2025-05-13 06:28:32,337 INFO views Starting feedback data preprocessing
+2025-05-13 06:28:32,337 INFO views Dropping 9 irrelevant columns
+2025-05-13 06:28:32,347 WARNING views No substantial feedback columns identified
+2025-05-13 06:28:32,347 INFO views Using 3 columns for feedback analysis: ['1. Gained knowledge of mathematics and science required for AIML branch of Engineering.', '4. Capable of conducting investigations into complex artificial intelligence and machine learning issues.', '5. Learned to use modern software and equipment to analyze problems essential for engineering practice.']
+2025-05-13 06:28:32,355 INFO views Identified 3 feedback clusters
+2025-05-13 06:28:32,356 INFO views Created 7 semantically grouped chunks
+2025-05-13 06:28:32,356 INFO views Extracting insights from chunk with 10 rows
+2025-05-13 06:28:32,357 INFO views Extracting insights from chunk with 10 rows
+2025-05-13 06:28:32,358 INFO views Sending request to Ollama API (attempt 1)
+2025-05-13 06:28:32,362 INFO views Sending request to Ollama API (attempt 1)
+2025-05-13 06:29:32,418 WARNING views Request timeout (attempt 1) - consider increasing the timeout value
+2025-05-13 06:29:32,421 WARNING views Request timeout (attempt 1) - consider increasing the timeout value
+2025-05-13 06:29:34,419 INFO views Sending request to Ollama API (attempt 2)
+2025-05-13 06:29:34,422 INFO views Sending request to Ollama API (attempt 2)
