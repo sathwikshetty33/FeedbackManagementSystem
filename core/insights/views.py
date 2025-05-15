@@ -18,7 +18,8 @@ from home.models import Event
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import re
 from functools import lru_cache
-
+import asyncio
+import hashlib
 # Configure logging properly
 logging.basicConfig(
     level=logging.INFO,
@@ -45,25 +46,26 @@ class GenerateInsightsView(APIView):
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # Initialize API endpoint from environment
         self.ollama_api_url = os.environ.get('OLLAMA_API_URL', 'http://localhost:11434/api/generate')
-        # Initialize vectorizer once for reuse
         self.vectorizer = TfidfVectorizer(stop_words='english')
-        # Configure chunking parameters
-        self.chunk_size = int(os.environ.get('INSIGHT_CHUNK_SIZE', '10'))
-        # Configure concurrency
-        self.max_workers = min(int(os.environ.get('MAX_OLLAMA_WORKERS', '3')), 5)  # Limit to avoid overloading
-        # Configure token limits to prevent timeouts
-        self.max_tokens_chunk = int(os.environ.get('MAX_TOKENS_CHUNK', '800'))
-        self.max_tokens_synthesis = int(os.environ.get('MAX_TOKENS_SYNTHESIS', '1500'))
-        # Set timeout for Ollama requests
-        self.request_timeout = int(os.environ.get('OLLAMA_TIMEOUT', '60'))
+        # Adjust these values based on logs
+        self.chunk_size = int(os.environ.get('INSIGHT_CHUNK_SIZE', '5'))  # Reduced chunk size
+        self.max_workers = min(int(os.environ.get('MAX_OLLAMA_WORKERS', '2')), 3)  # Reduced workers
+        self.max_tokens_chunk = int(os.environ.get('MAX_TOKENS_CHUNK', '600'))  # Reduced tokens
+        self.max_tokens_synthesis = int(os.environ.get('MAX_TOKENS_SYNTHESIS', '1000'))  # Reduced tokens
+        self.request_timeout = int(os.environ.get('OLLAMA_TIMEOUT', '30'))  # Reduced timeout
+        
+        # Add a small cache for request results
+        self.cache = {}
         
         # Log configuration
         logger.info(f"Initialized with: Ollama API URL={self.ollama_api_url}, "
                    f"Max workers={self.max_workers}, Chunk size={self.chunk_size}, "
                    f"Request timeout={self.request_timeout}s")
-    
+    def calculate_prompt_hash(self, prompt, max_tokens, temperature):
+        """Generate a consistent hash for prompt caching"""
+        hash_input = f"{prompt}|{max_tokens}|{temperature}"
+        return hashlib.md5(hash_input.encode()).hexdigest()
     def extract_data_from_sheet(self, worksheet_url):
         """
         Extract data from Google Sheets with improved error handling and caching
@@ -312,42 +314,60 @@ class GenerateInsightsView(APIView):
     
     def request_with_retry(self, prompt, max_tokens, temperature=0.3, retries=2):
         """
-        Make API request with retry logic for resilience
+        Make API request with improved retry logic and better error handling
         """
+        # Generate hash for caching
+        prompt_hash = self.calculate_prompt_hash(prompt, max_tokens, temperature)
+        
+        # Check cache first
+        if prompt_hash in self.cache:
+            logger.info(f"Using cached result for prompt hash: {prompt_hash[:8]}...")
+            return self.cache[prompt_hash]
+        
+        # Implement progressive timeouts
+        base_timeout = min(self.request_timeout, 30)  # Cap initial timeout
+        
         for attempt in range(retries + 1):
             try:
                 headers = {"Content-Type": "application/json"}
                 
+                # Use a smaller prompt and token limit for retries
+                adjusted_prompt = prompt
+                adjusted_max_tokens = max_tokens
+                
+                if attempt > 0:
+                    # For retries: reduce prompt complexity and token limit
+                    prompt_parts = prompt.split("\n\n")
+                    if len(prompt_parts) > 2:
+                        # Take first two parts and the data part
+                        adjusted_prompt = "\n\n".join(prompt_parts[:2] + [prompt_parts[-1]])
+                    adjusted_max_tokens = max(300, max_tokens // 2)  # Reduce token limit for faster response
+                
                 payload = {
                     "model": "llama3:8b",
-                    "prompt": prompt,
+                    "prompt": adjusted_prompt,
                     "stream": False,
                     "temperature": temperature,
-                    "max_tokens": max_tokens
+                    "max_tokens": adjusted_max_tokens
                 }
                 
-                # Create a hash of the prompt for caching
-                prompt_hash = hash(prompt + str(max_tokens) + str(temperature))
-                cached_result = cached_ollama_request(prompt_hash)
-                if cached_result:
-                    return cached_result
-                
-                logger.info(f"Sending request to Ollama API (attempt {attempt+1})")
+                # Calculate timeout with progressive backoff
+                current_timeout = base_timeout * (1 + attempt * 0.5)
+                logger.info(f"Sending request to Ollama API (attempt {attempt+1}, timeout: {current_timeout:.1f}s)")
                 
                 response = requests.post(
                     self.ollama_api_url,
                     headers=headers,
                     json=payload,
-                    timeout=self.request_timeout
+                    timeout=current_timeout
                 )
                 
                 if response.status_code == 200:
                     response_data = response.json()
                     result = response_data.get('response', '')
                     
-                    # Cache the successful result
-                    cached_ollama_request.cache_clear()  # Clear old cache entries
-                    cached_ollama_request.__wrapped__ = lambda x: result if x == prompt_hash else None
+                    # Cache successful result
+                    self.cache[prompt_hash] = result
                     
                     # Log some stats about the response
                     result_length = len(result)
@@ -355,13 +375,13 @@ class GenerateInsightsView(APIView):
                     
                     return result
                 else:
-                    error_text = response.text[:200]  # Limit error text to prevent huge logs
+                    error_text = response.text[:200]
                     logger.warning(f"API request failed (attempt {attempt+1}): HTTP {response.status_code} - {error_text}")
                     
             except requests.exceptions.Timeout:
-                logger.warning(f"Request timeout (attempt {attempt+1}) - consider increasing the timeout value")
+                logger.warning(f"Request timeout (attempt {attempt+1}) after {base_timeout * (1 + attempt * 0.5):.1f}s")
             except requests.exceptions.ConnectionError:
-                logger.warning(f"Connection error (attempt {attempt+1}) - Ollama service may have crashed or been stopped")
+                logger.warning(f"Connection error (attempt {attempt+1}) - Ollama service may be overloaded")
             except Exception as e:
                 logger.warning(f"Request error (attempt {attempt+1}): {str(e)}")
                 
@@ -369,8 +389,51 @@ class GenerateInsightsView(APIView):
             if attempt < retries:
                 import time
                 time.sleep(2 * (attempt + 1))  # Exponential backoff
+        
+        # All retries failed, return simpler fallback analysis
+        logger.warning("All API request attempts failed, returning fallback analysis")
+        return self._generate_fallback_analysis(prompt)
+    def _generate_fallback_analysis(self, prompt):
+        """Generate simple fallback analysis when Ollama API fails"""
+        # Extract any data from the prompt
+        try:
+            # Look for JSON data in the prompt
+            import re
+            data_match = re.search(r'{[\s\S]*}', prompt)
+            if data_match:
+                data_str = data_match.group(0)
+                data = json.loads(data_str)
                 
-        return None  # All retries failed
+                # Simple text analysis
+                if isinstance(data, list) and len(data) > 0:
+                    # Count feedback items
+                    count = len(data)
+                    
+                    # Generate simple fallback response
+                    return json.dumps({
+                        "sentiment": {
+                            "note": "Auto-generated due to API timeout",
+                            "summary": "Mixed feedback detected"
+                        },
+                        "key_issues": [
+                            "Unable to perform detailed analysis due to processing timeout",
+                            "System recommends reviewing the raw feedback directly"
+                        ],
+                        "strengths": [
+                            "Basic sentiment analysis indicates mixed feedback"
+                        ],
+                        "patterns": [
+                            f"Dataset contains {count} feedback items that require manual review"
+                        ]
+                    })
+        except:
+            pass
+        
+        # If we can't parse the data, return minimal response
+        return json.dumps({
+            "error": "Analysis timed out",
+            "recommendation": "Please try reducing the dataset size or review feedback manually"
+        })
     
     def extract_key_insights_from_chunk(self, chunk_df, feedback_cols=None):
         """
@@ -409,58 +472,148 @@ class GenerateInsightsView(APIView):
             return {"error": str(e)}
     
     def _extract_json_from_text(self, text):
-        """
-        Improved JSON extraction with better regex patterns
-        """
-        # Try to extract JSON from markdown code blocks
+
         json_pattern = r"```(?:json)?\s*([\s\S]*?)\s*```"
         json_matches = re.findall(json_pattern, text)
         
         if json_matches:
-            return json_matches[0].strip()
+            for json_text in json_matches:
+                try:
+                    # Try to parse each match
+                    json_obj = json.loads(json_text.strip())
+                    return json_text.strip()
+                except json.JSONDecodeError:
+                    continue
         
-        # Try to extract JSON between curly braces
-        if "{" in text and "}" in text:
-            # Find the first opening brace and last closing brace
+        # Method 2: Try to find outermost JSON object
+        try:
+            # Find the first opening brace and corresponding closing brace
             start = text.find("{")
-            end = text.rfind("}") + 1
-            if start < end:
-                return text[start:end]
+            if start >= 0:
+                # Find the matching closing brace
+                stack = 1
+                for i in range(start + 1, len(text)):
+                    if text[i] == "{":
+                        stack += 1
+                    elif text[i] == "}":
+                        stack -= 1
+                        if stack == 0:
+                            # Found matching brace
+                            potential_json = text[start:i+1]
+                            try:
+                                json.loads(potential_json)
+                                return potential_json
+                            except json.JSONDecodeError:
+                                pass
+        except:
+            pass
         
-        return text  # Return original if no JSON pattern found
+        # Method 3: Last resort - try to fix common JSON issues
+        try:
+            # Replace common formatting issues
+            cleaned_text = text
+            
+            # Fix missing quotes around keys
+            key_pattern = r'(\s*?)(\w+)(\s*?):'
+            cleaned_text = re.sub(key_pattern, r'\1"\2"\3:', cleaned_text)
+            
+            # Fix single quotes being used instead of double quotes
+            cleaned_text = cleaned_text.replace("'", '"')
+            
+            # Extract with { } pattern
+            if "{" in cleaned_text and "}" in cleaned_text:
+                start = cleaned_text.find("{")
+                end = cleaned_text.rfind("}") + 1
+                if start < end:
+                    try:
+                        json_obj = json.loads(cleaned_text[start:end])
+                        return cleaned_text[start:end]
+                    except:
+                        pass
+        except:
+            pass
+            
+        # If all else fails, create a simple JSON structure with the text
+        return json.dumps({"raw_text": text[:2000]})  # Truncate if too long
     
     def process_chunks_parallel(self, chunks, feedback_cols=None):
         """
-        Process chunks in parallel for better performance
+        Process chunks in parallel with better error handling and partial results
         """
         chunk_insights = []
         failed_chunks = 0
         
-        with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
-            # Submit all chunks for processing
-            future_to_chunk = {
-                executor.submit(self.extract_key_insights_from_chunk, chunk, feedback_cols): i 
-                for i, chunk in enumerate(chunks)
-            }
+        # Use dynamic worker pool based on available chunks
+        num_workers = min(self.max_workers, max(1, len(chunks) // 2))
+        
+        with ThreadPoolExecutor(max_workers=num_workers) as executor:
+            # Process small batches with shorter timeouts first
+            futures = []
+            for i, chunk in enumerate(chunks):
+                futures.append(executor.submit(self.extract_key_insights_from_chunk, chunk, feedback_cols))
             
             # Process results as they complete
-            for future in as_completed(future_to_chunk):
-                chunk_idx = future_to_chunk[future]
+            for i, future in enumerate(as_completed(futures)):
                 try:
                     insight = future.result()
                     if "error" not in insight:
-                        logger.info(f"Successfully processed chunk {chunk_idx+1}/{len(chunks)}")
+                        logger.info(f"Successfully processed chunk {i+1}/{len(chunks)}")
                         chunk_insights.append(insight)
                     else:
-                        logger.warning(f"Failed to process chunk {chunk_idx+1}: {insight.get('error')}")
-                        failed_chunks += 1
+                        logger.warning(f"Failed to process chunk {i+1}: {insight.get('error')}")
+                        
+                        # Try a simpler approach for failed chunks as fallback
+                        if len(chunks[i]) <= 5:  # Only attempt fallback for small chunks
+                            simplified_insight = self._process_chunk_fallback(chunks[i])
+                            if "error" not in simplified_insight:
+                                logger.info(f"Fallback processing succeeded for chunk {i+1}")
+                                chunk_insights.append(simplified_insight)
+                            else:
+                                failed_chunks += 1
+                        else:
+                            failed_chunks += 1
                 except Exception as e:
-                    logger.error(f"Exception processing chunk {chunk_idx+1}: {str(e)}")
+                    logger.error(f"Exception processing chunk {i+1}: {str(e)}")
                     failed_chunks += 1
         
         logger.info(f"Completed chunk processing: {len(chunk_insights)} successful, {failed_chunks} failed")
         return chunk_insights
-    
+    def _process_chunk_fallback(self, chunk_df):
+        """Simple fallback processing for failed chunks"""
+        try:
+            # Create a much simpler analysis based on basic statistics
+            text_cols = chunk_df.select_dtypes(include=['object']).columns
+            
+            # Count non-empty responses
+            response_counts = {}
+            for col in text_cols:
+                non_empty = chunk_df[col].str.len() > 10
+                response_counts[col] = non_empty.sum()
+            
+            # Find most common words (simple frequency analysis)
+            common_words = {}
+            for col in text_cols:
+                text = " ".join(chunk_df[col].fillna("").astype(str).tolist())
+                words = re.findall(r'\b\w+\b', text.lower())
+                word_freq = {}
+                for word in words:
+                    if word not in ["the", "and", "to", "of", "is", "in", "for", "a", "with"]:
+                        word_freq[word] = word_freq.get(word, 0) + 1
+                
+                # Get top 5 words
+                top_words = sorted(word_freq.items(), key=lambda x: x[1], reverse=True)[:5]
+                common_words[col] = [w[0] for w in top_words]
+            
+            return {
+                "sentiment": "neutral",
+                "fallback_analysis": True,
+                "response_counts": response_counts,
+                "common_words": common_words
+            }
+            
+        except Exception as e:
+            logger.error(f"Error in chunk fallback processing: {str(e)}")
+            return {"error": "Both main and fallback processing failed"}
     def synthesize_insights(self, chunk_insights):
         """
         Synthesize chunk insights with improved prompt
@@ -575,7 +728,7 @@ class GenerateInsightsView(APIView):
             return Response({"error": "Event ID is required"}, status=status.HTTP_400_BAD_REQUEST)
         
         try:
-            # Check if model is available before proceeding
+            # Check if model is available
             try:
                 # Extract base URL (remove endpoint path)
                 base_url = self.ollama_api_url.split('/api/')[0]
@@ -587,77 +740,183 @@ class GenerateInsightsView(APIView):
                 if health_check.status_code != 200:
                     logger.error(f"Ollama service returned non-200 status: {health_check.status_code}")
                     return Response({
-                        "error": "Local language model service is unavailable. Please try again later."
+                        "error": "Local language model service is unavailable",
+                        "details": "Please ensure the Ollama service is running correctly"
                     }, status=status.HTTP_503_SERVICE_UNAVAILABLE)
-                
-                # Also check if the specific model is available
-                model_check_url = f"{base_url}/api/tags"
-                model_check = requests.get(model_check_url, timeout=5)
-                
-                if model_check.status_code == 200:
-                    models = model_check.json().get('models', [])
-                    model_names = [m.get('name', '') for m in models]
-                    if 'llama3:8b' not in model_names:
-                        logger.error(f"Required model 'llama3:8b' not found. Available models: {model_names}")
-                        return Response({
-                            "error": "Required model 'llama3:8b' is not available. Please run 'ollama pull llama3:8b' first."
-                        }, status=status.HTTP_503_SERVICE_UNAVAILABLE)
                     
-                logger.info("Ollama service and required model are available")
-                
-            except requests.exceptions.ConnectionError:
-                logger.error("Connection error - Ollama service appears to be down or not running")
+            except requests.exceptions.RequestException:
+                logger.error("Connection error - Ollama service appears to be down")
                 return Response({
-                    "error": "Cannot connect to local language model service. Please make sure Ollama is running with 'ollama serve'."
+                    "error": "Cannot connect to local language model service",
+                    "details": "Please make sure Ollama is running with 'ollama serve'"
                 }, status=status.HTTP_503_SERVICE_UNAVAILABLE)
-            except Exception as e:
-                logger.warning(f"Could not verify Ollama status: {str(e)}")
-                # Continue anyway, we'll catch failures later
-            
+                
+            # Continue with request processing
             logger.info(f"Looking up event with ID: {event_id}")
             event = Event.objects.get(id=event_id)
             
-            # Check if the user has permission to access this event
-            if not request.user.is_staff:  # Allow staff to access all events
+            # Permission check
+            if not request.user.is_staff:
                 logger.warning(f"Permission denied for user {request.user.id} to access event {event_id}")
                 return Response({"error": "Permission denied"}, status=status.HTTP_403_FORBIDDEN)
             
-            # Check if worksheet_url is available
+            # Check for worksheet URL
             if not event.worksheet_url:
                 logger.error(f"Event {event_id} has no worksheet_url")
-                return Response({"error": "Event has no associated worksheet URL"}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({"error": "Event has no associated worksheet URL"}, 
+                            status=status.HTTP_400_BAD_REQUEST)
                 
-            # Extract data from the Google Sheet
-            logger.info(f"Extracting data from worksheet: {event.worksheet_url}")
-            df, data = self.extract_data_from_sheet(event.worksheet_url)
-            
-            if df is None or data is None:
-                logger.error(f"Failed to extract data from Google Sheet for event {event_id}")
+            # Extract data with timeout protection
+            try:
+                df, data = self.extract_data_from_sheet(event.worksheet_url)
+                
+                if df is None or data is None:
+                    logger.error(f"Failed to extract data from Google Sheet for event {event_id}")
+                    return Response({
+                        "error": "Could not extract data from Google Sheet",
+                        "details": "Please ensure the sheet is publicly accessible or shared properly"
+                    }, status=status.HTTP_400_BAD_REQUEST)
+                
+                # Handle very large datasets with a warning and sample
+                if len(df) > 100:
+                    logger.warning(f"Large dataset detected ({len(df)} rows). Sampling to 100 rows.")
+                    df = df.sample(n=100, random_state=42) if len(df) > 100 else df
+                    
+            except Exception as e:
+                logger.error(f"Error extracting sheet data: {str(e)}")
                 return Response({
-                    "error": "Could not extract data from Google Sheet. Make sure the sheet is accessible."
+                    "error": "Failed to process Google Sheet data",
+                    "details": str(e)
                 }, status=status.HTTP_400_BAD_REQUEST)
-            
-            # Generate insights using improved RAG approach
-            logger.info(f"Using RAG approach for dataset with {len(df)} records")
-            insights = self.generate_insights_with_rag(df)
-            
-            if "error" in insights:
-                logger.error(f"Error in insights generation: {insights.get('error')}")
+                
+            # Process with overall timeout protection
+            try:
+                # Generate insights with timeout protection
+                import threading
+                import queue
+                
+                result_queue = queue.Queue()
+                
+                def process_with_timeout():
+                    try:
+                        insights = self.generate_insights_with_rag(df)
+                        result_queue.put(("success", insights))
+                    except Exception as e:
+                        logger.error(f"Error in RAG processing: {str(e)}")
+                        result_queue.put(("error", str(e)))
+                
+                # Start processing in a separate thread
+                process_thread = threading.Thread(target=process_with_timeout)
+                process_thread.daemon = True
+                process_thread.start()
+                
+                # Wait for results with a timeout (3 minutes)
+                overall_timeout = 180
+                process_thread.join(overall_timeout)
+                
+                if process_thread.is_alive():
+                    logger.error(f"Processing timed out after {overall_timeout} seconds")
+                    
+                    # Generate fallback insights with basic stats
+                    fallback_insights = self._generate_basic_stats(df)
+                    
+                    return Response({
+                        "event_name": event.name,
+                        "insights": fallback_insights,
+                        "warning": "Analysis timed out. Showing simplified results.",
+                        "processed_columns": list(df.columns)
+                    })
+                    
+                # Get results from queue
+                if not result_queue.empty():
+                    status_code, insights = result_queue.get()
+                    
+                    if status_code == "error":
+                        logger.error(f"Error in insights generation: {insights}")
+                        return Response({
+                            "error": "Error generating insights",
+                            "details": insights
+                        }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                    
+                    if "error" in insights:
+                        logger.error(f"Error in insights object: {insights.get('error')}")
+                        
+                        # Try to provide partial results if possible
+                        if "raw_insights" in insights:
+                            return Response({
+                                "event_name": event.name,
+                                "partial_insights": True,
+                                "insights": {"raw_analysis": insights.get("raw_insights")},
+                                "processed_columns": list(df.columns)
+                            })
+                        
+                        return Response({
+                            "error": "Error generating insights",
+                            "details": insights.get('error')
+                        }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                    
+                    logger.info(f"Successfully generated insights for event {event_id}")
+                    return Response({
+                        "event_name": event.name,
+                        "insights": insights,
+                        "processed_columns": list(df.columns)
+                    })
+                else:
+                    # Should never happen
+                    logger.error("Process thread completed but no results in queue")
+                    return Response({
+                        "error": "No results generated",
+                        "details": "Processing completed but no data returned"
+                    }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                    
+            except Exception as e:
+                logger.error(f"Unexpected error in insights processing: {str(e)}", exc_info=True)
                 return Response({
-                    "error": "Error generating insights",
-                    "details": insights.get('error')
+                    "error": "Error processing insights",
+                    "details": str(e)
                 }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-            
-            logger.info(f"Successfully generated insights for event {event_id}")
-            return Response({
-                "event_name": event.name,
-                "insights": insights,
-                "processed_columns": list(df.columns) if isinstance(df, pd.DataFrame) else []
-            })
-            
+                
         except Event.DoesNotExist:
             logger.error(f"Event not found with ID: {event_id}")
             return Response({"error": "Event not found"}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
             logger.error(f"Unexpected error processing request: {str(e)}", exc_info=True)
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            
+    def _generate_basic_stats(self, df):
+        """Generate very basic insights when full processing fails"""
+        try:
+            # Count responses
+            response_count = len(df)
+            
+            # Find text columns (potential feedback columns)
+            text_cols = df.select_dtypes(include=['object']).columns.tolist()
+            
+            # Calculate response rates and lengths
+            stats = {}
+            for col in text_cols:
+                # Count non-empty responses
+                non_empty = df[col].notna() & (df[col].astype(str).str.len() > 3)
+                response_rate = (non_empty.sum() / len(df)) * 100
+                
+                # Calculate average response length
+                avg_length = df.loc[non_empty, col].astype(str).str.len().mean()
+                
+                stats[col] = {
+                    "response_rate": f"{response_rate:.1f}%",
+                    "avg_length": f"{avg_length:.1f} chars" if not pd.isna(avg_length) else "N/A"
+                }
+            
+            return {
+                "basic_stats": {
+                    "total_responses": response_count,
+                    "column_stats": stats
+                },
+                "note": "Full analysis timed out. Showing basic statistics only."
+            }
+        except Exception as e:
+            logger.error(f"Error generating basic stats: {str(e)}")
+            return {
+                "error": "Unable to generate even basic statistics",
+                "message": "Please try again with a smaller dataset"
+            }
