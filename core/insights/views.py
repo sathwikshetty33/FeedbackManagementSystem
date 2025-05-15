@@ -319,7 +319,7 @@ class GenerateInsightsView(APIView):
                 headers = {"Content-Type": "application/json"}
                 
                 payload = {
-                    "model": "gemma:2b",
+                    "model": "llama3:8b",
                     "prompt": prompt,
                     "stream": False,
                     "temperature": temperature,
@@ -597,10 +597,10 @@ class GenerateInsightsView(APIView):
                 if model_check.status_code == 200:
                     models = model_check.json().get('models', [])
                     model_names = [m.get('name', '') for m in models]
-                    if 'gemma:2b' not in model_names:
-                        logger.error(f"Required model 'gemma:2b' not found. Available models: {model_names}")
+                    if 'llama3:8b' not in model_names:
+                        logger.error(f"Required model 'llama3:8b' not found. Available models: {model_names}")
                         return Response({
-                            "error": "Required model 'gemma:2b' is not available. Please run 'ollama pull gemma:2b' first."
+                            "error": "Required model 'llama3:8b' is not available. Please run 'ollama pull llama3:8b' first."
                         }, status=status.HTTP_503_SERVICE_UNAVAILABLE)
                     
                 logger.info("Ollama service and required model are available")
