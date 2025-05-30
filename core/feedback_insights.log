@@ -1145,3 +1145,73 @@ UnboundLocalError: cannot access local variable 'Event' where it is not associat
 2025-05-30 16:13:06,155 INFO autoreload Watching for file changes with StatReloader
 2025-05-30 16:13:14,498 INFO views Received LangChain RAG feedback analysis request
 2025-05-30 16:19:12,274 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 16:33:58,502 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 16:34:09,913 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 16:41:25,787 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 16:41:26,260 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 16:41:33,473 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 16:41:33,718 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 16:41:56,338 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 16:55:00,589 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 17:08:02,954 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 17:08:05,607 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 17:08:07,078 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 17:08:08,106 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 17:08:13,424 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 17:08:14,294 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 17:08:21,237 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 17:08:22,578 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 17:08:29,836 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 17:17:02,644 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 17:17:09,603 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 17:19:54,418 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 17:23:18,345 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 17:23:19,208 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 17:23:35,623 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 18:08:50,376 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 18:09:28,890 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 18:11:55,193 ERROR views Error in feedback analysis: 'LangChainRAGInsightsView' object has no attribute 'generate_summary_report'
+2025-05-30 18:11:55,194 ERROR log Internal Server Error: /insights/generate-insights/
+2025-05-30 18:12:42,639 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 18:12:51,166 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 18:20:33,765 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 18:37:12,525 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 18:37:24,538 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 18:37:25,656 ERROR views Error in feedback analysis: 'FeedbackRAGAnalyzer' object has no attribute 'analyze_all_columns'
+2025-05-30 18:37:25,657 ERROR log Internal Server Error: /insights/generate-insights/
+2025-05-30 18:43:42,527 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 18:43:42,976 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 18:43:45,154 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 18:43:45,453 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 18:43:46,670 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 18:43:47,045 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 18:43:49,043 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 18:43:49,398 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 18:43:51,316 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 18:43:51,678 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 18:45:16,781 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 18:45:17,175 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 18:45:26,390 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 18:45:26,675 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 18:45:40,364 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 18:45:41,698 ERROR views Error in feedback analysis: 'FeedbackRAGAnalyzer' object has no attribute 'analyze_all_columns'
+2025-05-30 18:45:41,698 ERROR log Internal Server Error: /insights/generate-insights/
+2025-05-30 18:46:05,234 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 18:46:05,685 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 18:46:41,717 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 18:46:42,121 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 18:46:44,291 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 18:46:44,616 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 18:46:47,784 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 18:46:48,024 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 18:47:09,453 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 18:47:09,990 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 18:47:16,110 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 18:47:50,043 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 18:48:20,641 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 18:48:21,061 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 18:48:22,912 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 18:48:23,288 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 18:48:26,482 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 18:48:26,735 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 18:48:51,711 INFO views Received LangChain RAG feedback analysis request
