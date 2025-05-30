@@ -120,3 +120,671 @@
 2025-05-13 06:29:32,421 WARNING views Request timeout (attempt 1) - consider increasing the timeout value
 2025-05-13 06:29:34,419 INFO views Sending request to Ollama API (attempt 2)
 2025-05-13 06:29:34,422 INFO views Sending request to Ollama API (attempt 2)
+2025-05-30 03:07:31,751 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 03:09:01,479 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 03:09:37,573 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 03:09:38,827 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 03:09:40,426 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 03:09:41,135 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 03:09:45,507 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 03:09:46,445 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 03:10:04,614 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 03:10:05,558 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 03:10:24,435 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 03:10:25,245 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 03:10:57,863 INFO SentenceTransformer Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-30 03:11:00,435 INFO views LangChain components initialized successfully
+2025-05-30 03:11:00,436 INFO views Initialized LangChain RAG with model: qwen2:0.5b
+2025-05-30 03:11:00,441 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 03:11:00,483 INFO views Extracting data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/edit?usp=sharing
+2025-05-30 03:11:02,045 INFO views Successfully extracted 7 records from sheet
+2025-05-30 03:11:02,047 INFO views Starting RAG processing for 7 rows
+2025-05-30 03:11:02,048 INFO views Starting feedback data preprocessing
+2025-05-30 03:11:02,050 INFO views Dropping 2 irrelevant columns
+2025-05-30 03:11:02,077 INFO views Using 1 columns for document creation: ['Resume']
+2025-05-30 03:11:02,079 INFO views Created 7 documents from DataFrame
+2025-05-30 03:11:02,080 INFO views Creating vector store from 7 documents
+2025-05-30 03:11:02,081 INFO views Split into 7 chunks
+2025-05-30 03:11:02,559 INFO loader Loading faiss with AVX2 support.
+2025-05-30 03:11:02,648 INFO loader Successfully loaded faiss with AVX2 support.
+2025-05-30 03:11:02,669 INFO __init__ Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-30 03:11:03,091 INFO views Vector store created successfully
+2025-05-30 03:11:03,092 INFO views Processing 7 chunks in parallel
+2025-05-30 03:11:03,101 INFO views LLM request started with 1 prompts
+2025-05-30 03:11:03,107 INFO views LLM request started with 1 prompts
+2025-05-30 03:11:03,121 INFO views LLM request started with 1 prompts
+2025-05-30 03:11:03,143 ERROR views Error analyzing chunk with LLM: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:11:03,144 ERROR views Error analyzing chunk with LLM: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:11:03,145 ERROR views Error analyzing chunk with LLM: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:11:03,147 INFO views LLM request started with 1 prompts
+2025-05-30 03:11:03,147 WARNING views Error in chunk 1: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:11:03,148 INFO views LLM request started with 1 prompts
+2025-05-30 03:11:03,150 INFO views LLM request started with 1 prompts
+2025-05-30 03:11:03,152 WARNING views Error in chunk 2: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:11:03,158 WARNING views Error in chunk 3: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:11:03,164 ERROR views Error analyzing chunk with LLM: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:11:03,165 ERROR views Error analyzing chunk with LLM: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:11:03,178 INFO views LLM request started with 1 prompts
+2025-05-30 03:11:03,179 WARNING views Error in chunk 4: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:11:03,183 ERROR views Error analyzing chunk with LLM: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:11:03,183 WARNING views Error in chunk 5: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:11:03,187 ERROR views Error analyzing chunk with LLM: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:11:03,190 WARNING views Error in chunk 6: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:11:03,192 WARNING views Error in chunk 7: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:11:03,198 INFO views Successfully generated LangChain RAG insights for event 1
+2025-05-30 03:11:33,188 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 03:11:51,469 INFO SentenceTransformer Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-30 03:11:55,702 INFO views LangChain components initialized successfully
+2025-05-30 03:11:55,702 INFO views Initialized LangChain RAG with model: qwen2:0.5b
+2025-05-30 03:11:55,706 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 03:11:55,753 INFO views Extracting data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/edit?usp=sharing
+2025-05-30 03:11:57,124 INFO views Successfully extracted 7 records from sheet
+2025-05-30 03:11:57,126 INFO views Starting RAG processing for 7 rows
+2025-05-30 03:11:57,126 INFO views Starting feedback data preprocessing
+2025-05-30 03:11:57,127 INFO views Dropping 2 irrelevant columns
+2025-05-30 03:11:57,132 INFO views Using 1 columns for document creation: ['Resume']
+2025-05-30 03:11:57,133 INFO views Created 7 documents from DataFrame
+2025-05-30 03:11:57,133 INFO views Creating vector store from 7 documents
+2025-05-30 03:11:57,134 INFO views Split into 7 chunks
+2025-05-30 03:11:57,588 INFO loader Loading faiss with AVX2 support.
+2025-05-30 03:11:57,629 INFO loader Successfully loaded faiss with AVX2 support.
+2025-05-30 03:11:57,637 INFO __init__ Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-30 03:11:57,638 INFO views Vector store created successfully
+2025-05-30 03:11:57,638 INFO views Processing 7 chunks in parallel
+2025-05-30 03:11:57,646 INFO views LLM request started with 1 prompts
+2025-05-30 03:11:57,650 INFO views LLM request started with 1 prompts
+2025-05-30 03:11:57,656 ERROR views Error analyzing chunk with LLM: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:11:57,658 INFO views LLM request started with 1 prompts
+2025-05-30 03:11:57,660 INFO views LLM request started with 1 prompts
+2025-05-30 03:11:57,660 WARNING views Error in chunk 1: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:11:57,665 ERROR views Error analyzing chunk with LLM: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:11:57,669 ERROR views Error analyzing chunk with LLM: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:11:57,673 INFO views LLM request started with 1 prompts
+2025-05-30 03:11:57,673 WARNING views Error in chunk 2: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:11:57,675 INFO views LLM request started with 1 prompts
+2025-05-30 03:11:57,677 ERROR views Error analyzing chunk with LLM: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:11:57,683 WARNING views Error in chunk 3: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:11:57,691 ERROR views Error analyzing chunk with LLM: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:11:57,694 INFO views LLM request started with 1 prompts
+2025-05-30 03:11:57,695 WARNING views Error in chunk 4: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:11:57,701 WARNING views Error in chunk 5: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:11:57,704 ERROR views Error analyzing chunk with LLM: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:11:57,706 WARNING views Error in chunk 6: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:11:57,708 ERROR views Error analyzing chunk with LLM: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:11:57,709 WARNING views Error in chunk 7: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:11:57,711 INFO views Successfully generated LangChain RAG insights for event 1
+2025-05-30 03:12:32,880 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 03:12:35,615 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 03:12:54,327 INFO SentenceTransformer Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-30 03:12:58,417 INFO views LangChain components initialized successfully
+2025-05-30 03:12:58,417 INFO views Initialized LangChain RAG with model: qwen2:0.5b
+2025-05-30 03:12:58,421 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 03:12:58,441 INFO views Extracting data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/edit?usp=sharing
+2025-05-30 03:12:59,747 INFO views Successfully extracted 7 records from sheet
+2025-05-30 03:12:59,748 INFO views Starting RAG processing for 7 rows
+2025-05-30 03:12:59,748 INFO views Starting feedback data preprocessing
+2025-05-30 03:12:59,749 INFO views Dropping 2 irrelevant columns
+2025-05-30 03:12:59,753 INFO views Using 1 columns for document creation: ['Resume']
+2025-05-30 03:12:59,754 INFO views Created 7 documents from DataFrame
+2025-05-30 03:12:59,754 INFO views Creating vector store from 7 documents
+2025-05-30 03:12:59,755 INFO views Split into 7 chunks
+2025-05-30 03:13:00,048 INFO loader Loading faiss with AVX2 support.
+2025-05-30 03:13:00,094 INFO loader Successfully loaded faiss with AVX2 support.
+2025-05-30 03:13:00,100 INFO __init__ Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-30 03:13:00,101 INFO views Vector store created successfully
+2025-05-30 03:13:00,101 INFO views Processing 7 chunks in parallel
+2025-05-30 03:13:00,117 INFO views LLM request started with 1 prompts
+2025-05-30 03:13:00,121 INFO views LLM request started with 1 prompts
+2025-05-30 03:13:00,126 INFO views LLM request started with 1 prompts
+2025-05-30 03:13:00,152 ERROR views Error analyzing chunk with LLM: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:13:00,154 ERROR views Error analyzing chunk with LLM: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:13:00,155 ERROR views Error analyzing chunk with LLM: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:13:00,162 WARNING views Error in chunk 1: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:13:00,160 INFO views LLM request started with 1 prompts
+2025-05-30 03:13:00,165 INFO views LLM request started with 1 prompts
+2025-05-30 03:13:00,170 INFO views LLM request started with 1 prompts
+2025-05-30 03:13:00,171 WARNING views Error in chunk 2: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:13:00,180 WARNING views Error in chunk 3: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:13:00,182 ERROR views Error analyzing chunk with LLM: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:13:00,184 INFO views LLM request started with 1 prompts
+2025-05-30 03:13:00,185 ERROR views Error analyzing chunk with LLM: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:13:00,185 WARNING views Error in chunk 4: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:13:00,189 ERROR views Error analyzing chunk with LLM: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:13:00,190 WARNING views Error in chunk 5: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:13:00,191 WARNING views Error in chunk 6: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:13:00,192 ERROR views Error analyzing chunk with LLM: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:13:00,193 WARNING views Error in chunk 7: Ollama call failed with status code 404. Maybe your model is not found and you should pull the model with `ollama pull qwen2:0.5b`.
+2025-05-30 03:13:00,194 INFO views Successfully generated LangChain RAG insights for event 1
+2025-05-30 03:13:07,436 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 03:13:22,384 INFO SentenceTransformer Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-30 03:13:22,386 INFO SentenceTransformer Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-05-30 03:13:28,784 ERROR views Error initializing LangChain components: Cannot copy out of meta tensor; no data! Please use torch.nn.Module.to_empty() instead of torch.nn.Module.to() when moving module from meta to a different device.
+2025-05-30 03:13:28,822 ERROR views Error initializing LangChain components: Cannot copy out of meta tensor; no data! Please use torch.nn.Module.to_empty() instead of torch.nn.Module.to() when moving module from meta to a different device.
+2025-05-30 03:13:28,956 ERROR log Internal Server Error: /insights/generate-insights/
+Traceback (most recent call last):
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 97, in view
+    self = cls(**initkwargs)
+           ^^^^^^^^^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/core/insights/views.py", line 83, in __init__
+    self._initialize_langchain_components()
+  File "/home/sathwik/feedbackmanagementsystem/core/insights/views.py", line 108, in _initialize_langchain_components
+    self.embeddings = HuggingFaceEmbeddings(
+                      ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/langchain_core/_api/deprecation.py", line 224, in warn_if_direct_instance
+    return wrapped(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/langchain_community/embeddings/huggingface.py", line 92, in __init__
+    self.client = sentence_transformers.SentenceTransformer(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/sentence_transformers/SentenceTransformer.py", line 348, in __init__
+    self.to(device)
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1355, in to
+    return self._apply(convert)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 915, in _apply
+    module._apply(fn)
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 915, in _apply
+    module._apply(fn)
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 915, in _apply
+    module._apply(fn)
+  [Previous line repeated 1 more time]
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 942, in _apply
+    param_applied = fn(param)
+                    ^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1348, in convert
+    raise NotImplementedError(
+NotImplementedError: Cannot copy out of meta tensor; no data! Please use torch.nn.Module.to_empty() instead of torch.nn.Module.to() when moving module from meta to a different device.
+2025-05-30 03:13:28,957 ERROR log Internal Server Error: /insights/generate-insights/
+Traceback (most recent call last):
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 97, in view
+    self = cls(**initkwargs)
+           ^^^^^^^^^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/core/insights/views.py", line 83, in __init__
+    self._initialize_langchain_components()
+  File "/home/sathwik/feedbackmanagementsystem/core/insights/views.py", line 108, in _initialize_langchain_components
+    self.embeddings = HuggingFaceEmbeddings(
+                      ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/langchain_core/_api/deprecation.py", line 224, in warn_if_direct_instance
+    return wrapped(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/langchain_community/embeddings/huggingface.py", line 92, in __init__
+    self.client = sentence_transformers.SentenceTransformer(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/sentence_transformers/SentenceTransformer.py", line 348, in __init__
+    self.to(device)
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1355, in to
+    return self._apply(convert)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 915, in _apply
+    module._apply(fn)
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 915, in _apply
+    module._apply(fn)
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 915, in _apply
+    module._apply(fn)
+  [Previous line repeated 1 more time]
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 942, in _apply
+    param_applied = fn(param)
+                    ^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1348, in convert
+    raise NotImplementedError(
+NotImplementedError: Cannot copy out of meta tensor; no data! Please use torch.nn.Module.to_empty() instead of torch.nn.Module.to() when moving module from meta to a different device.
+2025-05-30 03:18:01,054 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 03:18:21,234 INFO SentenceTransformer Load pretrained SentenceTransformer: all-mpnet-base-v2
+2025-05-30 03:18:26,179 INFO views LangChain components initialized successfully
+2025-05-30 03:18:26,180 INFO views Initialized LangChain RAG with model: qwen:0.5b
+2025-05-30 03:18:26,184 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 03:18:26,214 INFO views Extracting data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/edit?usp=sharing
+2025-05-30 03:18:27,795 INFO views Successfully extracted 7 records from sheet
+2025-05-30 03:18:27,797 INFO views Starting RAG processing for 7 rows
+2025-05-30 03:18:27,797 INFO views Starting feedback data preprocessing
+2025-05-30 03:18:27,798 INFO views Dropping 2 irrelevant columns
+2025-05-30 03:18:27,803 INFO views Using 1 columns for document creation: ['Resume']
+2025-05-30 03:18:27,804 INFO views Created 7 documents from DataFrame
+2025-05-30 03:18:27,804 INFO views Creating vector store from 7 documents
+2025-05-30 03:18:27,805 INFO views Split into 7 chunks
+2025-05-30 03:18:29,864 INFO loader Loading faiss with AVX2 support.
+2025-05-30 03:18:29,913 INFO loader Successfully loaded faiss with AVX2 support.
+2025-05-30 03:18:29,919 INFO __init__ Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-30 03:18:29,920 INFO views Vector store created successfully
+2025-05-30 03:18:29,921 INFO views Processing 7 chunks in parallel
+2025-05-30 03:18:29,929 INFO views LLM request started with 1 prompts
+2025-05-30 03:18:29,935 INFO views LLM request started with 1 prompts
+2025-05-30 03:18:29,936 INFO views LLM request started with 1 prompts
+2025-05-30 03:18:34,685 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:18:34,690 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:19:06,433 INFO views LLM request completed in 36.50s
+2025-05-30 03:19:06,438 INFO views LLM request started with 1 prompts
+2025-05-30 03:19:06,439 INFO views Successfully processed chunk 1
+2025-05-30 03:19:06,446 INFO views LLM request completed in 0.01s
+2025-05-30 03:19:06,456 INFO views LLM request started with 1 prompts
+2025-05-30 03:19:06,459 INFO views Successfully processed chunk 2
+2025-05-30 03:19:07,696 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:19:08,770 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:19:12,736 INFO views LLM request completed in 6.28s
+2025-05-30 03:19:12,738 INFO views LLM request started with 1 prompts
+2025-05-30 03:19:12,740 INFO views Successfully processed chunk 3
+2025-05-30 03:19:14,202 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:19:18,846 INFO views LLM request completed in 6.11s
+2025-05-30 03:19:18,849 INFO views Successfully processed chunk 4
+2025-05-30 03:19:18,852 INFO views LLM request started with 1 prompts
+2025-05-30 03:19:20,227 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:19:21,466 INFO views LLM request completed in 2.61s
+2025-05-30 03:19:21,468 INFO views Successfully processed chunk 5
+2025-05-30 03:19:22,826 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:19:27,018 INFO views LLM request completed in 8.17s
+2025-05-30 03:19:27,019 INFO views Successfully processed chunk 6
+2025-05-30 03:19:29,898 INFO views LLM request completed in 11.05s
+2025-05-30 03:19:29,899 INFO views Successfully processed chunk 7
+2025-05-30 03:19:29,900 INFO views Synthesizing insights from 7 chunks
+2025-05-30 03:19:29,901 INFO views LLM request started with 1 prompts
+2025-05-30 03:19:36,274 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:19:58,920 INFO views LLM request completed in 29.02s
+2025-05-30 03:19:58,922 INFO views Enhancing insights with RAG queries
+2025-05-30 03:19:59,189 INFO views LLM request started with 1 prompts
+2025-05-30 03:20:00,495 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:20:02,579 INFO views LLM request completed in 3.39s
+2025-05-30 03:20:02,794 INFO views LLM request started with 1 prompts
+2025-05-30 03:20:04,528 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:20:09,355 INFO views LLM request completed in 6.56s
+2025-05-30 03:20:09,502 INFO views LLM request started with 1 prompts
+2025-05-30 03:20:09,830 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:20:12,369 INFO views LLM request completed in 2.87s
+2025-05-30 03:20:12,533 INFO views LLM request started with 1 prompts
+2025-05-30 03:20:13,565 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:20:14,720 INFO views LLM request completed in 2.19s
+2025-05-30 03:20:14,721 INFO views Successfully generated LangChain RAG insights for event 8
+2025-05-30 03:25:20,724 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 03:25:23,626 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 03:25:53,241 INFO SentenceTransformer Load pretrained SentenceTransformer: all-mpnet-base-v2
+2025-05-30 03:25:58,020 INFO views LangChain components initialized successfully
+2025-05-30 03:25:58,020 INFO views Initialized LangChain RAG with model: qwen:0.5b
+2025-05-30 03:25:58,025 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 03:25:58,052 INFO views Extracting data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/edit?usp=sharing
+2025-05-30 03:25:59,584 INFO views Successfully extracted 7 records from sheet
+2025-05-30 03:25:59,596 INFO views Starting RAG processing for 7 rows
+2025-05-30 03:25:59,609 INFO views Starting feedback data preprocessing
+2025-05-30 03:25:59,612 INFO views Dropping 2 irrelevant columns
+2025-05-30 03:25:59,638 INFO views Using 1 columns for document creation: ['Resume']
+2025-05-30 03:25:59,641 INFO views Created 7 documents from DataFrame
+2025-05-30 03:25:59,642 INFO views Creating vector store from 7 documents
+2025-05-30 03:25:59,651 INFO views Split into 7 chunks
+2025-05-30 03:26:00,486 INFO loader Loading faiss with AVX2 support.
+2025-05-30 03:26:00,857 INFO loader Successfully loaded faiss with AVX2 support.
+2025-05-30 03:26:00,910 INFO __init__ Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-30 03:26:00,919 INFO views Vector store created successfully
+2025-05-30 03:26:00,922 INFO views Processing 7 chunks in parallel
+2025-05-30 03:26:00,930 INFO views LLM request started with 1 prompts
+2025-05-30 03:26:00,939 INFO views LLM request started with 1 prompts
+2025-05-30 03:26:00,948 INFO views LLM request started with 1 prompts
+2025-05-30 03:26:02,292 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:26:03,471 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:26:13,716 INFO views LLM request completed in 12.77s
+2025-05-30 03:26:13,722 INFO views LLM request started with 1 prompts
+2025-05-30 03:26:13,723 INFO views Successfully processed chunk 1
+2025-05-30 03:26:15,378 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:26:34,970 INFO views LLM request completed in 21.25s
+2025-05-30 03:26:34,973 INFO views LLM request started with 1 prompts
+2025-05-30 03:26:34,974 INFO views Successfully processed chunk 2
+2025-05-30 03:26:36,917 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:26:49,865 INFO views LLM request completed in 14.89s
+2025-05-30 03:26:49,867 INFO views LLM request started with 1 prompts
+2025-05-30 03:26:49,867 INFO views Successfully processed chunk 3
+2025-05-30 03:26:51,781 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:27:26,398 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 03:28:14,140 INFO SentenceTransformer Load pretrained SentenceTransformer: all-mpnet-base-v2
+2025-05-30 03:28:18,763 INFO views LangChain components initialized successfully
+2025-05-30 03:28:18,763 INFO views Initialized LangChain RAG with model: qwen:0.5b
+2025-05-30 03:28:18,768 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 03:28:18,815 INFO views Extracting data from: https://docs.google.com/spreadsheets/d/1jrdXLprwSQwo9BQXidj1eM5R1MgLDk39L6IeMLjy_xY/edit?gid=0#gid=0
+2025-05-30 03:28:19,932 INFO views Successfully extracted 5 records from sheet
+2025-05-30 03:28:19,933 INFO views Starting RAG processing for 5 rows
+2025-05-30 03:28:19,934 INFO views Starting feedback data preprocessing
+2025-05-30 03:28:19,934 INFO views Dropping 2 irrelevant columns
+2025-05-30 03:28:19,955 INFO views Using 2 columns for document creation: ['Improvement Suggestions', 'Additional Comments']
+2025-05-30 03:28:19,956 INFO views Created 5 documents from DataFrame
+2025-05-30 03:28:19,956 INFO views Creating vector store from 5 documents
+2025-05-30 03:28:19,957 INFO views Split into 5 chunks
+2025-05-30 03:28:20,333 INFO loader Loading faiss with AVX2 support.
+2025-05-30 03:28:20,371 INFO loader Successfully loaded faiss with AVX2 support.
+2025-05-30 03:28:20,673 INFO __init__ Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-30 03:28:20,675 INFO views Vector store created successfully
+2025-05-30 03:28:20,676 INFO views Processing 5 chunks in parallel
+2025-05-30 03:28:20,683 INFO views LLM request started with 1 prompts
+2025-05-30 03:28:20,686 INFO views LLM request started with 1 prompts
+2025-05-30 03:28:20,694 INFO views LLM request started with 1 prompts
+2025-05-30 03:28:22,926 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:28:22,930 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:28:29,619 INFO views LLM request completed in 8.92s
+2025-05-30 03:28:29,623 INFO views LLM request started with 1 prompts
+2025-05-30 03:28:29,623 INFO views Successfully processed chunk 1
+2025-05-30 03:28:30,913 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:28:32,516 INFO views LLM request completed in 2.89s
+2025-05-30 03:28:32,519 INFO views LLM request started with 1 prompts
+2025-05-30 03:28:32,519 INFO views Successfully processed chunk 2
+2025-05-30 03:28:33,906 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:29:06,471 INFO views LLM request completed in 33.95s
+2025-05-30 03:29:06,475 INFO views Successfully processed chunk 3
+2025-05-30 03:29:08,117 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:29:10,080 INFO views LLM request completed in 37.56s
+2025-05-30 03:29:10,085 INFO views Successfully processed chunk 4
+2025-05-30 03:29:14,847 INFO views LLM request completed in 42.33s
+2025-05-30 03:29:14,848 INFO views Successfully processed chunk 5
+2025-05-30 03:29:14,850 INFO views Synthesizing insights from 5 chunks
+2025-05-30 03:29:14,852 INFO views LLM request started with 1 prompts
+2025-05-30 03:29:26,483 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:29:36,336 INFO views LLM request completed in 21.48s
+2025-05-30 03:29:36,337 INFO views Enhancing insights with RAG queries
+2025-05-30 03:29:36,489 INFO views LLM request started with 1 prompts
+2025-05-30 03:29:38,188 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:29:44,078 INFO views LLM request completed in 7.59s
+2025-05-30 03:29:44,240 INFO views LLM request started with 1 prompts
+2025-05-30 03:29:45,627 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:29:52,244 INFO views LLM request completed in 8.00s
+2025-05-30 03:29:52,437 INFO views LLM request started with 1 prompts
+2025-05-30 03:29:53,616 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:29:59,460 INFO views LLM request completed in 7.02s
+2025-05-30 03:29:59,657 INFO views LLM request started with 1 prompts
+2025-05-30 03:30:00,893 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:30:00,210 INFO views LLM request completed in 0.55s
+2025-05-30 03:30:00,213 INFO views Successfully generated LangChain RAG insights for event 7
+2025-05-30 03:36:38,206 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 03:37:11,169 INFO SentenceTransformer Load pretrained SentenceTransformer: all-mpnet-base-v2
+2025-05-30 03:37:14,288 INFO views LangChain components initialized successfully
+2025-05-30 03:37:14,288 INFO views Initialized LangChain RAG with model: gemma:2b
+2025-05-30 03:37:14,294 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 03:37:14,308 INFO views Extracting data from: https://docs.google.com/spreadsheets/d/1jrdXLprwSQwo9BQXidj1eM5R1MgLDk39L6IeMLjy_xY/edit?gid=0#gid=0
+2025-05-30 03:37:15,754 INFO views Successfully extracted 5 records from sheet
+2025-05-30 03:37:15,755 INFO views Starting RAG processing for 5 rows
+2025-05-30 03:37:15,755 INFO views Starting feedback data preprocessing
+2025-05-30 03:37:15,756 INFO views Dropping 2 irrelevant columns
+2025-05-30 03:37:15,767 INFO views Using 2 columns for document creation: ['Improvement Suggestions', 'Additional Comments']
+2025-05-30 03:37:15,767 INFO views Created 5 documents from DataFrame
+2025-05-30 03:37:15,767 INFO views Creating vector store from 5 documents
+2025-05-30 03:37:15,768 INFO views Split into 5 chunks
+2025-05-30 03:37:16,596 INFO loader Loading faiss with AVX2 support.
+2025-05-30 03:37:16,666 INFO loader Successfully loaded faiss with AVX2 support.
+2025-05-30 03:37:16,672 INFO __init__ Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-30 03:37:16,675 INFO views Vector store created successfully
+2025-05-30 03:37:16,675 INFO views Processing 5 chunks in parallel
+2025-05-30 03:37:16,684 INFO views LLM request started with 1 prompts
+2025-05-30 03:37:16,685 INFO views LLM request started with 1 prompts
+2025-05-30 03:37:16,689 INFO views LLM request started with 1 prompts
+2025-05-30 03:37:23,472 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:37:23,473 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:37:28,437 INFO views LLM request completed in 11.75s
+2025-05-30 03:37:28,440 INFO views LLM request started with 1 prompts
+2025-05-30 03:37:28,440 INFO views Successfully processed chunk 1
+2025-05-30 03:37:31,680 INFO views LLM request completed in 3.24s
+2025-05-30 03:37:31,681 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:37:31,698 INFO views LLM request started with 1 prompts
+2025-05-30 03:37:31,699 INFO views Successfully processed chunk 2
+2025-05-30 03:37:35,254 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:37:40,092 INFO views LLM request completed in 8.39s
+2025-05-30 03:37:40,092 INFO views Successfully processed chunk 3
+2025-05-30 03:37:40,243 INFO views LLM request completed in 8.54s
+2025-05-30 03:37:40,244 INFO views Successfully processed chunk 4
+2025-05-30 03:37:40,747 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:37:44,271 INFO views LLM request completed in 12.57s
+2025-05-30 03:37:44,272 INFO views Successfully processed chunk 5
+2025-05-30 03:37:44,273 INFO views Synthesizing insights from 5 chunks
+2025-05-30 03:37:44,273 INFO views LLM request started with 1 prompts
+2025-05-30 03:37:54,518 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:38:04,280 INFO views LLM request completed in 20.01s
+2025-05-30 03:38:04,281 INFO views Enhancing insights with RAG queries
+2025-05-30 03:38:04,372 INFO views LLM request started with 1 prompts
+2025-05-30 03:38:07,626 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:38:15,907 INFO views LLM request completed in 11.54s
+2025-05-30 03:38:15,967 INFO views LLM request started with 1 prompts
+2025-05-30 03:38:18,621 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:38:23,084 INFO views LLM request completed in 7.12s
+2025-05-30 03:38:23,136 INFO views LLM request started with 1 prompts
+2025-05-30 03:38:25,258 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:38:27,706 INFO views LLM request completed in 4.57s
+2025-05-30 03:38:27,758 INFO views LLM request started with 1 prompts
+2025-05-30 03:38:30,093 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:38:36,305 INFO views LLM request completed in 8.55s
+2025-05-30 03:38:36,308 INFO views Successfully generated LangChain RAG insights for event 7
+2025-05-30 03:39:12,522 INFO SentenceTransformer Load pretrained SentenceTransformer: all-mpnet-base-v2
+2025-05-30 03:39:15,620 INFO views LangChain components initialized successfully
+2025-05-30 03:39:15,621 INFO views Initialized LangChain RAG with model: gemma:2b
+2025-05-30 03:39:15,623 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 03:39:15,625 INFO views Extracting data from: https://docs.google.com/spreadsheets/d/1STyEshSdfP5ilAJrjxLRRZCXnoQRYBa8fxlWJYFHPzU/edit?usp=sharing
+2025-05-30 03:39:16,791 INFO views Successfully extracted 46 records from sheet
+2025-05-30 03:39:16,792 INFO views Starting RAG processing for 46 rows
+2025-05-30 03:39:16,793 INFO views Starting feedback data preprocessing
+2025-05-30 03:39:16,793 INFO views Dropping 5 irrelevant columns
+2025-05-30 03:39:16,798 INFO views Using 3 columns for document creation: ['1. Gained knowledge of mathematics and science required for AIML branch of Engineering.', '2. Able to identify, formulate and solve engineering problems', '3. Learn to design solutions for complex computer science and systems, considering public health, safety, and cultural, societal, and environmental factors.']
+2025-05-30 03:39:16,801 INFO views Created 46 documents from DataFrame
+2025-05-30 03:39:16,801 INFO views Creating vector store from 46 documents
+2025-05-30 03:39:16,802 INFO views Split into 46 chunks
+2025-05-30 03:39:19,690 INFO views Vector store created successfully
+2025-05-30 03:39:19,690 INFO views Processing 5 chunks in parallel
+2025-05-30 03:39:19,693 INFO views LLM request started with 1 prompts
+2025-05-30 03:39:19,696 INFO views LLM request started with 1 prompts
+2025-05-30 03:39:19,698 INFO views LLM request started with 1 prompts
+2025-05-30 03:40:04,194 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:40:04,194 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:40:11,939 INFO views LLM request completed in 52.24s
+2025-05-30 03:40:11,942 INFO views LLM request started with 1 prompts
+2025-05-30 03:40:11,942 INFO views Successfully processed chunk 1
+2025-05-30 03:40:37,930 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:40:40,809 INFO views LLM request completed in 28.87s
+2025-05-30 03:40:40,813 INFO views LLM request started with 1 prompts
+2025-05-30 03:40:40,815 INFO views Successfully processed chunk 2
+2025-05-30 03:41:05,864 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:41:09,947 ERROR views Processing timed out after 120 seconds
+2025-05-30 03:41:10,382 INFO SentenceTransformer Load pretrained SentenceTransformer: all-mpnet-base-v2
+2025-05-30 03:41:11,160 INFO views LLM request completed in 30.35s
+2025-05-30 03:41:11,161 INFO views Successfully processed chunk 3
+2025-05-30 03:41:11,415 INFO views LangChain components initialized successfully
+2025-05-30 03:41:11,415 INFO views Initialized LangChain RAG with model: gemma:2b
+2025-05-30 03:41:11,420 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 03:41:11,425 INFO views Extracting data from: https://docs.google.com/spreadsheets/d/1STyEshSdfP5ilAJrjxLRRZCXnoQRYBa8fxlWJYFHPzU/edit?usp=sharing
+2025-05-30 03:41:12,541 INFO views Successfully extracted 46 records from sheet
+2025-05-30 03:41:12,543 INFO views Starting RAG processing for 46 rows
+2025-05-30 03:41:12,544 INFO views Starting feedback data preprocessing
+2025-05-30 03:41:12,545 INFO views Dropping 5 irrelevant columns
+2025-05-30 03:41:12,562 INFO views Using 3 columns for document creation: ['1. Gained knowledge of mathematics and science required for AIML branch of Engineering.', '2. Able to identify, formulate and solve engineering problems', '3. Learn to design solutions for complex computer science and systems, considering public health, safety, and cultural, societal, and environmental factors.']
+2025-05-30 03:41:12,571 INFO views Created 46 documents from DataFrame
+2025-05-30 03:41:12,572 INFO views Creating vector store from 46 documents
+2025-05-30 03:41:12,578 INFO views Split into 46 chunks
+2025-05-30 03:41:17,207 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:41:18,420 INFO views Vector store created successfully
+2025-05-30 03:41:18,421 INFO views Processing 5 chunks in parallel
+2025-05-30 03:41:18,423 INFO views LLM request started with 1 prompts
+2025-05-30 03:41:18,425 INFO views LLM request started with 1 prompts
+2025-05-30 03:41:18,434 INFO views LLM request started with 1 prompts
+2025-05-30 03:41:29,417 INFO views LLM request completed in 48.60s
+2025-05-30 03:41:29,418 INFO views Successfully processed chunk 4
+2025-05-30 03:41:50,146 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:41:53,712 INFO views LLM request completed in 72.90s
+2025-05-30 03:41:53,713 INFO views Successfully processed chunk 5
+2025-05-30 03:41:53,715 INFO views Synthesizing insights from 5 chunks
+2025-05-30 03:41:53,716 INFO views LLM request started with 1 prompts
+2025-05-30 03:42:17,960 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:42:30,869 INFO views LLM request completed in 72.43s
+2025-05-30 03:42:30,870 INFO views LLM request started with 1 prompts
+2025-05-30 03:42:30,871 INFO views Successfully processed chunk 1
+2025-05-30 03:42:55,177 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:42:55,297 INFO views LLM request completed in 24.43s
+2025-05-30 03:42:55,298 INFO views Successfully processed chunk 2
+2025-05-30 03:42:55,300 INFO views LLM request started with 1 prompts
+2025-05-30 03:43:05,791 ERROR views Processing timed out after 120 seconds
+2025-05-30 03:43:19,363 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:43:33,178 INFO views LLM request completed in 37.88s
+2025-05-30 03:43:33,182 INFO views Successfully processed chunk 3
+2025-05-30 03:43:57,016 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:44:10,062 INFO views LLM request completed in 136.35s
+2025-05-30 03:44:10,063 INFO views Enhancing insights with RAG queries
+2025-05-30 03:44:10,366 INFO views LLM request started with 1 prompts
+2025-05-30 03:44:15,797 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:44:23,316 INFO views LLM request completed in 88.02s
+2025-05-30 03:44:23,318 INFO views Successfully processed chunk 4
+2025-05-30 03:44:31,111 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:44:33,623 INFO views LLM request completed in 98.32s
+2025-05-30 03:44:33,624 INFO views Successfully processed chunk 5
+2025-05-30 03:44:33,626 INFO views Synthesizing insights from 5 chunks
+2025-05-30 03:44:33,628 INFO views LLM request started with 1 prompts
+2025-05-30 03:44:33,805 INFO views LLM request completed in 23.44s
+2025-05-30 03:44:34,137 INFO views LLM request started with 1 prompts
+2025-05-30 03:44:58,543 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:44:58,546 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:45:20,865 INFO views LLM request completed in 47.24s
+2025-05-30 03:45:20,866 INFO views Enhancing insights with RAG queries
+2025-05-30 03:45:20,873 INFO views LLM request completed in 46.74s
+2025-05-30 03:45:21,081 INFO views LLM request started with 1 prompts
+2025-05-30 03:45:21,116 INFO views LLM request started with 1 prompts
+2025-05-30 03:45:22,189 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:45:29,723 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:45:32,140 INFO views LLM request completed in 11.06s
+2025-05-30 03:45:32,292 INFO views LLM request started with 1 prompts
+2025-05-30 03:45:32,373 INFO views LLM request completed in 11.26s
+2025-05-30 03:45:32,901 INFO views LLM request started with 1 prompts
+2025-05-30 03:45:34,104 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:45:35,254 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:45:42,453 INFO views LLM request completed in 9.55s
+2025-05-30 03:45:42,587 INFO views LLM request started with 1 prompts
+2025-05-30 03:45:43,867 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:45:46,405 INFO views LLM request completed in 3.82s
+2025-05-30 03:45:46,529 INFO views LLM request started with 1 prompts
+2025-05-30 03:45:47,882 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 03:45:49,234 INFO views LLM request completed in 16.94s
+2025-05-30 03:45:57,897 INFO views LLM request completed in 11.37s
+2025-05-30 03:49:19,510 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 04:03:02,034 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 04:03:03,095 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 04:07:01,675 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 04:07:33,437 INFO SentenceTransformer Load pretrained SentenceTransformer: all-mpnet-base-v2
+2025-05-30 04:07:37,376 INFO views LangChain components initialized successfully
+2025-05-30 04:07:37,376 INFO views Initialized LangChain RAG with model: gemma:2b
+2025-05-30 04:07:37,381 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 04:07:37,390 INFO views Extracting data from: https://docs.google.com/spreadsheets/d/1STyEshSdfP5ilAJrjxLRRZCXnoQRYBa8fxlWJYFHPzU/edit?usp=sharing
+2025-05-30 04:07:38,766 INFO views Successfully extracted 46 records from sheet
+2025-05-30 04:07:38,767 INFO views Starting RAG processing for 46 rows
+2025-05-30 04:07:38,768 INFO views Starting feedback data preprocessing
+2025-05-30 04:07:38,768 INFO views Dropping 5 irrelevant columns
+2025-05-30 04:07:38,797 INFO views Using 14 columns for document creation: ['1. Gained knowledge of mathematics and science required for AIML branch of Engineering.', '2. Able to identify, formulate and solve engineering problems', '3. Learn to design solutions for complex computer science and systems, considering public health, safety, and cultural, societal, and environmental factors.', '4. Capable of conducting investigations into complex artificial intelligence and machine learning issues.', '5. Learned to use modern software and equipment to analyze problems essential for engineering practice.', '6. Able to recognize the impact of engineering on society.', '7. Recognize the societal and environmental impact of solutions and the need for sustainable development.', '8. Understand professional and ethical responsibility.', '9. Able to function effectively as an individual and as a member or leader in diverse, multidisciplinary teams.', '10. Able to communicate effectively in both verbal and written form.', '12. Embraced life-long learning and committed to continuous professional development.', '13. Adept in programming and problem solving skills for developing and managing software.', '14. Identify, formulate, predict and solve real-world problems by applying Artificial Intelligence & Machine Learning principles.', '15. Proficient in efficiently managing computer system resources using cloud computing technologies.']
+2025-05-30 04:07:38,802 INFO views Created 46 documents with enhanced context
+2025-05-30 04:07:38,802 INFO views Creating vector store from 46 documents
+2025-05-30 04:07:38,811 INFO views Split into 500 chunks
+2025-05-30 04:08:09,507 INFO loader Loading faiss with AVX2 support.
+2025-05-30 04:08:09,560 INFO loader Successfully loaded faiss with AVX2 support.
+2025-05-30 04:08:09,565 INFO __init__ Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-30 04:08:09,585 INFO views Vector store created successfully
+2025-05-30 04:08:09,586 INFO views Processing 7 chunks with enhanced context
+2025-05-30 04:08:09,593 ERROR views Error analyzing chunk with LLM: Missing some input keys: {'\n    "overall_satisfaction"'}
+2025-05-30 04:08:09,594 ERROR views Error analyzing chunk with LLM: Missing some input keys: {'\n    "overall_satisfaction"'}
+2025-05-30 04:08:09,595 ERROR views Error analyzing chunk with LLM: Missing some input keys: {'\n    "overall_satisfaction"'}
+2025-05-30 04:08:09,596 ERROR views Error analyzing chunk with LLM: Missing some input keys: {'\n    "overall_satisfaction"'}
+2025-05-30 04:08:09,597 WARNING views Error in chunk 1: Missing some input keys: {'\n    "overall_satisfaction"'}
+2025-05-30 04:08:09,597 ERROR views Error analyzing chunk with LLM: Missing some input keys: {'\n    "overall_satisfaction"'}
+2025-05-30 04:08:09,598 WARNING views Error in chunk 2: Missing some input keys: {'\n    "overall_satisfaction"'}
+2025-05-30 04:08:09,598 ERROR views Error analyzing chunk with LLM: Missing some input keys: {'\n    "overall_satisfaction"'}
+2025-05-30 04:08:09,599 WARNING views Error in chunk 3: Missing some input keys: {'\n    "overall_satisfaction"'}
+2025-05-30 04:08:09,599 ERROR views Error analyzing chunk with LLM: Missing some input keys: {'\n    "overall_satisfaction"'}
+2025-05-30 04:08:09,599 WARNING views Error in chunk 4: Missing some input keys: {'\n    "overall_satisfaction"'}
+2025-05-30 04:08:09,600 WARNING views Error in chunk 5: Missing some input keys: {'\n    "overall_satisfaction"'}
+2025-05-30 04:08:09,600 WARNING views Error in chunk 6: Missing some input keys: {'\n    "overall_satisfaction"'}
+2025-05-30 04:08:09,600 WARNING views Error in chunk 7: Missing some input keys: {'\n    "overall_satisfaction"'}
+2025-05-30 04:08:09,602 INFO views Successfully generated LangChain RAG insights for event 6
+2025-05-30 04:12:30,067 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 04:12:31,728 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 04:12:36,308 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 04:12:36,623 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 04:13:01,839 INFO SentenceTransformer Load pretrained SentenceTransformer: all-mpnet-base-v2
+2025-05-30 04:13:06,046 INFO views LangChain components initialized successfully
+2025-05-30 04:13:06,047 INFO views Initialized LangChain RAG with model: gemma:2b
+2025-05-30 04:13:06,049 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 04:13:06,052 INFO views Extracting data from: https://docs.google.com/spreadsheets/d/1STyEshSdfP5ilAJrjxLRRZCXnoQRYBa8fxlWJYFHPzU/edit?usp=sharing
+2025-05-30 04:13:04,499 INFO views Successfully extracted 46 records from sheet
+2025-05-30 04:13:04,500 INFO views Starting RAG processing for 46 rows
+2025-05-30 04:13:04,501 INFO views Starting feedback data preprocessing
+2025-05-30 04:13:04,501 INFO views Dropping 5 irrelevant columns
+2025-05-30 04:13:04,514 INFO views Using 14 columns for document creation: ['1. Gained knowledge of mathematics and science required for AIML branch of Engineering.', '2. Able to identify, formulate and solve engineering problems', '3. Learn to design solutions for complex computer science and systems, considering public health, safety, and cultural, societal, and environmental factors.', '4. Capable of conducting investigations into complex artificial intelligence and machine learning issues.', '5. Learned to use modern software and equipment to analyze problems essential for engineering practice.', '6. Able to recognize the impact of engineering on society.', '7. Recognize the societal and environmental impact of solutions and the need for sustainable development.', '8. Understand professional and ethical responsibility.', '9. Able to function effectively as an individual and as a member or leader in diverse, multidisciplinary teams.', '10. Able to communicate effectively in both verbal and written form.', '12. Embraced life-long learning and committed to continuous professional development.', '13. Adept in programming and problem solving skills for developing and managing software.', '14. Identify, formulate, predict and solve real-world problems by applying Artificial Intelligence & Machine Learning principles.', '15. Proficient in efficiently managing computer system resources using cloud computing technologies.']
+2025-05-30 04:13:04,524 INFO views Created 46 documents with enhanced context
+2025-05-30 04:13:04,524 INFO views Creating vector store from 46 documents
+2025-05-30 04:13:04,532 INFO views Split into 500 chunks
+2025-05-30 04:13:37,671 INFO loader Loading faiss with AVX2 support.
+2025-05-30 04:13:37,701 INFO loader Successfully loaded faiss with AVX2 support.
+2025-05-30 04:13:37,706 INFO __init__ Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-30 04:13:37,733 INFO views Vector store created successfully
+2025-05-30 04:13:37,734 INFO views Processing 7 chunks with enhanced context
+2025-05-30 04:13:37,740 INFO views LLM request started with 1 prompts
+2025-05-30 04:13:37,745 INFO views LLM request started with 1 prompts
+2025-05-30 04:13:37,751 INFO views LLM request started with 1 prompts
+2025-05-30 04:14:56,339 ERROR views Processing timed out after 120 seconds
+2025-05-30 04:14:56,784 INFO SentenceTransformer Load pretrained SentenceTransformer: all-mpnet-base-v2
+2025-05-30 04:15:00,120 INFO views LangChain components initialized successfully
+2025-05-30 04:15:00,120 INFO views Initialized LangChain RAG with model: gemma:2b
+2025-05-30 04:15:00,127 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 04:15:00,137 INFO views Extracting data from: https://docs.google.com/spreadsheets/d/1STyEshSdfP5ilAJrjxLRRZCXnoQRYBa8fxlWJYFHPzU/edit?usp=sharing
+2025-05-30 04:15:01,293 INFO views Successfully extracted 46 records from sheet
+2025-05-30 04:15:01,298 INFO views Starting RAG processing for 46 rows
+2025-05-30 04:15:01,299 INFO views Starting feedback data preprocessing
+2025-05-30 04:15:01,300 INFO views Dropping 5 irrelevant columns
+2025-05-30 04:15:01,359 INFO views Using 14 columns for document creation: ['1. Gained knowledge of mathematics and science required for AIML branch of Engineering.', '2. Able to identify, formulate and solve engineering problems', '3. Learn to design solutions for complex computer science and systems, considering public health, safety, and cultural, societal, and environmental factors.', '4. Capable of conducting investigations into complex artificial intelligence and machine learning issues.', '5. Learned to use modern software and equipment to analyze problems essential for engineering practice.', '6. Able to recognize the impact of engineering on society.', '7. Recognize the societal and environmental impact of solutions and the need for sustainable development.', '8. Understand professional and ethical responsibility.', '9. Able to function effectively as an individual and as a member or leader in diverse, multidisciplinary teams.', '10. Able to communicate effectively in both verbal and written form.', '12. Embraced life-long learning and committed to continuous professional development.', '13. Adept in programming and problem solving skills for developing and managing software.', '14. Identify, formulate, predict and solve real-world problems by applying Artificial Intelligence & Machine Learning principles.', '15. Proficient in efficiently managing computer system resources using cloud computing technologies.']
+2025-05-30 04:15:01,380 INFO views Created 46 documents with enhanced context
+2025-05-30 04:15:01,382 INFO views Creating vector store from 46 documents
+2025-05-30 04:15:01,408 INFO views Split into 500 chunks
+2025-05-30 04:16:28,799 INFO views Vector store created successfully
+2025-05-30 04:16:28,801 INFO views Processing 7 chunks with enhanced context
+2025-05-30 04:16:28,806 INFO views LLM request started with 1 prompts
+2025-05-30 04:16:28,818 INFO views LLM request started with 1 prompts
+2025-05-30 04:16:28,820 INFO views LLM request started with 1 prompts
+2025-05-30 04:16:50,384 ERROR views Processing timed out after 120 seconds
+2025-05-30 04:18:27,885 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 04:18:47,193 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 04:19:08,537 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 04:19:24,884 INFO SentenceTransformer Load pretrained SentenceTransformer: all-mpnet-base-v2
+2025-05-30 04:19:28,460 INFO views LangChain components initialized successfully
+2025-05-30 04:19:28,461 INFO views Initialized LangChain RAG with model: gemma:2b
+2025-05-30 04:19:28,463 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 04:19:28,467 INFO views Extracting data from: https://docs.google.com/spreadsheets/d/1STyEshSdfP5ilAJrjxLRRZCXnoQRYBa8fxlWJYFHPzU/edit?usp=sharing
+2025-05-30 04:19:29,586 INFO views Successfully extracted 46 records from sheet
+2025-05-30 04:19:29,588 INFO views Starting RAG processing for 46 rows
+2025-05-30 04:19:29,589 INFO views Starting feedback data preprocessing
+2025-05-30 04:19:29,589 INFO views Dropping 5 irrelevant columns
+2025-05-30 04:19:29,598 INFO views Using 14 columns for document creation: ['1. Gained knowledge of mathematics and science required for AIML branch of Engineering.', '2. Able to identify, formulate and solve engineering problems', '3. Learn to design solutions for complex computer science and systems, considering public health, safety, and cultural, societal, and environmental factors.', '4. Capable of conducting investigations into complex artificial intelligence and machine learning issues.', '5. Learned to use modern software and equipment to analyze problems essential for engineering practice.', '6. Able to recognize the impact of engineering on society.', '7. Recognize the societal and environmental impact of solutions and the need for sustainable development.', '8. Understand professional and ethical responsibility.', '9. Able to function effectively as an individual and as a member or leader in diverse, multidisciplinary teams.', '10. Able to communicate effectively in both verbal and written form.', '12. Embraced life-long learning and committed to continuous professional development.', '13. Adept in programming and problem solving skills for developing and managing software.', '14. Identify, formulate, predict and solve real-world problems by applying Artificial Intelligence & Machine Learning principles.', '15. Proficient in efficiently managing computer system resources using cloud computing technologies.']
+2025-05-30 04:19:29,603 INFO views Created 46 documents with enhanced context
+2025-05-30 04:19:29,604 INFO views Creating vector store from 46 documents
+2025-05-30 04:19:29,766 INFO views Split into 500 chunks
+2025-05-30 04:20:00,886 INFO loader Loading faiss with AVX2 support.
+2025-05-30 04:20:00,931 INFO loader Successfully loaded faiss with AVX2 support.
+2025-05-30 04:20:00,939 INFO __init__ Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-30 04:20:00,979 INFO views Vector store created successfully
+2025-05-30 04:20:00,980 INFO views Processing 7 chunks with enhanced context
+2025-05-30 04:20:00,988 INFO views LLM request started with 1 prompts
+2025-05-30 04:20:00,989 INFO views LLM request started with 1 prompts
+2025-05-30 04:20:01,003 INFO views LLM request started with 1 prompts
+2025-05-30 04:21:18,480 ERROR views Processing timed out after 120 seconds
+2025-05-30 04:21:18,923 INFO SentenceTransformer Load pretrained SentenceTransformer: all-mpnet-base-v2
+2025-05-30 04:21:22,032 INFO views LangChain components initialized successfully
+2025-05-30 04:21:22,033 INFO views Initialized LangChain RAG with model: gemma:2b
+2025-05-30 04:21:22,039 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 04:21:22,049 INFO views Extracting data from: https://docs.google.com/spreadsheets/d/1STyEshSdfP5ilAJrjxLRRZCXnoQRYBa8fxlWJYFHPzU/edit?usp=sharing
+2025-05-30 04:21:23,308 INFO views Successfully extracted 46 records from sheet
+2025-05-30 04:21:23,310 INFO views Starting RAG processing for 46 rows
+2025-05-30 04:21:23,311 INFO views Starting feedback data preprocessing
+2025-05-30 04:21:23,312 INFO views Dropping 5 irrelevant columns
+2025-05-30 04:21:23,335 INFO views Using 14 columns for document creation: ['1. Gained knowledge of mathematics and science required for AIML branch of Engineering.', '2. Able to identify, formulate and solve engineering problems', '3. Learn to design solutions for complex computer science and systems, considering public health, safety, and cultural, societal, and environmental factors.', '4. Capable of conducting investigations into complex artificial intelligence and machine learning issues.', '5. Learned to use modern software and equipment to analyze problems essential for engineering practice.', '6. Able to recognize the impact of engineering on society.', '7. Recognize the societal and environmental impact of solutions and the need for sustainable development.', '8. Understand professional and ethical responsibility.', '9. Able to function effectively as an individual and as a member or leader in diverse, multidisciplinary teams.', '10. Able to communicate effectively in both verbal and written form.', '12. Embraced life-long learning and committed to continuous professional development.', '13. Adept in programming and problem solving skills for developing and managing software.', '14. Identify, formulate, predict and solve real-world problems by applying Artificial Intelligence & Machine Learning principles.', '15. Proficient in efficiently managing computer system resources using cloud computing technologies.']
+2025-05-30 04:21:23,341 INFO views Created 46 documents with enhanced context
+2025-05-30 04:21:23,341 INFO views Creating vector store from 46 documents
+2025-05-30 04:21:23,368 INFO views Split into 500 chunks

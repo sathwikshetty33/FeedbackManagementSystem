@@ -4,5 +4,5 @@ from . import views
 
 urlpatterns = [
     # Your existing URL patterns
-    path('generate-insights/', views.GenerateInsightsView.as_view(), name='generate-insights'),
+    path('generate-insights/', views.LangChainRAGInsightsView.as_view(), name='generate-insights'),
 ]
