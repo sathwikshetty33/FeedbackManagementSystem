@@ -1215,3 +1215,37 @@ UnboundLocalError: cannot access local variable 'Event' where it is not associat
 2025-05-30 18:48:26,482 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
 2025-05-30 18:48:26,735 INFO autoreload Watching for file changes with StatReloader
 2025-05-30 18:48:51,711 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 19:08:31,265 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 19:08:39,299 ERROR log Internal Server Error: /insights/generate-insights/
+Traceback (most recent call last):
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 97, in view
+    self = cls(**initkwargs)
+           ^^^^^^^^^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/core/insights/views.py", line 957, in __init__
+    self.fastapi_url = os.environ.get('FASTAPI_ANALYSIS_URL', 'http://localhost:8001')
+                       ^^
+NameError: name 'os' is not defined. Did you forget to import 'os'
+2025-05-30 19:09:14,882 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 19:09:15,462 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 19:09:19,967 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 19:09:20,524 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 19:09:29,476 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 19:09:29,487 ERROR views FastAPI service error: 422 - {"detail":[{"type":"string_type","loc":["body","event_id"],"msg":"Input should be a valid string","input":7}]}
+2025-05-30 19:09:29,488 ERROR log Service Unavailable: /insights/generate-insights/
+2025-05-30 19:13:44,479 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 19:13:45,119 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 19:14:47,138 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 19:23:02,766 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 19:25:02,586 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 19:25:08,137 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 19:28:27,245 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 19:33:46,255 INFO views Received LangChain RAG feedback analysis request
