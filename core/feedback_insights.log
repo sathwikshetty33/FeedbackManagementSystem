@@ -788,3 +788,360 @@ NotImplementedError: Cannot copy out of meta tensor; no data! Please use torch.n
 2025-05-30 04:21:23,341 INFO views Created 46 documents with enhanced context
 2025-05-30 04:21:23,341 INFO views Creating vector store from 46 documents
 2025-05-30 04:21:23,368 INFO views Split into 500 chunks
+2025-05-30 13:42:24,503 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 13:42:47,709 INFO SentenceTransformer Load pretrained SentenceTransformer: all-mpnet-base-v2
+2025-05-30 13:42:52,216 INFO views LangChain components initialized successfully
+2025-05-30 13:42:52,216 INFO views Initialized LangChain RAG with model: llama3.2:1b
+2025-05-30 13:42:52,218 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 13:42:52,225 INFO views Extracting data from: https://docs.google.com/spreadsheets/d/1jrdXLprwSQwo9BQXidj1eM5R1MgLDk39L6IeMLjy_xY/edit?gid=0#gid=0
+2025-05-30 13:42:53,480 INFO views Successfully extracted 5 records from sheet
+2025-05-30 13:42:53,482 INFO views Starting feedback data preprocessing
+2025-05-30 13:42:53,483 INFO views Dropping 2 irrelevant columns
+2025-05-30 13:42:53,494 INFO views Using 6 columns for document creation: ['Date', 'Organization', 'Difficulty Level', 'Best Part', 'Improvement Suggestions', 'Additional Comments']
+2025-05-30 13:42:53,495 INFO views Created 5 documents with enhanced context
+2025-05-30 13:42:53,498 INFO views LLM request started with 1 prompts
+2025-05-30 13:42:57,628 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 13:43:07,626 INFO views LLM request completed in 14.13s
+2025-05-30 13:43:07,628 INFO views Successfully generated LangChain RAG insights for event 7
+2025-05-30 13:43:07,628 ERROR views Tried
+2025-05-30 13:43:11,463 INFO views Email sent successfully to sathwikshetty9876@gmail.com
+2025-05-30 13:58:10,915 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 13:58:12,802 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 13:58:30,129 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 13:58:30,453 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 13:59:16,421 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 13:59:16,860 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 13:59:21,094 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 13:59:21,345 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 13:59:28,383 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 13:59:28,727 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 13:59:40,659 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 13:59:41,037 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 14:00:37,392 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 14:00:37,750 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 14:00:44,003 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 14:00:44,247 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 14:01:12,612 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 14:01:12,884 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 14:01:16,066 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 14:01:16,279 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 14:01:28,524 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 14:01:28,751 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 14:01:39,965 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 14:01:40,202 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 14:01:48,142 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 14:01:48,559 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 14:02:48,943 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 14:02:49,339 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 14:02:56,511 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 14:02:56,740 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 14:03:12,856 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 14:03:13,235 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 14:03:15,470 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 14:03:15,819 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 14:03:26,725 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 14:03:27,192 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 14:03:32,429 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 14:03:32,707 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 14:03:42,733 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 14:03:43,163 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 14:03:48,098 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 14:03:48,469 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 14:03:58,372 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 14:03:58,773 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 14:04:01,968 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 14:04:02,243 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 14:04:27,434 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 14:04:27,895 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 14:04:35,101 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 14:04:35,354 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 14:04:48,350 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 14:04:48,702 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 14:06:38,588 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 14:06:39,096 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 14:06:50,225 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 14:06:50,674 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 14:06:55,915 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 14:06:56,199 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 14:07:12,952 INFO SentenceTransformer Load pretrained SentenceTransformer: all-mpnet-base-v2
+2025-05-30 14:07:16,817 INFO views LangChain components initialized successfully
+2025-05-30 14:07:16,817 INFO views Initialized LangChain RAG with model: llama3.2:1b
+2025-05-30 14:07:16,821 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 14:07:16,828 INFO views Extracting data from: https://docs.google.com/spreadsheets/d/1jrdXLprwSQwo9BQXidj1eM5R1MgLDk39L6IeMLjy_xY/edit?gid=0#gid=0
+2025-05-30 14:07:18,158 INFO views Successfully extracted 5 records from sheet
+2025-05-30 14:07:18,162 ERROR views Error in enhanced preprocessing: cannot access local variable 'agreement_keywords' where it is not associated with a value
+2025-05-30 14:07:18,162 ERROR views Error in enhanced document creation: cannot access local variable 'agreement_keywords' where it is not associated with a value
+2025-05-30 14:07:18,163 INFO views Successfully generated LangChain RAG insights for event 7
+2025-05-30 14:07:18,163 ERROR views Error sending enhanced email: name 'datetime' is not defined
+2025-05-30 14:07:52,024 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 14:07:53,019 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 14:08:03,696 INFO SentenceTransformer Load pretrained SentenceTransformer: all-mpnet-base-v2
+2025-05-30 14:08:07,352 INFO views LangChain components initialized successfully
+2025-05-30 14:08:07,352 INFO views Initialized LangChain RAG with model: llama3.2:1b
+2025-05-30 14:08:07,354 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 14:08:07,356 INFO views Extracting data from: https://docs.google.com/spreadsheets/d/1jrdXLprwSQwo9BQXidj1eM5R1MgLDk39L6IeMLjy_xY/edit?gid=0#gid=0
+2025-05-30 14:08:08,437 INFO views Successfully extracted 5 records from sheet
+2025-05-30 14:08:08,440 ERROR views Error in enhanced preprocessing: cannot access local variable 'agreement_keywords' where it is not associated with a value
+2025-05-30 14:08:08,441 ERROR views Error in enhanced document creation: cannot access local variable 'agreement_keywords' where it is not associated with a value
+2025-05-30 14:08:08,441 INFO views Successfully generated LangChain RAG insights for event 7
+2025-05-30 14:08:11,933 INFO views Enhanced email sent successfully to sathwikshetty9876@gmail.com
+2025-05-30 14:08:11,934 INFO views Email sent successfully to sathwikshetty9876@gmail.com
+2025-05-30 14:19:16,772 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 14:19:17,888 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 14:20:18,355 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 14:20:18,756 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 14:23:39,670 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 14:23:40,165 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 14:23:44,306 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 14:23:44,679 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 14:23:53,988 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 14:24:10,962 INFO SentenceTransformer Load pretrained SentenceTransformer: all-mpnet-base-v2
+2025-05-30 14:24:14,871 INFO views LangChain components initialized successfully
+2025-05-30 14:24:14,871 INFO views Initialized LangChain RAG with model: llama3.2:1b
+2025-05-30 14:24:14,873 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 14:24:14,876 INFO views Extracting data from: https://docs.google.com/spreadsheets/d/1jrdXLprwSQwo9BQXidj1eM5R1MgLDk39L6IeMLjy_xY/edit?gid=0#gid=0
+2025-05-30 14:24:16,137 INFO views Successfully extracted 5 records from sheet
+2025-05-30 14:24:16,162 INFO views LLM request started with 1 prompts
+2025-05-30 14:24:23,840 INFO _client HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-30 14:24:32,251 INFO views LLM request completed in 16.09s
+2025-05-30 14:24:32,253 INFO views Successfully generated LangChain RAG insights for event 7
+2025-05-30 14:24:35,877 INFO views Enhanced email sent successfully to sathwikshetty9876@gmail.com
+2025-05-30 14:24:35,877 INFO views Email sent successfully to sathwikshetty9876@gmail.com
+2025-05-30 14:35:10,993 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 14:35:16,019 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 14:35:56,653 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 14:35:57,605 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 14:36:55,989 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 14:36:56,797 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 14:36:59,740 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 14:37:00,532 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 14:37:14,431 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 14:37:38,940 INFO SentenceTransformer Load pretrained SentenceTransformer: all-mpnet-base-v2
+2025-05-30 14:37:44,946 INFO views LangChain components initialized successfully
+2025-05-30 14:37:44,947 INFO views Initialized LangChain RAG with model: llama3.2:1b
+2025-05-30 14:38:02,887 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 14:38:04,645 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 15:04:34,378 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 15:04:59,249 INFO SentenceTransformer Load pretrained SentenceTransformer: all-mpnet-base-v2
+2025-05-30 15:05:05,016 INFO views LangChain components initialized successfully
+2025-05-30 15:05:05,017 INFO views Initialized LangChain RAG with model: llama3.2:1b
+2025-05-30 15:05:05,024 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 15:05:05,051 INFO views Extracting data from: https://docs.google.com/spreadsheets/d/1jrdXLprwSQwo9BQXidj1eM5R1MgLDk39L6IeMLjy_xY/edit?gid=0#gid=0
+2025-05-30 15:05:06,366 INFO views Successfully extracted 5 records from sheet
+2025-05-30 15:05:06,377 ERROR views Error in enhanced preprocessing: cannot access local variable 'agreement_keywords' where it is not associated with a value
+2025-05-30 15:05:06,378 ERROR views Error in enhanced document creation: cannot access local variable 'agreement_keywords' where it is not associated with a value
+2025-05-30 15:05:06,380 INFO views Successfully generated LangChain RAG insights for event 7
+2025-05-30 15:05:10,396 INFO views Enhanced email sent successfully to sathwikshetty9876@gmail.com
+2025-05-30 15:05:10,397 INFO views Email sent successfully to sathwikshetty9876@gmail.com
+2025-05-30 15:12:40,202 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 15:12:45,415 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 15:12:58,341 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 15:12:59,672 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 15:13:01,340 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 15:13:02,417 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 15:13:06,371 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 15:13:07,322 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 15:13:23,265 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/preprocessing.py changed, reloading.
+2025-05-30 15:13:24,245 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 15:13:28,113 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/preprocessing.py changed, reloading.
+2025-05-30 15:13:29,465 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 15:14:52,592 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 15:14:53,270 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 15:15:16,432 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 15:15:17,121 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 15:15:22,967 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 15:15:23,586 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 15:19:35,468 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 15:19:36,236 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 15:19:48,546 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/preprocessing.py changed, reloading.
+2025-05-30 15:19:49,309 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 15:20:00,227 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 15:20:01,258 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 15:20:03,624 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 15:20:04,277 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 15:25:15,379 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 15:25:16,665 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 15:25:28,227 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 15:25:28,801 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 15:25:31,258 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 15:25:31,830 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 15:25:41,531 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 15:25:42,328 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 15:37:53,442 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 15:37:55,036 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 15:38:21,348 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 15:38:22,167 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 15:38:40,658 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 15:38:41,151 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 15:38:44,569 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 15:38:45,131 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 15:38:51,483 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 15:38:52,206 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 15:38:53,703 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 15:38:54,241 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 15:39:01,654 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 15:39:02,233 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 15:39:10,205 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 15:39:34,423 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 15:39:35,359 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 15:39:50,735 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 15:39:51,419 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 15:40:12,190 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 15:40:12,232 ERROR log Internal Server Error: /insights/generate-insights/
+Traceback (most recent call last):
+  File "/home/sathwik/feedbackmanagementsystem/core/insights/views.py", line 562, in post
+    from .models import Event  # Adjust import based on your models
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+ImportError: cannot import name 'Event' from 'insights.models' (/home/sathwik/feedbackmanagementsystem/core/insights/models.py)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/core/insights/views.py", line 615, in post
+    except Event.DoesNotExist:
+           ^^^^^
+UnboundLocalError: cannot access local variable 'Event' where it is not associated with a value
+2025-05-30 15:41:17,363 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 15:41:18,153 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 15:41:24,743 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 15:41:32,860 INFO loader Loading faiss with AVX2 support.
+2025-05-30 15:41:32,930 INFO loader Successfully loaded faiss with AVX2 support.
+2025-05-30 15:41:32,943 INFO __init__ Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-05-30 15:56:03,133 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 15:56:12,824 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 15:56:12,859 ERROR log Internal Server Error: /insights/generate-insights/
+Traceback (most recent call last):
+  File "/home/sathwik/feedbackmanagementsystem/core/insights/views.py", line 584, in post
+    from .models import Event  # Adjust import based on your models
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+ImportError: cannot import name 'Event' from 'insights.models' (/home/sathwik/feedbackmanagementsystem/core/insights/models.py)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/core/insights/views.py", line 637, in post
+    except Event.DoesNotExist:
+           ^^^^^
+UnboundLocalError: cannot access local variable 'Event' where it is not associated with a value
+2025-05-30 15:57:05,950 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 15:57:06,464 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 15:57:12,324 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 15:57:14,533 ERROR views Error generating insights for Organization: 1 validation error for StuffDocumentsChain
+  Value error, document_variable_name context was not found in llm_chain input_variables: [] [type=value_error, input_value={'llm_chain': LLMChain(ve...None, 'callbacks': None}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-05-30 15:57:15,657 ERROR views Error generating insights for Overall Rating (1-5): 1 validation error for StuffDocumentsChain
+  Value error, document_variable_name context was not found in llm_chain input_variables: [] [type=value_error, input_value={'llm_chain': LLMChain(ve...None, 'callbacks': None}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-05-30 15:57:16,597 ERROR views Error generating insights for Difficulty Level: 1 validation error for StuffDocumentsChain
+  Value error, document_variable_name context was not found in llm_chain input_variables: [] [type=value_error, input_value={'llm_chain': LLMChain(ve...None, 'callbacks': None}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-05-30 15:57:17,479 ERROR views Error generating insights for Best Part: 1 validation error for StuffDocumentsChain
+  Value error, document_variable_name context was not found in llm_chain input_variables: [] [type=value_error, input_value={'llm_chain': LLMChain(ve...None, 'callbacks': None}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-05-30 15:57:18,372 ERROR views Error generating insights for Improvement Suggestions: 1 validation error for StuffDocumentsChain
+  Value error, document_variable_name context was not found in llm_chain input_variables: [] [type=value_error, input_value={'llm_chain': LLMChain(ve...None, 'callbacks': None}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-05-30 15:57:19,229 ERROR views Error generating insights for Would Recommend: 1 validation error for StuffDocumentsChain
+  Value error, document_variable_name context was not found in llm_chain input_variables: [] [type=value_error, input_value={'llm_chain': LLMChain(ve...None, 'callbacks': None}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-05-30 15:57:20,393 ERROR views Error generating insights for Additional Comments: 1 validation error for StuffDocumentsChain
+  Value error, document_variable_name context was not found in llm_chain input_variables: [] [type=value_error, input_value={'llm_chain': LLMChain(ve...None, 'callbacks': None}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-05-30 16:00:18,955 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 16:00:19,381 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 16:00:24,284 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 16:00:24,724 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 16:00:35,680 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 16:00:36,117 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 16:00:42,256 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 16:00:44,294 ERROR views Error generating insights for Organization: 1 validation error for StuffDocumentsChain
+  Value error, document_variable_name context was not found in llm_chain input_variables: [] [type=value_error, input_value={'llm_chain': LLMChain(ve...None, 'callbacks': None}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-05-30 16:00:45,360 ERROR views Error generating insights for Overall Rating (1-5): 1 validation error for StuffDocumentsChain
+  Value error, document_variable_name context was not found in llm_chain input_variables: [] [type=value_error, input_value={'llm_chain': LLMChain(ve...None, 'callbacks': None}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-05-30 16:00:46,109 ERROR views Error generating insights for Difficulty Level: 1 validation error for StuffDocumentsChain
+  Value error, document_variable_name context was not found in llm_chain input_variables: [] [type=value_error, input_value={'llm_chain': LLMChain(ve...None, 'callbacks': None}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-05-30 16:00:46,884 ERROR views Error generating insights for Best Part: 1 validation error for StuffDocumentsChain
+  Value error, document_variable_name context was not found in llm_chain input_variables: [] [type=value_error, input_value={'llm_chain': LLMChain(ve...None, 'callbacks': None}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-05-30 16:00:47,726 ERROR views Error generating insights for Improvement Suggestions: 1 validation error for StuffDocumentsChain
+  Value error, document_variable_name context was not found in llm_chain input_variables: [] [type=value_error, input_value={'llm_chain': LLMChain(ve...None, 'callbacks': None}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-05-30 16:00:48,457 ERROR views Error generating insights for Would Recommend: 1 validation error for StuffDocumentsChain
+  Value error, document_variable_name context was not found in llm_chain input_variables: [] [type=value_error, input_value={'llm_chain': LLMChain(ve...None, 'callbacks': None}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-05-30 16:00:49,506 ERROR views Error generating insights for Additional Comments: 1 validation error for StuffDocumentsChain
+  Value error, document_variable_name context was not found in llm_chain input_variables: [] [type=value_error, input_value={'llm_chain': LLMChain(ve...None, 'callbacks': None}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-05-30 16:05:43,466 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 16:05:43,977 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 16:06:17,374 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/insights/views.py changed, reloading.
+2025-05-30 16:06:17,609 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 16:06:28,426 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 16:06:35,021 ERROR views Error generating insights for Organization: 1 validation error for StuffDocumentsChain
+  Value error, document_variable_name context was not found in llm_chain input_variables: [] [type=value_error, input_value={'llm_chain': LLMChain(ve...None, 'callbacks': None}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-05-30 16:06:59,837 ERROR views Error generating insights for Overall Rating (1-5): 1 validation error for StuffDocumentsChain
+  Value error, document_variable_name context was not found in llm_chain input_variables: [] [type=value_error, input_value={'llm_chain': LLMChain(ve...None, 'callbacks': None}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-05-30 16:07:26,477 ERROR views Error generating insights for Difficulty Level: 1 validation error for StuffDocumentsChain
+  Value error, document_variable_name context was not found in llm_chain input_variables: [] [type=value_error, input_value={'llm_chain': LLMChain(ve...None, 'callbacks': None}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-05-30 16:07:57,284 ERROR views Error generating insights for Best Part: 1 validation error for StuffDocumentsChain
+  Value error, document_variable_name context was not found in llm_chain input_variables: [] [type=value_error, input_value={'llm_chain': LLMChain(ve...None, 'callbacks': None}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-05-30 16:08:27,197 ERROR views Error generating insights for Improvement Suggestions: 1 validation error for StuffDocumentsChain
+  Value error, document_variable_name context was not found in llm_chain input_variables: [] [type=value_error, input_value={'llm_chain': LLMChain(ve...None, 'callbacks': None}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-05-30 16:08:51,417 ERROR views Error generating insights for Would Recommend: 1 validation error for StuffDocumentsChain
+  Value error, document_variable_name context was not found in llm_chain input_variables: [] [type=value_error, input_value={'llm_chain': LLMChain(ve...None, 'callbacks': None}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-05-30 16:13:06,155 INFO autoreload Watching for file changes with StatReloader
+2025-05-30 16:13:14,498 INFO views Received LangChain RAG feedback analysis request
+2025-05-30 16:19:12,274 INFO views Received LangChain RAG feedback analysis request

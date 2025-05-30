@@ -1,98 +1,559 @@
-from dotenv import load_dotenv
 
-load_dotenv()
 import os
-import json
-import logging
-import requests
 import pandas as pd
 import numpy as np
-from typing import List, Dict, Any, Optional, Tuple
+from typing import Dict, List, Any, Tuple
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import requests
+from io import StringIO
+import re
+from collections import Counter
+import statistics
+
+from django.core.mail import send_mail
+from django.conf import settings
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-from rest_framework import status
-from home.models import Event
 
-# LangChain imports
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
+from langchain_community.embeddings import OllamaEmbeddings
 from langchain_community.llms import Ollama
-from langchain.prompts import PromptTemplate
-from langchain.chains import LLMChain
+from langchain.chains import RetrievalQA
 from langchain.schema import Document
-from langchain.callbacks.base import BaseCallbackHandler
-from langchain.callbacks.manager import CallbackManager
-
-import re
-from functools import lru_cache
-import hashlib
-from io import StringIO
-import threading
-import queue
-from concurrent.futures import ThreadPoolExecutor, as_completed
-
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.StreamHandler(),
-        logging.FileHandler('feedback_insights_langchain.log')
-    ]
-)
+from langchain.prompts import PromptTemplate
+from langchain.chains.llm import LLMChain
+from langchain.chains.combine_documents.stuff import StuffDocumentsChain
+import logging
 logger = logging.getLogger(__name__)
 
-def print_terminal_separator(title: str, char: str = "=", width: int = 80):
-    """Print a formatted separator in terminal"""
-    print(f"\n{char * width}")
-    print(f"{title.center(width)}")
-    print(f"{char * width}")
+# Configure logging to reduce FAISS GPU warnings
+logging.getLogger("faiss").setLevel(logging.ERROR)
 
-def print_insights_section(title: str, content: Any, max_length: int = 1000):
-    """Print insights section with formatting"""
-    print(f"\n{'='*60}")
-    print(f"📊 {title}")
-    print(f"{'='*60}")
-    
-    if isinstance(content, dict):
-        print(json.dumps(content, indent=2, ensure_ascii=False)[:max_length])
-        if len(str(content)) > max_length:
-            print(f"\n... (truncated, full length: {len(str(content))} characters)")
-    elif isinstance(content, list):
-        for i, item in enumerate(content[:5]):  # Show first 5 items
-            print(f"\n[{i+1}] {str(item)[:200]}")
-            if len(str(item)) > 200:
-                print("    ... (truncated)")
-        if len(content) > 5:
-            print(f"\n... and {len(content) - 5} more items")
-    else:
-        content_str = str(content)[:max_length]
-        print(content_str)
-        if len(str(content)) > max_length:
-            print(f"\n... (truncated, full length: {len(str(content))} characters)")
+def print_terminal_separator(title):
+    print("=" * 80)
+    print(f"    {title}")
+    print("=" * 80)
 
-class CustomCallbackHandler(BaseCallbackHandler):
-    """Custom callback handler for LangChain to track token usage and timing"""
-    
-    def __init__(self):
-        self.start_time = None
-        self.tokens_used = 0
-    
-    def on_llm_start(self, serialized: Dict[str, Any], prompts: List[str], **kwargs: Any) -> None:
-        import time
-        self.start_time = time.time()
-        logger.info(f"LLM request started with {len(prompts)} prompts")
-        print(f"🤖 LLM Request Started - Processing {len(prompts)} prompt(s)")
-    
-    def on_llm_end(self, response, **kwargs: Any) -> None:
-        import time
-        if self.start_time:
-            duration = time.time() - self.start_time
-            logger.info(f"LLM request completed in {duration:.2f}s")
-            print(f"✅ LLM Request Completed in {duration:.2f}s")
+class FeedbackRAGAnalyzer:
+    def __init__(self, ollama_base_url, model_name, chunk_size=300, chunk_overlap=30):
+        self.ollama_base_url = ollama_base_url
+        self.model_name = model_name
+        self.chunk_size = chunk_size
+        self.chunk_overlap = chunk_overlap
+        
+        # Initialize LangChain components with CPU optimization
+        self.embeddings = OllamaEmbeddings(
+            base_url=ollama_base_url,
+            model=model_name,
+            show_progress=False  # Reduce verbose output
+        )
+        
+        self.llm = Ollama(
+            base_url=ollama_base_url,
+            model=model_name,
+            temperature=0.1,
+            num_ctx=2048,  # Context window for CPU efficiency
+            num_thread=min(4, os.cpu_count()),  # Limit threads for CPU
+            verbose=False  # Reduce logging
+        )
+        
+        self.text_splitter = RecursiveCharacterTextSplitter(
+            chunk_size=chunk_size,
+            chunk_overlap=chunk_overlap,
+            length_function=len,
+        )
+
+    def preprocess_columns(self, df: pd.DataFrame) -> Tuple[pd.DataFrame, Dict[str, str]]:
+        """
+        Preprocess DataFrame by removing irrelevant columns and categorizing remaining ones
+        """
+        print("🔄 Preprocessing columns...")
+        
+        # Define irrelevant column patterns (case-insensitive)
+        irrelevant_patterns = [
+            r'usn', r'roll.*no', r'student.*id', r'id', r'name', r'email', 
+            r'phone', r'contact', r'timestamp', r'date', r'time', r'created',
+            r'updated', r'serial', r'index', r'entry.*id'
+        ]
+        
+        # Remove irrelevant columns
+        original_columns = df.columns.tolist()
+        relevant_columns = []
+        removed_columns = []
+        
+        for col in df.columns:
+            is_irrelevant = any(re.search(pattern, col.lower()) for pattern in irrelevant_patterns)
+            if not is_irrelevant:
+                relevant_columns.append(col)
+            else:
+                removed_columns.append(col)
+        
+        print(f"📊 Original columns: {len(original_columns)}")
+        print(f"✅ Relevant columns: {len(relevant_columns)}")
+        print(f"❌ Removed columns: {removed_columns}")
+        
+        # Filter DataFrame
+        processed_df = df[relevant_columns].copy()
+        
+        # Categorize columns by type
+        column_types = self._categorize_columns(processed_df)
+        
+        return processed_df, column_types
+
+    def _categorize_columns(self, df: pd.DataFrame) -> Dict[str, str]:
+        """
+        Categorize columns into numerical, categorical, and text types
+        """
+        column_types = {}
+        
+        for col in df.columns:
+            col_data = df[col].dropna()
+            
+            if col_data.empty:
+                column_types[col] = 'empty'
+                continue
+            
+            # Check if numerical (including ratings)
+            try:
+                numeric_data = pd.to_numeric(col_data, errors='coerce')
+                if not numeric_data.isna().all():
+                    # Check if it's a rating scale (1-5, 1-10, etc.)
+                    unique_vals = sorted(numeric_data.dropna().unique())
+                    if len(unique_vals) <= 10 and all(isinstance(x, (int, float)) for x in unique_vals):
+                        column_types[col] = 'rating'
+                    else:
+                        column_types[col] = 'numerical'
+                    continue
+            except:
+                pass
+            
+            # Check if categorical (limited unique values)
+            unique_count = col_data.nunique()
+            total_count = len(col_data)
+            
+            if unique_count <= 20 and unique_count / total_count < 0.5:
+                # Check for common categorical patterns
+                sample_values = col_data.str.lower().unique()[:10] if hasattr(col_data, 'str') else []
+                categorical_keywords = ['excellent', 'good', 'poor', 'bad', 'average', 'satisfied', 'dissatisfied', 'yes', 'no']
+                
+                if any(any(keyword in str(val) for keyword in categorical_keywords) for val in sample_values):
+                    column_types[col] = 'categorical'
+                elif unique_count <= 10:
+                    column_types[col] = 'categorical'
+                else:
+                    column_types[col] = 'text'
+            else:
+                column_types[col] = 'text'
+        
+        print(f"📋 Column categorization: {column_types}")
+        return column_types
+
+    def analyze_numerical_column(self, df: pd.DataFrame, column: str) -> Dict[str, Any]:
+        """
+        Analyze numerical/rating columns
+        """
+        data = pd.to_numeric(df[column], errors='coerce').dropna()
+        
+        if data.empty:
+            return {"error": "No valid numerical data"}
+        
+        analysis = {
+            'type': 'numerical',
+            'total_responses': len(data),
+            'mean': round(data.mean(), 2),
+            'median': round(data.median(), 2),
+            'std_dev': round(data.std(), 2),
+            'min_value': data.min(),
+            'max_value': data.max(),
+            'quartiles': {
+                'Q1': round(data.quantile(0.25), 2),
+                'Q3': round(data.quantile(0.75), 2)
+            }
+        }
+        
+        # Rating-specific analysis
+        unique_vals = sorted(data.unique())
+        if len(unique_vals) <= 10:
+            analysis['rating_distribution'] = data.value_counts().sort_index().to_dict()
+            analysis['mode'] = data.mode().iloc[0] if not data.mode().empty else None
+        
+        return analysis
+
+    def analyze_categorical_column(self, df: pd.DataFrame, column: str) -> Dict[str, Any]:
+        """
+        Analyze categorical columns
+        """
+        data = df[column].dropna().astype(str)
+        
+        if data.empty:
+            return {"error": "No valid categorical data"}
+        
+        value_counts = data.value_counts()
+        total = len(data)
+        
+        analysis = {
+            'type': 'categorical',
+            'total_responses': total,
+            'unique_categories': len(value_counts),
+            'distribution': value_counts.to_dict(),
+            'percentages': (value_counts / total * 100).round(2).to_dict(),
+            'most_common': value_counts.index[0],
+            'least_common': value_counts.index[-1]
+        }
+        
+        return analysis
+
+    def analyze_text_column(self, df: pd.DataFrame, column: str) -> Dict[str, Any]:
+        """
+        Analyze text columns (reviews, suggestions, comments)
+        """
+        data = df[column].dropna().astype(str)
+        data = data[data.str.len() > 0]  # Remove empty strings
+        
+        if data.empty:
+            return {"error": "No valid text data"}
+        
+        # Basic text statistics
+        lengths = data.str.len()
+        word_counts = data.str.split().str.len()
+        
+        # Combine all text for further analysis
+        all_text = ' '.join(data.values)
+        
+        analysis = {
+            'type': 'text',
+            'total_responses': len(data),
+            'avg_length': round(lengths.mean(), 2),
+            'avg_word_count': round(word_counts.mean(), 2),
+            'min_length': lengths.min(),
+            'max_length': lengths.max(),
+            'sample_responses': data.head(3).tolist()
+        }
+        
+        return analysis, all_text
+
+    def generate_column_insights(self, column_name: str, analysis_data: Dict[str, Any], 
+                               all_text: str = None) -> str:
+        """
+        Generate insights for a specific column using RAG - FIXED VERSION
+        """
+        print(f"🧠 Generating insights for column: {column_name}")
+        
+        # Create documents for RAG
+        documents = []
+        
+        if analysis_data.get('type') == 'numerical' or analysis_data.get('type') == 'rating':
+            # Create document from numerical analysis
+            doc_content = f"""
+            Column: {column_name}
+            Type: {analysis_data['type']}
+            Total Responses: {analysis_data['total_responses']}
+            Mean: {analysis_data['mean']}
+            Median: {analysis_data['median']}
+            Standard Deviation: {analysis_data['std_dev']}
+            Range: {analysis_data['min_value']} to {analysis_data['max_value']}
+            """
+            
+            if 'rating_distribution' in analysis_data:
+                doc_content += f"\nRating Distribution: {analysis_data['rating_distribution']}"
+            
+            documents.append(Document(page_content=doc_content, metadata={"column": column_name, "type": "numerical"}))
+            
+        elif analysis_data.get('type') == 'categorical':
+            # Create document from categorical analysis
+            doc_content = f"""
+            Column: {column_name}
+            Type: Categorical
+            Total Responses: {analysis_data['total_responses']}
+            Categories: {analysis_data['unique_categories']}
+            Distribution: {analysis_data['distribution']}
+            Most Common: {analysis_data['most_common']}
+            Least Common: {analysis_data['least_common']}
+            """
+            
+            documents.append(Document(page_content=doc_content, metadata={"column": column_name, "type": "categorical"}))
+            
+        elif analysis_data.get('type') == 'text' and all_text:
+            # Split text into chunks for RAG
+            text_chunks = self.text_splitter.split_text(all_text)
+            for i, chunk in enumerate(text_chunks):
+                documents.append(Document(
+                    page_content=chunk, 
+                    metadata={"column": column_name, "type": "text", "chunk": i}
+                ))
+            
+            # Add summary document
+            summary_doc = f"""
+            Column: {column_name}
+            Type: Text Analysis
+            Total Responses: {analysis_data['total_responses']}
+            Average Length: {analysis_data['avg_length']} characters
+            Average Word Count: {analysis_data['avg_word_count']} words
+            """
+            documents.append(Document(page_content=summary_doc, metadata={"column": column_name, "type": "text_summary"}))
+        
+        if not documents:
+            return f"Unable to generate insights for {column_name} - insufficient data"
+        
+        # Create vector store with CPU-optimized settings
+        try:
+            # Use CPU-optimized FAISS
+            vectorstore = FAISS.from_documents(
+                documents, 
+                self.embeddings,
+                distance_strategy="COSINE"  # More efficient for CPU
+            )
+            
+            # FIXED: Create prompt template with correct variable mapping
+            if analysis_data.get('type') in ['numerical', 'rating']:
+                prompt_template = """Use the following context to analyze feedback data for the column '{column_name}'. 
+                Based on the numerical/rating data provided, generate comprehensive insights including:
+                1. Overall performance summary
+                2. Key trends and patterns
+                3. Areas of concern (if any)
+                4. Recommendations for improvement
+                5. Statistical significance of the findings
+                
+                Context: {context}
+                
+                Analysis:""".replace('{column_name}', column_name)
+                
+            elif analysis_data.get('type') == 'categorical':
+                prompt_template = """Use the following context to analyze feedback data for the column '{column_name}'.
+                Based on the categorical data provided, generate comprehensive insights including:
+                1. Distribution analysis and what it reveals
+                2. Dominant patterns and their implications
+                3. Minority responses and their significance
+                4. Recommendations based on the categorical trends
+                5. Action items for stakeholders
+                
+                Context: {context}
+                
+                Analysis:""".replace('{column_name}', column_name)
+                
+            else:  # text
+                prompt_template = """Use the following context to analyze textual feedback for the column '{column_name}'.
+                Based on the text responses provided, generate comprehensive insights including:
+                1. Common themes and sentiments
+                2. Positive feedback patterns
+                3. Areas of concern and complaints
+                4. Suggestions mentioned by respondents
+                5. Actionable recommendations for improvement
+                6. Priority areas based on frequency of mentions
+                
+                Context: {context}
+                
+                Analysis:""".replace('{column_name}', column_name)
+            
+            # FIXED: Create prompt with correct input variables
+            custom_prompt = PromptTemplate(
+                template=prompt_template,
+                input_variables=["context"]  # Only context is needed for stuff chain
+            )
+            
+            # FIXED: Create LLM chain first, then document chain
+            llm_chain = LLMChain(
+                llm=self.llm, 
+                prompt=custom_prompt,
+                verbose=False
+            )
+            
+            # FIXED: Create stuff documents chain with proper configuration
+            stuff_chain = StuffDocumentsChain(
+                llm_chain=llm_chain,
+                document_variable_name="context",  # This should match the prompt variable
+                verbose=False
+            )
+            
+            # FIXED: Create retrieval QA chain with proper configuration
+            qa_chain = RetrievalQA(
+                combine_documents_chain=stuff_chain,
+                retriever=vectorstore.as_retriever(
+                    search_type="similarity",
+                    search_kwargs={"k": 3}
+                ),
+                return_source_documents=False,
+                verbose=False
+            )
+            
+            # Generate insights using invoke method
+            query = f"Analyze the {column_name} column data and provide comprehensive insights"
+            try:
+                result = qa_chain.invoke({"query": query})
+                insights = result.get('result', '') if isinstance(result, dict) else str(result)
+                return insights
+            except Exception as chain_error:
+                logger.error(f"Chain invoke error for {column_name}: {str(chain_error)}")
+                # Fallback to direct LLM call if chain fails
+                return self._fallback_analysis(column_name, analysis_data, documents)
+            
+        except Exception as e:
+            logger.error(f"Error generating insights for {column_name}: {str(e)}")
+            # Use fallback method when vector store creation fails
+            return self._fallback_analysis(column_name, analysis_data, documents)
+
+    def _fallback_analysis(self, column_name: str, analysis_data: Dict[str, Any], documents: List[Document]) -> str:
+        """
+        Fallback method for direct LLM analysis when chain fails
+        """
+        try:
+            # Create a simple context from documents
+            context = "\n".join([doc.page_content for doc in documents[:3]])
+            
+            if analysis_data.get('type') in ['numerical', 'rating']:
+                prompt = f"""
+                Analyze the feedback data for column "{column_name}":
+                
+                Data Summary:
+                - Total responses: {analysis_data.get('total_responses', 0)}
+                - Average: {analysis_data.get('mean', 'N/A')}
+                - Range: {analysis_data.get('min_value', 'N/A')} to {analysis_data.get('max_value', 'N/A')}
+                
+                Context: {context}
+                
+                Provide insights on performance trends, areas of concern, and recommendations.
+                """
+                
+            elif analysis_data.get('type') == 'categorical':
+                prompt = f"""
+                Analyze the feedback data for column "{column_name}":
+                
+                Data Summary:
+                - Total responses: {analysis_data.get('total_responses', 0)}
+                - Most common: {analysis_data.get('most_common', 'N/A')}
+                - Categories: {analysis_data.get('unique_categories', 0)}
+                
+                Context: {context}
+                
+                Provide insights on distribution patterns and recommendations.
+                """
+                
+            else:  # text
+                prompt = f"""
+                Analyze the textual feedback for column "{column_name}":
+                
+                Data Summary:
+                - Total responses: {analysis_data.get('total_responses', 0)}
+                - Average length: {analysis_data.get('avg_length', 0)} characters
+                
+                Sample responses: {context}
+                
+                Provide insights on common themes, sentiments, and actionable recommendations.
+                """
+            
+            # Direct LLM call
+            response = self.llm.invoke(prompt)
+            return response if isinstance(response, str) else str(response)
+            
+        except Exception as fallback_error:
+            logger.error(f"Fallback analysis failed for {column_name}: {str(fallback_error)}")
+            return self._generate_basic_insights(column_name, analysis_data)
+
+    def _generate_basic_insights(self, column_name: str, analysis_data: Dict[str, Any]) -> str:
+        """
+        Generate basic statistical insights when AI analysis fails
+        """
+        insights = [f"Analysis for {column_name}:"]
+        
+        if analysis_data.get('type') in ['numerical', 'rating']:
+            mean_val = analysis_data.get('mean', 0)
+            total = analysis_data.get('total_responses', 0)
+            
+            if analysis_data.get('type') == 'rating':
+                if mean_val >= 4:
+                    insights.append("• Overall rating is excellent, indicating high satisfaction")
+                elif mean_val >= 3:
+                    insights.append("• Rating is good but has room for improvement")
+                else:
+                    insights.append("• Rating indicates areas needing significant attention")
+                    
+                insights.append(f"• {total} respondents provided ratings")
+                if 'rating_distribution' in analysis_data:
+                    mode = analysis_data.get('mode')
+                    insights.append(f"• Most common rating: {mode}")
+            else:
+                insights.append(f"• Average value: {mean_val}")
+                insights.append(f"• Range: {analysis_data.get('min_value')} to {analysis_data.get('max_value')}")
+                
+        elif analysis_data.get('type') == 'categorical':
+            most_common = analysis_data.get('most_common', '')
+            total = analysis_data.get('total_responses', 0)
+            categories = analysis_data.get('unique_categories', 0)
+            
+            insights.append(f"• {total} responses across {categories} categories")
+            insights.append(f"• Most common response: '{most_common}'")
+            
+            if 'distribution' in analysis_data:
+                dist = analysis_data['distribution']
+                if most_common and most_common in dist:
+                    percentage = (dist[most_common] / total) * 100
+                    insights.append(f"• '{most_common}' represents {percentage:.1f}% of responses")
+                    
+        elif analysis_data.get('type') == 'text':
+            total = analysis_data.get('total_responses', 0)
+            avg_length = analysis_data.get('avg_length', 0)
+            
+            insights.append(f"• {total} text responses received")
+            insights.append(f"• Average response length: {avg_length:.1f} characters")
+            
+            if avg_length > 50:
+                insights.append("• Responses are detailed, indicating engaged participants")
+            elif avg_length > 20:
+                insights.append("• Responses are moderately detailed")
+            else:
+                insights.append("• Responses are brief, consider encouraging more detailed feedback")
+        
+        return "\n".join(insights)
+
+    def analyze_all_columns(self, df: pd.DataFrame, column_types: Dict[str, str]) -> Dict[str, Any]:
+        """
+        Analyze all relevant columns
+        """
+        results = {}
+        
+        for column, col_type in column_types.items():
+            print(f"📊 Analyzing column: {column} (type: {col_type})")
+            
+            try:
+                if col_type in ['numerical', 'rating']:
+                    analysis = self.analyze_numerical_column(df, column)
+                    insights = self.generate_column_insights(column, analysis)
+                    results[column] = {
+                        'analysis': analysis,
+                        'insights': insights,
+                        'type': col_type
+                    }
+                    
+                elif col_type == 'categorical':
+                    analysis = self.analyze_categorical_column(df, column)
+                    insights = self.generate_column_insights(column, analysis)
+                    results[column] = {
+                        'analysis': analysis,
+                        'insights': insights,
+                        'type': col_type
+                    }
+                    
+                elif col_type == 'text':
+                    analysis, all_text = self.analyze_text_column(df, column)
+                    insights = self.generate_column_insights(column, analysis, all_text)
+                    results[column] = {
+                        'analysis': analysis,
+                        'insights': insights,
+                        'type': col_type
+                    }
+                    
+            except Exception as e:
+                logger.error(f"Error analyzing column {column}: {str(e)}")
+                results[column] = {
+                    'error': str(e),
+                    'type': col_type
+                }
+        
+        return results
 
 class LangChainRAGInsightsView(APIView):
     authentication_classes = [TokenAuthentication]
@@ -100,819 +561,143 @@ class LangChainRAGInsightsView(APIView):
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        
         # Configuration from environment
         self.ollama_base_url = os.environ.get('OLLAMA_BASE_URL', 'http://localhost:11434')
-        self.model_name = os.environ.get('OLLAMA_MODEL', 'gemma:2b')
-        self.chunk_size = int(os.environ.get('RAG_CHUNK_SIZE', '500'))
-        self.chunk_overlap = int(os.environ.get('RAG_CHUNK_OVERLAP', '50'))
-        self.max_tokens = int(os.environ.get('MAX_TOKENS', '512'))
-        self.temperature = float(os.environ.get('TEMPERATURE', '0.3'))
-        self.request_timeout = int(os.environ.get('OLLAMA_TIMEOUT', '30'))
+        self.model_name = os.environ.get('OLLAMA_MODEL', 'llama3.2:1b')
+        self.chunk_size = int(os.environ.get('RAG_CHUNK_SIZE', '300'))
+        self.chunk_overlap = int(os.environ.get('RAG_CHUNK_OVERLAP', '30'))
+        self.max_tokens = int(os.environ.get('MAX_TOKENS', '256'))
+        self.temperature = float(os.environ.get('TEMPERATURE', '0.1'))
+        self.request_timeout = int(os.environ.get('OLLAMA_TIMEOUT', '60'))
         
-        # Initialize LangChain components
-        self._initialize_langchain_components()
-        
-        # Cache for results
-        self.cache = {}
-        
-        logger.info(f"Initialized LangChain RAG with model: {self.model_name}")
-        print_terminal_separator("🚀 LANGCHAIN RAG INITIALIZED")
-        print(f"Model: {self.model_name}")
-        print(f"Base URL: {self.ollama_base_url}")
-        print(f"Chunk Size: {self.chunk_size}")
-        print(f"Temperature: {self.temperature}")
-    
-    def _initialize_langchain_components(self):
-        """Initialize LangChain components"""
+        # Performance optimizations
+        self.max_processing_rows = int(os.environ.get('MAX_PROCESSING_ROWS', '100'))
+        self.enable_parallel = os.environ.get('ENABLE_PARALLEL', 'true').lower() == 'true'
+        self.max_workers = min(2, os.cpu_count())
+
+    def fetch_worksheet_data(self, worksheet_url: str) -> pd.DataFrame:
+        """
+        Fetch data from Google Sheets URL
+        """
         try:
-            print("\n🔧 Initializing LangChain Components...")
-            
-            # Initialize callback handler
-            self.callback_handler = CustomCallbackHandler()
-            callback_manager = CallbackManager([self.callback_handler])
-            
-            from langchain_ollama import OllamaLLM
-            self.llm = OllamaLLM(
-                model=self.model_name,
-                base_url=self.ollama_base_url,
-                temperature=self.temperature,
-                num_predict=self.max_tokens,
-                callback_manager=callback_manager,
-                verbose=False
-            )
-            print("✅ LLM initialized")
-            
-            from langchain_huggingface import HuggingFaceEmbeddings
-            self.embeddings = HuggingFaceEmbeddings(
-                model_name="all-mpnet-base-v2",  
-                model_kwargs={'device': 'cpu'},
-                encode_kwargs={'normalize_embeddings': True}
-            )
-            print("✅ Embeddings model initialized")
-            
-            # Initialize text splitter
-            self.text_splitter = RecursiveCharacterTextSplitter(
-                chunk_size=self.chunk_size,
-                chunk_overlap=self.chunk_overlap,
-                length_function=len,
-                separators=["\n\n", "\n", ". ", ", ", " ", ""]
-            )
-            print("✅ Text splitter initialized")
-            
-            # Initialize prompt templates
-            self._initialize_prompt_templates()
-            print("✅ Prompt templates initialized")
-            
-            logger.info("LangChain components initialized successfully")
-            
-        except Exception as e:
-            logger.error(f"Error initializing LangChain components: {str(e)}")
-            print(f"❌ Error initializing components: {str(e)}")
-            raise
-    
-    def _initialize_prompt_templates(self):
-        """Initialize enhanced prompt templates with better context understanding"""
-        
-        # Enhanced template for chunk analysis with context awareness
-        self.chunk_analysis_template = PromptTemplate(
-            input_variables=["feedback_data", "chunk_info"],
-            template="""You are analyzing student feedback data. Each response contains structured question-answer pairs.
-
-    FEEDBACK DATA TO ANALYZE:
-    {feedback_data}
-
-    ANALYSIS INFO: {chunk_info}
-
-    Please analyze this feedback data and extract insights focusing on:
-
-    1. RESPONSE PATTERNS: What are the common response patterns for each question/criteria?
-    2. SATISFACTION LEVELS: Based on ratings (Excellent, Very Good, Good, etc.), what's the overall satisfaction?
-    3. SPECIFIC STRENGTHS: What aspects are performing well based on positive responses?
-    4. AREAS FOR IMPROVEMENT: What aspects show lower satisfaction or negative feedback?
-    5. QUESTION-SPECIFIC INSIGHTS: Analyze each question/criteria individually
-    6. CORRELATION PATTERNS: Are there patterns between different responses from the same respondent?
-
-    IMPORTANT: 
-    - Pay attention to what each response is rating (the question/criteria)
-    - Consider "Excellent" and "Very Good" as positive, "Good" as neutral, "Fair" and "Poor" as negative
-    - Look for specific themes in text responses
-    - Note any recurring issues or praise
-
-    Respond in structured JSON format with these sections:
-    {{
-    "overall_satisfaction": "summary of general satisfaction level",
-    "response_distribution": "breakdown of rating distributions",
-    "strengths": ["list of identified strengths"],
-    "improvement_areas": ["list of areas needing improvement"],
-    "question_specific_insights": {{
-        "question_name": "insight for that specific question"
-    }},
-    "key_patterns": ["list of notable patterns found"],
-    "sentiment_summary": "overall sentiment analysis"
-    }}"""
-        )
-        
-        # Enhanced synthesis template
-        self.synthesis_template = PromptTemplate(
-            input_variables=["chunk_insights", "total_chunks"],
-            template="""Synthesize comprehensive feedback analysis from {total_chunks} data chunks:
-
-    CHUNK INSIGHTS:
-    {chunk_insights}
-
-    Create a comprehensive final analysis that combines all chunks with:
-
-    1. OVERALL SATISFACTION METRICS: Combined satisfaction levels across all feedback
-    2. TOP PERFORMING AREAS: What questions/criteria received the highest ratings
-    3. PRIORITY IMPROVEMENT AREAS: What questions/criteria need the most attention
-    4. CONSISTENT PATTERNS: Patterns that appear across multiple chunks
-    5. DETAILED RECOMMENDATIONS: Specific, actionable recommendations
-    6. RESPONSE DISTRIBUTION: Overall distribution of ratings across all criteria
-
-    Format as comprehensive JSON:
-    {{
-    "executive_summary": "brief overview of key findings",
-    "overall_satisfaction_score": "calculated satisfaction level",
-    "top_performing_areas": [
-        {{
-        "area": "criteria name",
-        "performance": "description",
-        "rating_summary": "rating distribution"
-        }}
-    ],
-    "priority_improvements": [
-        {{
-        "area": "criteria name", 
-        "issue": "description of problem",
-        "recommendation": "specific action to take"
-        }}
-    ],
-    "response_patterns": {{
-        "positive_feedback_themes": ["themes in positive responses"],
-        "negative_feedback_themes": ["themes in negative responses"],
-        "rating_distribution": "overall rating breakdown"
-    }},
-    "actionable_recommendations": [
-        "specific recommendation 1",
-        "specific recommendation 2"
-    ]
-    }}"""
-        )
-        
-        # Enhanced retrieval template
-        self.retrieval_template = PromptTemplate(
-            input_variables=["context", "question"],
-            template="""Based on this structured feedback context:
-    {context}
-
-    Answer this specific question: {question}
-
-    IMPORTANT GUIDELINES:
-    - Reference specific questions/criteria from the feedback forms
-    - Quote actual responses when relevant
-    - Distinguish between different types of feedback (ratings vs. text responses)
-    - Provide specific examples from the data
-    - Consider the context of what each response is rating
-
-    Provide detailed insights based only on the feedback data provided, with specific references to the questions and response patterns."""
-        )
-    
-    def extract_data_from_sheet(self, worksheet_url: str) -> Tuple[Optional[pd.DataFrame], Optional[List[Dict]]]:
-        """Extract data from Google Sheets with improved error handling"""
-        try:
-            print_terminal_separator("📊 DATA EXTRACTION PHASE")
-            print(f"🔗 Extracting data from: {worksheet_url}")
-            logger.info(f"Extracting data from: {worksheet_url}")
-            
-            if "spreadsheets/d/" in worksheet_url:
-                sheet_id = worksheet_url.split("spreadsheets/d/")[1].split("/")[0]
-                export_url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv"
-                
-                response = requests.get(export_url, timeout=10)
-                if response.status_code != 200:
-                    print(f"❌ Failed to fetch Google Sheet: HTTP {response.status_code}")
-                    logger.error(f"Failed to fetch Google Sheet: HTTP {response.status_code}")
-                    return None, None
-                
-                df = pd.read_csv(StringIO(response.text))
-                
-                if df.empty:
-                    print("⚠️ Sheet contains no data")
-                    logger.warning("Sheet contains no data")
-                    return None, None
-                    
-                data = df.to_dict(orient='records')
-                
-                print(f"✅ Successfully extracted {len(data)} records")
-                print(f"📋 Columns found: {list(df.columns)[:10]}")  # Show first 10 columns
-                print(f"📏 Data shape: {df.shape}")
-                
-                # Show sample data
-                print("\n📋 Sample Data (first 2 rows):")
-                for i, row in df.head(2).iterrows():
-                    print(f"Row {i+1}: {dict(list(row.items())[:5])}")  # Show first 5 columns
-                
-                logger.info(f"Successfully extracted {len(data)} records from sheet")
-                return df, data
+            # Convert Google Sheets URL to CSV export URL
+            if 'docs.google.com/spreadsheets' in worksheet_url:
+                sheet_id = worksheet_url.split('/d/')[1].split('/')[0]
+                csv_url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv"
             else:
-                print(f"❌ Invalid Google Sheets URL format")
-                logger.error(f"Invalid Google Sheets URL format: {worksheet_url}")
-                return None, None
-                
-        except Exception as e:
-            print(f"❌ Error extracting data: {str(e)}")
-            logger.error(f"Error extracting data from sheet: {str(e)}")
-            return None, None
-    
-    def preprocess_feedback_data(self, df: pd.DataFrame) -> pd.DataFrame:
-        """Preprocess feedback data and identify relevant columns"""
-        try:
-            print_terminal_separator("🔧 DATA PREPROCESSING PHASE")
-            print(f"📊 Starting preprocessing for {len(df)} rows, {len(df.columns)} columns")
-            logger.info("Starting feedback data preprocessing")
+                csv_url = worksheet_url
             
-            processed_df = df.copy()
+            print(f"📥 Fetching data from: {csv_url}")
+            response = requests.get(csv_url, timeout=30)
+            response.raise_for_status()
             
-            # Common PII/irrelevant columns to exclude
-            exclude_patterns = [
-                r'name', r'fullname', r'first.*name', r'last.*name',
-                r'usn', r'registration', r'student.*id', r'email', r'phone',
-                r'mobile', r'address', r'timestamp', r'submitted.*at',
-                r'ip.*address', r'age', r'roll.*no', r'dob', r'date.*birth'
-            ]
+            # Read CSV data
+            df = pd.read_csv(StringIO(response.text))
+            print(f"✅ Successfully loaded {len(df)} rows and {len(df.columns)} columns")
             
-            # Create combined pattern
-            exclude_pattern = '|'.join(exclude_patterns)
-            columns_to_drop = [
-                col for col in processed_df.columns 
-                if re.search(exclude_pattern, col, re.IGNORECASE)
-            ]
-            
-            if columns_to_drop:
-                print(f"🗑️ Dropping {len(columns_to_drop)} irrelevant columns:")
-                for col in columns_to_drop:
-                    print(f"   - {col}")
-                logger.info(f"Dropping {len(columns_to_drop)} irrelevant columns")
-                processed_df = processed_df.drop(columns=columns_to_drop, errors='ignore')
-            
-            # Fill missing values
-            print("\n🔧 Filling missing values...")
-            missing_before = processed_df.isnull().sum().sum()
-            
-            for col in processed_df.columns:
-                if processed_df[col].dtype == 'object':
-                    processed_df[col] = processed_df[col].fillna('No response')
-                else:
-                    processed_df[col] = processed_df[col].fillna(processed_df[col].median())
-            
-            missing_after = processed_df.isnull().sum().sum()
-            print(f"✅ Filled {missing_before - missing_after} missing values")
-            
-            print(f"📊 Final processed data: {processed_df.shape}")
-            print(f"📋 Remaining columns: {list(processed_df.columns)}")
-            
-            return processed_df
-            
-        except Exception as e:
-            print(f"❌ Error in preprocessing: {str(e)}")
-            logger.error(f"Error preprocessing feedback data: {str(e)}")
             return df
-    
-    def create_documents_from_dataframe(self, df: pd.DataFrame) -> List[Document]:
-        try:
-            print_terminal_separator("📄 DOCUMENT CREATION PHASE")
-            
-            documents = []
-            
-            # Store column headers for context
-            column_headers = df.columns.tolist()
-            
-            # Identify feedback columns (text columns with substantial content)
-            text_cols = df.select_dtypes(include=['object']).columns.tolist()
-            
-            # Filter out PII columns from feedback analysis
-            exclude_patterns = [
-                r'timestamp', r'email', r'name', r'usn', r'student.*id', 
-                r'roll.*no', r'phone', r'mobile', r'address'
-            ]
-            exclude_pattern = '|'.join(exclude_patterns)
-            
-            feedback_cols = [
-                col for col in text_cols 
-                if not re.search(exclude_pattern, col, re.IGNORECASE) and
-                df[col].str.len().mean() > 3  # Lowered threshold for rating scales
-            ]
-            
-            if not feedback_cols:
-                feedback_cols = [col for col in text_cols if not re.search(exclude_pattern, col, re.IGNORECASE)][:5]
-            
-            print(f"📝 Using {len(feedback_cols)} columns for document creation:")
-            for col in feedback_cols:
-                avg_length = df[col].str.len().mean()
-                unique_values = df[col].nunique()
-                print(f"   - {col} (avg length: {avg_length:.1f}, unique values: {unique_values})")
-            
-            logger.info(f"Using {len(feedback_cols)} columns for document creation: {feedback_cols}")
-            
-            # Create documents from each row with enhanced context
-            for idx, row in df.iterrows():
-                # Create structured feedback with question-answer pairs
-                feedback_sections = []
-                metadata = {
-                    "row_index": idx, 
-                    "feedback_columns": feedback_cols,
-                    "total_columns": len(column_headers),
-                    "column_headers": column_headers
-                }
-                
-                # Add column headers as context at the beginning
-                context_header = "=== FEEDBACK FORM STRUCTURE ===\n"
-                context_header += "This feedback contains responses to the following questions/criteria:\n"
-                for i, col in enumerate(feedback_cols, 1):
-                    context_header += f"{i}. {col}\n"
-                context_header += "\n=== INDIVIDUAL RESPONSES ===\n"
-                
-                # Process each feedback column with full context
-                for col in feedback_cols:
-                    if pd.notna(row[col]) and str(row[col]).strip():
-                        # Create detailed question-answer format
-                        question_text = col
-                        response_text = str(row[col]).strip()
-                        
-                        # Enhanced formatting for better understanding
-                        feedback_entry = f"Question: {question_text}\n"
-                        feedback_entry += f"Response: {response_text}\n"
-                        
-                        # Add interpretation hints for common rating scales
-                        if response_text.lower() in ['excellent', 'very good', 'good', 'fair', 'poor']:
-                            feedback_entry += f"(Rating scale response indicating satisfaction level)\n"
-                        elif response_text.lower() in ['strongly agree', 'agree', 'neutral', 'disagree', 'strongly disagree']:
-                            feedback_entry += f"(Agreement scale response)\n"
-                        elif response_text.isdigit() and 1 <= int(response_text) <= 10:
-                            feedback_entry += f"(Numeric rating on scale)\n"
-                        
-                        feedback_sections.append(feedback_entry)
-                            
-                # Add non-feedback columns as metadata
-                for col in df.columns:
-                    if col not in feedback_cols and pd.notna(row[col]):
-                        metadata[f"meta_{col}"] = str(row[col])
-                
-                if feedback_sections:
-                    # Combine context header with individual responses
-                    combined_text = context_header + "\n".join(feedback_sections)
-                    
-                    doc = Document(
-                        page_content=combined_text,
-                        metadata=metadata
-                    )
-                    documents.append(doc)
-            
-            print(f"✅ Created {len(documents)} documents from DataFrame")
-            
-            # Show enhanced sample document
-            if documents:
-                print("\n📄 Sample Document with Context:")
-                sample_doc = documents[0]
-                print(f"Content preview: {sample_doc.page_content[:500]}...")
-                print(f"Metadata keys: {list(sample_doc.metadata.keys())}")
-            
-            logger.info(f"Created {len(documents)} documents with enhanced context")
-            return documents
             
         except Exception as e:
-            print(f"❌ Error creating documents: {str(e)}")
-            logger.error(f"Error creating documents from DataFrame: {str(e)}")
-    
-    def create_vector_store(self, documents: List[Document]) -> Optional[FAISS]:
-        """Create FAISS vector store from documents"""
+            logger.error(f"Error fetching worksheet data: {str(e)}")
+            raise Exception(f"Failed to fetch worksheet data: {str(e)}")
+
+    def generate_summary_report(self, results: Dict[str, Any]) -> str:
+        """
+        Generate an executive summary of all column analyses
+        """
+        summary_parts = []
+        summary_parts.append("# FEEDBACK ANALYSIS REPORT")
+        summary_parts.append("=" * 50)
+        summary_parts.append("")
+        
+        # Count analysis by type
+        type_counts = {}
+        for col, data in results.items():
+            col_type = data.get('type', 'unknown')
+            type_counts[col_type] = type_counts.get(col_type, 0) + 1
+        
+        summary_parts.append(f"## OVERVIEW")
+        summary_parts.append(f"Total Columns Analyzed: {len(results)}")
+        for col_type, count in type_counts.items():
+            summary_parts.append(f"- {col_type.title()} Columns: {count}")
+        summary_parts.append("")
+        
+        # Individual column summaries
+        for column, data in results.items():
+            if 'error' in data:
+                continue
+                
+            summary_parts.append(f"## {column.upper()}")
+            summary_parts.append(f"**Type:** {data['type'].title()}")
+            
+            if data['type'] in ['numerical', 'rating']:
+                analysis = data['analysis']
+                summary_parts.append(f"**Responses:** {analysis['total_responses']}")
+                summary_parts.append(f"**Average:** {analysis['mean']}")
+                if 'rating_distribution' in analysis:
+                    summary_parts.append(f"**Most Common Rating:** {analysis.get('mode', 'N/A')}")
+            
+            elif data['type'] == 'categorical':
+                analysis = data['analysis']
+                summary_parts.append(f"**Responses:** {analysis['total_responses']}")
+                summary_parts.append(f"**Most Common:** {analysis['most_common']}")
+                summary_parts.append(f"**Categories:** {analysis['unique_categories']}")
+            
+            elif data['type'] == 'text':
+                analysis = data['analysis']
+                summary_parts.append(f"**Responses:** {analysis['total_responses']}")
+                summary_parts.append(f"**Avg Length:** {analysis['avg_length']} characters")
+            
+            summary_parts.append("**Key Insights:**")
+            summary_parts.append(data['insights'])
+            summary_parts.append("")
+            summary_parts.append("-" * 40)
+            summary_parts.append("")
+        
+        return "\n".join(summary_parts)
+
+    def send_analysis_email(self, recipient_email: str, report: str, event_id: str):
+        """
+        Send analysis report via email
+        """
         try:
-            print_terminal_separator("🔍 VECTOR STORE CREATION PHASE")
+            subject = f"Feedback Analysis Report - Event {event_id}"
+            message = f"""
+            Dear User,
             
-            if not documents:
-                print("❌ No documents provided for vector store creation")
-                logger.error("No documents provided for vector store creation")
-                return None
+            Please find below the comprehensive feedback analysis report for Event {event_id}.
             
-            print(f"🔧 Creating vector store from {len(documents)} documents")
-            logger.info(f"Creating vector store from {len(documents)} documents")
+            {report}
             
-            # Split documents into chunks
-            print("✂️ Splitting documents into chunks...")
-            split_docs = self.text_splitter.split_documents(documents)
-            print(f"✅ Split into {len(split_docs)} chunks")
+            Best regards,
+            Feedback Analysis System
+            """
             
-            # Show chunk statistics
-            chunk_lengths = [len(doc.page_content) for doc in split_docs]
-            print(f"📊 Chunk statistics:")
-            print(f"   - Average length: {np.mean(chunk_lengths):.1f}")
-            print(f"   - Min/Max length: {min(chunk_lengths)}/{max(chunk_lengths)}")
-            
-            # Sample chunk
-            if split_docs:
-                print(f"\n📄 Sample chunk:")
-                print(f"{split_docs[0].page_content[:200]}...")
-            
-            logger.info(f"Split into {len(split_docs)} chunks")
-            
-            # Create vector store
-            print("🧮 Creating embeddings and building FAISS index...")
-            vector_store = FAISS.from_documents(split_docs, self.embeddings)
-            
-            print("✅ Vector store created successfully")
-            logger.info("Vector store created successfully")
-            return vector_store
-            
-        except Exception as e:
-            print(f"❌ Error creating vector store: {str(e)}")
-            logger.error(f"Error creating vector store: {str(e)}")
-            return None
-    
-    def analyze_chunk_with_llm(self, chunk_text: str, chunk_info: str) -> Dict[str, Any]:
-        """Analyze a single chunk using LLM"""
-        try:
-            print(f"\n🤖 Analyzing {chunk_info}...")
-            print(f"📝 Chunk preview: {chunk_text[:150]}...")
-            
-            # Create LLM chain
-            chain = LLMChain(
-                llm=self.llm,
-                prompt=self.chunk_analysis_template,
-                verbose=False
+            send_mail(
+                subject=subject,
+                message=message,
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[recipient_email],
+                fail_silently=False,
             )
             
-            # Generate response
-            response = chain.run(
-                feedback_data=chunk_text,
-                chunk_info=chunk_info
-            )
-            
-            print(f"📤 Raw LLM Response for {chunk_info}:")
-            print(f"{response[:500]}...")
-            
-            # Try to parse JSON response
-            json_content = self._extract_json_from_response(response)
-            if json_content:
-                print(f"✅ Successfully parsed JSON insights for {chunk_info}")
-                print_insights_section(f"Parsed Insights - {chunk_info}", json_content, 800)
-                return json_content
-            else:
-                print(f"⚠️ Could not parse JSON, using raw response for {chunk_info}")
-                return {"raw_insights": response[:1000]}
-                
-        except Exception as e:
-            print(f"❌ Error analyzing {chunk_info}: {str(e)}")
-            logger.error(f"Error analyzing chunk with LLM: {str(e)}")
-            return {"error": str(e)}
-    
-    def _extract_json_from_response(self, response: str) -> Optional[Dict[str, Any]]:
-        """Extract JSON from LLM response"""
-        try:
-            # Method 1: Look for JSON code blocks
-            json_pattern = r"```(?:json)?\s*([\s\S]*?)\s*```"
-            json_matches = re.findall(json_pattern, response)
-            
-            for json_text in json_matches:
-                try:
-                    return json.loads(json_text.strip())
-                except json.JSONDecodeError:
-                    continue
-            
-            # Method 2: Find JSON object in text
-            start = response.find("{")
-            if start >= 0:
-                stack = 1
-                for i in range(start + 1, len(response)):
-                    if response[i] == "{":
-                        stack += 1
-                    elif response[i] == "}":
-                        stack -= 1
-                        if stack == 0:
-                            try:
-                                return json.loads(response[start:i+1])
-                            except json.JSONDecodeError:
-                                break
-            
-            # Method 3: Try to clean and parse
-            cleaned = re.sub(r'(\w+):', r'"\1":', response)  # Add quotes to keys
-            cleaned = cleaned.replace("'", '"')  # Replace single quotes
-            
-            json_match = re.search(r'\{[^{}]*\}', cleaned)
-            if json_match:
-                try:
-                    return json.loads(json_match.group())
-                except json.JSONDecodeError:
-                    pass
-            
-            return None
+            print(f"✅ Analysis report sent to {recipient_email}")
+            return True
             
         except Exception as e:
-            logger.error(f"Error extracting JSON from response: {str(e)}")
-            return None
-    
-    def process_feedback_with_rag(self, df: pd.DataFrame) -> Dict[str, Any]:
-        """Main RAG processing pipeline"""
-        try:
-            print_terminal_separator("🚀 MAIN RAG PROCESSING PIPELINE")
-            print(f"🎯 Processing {len(df)} rows of feedback data")
-            logger.info(f"Starting RAG processing for {len(df)} rows")
-            
-            # 1. Preprocess data
-            print("\n📊 Step 1: Data Preprocessing")
-            processed_df = self.preprocess_feedback_data(df)
-            
-            # 2. Create documents
-            print("\n📄 Step 2: Document Creation")
-            documents = self.create_documents_from_dataframe(processed_df)
-            if not documents:
-                print("❌ Failed to create documents")
-                return {"error": "Failed to create documents from data"}
-            
-            # 3. Create vector store
-            print("\n🔍 Step 3: Vector Store Creation")
-            vector_store = self.create_vector_store(documents)
-            if not vector_store:
-                print("❌ Failed to create vector store")
-                return {"error": "Failed to create vector store"}
-            
-            # 4. Analyze chunks in parallel
-            print("\n🤖 Step 4: Chunk Analysis")
-            chunk_insights = self._analyze_chunks_parallel(documents)
-            
-            if not chunk_insights:
-                print("❌ Failed to generate insights from any chunks")
-                return {"error": "Failed to generate insights from any chunks"}
-            
-            print_insights_section("ALL CHUNK INSIGHTS", chunk_insights)
-            
-            # 5. Synthesize insights
-            print("\n🔄 Step 5: Insight Synthesis")
-            if len(chunk_insights) == 1:
-                print("ℹ️ Single chunk processed, returning direct insights")
-                logger.info("Single chunk processed, returning direct insights")
-                final_insights = chunk_insights[0]
-            else:
-                final_insights = self._synthesize_insights(chunk_insights)
-                print_insights_section("SYNTHESIZED INSIGHTS", final_insights)
-            
-            # 6. Add RAG-specific enhancements
-            print("\n🔍 Step 6: RAG Enhancement")
-            enhanced_insights = self._enhance_with_rag_queries(
-                vector_store, final_insights
-            )
-            
-            print_insights_section("FINAL ENHANCED INSIGHTS", enhanced_insights)
-            
-            return enhanced_insights
-            
-        except Exception as e:
-            print(f"❌ Error in RAG processing: {str(e)}")
-            logger.error(f"Error in RAG processing: {str(e)}")
-            return {"error": str(e)}
-    
-    def _analyze_chunks_parallel(self, documents: List[Document]) -> List[Dict[str, Any]]:
-        """Enhanced parallel chunk analysis with better context preservation"""
-        try:
-            print_terminal_separator("⚡ PARALLEL CHUNK ANALYSIS WITH CONTEXT")
-            
-            # Ensure we don't lose context by making chunks too small
-            # For feedback data, we want to maintain question-answer relationships
-            min_chunk_size = max(5, len(documents) // 6)  # Larger chunks to preserve context
-            processing_chunks = [
-                documents[i:i + min_chunk_size] 
-                for i in range(0, len(documents), min_chunk_size)
-            ]
-            
-            print(f"📦 Processing {len(processing_chunks)} chunks in parallel")
-            print(f"📊 Chunk sizes: {[len(chunk) for chunk in processing_chunks]}")
-            logger.info(f"Processing {len(processing_chunks)} chunks with enhanced context")
-            
-            insights = []
-            max_workers = min(3, len(processing_chunks))
-            
-            with ThreadPoolExecutor(max_workers=max_workers) as executor:
-                futures = []
-                
-                for i, chunk_docs in enumerate(processing_chunks):
-                    # Preserve the context structure when combining documents
-                    combined_sections = []
-                    
-                    # Extract column headers from first document for context
-                    if chunk_docs and 'column_headers' in chunk_docs[0].metadata:
-                        headers = chunk_docs[0].metadata['column_headers']
-                        context_intro = f"=== FEEDBACK ANALYSIS CONTEXT ===\n"
-                        context_intro += f"This chunk contains feedback responses to {len(headers)} questions/criteria.\n"
-                        context_intro += f"Total responses in this chunk: {len(chunk_docs)}\n\n"
-                        combined_sections.append(context_intro)
-                    
-                    # Combine documents while preserving individual response structure
-                    for j, doc in enumerate(chunk_docs):
-                        response_header = f"--- RESPONSE {j+1} ---\n"
-                        combined_sections.append(response_header + doc.page_content)
-                    
-                    combined_text = "\n\n".join(combined_sections)
-                    chunk_info = f"Chunk {i+1}/{len(processing_chunks)} ({len(chunk_docs)} responses)"
-                    
-                    print(f"🚀 Submitting {chunk_info} for contextual analysis")
-                    print(f"📝 Combined text length: {len(combined_text)} characters")
-                    
-                    future = executor.submit(
-                        self.analyze_chunk_with_llm, 
-                        combined_text, 
-                        chunk_info
-                    )
-                    futures.append(future)
-                
-                # Collect results with better error handling
-                for i, future in enumerate(as_completed(futures)):
-                    try:
-                        result = future.result(timeout=90)  # Increased timeout for better analysis
-                        if "error" not in result:
-                            insights.append(result)
-                            print(f"✅ Successfully processed contextual chunk {i+1}")
-                            
-                            # Show preview of insights
-                            if isinstance(result, dict) and 'overall_satisfaction' in result:
-                                print(f"   📊 Satisfaction: {result.get('overall_satisfaction', 'N/A')}")
-                            
-                            logger.info(f"Successfully processed contextual chunk {i+1}")
-                        else:
-                            print(f"⚠️ Error in chunk {i+1}: {result.get('error')}")
-                            logger.warning(f"Error in chunk {i+1}: {result.get('error')}")
-                    except Exception as e:
-                        print(f"❌ Exception processing chunk {i+1}: {str(e)}")
-                        logger.error(f"Exception processing chunk {i+1}: {str(e)}")
-            
-            print(f"📊 Collected {len(insights)} successful contextual chunk analyses")
-            return insights
-            
-        except Exception as e:
-            print(f"❌ Error in parallel chunk analysis: {str(e)}")
-            logger.error(f"Error in parallel chunk analysis: {str(e)}")
-            return []
-    
-    def _synthesize_insights(self, chunk_insights: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """Synthesize insights from multiple chunks"""
-        try:
-            print_terminal_separator("🔄 INSIGHT SYNTHESIS")
-            print(f"🧠 Synthesizing insights from {len(chunk_insights)} chunks")
-            logger.info(f"Synthesizing insights from {len(chunk_insights)} chunks")
-            
-            # Create synthesis chain
-            chain = LLMChain(
-                llm=self.llm,
-                prompt=self.synthesis_template,
-                verbose=False
-            )
-            
-            # Prepare insights for synthesis
-            insights_text = json.dumps(chunk_insights, ensure_ascii=False, indent=2)
-            print(f"📝 Input for synthesis (length: {len(insights_text)} chars)")
-            
-            # Generate synthesis
-            print("🤖 Generating synthesis...")
-            response = chain.run(
-                chunk_insights=insights_text,
-                total_chunks=len(chunk_insights)
-            )
-            
-            print(f"📤 Raw synthesis response:")
-            print(f"{response[:800]}...")
-            
-            # Parse response
-            json_content = self._extract_json_from_response(response)
-            if json_content:
-                print("✅ Successfully parsed synthesis JSON")
-                return json_content
-            else:
-                print("⚠️ Could not parse synthesis JSON, using raw response")
-                return {"raw_synthesis": response[:2000]}
-                
-        except Exception as e:
-            print(f"❌ Error synthesizing insights: {str(e)}")
-            logger.error(f"Error synthesizing insights: {str(e)}")
-            return {"error": str(e)}
-    
-    def _enhance_with_rag_queries(self, vector_store: FAISS, insights: Dict[str, Any]) -> Dict[str, Any]:
-        """Enhanced RAG queries with context-aware questions"""
-        try:
-            print_terminal_separator("🔍 CONTEXT-AWARE RAG ENHANCEMENT")
-            print("🚀 Enhancing insights with context-aware RAG queries")
-            logger.info("Enhancing insights with context-aware RAG queries")
-            
-            # Enhanced context-aware queries
-            enhancement_queries = [
-                "Which specific questions or criteria received the highest ratings and what do students appreciate most?",
-                "Which specific questions or criteria received the lowest ratings and what are the main concerns?",
-                "What are the most frequently mentioned improvement suggestions in the text responses?",
-                "Are there any patterns between different criteria - do students who rate one area highly also rate others highly?",
-                "What specific aspects of the course/program do students find most valuable based on their ratings?",
-                "What are the main pain points or challenges mentioned across different feedback criteria?"
-            ]
-            
-            enhanced_insights = insights.copy()
-            rag_enhancements = {}
-            
-            # Create retrieval chain with enhanced prompt
-            chain = LLMChain(
-                llm=self.llm,
-                prompt=self.retrieval_template,
-                verbose=False
-            )
-            
-            for i, query in enumerate(enhancement_queries, 1):
-                try:
-                    print(f"\n🔍 Context-Aware Query {i}/{len(enhancement_queries)}:")
-                    print(f"   {query}")
-                    
-                    # Retrieve relevant documents with higher k for better context
-                    relevant_docs = vector_store.similarity_search(query, k=5)
-                    
-                    if relevant_docs:
-                        print(f"📄 Found {len(relevant_docs)} relevant documents")
-                        
-                        # Show retrieved content preview with context
-                        for j, doc in enumerate(relevant_docs):
-                            # Extract question context if available
-                            content_preview = doc.page_content[:150].replace('\n', ' ')
-                            print(f"   Doc {j+1}: {content_preview}...")
-                        
-                        # Combine retrieved content while preserving question-answer structure
-                        context_sections = []
-                        for doc in relevant_docs:
-                            if "Question:" in doc.page_content:
-                                # This document has structured Q&A format
-                                context_sections.append(doc.page_content)
-                            else:
-                                # Add structure to unstructured content
-                                context_sections.append(f"Feedback Content:\n{doc.page_content}")
-                        
-                        context = "\n\n---\n\n".join(context_sections)
-                        
-                        # Generate enhanced response with context awareness
-                        print(f"🤖 Generating context-aware enhancement response...")
-                        response = chain.run(context=context, question=query)
-                        
-                        print(f"📤 Enhancement response preview: {response[:200]}...")
-                        
-                        # Store enhancement with better key naming
-                        query_key = f"insight_{i}_{query.split()[1:4]}"  # Use first few words
-                        query_key = re.sub(r'[^\w]', '_', query_key.lower())
-                        
-                        rag_enhancements[query_key] = {
-                            "query": query,
-                            "response": response[:800],  # Increased length for detailed insights
-                            "relevant_docs_count": len(relevant_docs)
-                        }
-                        
-                        print(f"✅ Successfully processed context-aware query {i}")
-                        
-                    else:
-                        print(f"⚠️ No relevant documents found for query {i}")
-                        
-                except Exception as e:
-                    print(f"❌ Error processing enhancement query {i}: {str(e)}")
-                    logger.warning(f"Error processing enhancement query '{query}': {str(e)}")
-                    continue
-            
-            if rag_enhancements:
-                enhanced_insights["contextual_rag_analysis"] = rag_enhancements
-                print(f"✅ Added {len(rag_enhancements)} context-aware RAG enhancements")
-                print_insights_section("CONTEXT-AWARE RAG ENHANCEMENTS", rag_enhancements)
-            else:
-                print("⚠️ No context-aware RAG enhancements were generated")
-            
-            return enhanced_insights
-            
-        except Exception as e:
-            print(f"❌ Error enhancing with context-aware RAG queries: {str(e)}")
-            logger.error(f"Error enhancing with context-aware RAG queries: {str(e)}")
-            return insights
-    
-    def _check_ollama_health(self) -> bool:
-        """Check if Ollama service is available"""
-        try:
-            print("🏥 Checking Ollama health...")
-            health_url = f"{self.ollama_base_url}/api/version"
-            response = requests.get(health_url, timeout=5)
-            is_healthy = response.status_code == 200
-            if is_healthy:
-                print("✅ Ollama service is healthy")
-            else:
-                print(f"❌ Ollama service unhealthy: HTTP {response.status_code}")
-            return is_healthy
-        except Exception as e:
-            print(f"❌ Ollama health check failed: {str(e)}")
+            logger.error(f"Error sending email: {str(e)}")
             return False
-    
+
     def post(self, request, *args, **kwargs):
         """Main API endpoint"""
         print_terminal_separator("🎯 RAG FEEDBACK ANALYSIS REQUEST")
         logger.info("Received LangChain RAG feedback analysis request")
         
         event_id = request.data.get('event_id')
+        recipient_email = request.data.get('recipient_email', 'sathwikshetty9876@gmail.com')
+        
         print(f"📋 Event ID: {event_id}")
+        print(f"📧 Recipient Email: {recipient_email}")
         
         if not event_id:
             print("❌ Request missing required 'event_id' parameter")
@@ -920,125 +705,63 @@ class LangChainRAGInsightsView(APIView):
             return Response({"error": "Event ID is required"}, status=status.HTTP_400_BAD_REQUEST)
         
         try:
-            # Check Ollama health
-            if not self._check_ollama_health():
-                print("❌ Ollama service is unavailable")
-                return Response({
-                    "error": "Ollama service unavailable",
-                    "details": f"Cannot connect to {self.ollama_base_url}"
-                }, status=status.HTTP_503_SERVICE_UNAVAILABLE)
-            
-            # Get event
-            print(f"🔍 Fetching event with ID: {event_id}")
+            # Get event and worksheet URL (assuming you have an Event model)
+            from home.models import Event  # Adjust import based on your models
             event = Event.objects.get(id=event_id)
-            print(f"✅ Found event: {event.name}")
+            worksheet_url = event.worksheet_url
             
-            # Permission check
-            if not request.user.is_staff:
-                print("❌ Permission denied - user is not staff")
-                return Response({"error": "Permission denied"}, status=status.HTTP_403_FORBIDDEN)
-            print("✅ Permission check passed")
-            
-            # Check worksheet URL
-            if not event.worksheet_url:
-                print("❌ Event has no associated worksheet URL")
-                return Response({"error": "Event has no associated worksheet URL"}, 
+            if not worksheet_url:
+                return Response({"error": "No worksheet URL found for this event"}, 
                               status=status.HTTP_400_BAD_REQUEST)
-            print(f"✅ Worksheet URL found: {event.worksheet_url}")
             
-            # Extract data
-            df, data = self.extract_data_from_sheet(event.worksheet_url)
+            # Initialize RAG analyzer
+            analyzer = FeedbackRAGAnalyzer(
+                ollama_base_url=self.ollama_base_url,
+                model_name=self.model_name,
+                chunk_size=self.chunk_size,
+                chunk_overlap=self.chunk_overlap
+            )
             
-            if df is None or data is None:
-                print("❌ Could not extract data from Google Sheet")
-                return Response({
-                    "error": "Could not extract data from Google Sheet",
-                    "details": "Please ensure the sheet is publicly accessible"
-                }, status=status.HTTP_400_BAD_REQUEST)
+            # Fetch and preprocess data
+            print("📊 Starting data analysis...")
+            df = self.fetch_worksheet_data(worksheet_url)
             
-            # Limit dataset size for Qwen 0.5B
-            original_size = len(df)
-            if len(df) > 50:
-                print(f"⚠️ Large dataset detected ({len(df)} rows). Sampling to 50 rows.")
-                logger.warning(f"Large dataset detected ({len(df)} rows). Sampling to 50 rows.")
-                df = df.sample(n=50, random_state=42)
-                print(f"📊 Dataset size reduced from {original_size} to {len(df)} rows")
+            # Limit rows for performance
+            if len(df) > self.max_processing_rows:
+                print(f"⚠️ Limiting analysis to {self.max_processing_rows} rows for performance")
+                df = df.head(self.max_processing_rows)
             
-            # Process with timeout
-            print_terminal_separator("⏱️ PROCESSING WITH TIMEOUT")
-            print("🚀 Starting processing thread...")
+            # Preprocess columns
+            processed_df, column_types = analyzer.preprocess_columns(df)
             
-            result_queue = queue.Queue()
+            if processed_df.empty:
+                return Response({"error": "No relevant columns found for analysis"}, 
+                              status=status.HTTP_400_BAD_REQUEST)
             
-            def process_with_timeout():
-                try:
-                    print("🔄 Processing thread started")
-                    insights = self.process_feedback_with_rag(df)
-                    print("✅ Processing thread completed successfully")
-                    result_queue.put(("success", insights))
-                except Exception as e:
-                    print(f"❌ Processing thread failed: {str(e)}")
-                    result_queue.put(("error", str(e)))
+            # Analyze all columns
+            print("🔍 Performing column-wise analysis...")
+            results = analyzer.analyze_all_columns(processed_df, column_types)
             
-            # Start processing thread
-            process_thread = threading.Thread(target=process_with_timeout)
-            process_thread.daemon = True
-            process_thread.start()
+            # Generate summary report
+            summary_report = self.generate_summary_report(results)
             
-            # Wait for results with timeout
-            timeout = 120  # 2 minutes for Qwen 0.5B
-            print(f"⏳ Waiting for results (timeout: {timeout}s)...")
-            process_thread.join(timeout)
+            # Send email
+            email_sent = self.send_analysis_email(recipient_email, summary_report, event_id)
             
-            if process_thread.is_alive():
-                print(f"❌ Processing timed out after {timeout} seconds")
-                logger.error(f"Processing timed out after {timeout} seconds")
-                return Response({
-                    "error": "Processing timed out",
-                    "details": "Try with a smaller dataset"
-                }, status=status.HTTP_408_REQUEST_TIMEOUT)
+            print_terminal_separator("✅ ANALYSIS COMPLETE")
             
-            # Get results
-            if not result_queue.empty():
-                status_code, insights = result_queue.get()
-                
-                if status_code == "error":
-                    print(f"❌ Error generating insights: {insights}")
-                    return Response({
-                        "error": "Error generating insights",
-                        "details": insights
-                    }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-                
-                print_terminal_separator("🎉 SUCCESS - FINAL RESULTS")
-                print(f"✅ Successfully generated LangChain RAG insights for event {event_id}")
-                print(f"📊 Event: {event.name}")
-                print(f"🤖 Model: {self.model_name}")
-                print(f"📝 Processed rows: {len(df)}")
-                
-                print_insights_section("COMPLETE FINAL INSIGHTS", insights, 2000)
-                
-                logger.info(f"Successfully generated LangChain RAG insights for event {event_id}")
-                
-                response_data = {
-                    "event_name": event.name,
-                    "insights": insights,
-                    "method": "LangChain RAG",
-                    "model": self.model_name,
-                    "processed_rows": len(df)
-                }
-                
-                print("\n📤 Returning response to client")
-                return Response(response_data)
-            else:
-                print("❌ No results generated")
-                return Response({
-                    "error": "No results generated"
-                }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-                
+            return Response({
+                "status": "success",
+                "message": "Feedback analysis completed successfully",
+                "event_id": event_id,
+                "columns_analyzed": len(results),
+                "email_sent": email_sent,
+                "summary": summary_report[:500] + "..." if len(summary_report) > 500 else summary_report
+            }, status=status.HTTP_200_OK)
+            
         except Event.DoesNotExist:
-            print(f"❌ Event not found: {event_id}")
             return Response({"error": "Event not found"}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
-            print(f"❌ Unexpected error: {str(e)}")
-            logger.error(f"Unexpected error: {str(e)}")
+            logger.error(f"Error in feedback analysis: {str(e)}")
+            print(f"❌ Analysis failed: {str(e)}")
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
