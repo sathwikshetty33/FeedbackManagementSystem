@@ -346,7 +346,7 @@ class FeedbackRAGAnalyzer:
         return analysis, all_text
 
     def generate_column_insights(self, column_name: str, analysis_data: Dict[str, Any], 
-                           all_text: str = None) -> str:
+                       all_text: str = None) -> str:
         print(f"🧠 Generating insights for column: {column_name}")
         
         documents = []
@@ -408,49 +408,57 @@ class FeedbackRAGAnalyzer:
             )
             
             if analysis_data.get('type') in ['numerical', 'rating']:
-                prompt_template = f"""Analyze the feedback data for column '{column_name}' with these specific metrics:
-                - Total responses: {analysis_data.get('total_responses', 0)}
-                - Average rating: {analysis_data.get('mean', 'N/A')}
-                - Rating range: {analysis_data.get('min_value', 'N/A')} to {analysis_data.get('max_value', 'N/A')}
+                mean_val = analysis_data.get('mean', 0)
+                total_responses = analysis_data.get('total_responses', 0)
                 
-                Context: {{context}}
+                prompt_template = f"""Based on the following EXACT data for column '{column_name}':
+                - Total responses: {total_responses}
+                - Average score: {mean_val}
+                - Score range: {analysis_data.get('min_value', 'N/A')} to {analysis_data.get('max_value', 'N/A')}
                 
-                Provide concise insights about what these specific ratings mean for this column only:
-                1. Performance assessment based on the actual average score
-                2. What the rating distribution reveals
-                3. Specific recommendations for this metric
+                Context from data: {{context}}
                 
-                Focus only on the data provided and avoid generic statements."""
+                Provide ONLY factual analysis based on this specific data:
+                1. What this average score of {mean_val} indicates for performance
+                2. How the {total_responses} responses distribute across the scale
+                3. One specific, actionable recommendation based on this score
+                
+                Do not add general advice. Focus strictly on what this data shows."""
                 
             elif analysis_data.get('type') == 'categorical':
-                prompt_template = f"""Analyze the categorical feedback for column '{column_name}' with these specifics:
-                - Total responses: {analysis_data.get('total_responses', 0)}
-                - Most common choice: {analysis_data.get('most_common', 'N/A')}
-                - Number of categories: {analysis_data.get('unique_categories', 0)}
+                most_common = analysis_data.get('most_common', 'N/A')
+                total_responses = analysis_data.get('total_responses', 0)
                 
-                Context: {{context}}
+                prompt_template = f"""Based on the following EXACT data for column '{column_name}':
+                - Total responses: {total_responses}
+                - Most selected option: {most_common}
+                - Number of different options: {analysis_data.get('unique_categories', 0)}
                 
-                Provide specific insights about this column's response patterns:
-                1. What the most common response indicates
-                2. Distribution significance
-                3. Actionable insights based on actual responses
+                Context from data: {{context}}
                 
-                Keep analysis specific to the actual data shown."""
+                Provide ONLY factual analysis based on this specific data:
+                1. What the selection of '{most_common}' as the top choice indicates
+                2. How responses are distributed across the available options
+                3. One specific insight based on this distribution pattern
+                
+                Do not add general recommendations. Focus on what this data reveals."""
                 
             else:
-                prompt_template = f"""Analyze the text feedback for column '{column_name}' with these details:
-                - Total responses: {analysis_data.get('total_responses', 0)}
-                - Average response length: {analysis_data.get('avg_length', 0)} characters
+                total_responses = analysis_data.get('total_responses', 0)
+                avg_length = analysis_data.get('avg_length', 0)
                 
-                Context: {{context}}
+                prompt_template = f"""Based on the following EXACT data for column '{column_name}':
+                - Total text responses: {total_responses}
+                - Average response length: {avg_length} characters
                 
-                Analyze only the actual text content provided:
-                1. Main themes from the responses
-                2. Common sentiments expressed
-                3. Specific suggestions or concerns mentioned
-                4. Actionable recommendations based on actual feedback
+                Context from actual responses: {{context}}
                 
-                Base analysis strictly on the provided text content."""
+                Analyze ONLY the provided text content:
+                1. Main themes that appear in the actual responses
+                2. Common patterns or sentiments expressed
+                3. Specific points mentioned by respondents
+                
+                Base analysis strictly on the provided text. Do not add general suggestions."""
             
             custom_prompt = PromptTemplate(
                 template=prompt_template,
@@ -479,7 +487,7 @@ class FeedbackRAGAnalyzer:
                 verbose=False
             )
             
-            query = f"Analyze the {column_name} data based on the specific metrics provided"
+            query = f"Analyze the specific data for {column_name} based on the provided metrics"
             try:
                 result = qa_chain.invoke({"query": query})
                 insights = result.get('result', '') if isinstance(result, dict) else str(result)
@@ -499,58 +507,56 @@ class FeedbackRAGAnalyzer:
                 total = analysis_data.get('total_responses', 0)
                 
                 if analysis_data.get('type') == 'rating':
-                    if mean_val >= 4:
-                        return f"The {column_name} shows excellent performance with an average rating of {mean_val}/5 from {total} responses. This indicates high satisfaction levels and the current approach is working well."
-                    elif mean_val >= 3:
-                        return f"The {column_name} has a moderate rating of {mean_val}/5 from {total} responses. There's room for improvement to enhance satisfaction in this area."
+                    if mean_val >= 4.0:
+                        return f"The {column_name} shows strong performance with an average rating of {mean_val} from {total} responses. This indicates high satisfaction levels."
+                    elif mean_val >= 3.0:
+                        return f"The {column_name} has a moderate rating of {mean_val} from {total} responses. Performance is acceptable but has room for improvement."
                     else:
-                        return f"The {column_name} rating of {mean_val}/5 from {total} responses indicates significant concerns that need immediate attention and improvement."
+                        return f"The {column_name} rating of {mean_val} from {total} responses indicates areas that need attention and improvement."
                 else:
-                    return f"The {column_name} shows numerical values averaging {mean_val}, ranging from {analysis_data.get('min_value')} to {analysis_data.get('max_value')} across {total} responses."
+                    return f"The {column_name} shows an average value of {mean_val} across {total} responses, ranging from {analysis_data.get('min_value')} to {analysis_data.get('max_value')}."
                     
             elif analysis_data.get('type') == 'categorical':
                 most_common = analysis_data.get('most_common', '')
                 total = analysis_data.get('total_responses', 0)
                 categories = analysis_data.get('unique_categories', 0)
                 
-                return f"For {column_name}, '{most_common}' is the most selected option among {total} responses across {categories} categories. This indicates a clear preference pattern in the feedback."
+                return f"For {column_name}, '{most_common}' was selected most frequently among {total} responses across {categories} available options."
                     
             elif analysis_data.get('type') == 'text':
                 total = analysis_data.get('total_responses', 0)
                 avg_length = analysis_data.get('avg_length', 0)
                 
-                return f"The {column_name} received {total} text responses with an average length of {avg_length:.1f} characters, indicating {'detailed' if avg_length > 50 else 'brief'} feedback from participants."
+                return f"The {column_name} received {total} text responses with an average length of {avg_length:.0f} characters, indicating {'detailed' if avg_length > 50 else 'brief'} participant feedback."
             
         except Exception as fallback_error:
             logger.error(f"Fallback analysis failed for {column_name}: {str(fallback_error)}")
             return self._generate_basic_insights(column_name, analysis_data)
-    
 
     
     def _generate_basic_insights(self, column_name: str, analysis_data: Dict[str, Any]) -> str:
-        insights = [f"Analysis for {column_name}:"]
+        insights = []
         
         if analysis_data.get('type') in ['numerical', 'rating']:
             mean_val = analysis_data.get('mean', 0)
             total = analysis_data.get('total_responses', 0)
             
             if analysis_data.get('type') == 'rating':
-                if mean_val >= 4:
-                    insights.append("• Overall performance is excellent - participants are highly satisfied")
-                    insights.append("• This aspect is working well and should be maintained")
-                elif mean_val >= 3:
-                    insights.append("• Performance is good but there's room for improvement")
-                    insights.append("• Consider gathering more detailed feedback to identify specific areas for enhancement")
+                if mean_val >= 4.0:
+                    insights.append(f"• Excellent performance with {mean_val:.1f} average rating from {total} participants")
+                    insights.append("• High satisfaction levels indicate this aspect is working well")
+                elif mean_val >= 3.0:
+                    insights.append(f"• Good performance with {mean_val:.1f} average rating from {total} participants")
+                    insights.append("• Room for improvement to reach higher satisfaction levels")
                 else:
-                    insights.append("• This area needs immediate attention - satisfaction levels are concerning")
-                    insights.append("• Priority should be given to understanding and addressing the underlying issues")
+                    insights.append(f"• Needs attention with {mean_val:.1f} average rating from {total} participants")
+                    insights.append("• Priority area for improvement to address participant concerns")
                     
-                insights.append(f"• Based on {total} participant responses")
                 if 'rating_distribution' in analysis_data:
                     mode = analysis_data.get('mode')
-                    insights.append(f"• Most participants gave a rating of {mode}")
+                    insights.append(f"• Most participants rated this aspect as {mode}")
             else:
-                insights.append(f"• Average value: {mean_val}")
+                insights.append(f"• Average value of {mean_val:.1f} from {total} responses")
                 insights.append(f"• Values range from {analysis_data.get('min_value')} to {analysis_data.get('max_value')}")
                 
         elif analysis_data.get('type') == 'categorical':
@@ -558,31 +564,30 @@ class FeedbackRAGAnalyzer:
             total = analysis_data.get('total_responses', 0)
             categories = analysis_data.get('unique_categories', 0)
             
-            insights.append(f"• {total} participants responded across {categories} different options")
-            insights.append(f"• '{most_common}' is the clear preference among participants")
+            insights.append(f"• {total} participants responded across {categories} available options")
+            insights.append(f"• '{most_common}' was the most selected choice")
             
             if 'distribution' in analysis_data:
                 dist = analysis_data['distribution']
                 if most_common and most_common in dist:
                     percentage = (dist[most_common] / total) * 100
-                    insights.append(f"• {percentage:.1f}% of participants chose '{most_common}'")
+                    insights.append(f"• {percentage:.1f}% of participants selected '{most_common}'")
                     
         elif analysis_data.get('type') == 'text':
             total = analysis_data.get('total_responses', 0)
             avg_length = analysis_data.get('avg_length', 0)
             
             insights.append(f"• Received {total} detailed text responses")
-            insights.append(f"• Average response length: {avg_length:.1f} characters")
+            insights.append(f"• Average response length of {avg_length:.0f} characters")
             
             if avg_length > 50:
-                insights.append("• Participants provided detailed feedback, showing high engagement")
+                insights.append("• Participants provided detailed feedback showing high engagement")
             elif avg_length > 20:
-                insights.append("• Responses are moderately detailed")
+                insights.append("• Responses show moderate detail in participant feedback")
             else:
-                insights.append("• Responses are brief - consider asking more specific questions to encourage detailed feedback")
+                insights.append("• Brief responses indicate participants provided concise feedback")
         
         return "\n".join(insights)
-
     def analyze_all_columns(self, df: pd.DataFrame, column_types: Dict[str, str]) -> Dict[str, Any]:
         results = {}
         
@@ -651,132 +656,147 @@ async def fetch_worksheet_data(worksheet_url: str) -> pd.DataFrame:
     
     return await loop.run_in_executor(None, _fetch)
 
-def generate_summary_report( results: Dict[str, Any]) -> str:
-        html_parts = []
-        
-        html_parts.append("""
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <style>
-                body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 1200px; margin: 0 auto; padding: 20px; }
-                .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 10px; text-align: center; margin-bottom: 30px; }
-                .overview { background: #f8f9ff; padding: 20px; border-radius: 8px; margin-bottom: 30px; border-left: 5px solid #667eea; }
-                .column-section { background: white; margin-bottom: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); overflow: hidden; }
-                .column-header { background: #667eea; color: white; padding: 15px 20px; margin: 0; }
-                .column-content { padding: 20px; }
-                .stats { display: flex; gap: 20px; margin: 15px 0; flex-wrap: wrap; }
-                .stat-item { background: #f0f2ff; padding: 10px 15px; border-radius: 5px; flex: 1; min-width: 120px; }
-                .stat-label { font-size: 12px; color: #666; text-transform: uppercase; }
-                .stat-value { font-size: 18px; font-weight: bold; color: #667eea; }
-                .insights { background: #f9f9f9; padding: 15px; border-radius: 5px; margin-top: 15px; }
-                .type-badge { background: #764ba2; color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; display: inline-block; }
-            </style>
-        </head>
-        <body>
+def generate_summary_report(results: Dict[str, Any]) -> str:
+    html_parts = []
+    
+    html_parts.append("""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 1200px; margin: 0 auto; padding: 20px; background-color: #f5f7fa; }
+            .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px; border-radius: 15px; text-align: center; margin-bottom: 30px; box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3); }
+            .header h1 { margin: 0; font-size: 2.5em; font-weight: 700; }
+            .header p { margin: 10px 0 0 0; font-size: 1.2em; opacity: 0.9; }
+            .overview { background: linear-gradient(135deg, #f8f9ff 0%, #e8f2ff 100%); padding: 25px; border-radius: 12px; margin-bottom: 30px; border: 1px solid #e1e8f0; }
+            .overview h2 { color: #667eea; margin-top: 0; font-size: 1.8em; font-weight: 600; }
+            .overview p { margin: 8px 0; font-size: 1.1em; }
+            .column-section { background: white; margin-bottom: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); overflow: hidden; border: 1px solid #e8eef5; }
+            .column-header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; margin: 0; font-size: 1.4em; font-weight: 600; }
+            .column-content { padding: 25px; }
+            .stats { display: flex; gap: 20px; margin: 20px 0; flex-wrap: wrap; }
+            .stat-item { background: linear-gradient(135deg, #f0f4ff 0%, #e8f2ff 100%); padding: 15px 20px; border-radius: 10px; flex: 1; min-width: 140px; border: 1px solid #d6e3f0; }
+            .stat-label { font-size: 13px; color: #5a6c7d; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; }
+            .stat-value { font-size: 24px; font-weight: 700; color: #667eea; margin-top: 5px; }
+            .insights { background: #f9fafb; padding: 20px; border-radius: 10px; margin-top: 20px; border-left: 4px solid #667eea; }
+            .insights h4 { color: #667eea; margin-top: 0; font-size: 1.2em; font-weight: 600; }
+            .insights p { margin: 10px 0 0 0; font-size: 1em; line-height: 1.7; }
+            .insights ul { margin: 10px 0; padding-left: 20px; }
+            .insights li { margin: 8px 0; font-size: 1em; line-height: 1.6; }
+            .type-badge { background: linear-gradient(135deg, #764ba2 0%, #667eea 100%); color: white; padding: 6px 16px; border-radius: 25px; font-size: 12px; display: inline-block; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+            .highlight { font-weight: 600; color: #667eea; }
+            .metric-highlight { font-weight: 700; color: #2c3e50; }
+        </style>
+    </head>
+    <body>
+    """)
+    
+    html_parts.append("""
+        <div class="header">
+            <h1>📊 FEEDBACK ANALYSIS REPORT</h1>
+            <p>Comprehensive analysis of participant feedback and responses</p>
+        </div>
+    """)
+    
+    type_counts = {}
+    for col, data in results.items():
+        col_type = data.get('type', 'unknown')
+        type_counts[col_type] = type_counts.get(col_type, 0) + 1
+    
+    html_parts.append(f"""
+        <div class="overview">
+            <h2>📋 OVERVIEW</h2>
+            <p><span class="highlight">Total Columns Analyzed:</span> <span class="metric-highlight">{len(results)}</span></p>
+    """)
+    
+    for col_type, count in type_counts.items():
+        html_parts.append(f"<p><span class=\"highlight\">{col_type.title()} Columns:</span> <span class=\"metric-highlight\">{count}</span></p>")
+    
+    html_parts.append("</div>")
+    
+    for column, data in results.items():
+        if 'error' in data:
+            continue
+            
+        html_parts.append(f"""
+            <div class="column-section">
+                <h2 class="column-header">{column.upper()}</h2>
+                <div class="column-content">
+                    <span class="type-badge">{data['type'].title()}</span>
+                    <div class="stats">
         """)
         
-        html_parts.append("""
-            <div class="header">
-                <h1>📊 FEEDBACK ANALYSIS REPORT</h1>
-                <p>Comprehensive analysis of participant feedback and responses</p>
-            </div>
-        """)
+        if data['type'] in ['numerical', 'rating']:
+            analysis = data['analysis']
+            html_parts.append(f"""
+                        <div class="stat-item">
+                            <div class="stat-label">Total Responses</div>
+                            <div class="stat-value">{analysis['total_responses']}</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Average Score</div>
+                            <div class="stat-value">{analysis['mean']}</div>
+                        </div>
+            """)
+            if 'rating_distribution' in analysis and analysis.get('mode'):
+                html_parts.append(f"""
+                        <div class="stat-item">
+                            <div class="stat-label">Most Common Rating</div>
+                            <div class="stat-value">{analysis.get('mode', 'N/A')}</div>
+                        </div>
+                """)
         
-        type_counts = {}
-        for col, data in results.items():
-            col_type = data.get('type', 'unknown')
-            type_counts[col_type] = type_counts.get(col_type, 0) + 1
+        elif data['type'] == 'categorical':
+            analysis = data['analysis']
+            html_parts.append(f"""
+                        <div class="stat-item">
+                            <div class="stat-label">Total Responses</div>
+                            <div class="stat-value">{analysis['total_responses']}</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Most Selected</div>
+                            <div class="stat-value">{analysis['most_common']}</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Total Options</div>
+                            <div class="stat-value">{analysis['unique_categories']}</div>
+                        </div>
+            """)
+        
+        elif data['type'] == 'text':
+            analysis = data['analysis']
+            html_parts.append(f"""
+                        <div class="stat-item">
+                            <div class="stat-label">Total Responses</div>
+                            <div class="stat-value">{analysis['total_responses']}</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Average Length</div>
+                            <div class="stat-value">{analysis['avg_length']:.0f}</div>
+                        </div>
+            """)
+        
+        formatted_insights = data['insights'].replace('\n', '<br>')
+        formatted_insights = formatted_insights.replace('•', '<li>').replace('<li>', '</li><li>').replace('</li><li>', '<li>', 1)
+        if formatted_insights.startswith('<li>'):
+            formatted_insights = '<ul>' + formatted_insights + '</ul>'
         
         html_parts.append(f"""
-            <div class="overview">
-                <h2>📋 OVERVIEW</h2>
-                <p><strong>Total Columns Analyzed:</strong> {len(results)}</p>
-        """)
-        
-        for col_type, count in type_counts.items():
-            html_parts.append(f"<p><strong>{col_type.title()} Columns:</strong> {count}</p>")
-        
-        html_parts.append("</div>")
-        
-        for column, data in results.items():
-            if 'error' in data:
-                continue
-                
-            html_parts.append(f"""
-                <div class="column-section">
-                    <h2 class="column-header">{column.upper()}</h2>
-                    <div class="column-content">
-                        <span class="type-badge">{data['type'].title()}</span>
-                        <div class="stats">
-            """)
-            
-            if data['type'] in ['numerical', 'rating']:
-                analysis = data['analysis']
-                html_parts.append(f"""
-                            <div class="stat-item">
-                                <div class="stat-label">Responses</div>
-                                <div class="stat-value">{analysis['total_responses']}</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-label">Average</div>
-                                <div class="stat-value">{analysis['mean']}</div>
-                            </div>
-                """)
-                if 'rating_distribution' in analysis and analysis.get('mode'):
-                    html_parts.append(f"""
-                            <div class="stat-item">
-                                <div class="stat-label">Most Common</div>
-                                <div class="stat-value">{analysis.get('mode', 'N/A')}</div>
-                            </div>
-                    """)
-            
-            elif data['type'] == 'categorical':
-                analysis = data['analysis']
-                html_parts.append(f"""
-                            <div class="stat-item">
-                                <div class="stat-label">Responses</div>
-                                <div class="stat-value">{analysis['total_responses']}</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-label">Most Common</div>
-                                <div class="stat-value">{analysis['most_common']}</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-label">Categories</div>
-                                <div class="stat-value">{analysis['unique_categories']}</div>
-                            </div>
-                """)
-            
-            elif data['type'] == 'text':
-                analysis = data['analysis']
-                html_parts.append(f"""
-                            <div class="stat-item">
-                                <div class="stat-label">Responses</div>
-                                <div class="stat-value">{analysis['total_responses']}</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-label">Avg Length</div>
-                                <div class="stat-value">{analysis['avg_length']:.1f} chars</div>
-                            </div>
-                """)
-            
-            html_parts.append(f"""
-                        </div>
-                        <div class="insights">
-                            <h4>🔍 Key Insights:</h4>
-                            <p>{data['insights'].replace(chr(10), '<br>')}</p>
-                        </div>
+                    </div>
+                    <div class="insights">
+                        <h4>🔍 Key Insights</h4>
+                        <div>{formatted_insights}</div>
                     </div>
                 </div>
-            """)
-        
-        html_parts.append("""
-            </body>
-            </html>
+            </div>
         """)
-        
-        return "".join(html_parts)
+    
+    html_parts.append("""
+        </body>
+        </html>
+    """)
+    
+    return "".join(html_parts)
 async def send_analysis_email(recipient_email: str, report: str, event_id: str):
     """Fixed email sending with better error handling"""
     try:
