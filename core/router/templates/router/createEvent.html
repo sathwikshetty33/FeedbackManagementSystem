@@ -205,8 +205,8 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             // Check if admin is logged in
-            const adminToken = localStorage.getItem('adminToken');
-            if (!adminToken) {
+            const staffToken = localStorage.getItem('staffToken');
+            if (!staffToken) {
                 window.location.href = '/';
                 return;
             }
@@ -232,13 +232,13 @@
         });
 
         function fetchEventDetails(id) {
-            const adminToken = localStorage.getItem('adminToken');
+            const staffToken = localStorage.getItem('staffToken');
             
             fetch(`/events/events/${id}/`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Token ${adminToken}`
+                    'Authorization': `Token ${staffToken}`
                 }
             })
             .then(response => {
@@ -280,7 +280,7 @@
         }
 
         function saveEvent() {
-            const adminToken = localStorage.getItem('adminToken');
+            const staffToken = localStorage.getItem('staffToken');
             
             // Get form data
             const name = document.getElementById('eventName').value;
@@ -317,7 +317,7 @@
                 method: method,
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Token ${adminToken}`
+                    'Authorization': `Token ${staffToken}`
                 },
                 body: JSON.stringify(eventData)
             })
@@ -342,7 +342,7 @@
         }
         
         function logout() {
-            localStorage.removeItem('adminToken');
+            localStorage.removeItem('staffToken');
             localStorage.removeItem('adminId');
             window.location.href = '/index/';
         }

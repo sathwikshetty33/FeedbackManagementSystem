@@ -36,6 +36,7 @@ class Event(models.Model):
     visibility = models.CharField(max_length=10, choices=VISIBILITY_CHOICES)
     form_url = models.URLField()
     worksheet_url = models.URLField()
+    created_by =models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_events',null=True, blank=True)
 
     def __str__(self):
         return self.name

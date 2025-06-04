@@ -4,7 +4,8 @@ from rest_framework.views import APIView
 import json
 import os
 from datetime import datetime, timedelta, timezone
-
+from events.permission import *
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from django.shortcuts import render,redirect
 from home.models import *
 from django.contrib.auth import authenticate
@@ -26,8 +27,18 @@ from django.utils import timezone
 from .serializers import *
 
 class all_events(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated, IsAdminUser | IsTeacher]  # Combine permissions properly (DRF 3.9+)
+
     def get(self, request):
-        events = Event.objects.all()
+        user = request.user
+        
+        # Check if user is staff (admin)
+        if user.is_staff:
+            events = Event.objects.all()
+        else:
+            events = Event.objects.filter(created_by=user)
+
         serializer = EventSerializer(events, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 class ListAvailableEvents(APIView):
@@ -76,25 +87,19 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.authentication import TokenAuthentication
 from django.shortcuts import get_object_or_404
 from .serializers import EventSerializer
-
 class EventListCreateAPIView(APIView):
     """
     API view to list all events or create a new event.
     """
     authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated,IsAdminUser]
+    permission_classes = [IsAuthenticated,IsAdminUser | IsTeacher]
     def post(self, request):
         """
         Create a new event.
         Only admin users can create events.
         """
-        if not request.user.is_superuser:
-            return Response(
-                {"detail": "You do not have permission to create events."},
-                status=status.HTTP_403_FORBIDDEN
-            )
-        
-        serializer = EventSerializer(data=request.data)
+
+        serializer = EventSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -106,12 +111,12 @@ class EventDetailAPIView(APIView):
     API view to retrieve, update or delete an event instance.
     """
     authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated,IsAdminUser]
-    
+    permission_classes = [IsAuthenticated, IsAdminUser | IsTeacher]
+
     def get_event(self, pk):
         """Helper method to get event or return 404"""
         return get_object_or_404(Event, pk=pk)
-    
+
     def get(self, request, pk):
         """
         Retrieve an event by id.
@@ -119,9 +124,9 @@ class EventDetailAPIView(APIView):
         """
         event = self.get_event(pk)
         user = request.user
-        
-        # Check if user has permission to view this event
-        if not user.is_staff:  # Admin can view all events
+
+        # Admin can view all events
+        if not user.is_staff:
             if hasattr(user, 'teacher'):
                 if event.visibility not in ['teachers', 'anyone']:
                     return Response(
@@ -141,40 +146,50 @@ class EventDetailAPIView(APIView):
                         {"detail": "You do not have permission to view this event."},
                         status=status.HTTP_403_FORBIDDEN
                     )
-        
+
         serializer = EventSerializer(event)
         return Response(serializer.data)
-    
+
     def put(self, request, pk):
         """
         Update an event.
-        Only admin users can update events.
+        Admins can update any event.
+        Teachers can update only events they created.
         """
-        if not request.user.is_staff:
-            return Response(
-                {"detail": "You do not have permission to update events."},
-                status=status.HTTP_403_FORBIDDEN
-            )
-        
         event = self.get_event(pk)
+        user = request.user
+
+        if not user.is_staff:
+            # Check teacher ownership
+            if not hasattr(user, 'teacher') or event.created_by != user:
+                return Response(
+                    {"detail": "You do not have permission to update this event."},
+                    status=status.HTTP_403_FORBIDDEN
+                )
+
         serializer = EventSerializer(event, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+
     def delete(self, request, pk):
         """
         Delete an event.
-        Only admin users can delete events.
+        Admins can delete any event.
+        Teachers can delete only events they created.
         """
-        if not request.user.is_staff:
-            return Response(
-                {"detail": "You do not have permission to delete events."},
-                status=status.HTTP_403_FORBIDDEN
-            )
-        
         event = self.get_event(pk)
+        user = request.user
+
+        if not user.is_staff:
+            # Check teacher ownership
+            if not hasattr(user, 'teacher') or event.created_by != user:
+                return Response(
+                    {"detail": "You do not have permission to delete this event."},
+                    status=status.HTTP_403_FORBIDDEN
+                )
+
         event.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 

@@ -260,8 +260,8 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Check if admin is logged in
-            const adminToken = localStorage.getItem('adminToken');
-            if (!adminToken) {
+            const staffToken = localStorage.getItem('staffToken');
+            if (!staffToken) {
                 window.location.href = '/';
                 return;
             }
@@ -272,13 +272,13 @@
 
         function loadEvents() {
             const eventsTable = document.getElementById('eventsTable');
-            const adminToken = localStorage.getItem('adminToken');
+            const staffToken = localStorage.getItem('staffToken');
             
             fetch('/events/all-events/', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Token ${adminToken}`
+                    'Authorization': `Token ${staffToken}`
                 }
             })
             .then(response => {
@@ -358,13 +358,13 @@
                 return;
             }
             
-            const adminToken = localStorage.getItem('adminToken');
+            const staffToken = localStorage.getItem('staffToken');
             
             fetch(`/events/events/${eventId}/`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Token ${adminToken}`
+                    'Authorization': `Token ${staffToken}`
                 }
             })
             .then(response => {
@@ -399,7 +399,7 @@
         }
         
         function logout() {
-            localStorage.removeItem('adminToken');
+            localStorage.removeItem('staffToken');
             localStorage.removeItem('adminId');
             window.location.href = '/index/';
         }
@@ -415,14 +415,14 @@
             
             modal.style.display = 'block';
             
-            const adminToken = localStorage.getItem('adminToken');
+            const staffToken = localStorage.getItem('staffToken');
             
             // Call the insights generation API
             fetch('/insights/generate-insights/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Token ${adminToken}`
+                    'Authorization': `Token ${staffToken}`
                 },
                 body: JSON.stringify({ event_id: eventId })
             })

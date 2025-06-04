@@ -347,7 +347,7 @@
                 return response.json();
             })
             .then(data => {
-                localStorage.setItem('teacherToken', data.token);
+                localStorage.setItem('staffToken', data.token);
                 localStorage.setItem('teacherId', data.hospId);
                 showLoggedInStatus('teacher');
                 window.location.href = '/';  // Redirect to dashboard
@@ -383,7 +383,7 @@
                 return response.json();
             })
             .then(data => {
-                localStorage.setItem('adminToken', data.token);
+                localStorage.setItem('staffToken', data.token);
                 localStorage.setItem('adminId', data.hospId);
                 showLoggedInStatus('admin');
                 window.location.href = '/admin-dashboard/';  
@@ -397,9 +397,9 @@
         function logout() {
             localStorage.removeItem('studentToken');
             localStorage.removeItem('studentId');
-            localStorage.removeItem('teacherToken');
+            localStorage.removeItem('staffToken');
             localStorage.removeItem('teacherId');
-            localStorage.removeItem('adminToken');
+            localStorage.removeItem('staffToken');
             localStorage.removeItem('adminId');
             
             const loginSection = document.getElementById('loginSection');

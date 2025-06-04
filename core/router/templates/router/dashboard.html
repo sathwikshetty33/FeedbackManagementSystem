@@ -22,6 +22,29 @@
             align-items: center;
         }
 
+        .header-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .dashboard-btn {
+            background-color: #3f51b5;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .dashboard-btn:hover {
+            background-color: #303f9f;
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -326,6 +349,11 @@
             .events-filters {
                 flex-wrap: wrap;
             }
+
+            .header-buttons {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
         }
     </style>
 </head>
@@ -338,7 +366,10 @@
 
     <header>
         <h1>Campus Events Dashboard</h1>
-        <div id="userStatus"></div>
+        <div class="header-buttons">
+            <a href="/admin-dashboard/" class="dashboard-btn">Events Dashboard</a>
+            <div id="userStatus"></div>
+        </div>
     </header>
 
     <div class="container" id="dashboardContainer">
@@ -352,7 +383,7 @@
 
         function authenticateUser() {
             const studentToken = localStorage.getItem('studentToken');
-            const teacherToken = localStorage.getItem('teacherToken');
+            const teacherToken = localStorage.getItem('staffToken');
             const adminToken = localStorage.getItem('adminToken');
             
             if (!studentToken && !teacherToken && !adminToken) {
@@ -509,7 +540,7 @@
             if (userType === 'student') {
                 token = localStorage.getItem('studentToken');
             } else if (userType === 'teacher') {
-                token = localStorage.getItem('teacherToken');
+                token = localStorage.getItem('staffToken');
             } else if (userType === 'admin') {
                 token = localStorage.getItem('adminToken');
             }
@@ -552,8 +583,8 @@
             
             if (localStorage.getItem('studentToken')) {
                 token = localStorage.getItem('studentToken');
-            } else if (localStorage.getItem('teacherToken')) {
-                token = localStorage.getItem('teacherToken');
+            } else if (localStorage.getItem('staffToken')) {
+                token = localStorage.getItem('staffToken');
             } else if (localStorage.getItem('adminToken')) {
                 token = localStorage.getItem('adminToken');
             }
@@ -611,7 +642,13 @@
                 attendedEventsList.innerHTML = '<p>Failed to load attended events. Please try again later.</p>';
             });
         }
-
+            // Show/hide Events Dashboard button based on user type
+const eventsBtn = document.querySelector('.dashboard-btn');
+if (userType === 'teacher') {
+    eventsBtn.style.display = 'inline-block';
+} else {
+    eventsBtn.style.display = 'none';
+}
         function displayEvents(events) {
             const eventsList = document.getElementById('eventsList');
             eventsList.innerHTML = '';
@@ -687,8 +724,8 @@
             
             if (localStorage.getItem('studentToken')) {
                 token = localStorage.getItem('studentToken');
-            } else if (localStorage.getItem('teacherToken')) {
-                token = localStorage.getItem('teacherToken');
+            } else if (localStorage.getItem('staffToken')) {
+                token = localStorage.getItem('staffToken');
             } else if (localStorage.getItem('adminToken')) {
                 token = localStorage.getItem('adminToken');
             }
@@ -750,7 +787,7 @@
         function getUserType() {
             if (localStorage.getItem('studentToken')) {
                 return 'student';
-            } else if (localStorage.getItem('teacherToken')) {
+            } else if (localStorage.getItem('staffToken')) {
                 return 'teacher';
             } else if (localStorage.getItem('adminToken')) {
                 return 'admin';
@@ -844,7 +881,7 @@
             // Clear all tokens from local storage
             localStorage.removeItem('studentToken');
             localStorage.removeItem('studentId');
-            localStorage.removeItem('teacherToken');
+            localStorage.removeItem('staffToken');
             localStorage.removeItem('teacherId');
             localStorage.removeItem('adminToken');
             
