@@ -961,7 +961,7 @@ class LangChainRAGInsightsView(APIView):
         logger.info("Received LangChain RAG feedback analysis request")
         
         event_id = request.data.get('event_id')
-        recipient_email = request.data.get('recipient_email', 'sathwikshetty9876@gmail.com')
+        recipient_email = request.user.email
         
         print(f"📋 Event ID: {event_id}")
         print(f"📧 Recipient Email: {recipient_email}")
@@ -982,7 +982,7 @@ class LangChainRAGInsightsView(APIView):
             
             # Call FastAPI service
             fastapi_payload = {
-                "event_id": str(event_id),  # Ensure it's a string
+                "event_name": str(event.name),  # Ensure it's a string
                 "worksheet_url": worksheet_url,
                 "recipient_email": recipient_email
             }

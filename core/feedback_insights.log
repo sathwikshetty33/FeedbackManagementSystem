@@ -64,3 +64,7 @@ KeyError: 'request'
 2025-06-04 11:22:09,558 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
 2025-06-04 11:22:10,319 INFO autoreload Watching for file changes with StatReloader
 2025-06-04 11:22:17,237 INFO autoreload Watching for file changes with StatReloader
+2025-06-04 11:47:36,849 INFO autoreload Watching for file changes with StatReloader
+2025-06-04 11:49:05,044 INFO views Received LangChain RAG feedback analysis request
+2025-06-04 11:51:20,126 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/core/settings.py changed, reloading.
+2025-06-04 17:21:21,442 INFO autoreload Watching for file changes with StatReloader

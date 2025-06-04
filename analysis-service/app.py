@@ -6,14 +6,7 @@ import pandas as pd
 import numpy as np
 from fastapi import FastAPI, BackgroundTasks, HTTPException
 from pydantic import BaseModel
-import requests
-from io import StringIO
-import re
-from collections import Counter
-import statistics
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
+
 
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
@@ -24,12 +17,8 @@ from langchain.schema import Document
 from langchain.prompts import PromptTemplate
 from langchain.chains.llm import LLMChain
 from langchain.chains.combine_documents.stuff import StuffDocumentsChain
-import logging
 
 app = FastAPI(title="Feedback Analysis Service")
-
-# Configure logging
-# fastapi_analysis.py
 
 import os
 import asyncio
@@ -86,21 +75,19 @@ logger = logging.getLogger(__name__)
 logging.getLogger("faiss").setLevel(logging.ERROR)
 # Request/Response Models
 class AnalysisRequest(BaseModel):
-    event_id: str
+    event_name: str
     worksheet_url: str
     recipient_email: str = "sathwikshetty9876@gmail.com"
     
     class Config:
-        # Allow extra fields and provide example
         extra = "allow"
         schema_extra = {
             "example": {
-                "event_id": "123",
+                "event_name": "Tech Conference 2024",
                 "worksheet_url": "https://docs.google.com/spreadsheets/d/abc123/edit",
                 "recipient_email": "user@example.com"
             }
         }
-
 class AnalysisResponse(BaseModel):
     status: str
     message: str
@@ -655,6 +642,150 @@ async def fetch_worksheet_data(worksheet_url: str) -> pd.DataFrame:
             raise Exception(f"Failed to fetch worksheet data: {str(e)}")
     
     return await loop.run_in_executor(None, _fetch)
+def generate_pdf_report(results: Dict[str, Any], event_name: str) -> bytes:
+    buffer = io.BytesIO()
+    doc = SimpleDocTemplate(buffer, pagesize=A4, rightMargin=72, leftMargin=72, topMargin=72, bottomMargin=18)
+    
+    styles = getSampleStyleSheet()
+    title_style = ParagraphStyle(
+        'CustomTitle',
+        parent=styles['Heading1'],
+        fontSize=24,
+        textColor=colors.HexColor('#667eea'),
+        alignment=TA_CENTER,
+        spaceAfter=30
+    )
+    
+    heading_style = ParagraphStyle(
+        'CustomHeading',
+        parent=styles['Heading2'],
+        fontSize=16,
+        textColor=colors.HexColor('#764ba2'),
+        spaceBefore=20,
+        spaceAfter=10
+    )
+    
+    subheading_style = ParagraphStyle(
+        'CustomSubHeading',
+        parent=styles['Heading3'],
+        fontSize=14,
+        textColor=colors.HexColor('#667eea'),
+        spaceBefore=15,
+        spaceAfter=8
+    )
+    
+    body_style = ParagraphStyle(
+        'CustomBody',
+        parent=styles['Normal'],
+        fontSize=11,
+        textColor=colors.black,
+        alignment=TA_LEFT,
+        spaceAfter=8
+    )
+    
+    story = []
+    
+    story.append(Paragraph(f"📊 FEEDBACK ANALYSIS REPORT", title_style))
+    story.append(Paragraph(f"Event: {event_name}", heading_style))
+    story.append(Spacer(1, 20))
+    
+    type_counts = {}
+    for col, data in results.items():
+        col_type = data.get('type', 'unknown')
+        type_counts[col_type] = type_counts.get(col_type, 0) + 1
+    
+    story.append(Paragraph("📋 OVERVIEW", heading_style))
+    story.append(Paragraph(f"Total Columns Analyzed: {len(results)}", body_style))
+    
+    for col_type, count in type_counts.items():
+        story.append(Paragraph(f"{col_type.title()} Columns: {count}", body_style))
+    
+    story.append(Spacer(1, 20))
+    
+    for column, data in results.items():
+        if 'error' in data:
+            continue
+            
+        story.append(Paragraph(f"{column.upper()}", heading_style))
+        story.append(Paragraph(f"Type: {data['type'].title()}", subheading_style))
+        
+        if data['type'] in ['numerical', 'rating']:
+            analysis = data['analysis']
+            stats_data = [
+                ['Total Responses', str(analysis['total_responses'])],
+                ['Average Score', str(analysis['mean'])],
+                ['Median', str(analysis['median'])],
+                ['Standard Deviation', str(analysis['std_dev'])]
+            ]
+            
+            if 'rating_distribution' in analysis and analysis.get('mode'):
+                stats_data.append(['Most Common Rating', str(analysis.get('mode', 'N/A'))])
+            
+            stats_table = Table(stats_data, colWidths=[2.5*inch, 1.5*inch])
+            stats_table.setStyle(TableStyle([
+                ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#f0f4ff')),
+                ('TEXTCOLOR', (0, 0), (-1, 0), colors.HexColor('#667eea')),
+                ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+                ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                ('FONTSIZE', (0, 0), (-1, 0), 12),
+                ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+                ('BACKGROUND', (0, 1), (-1, -1), colors.white),
+                ('GRID', (0, 0), (-1, -1), 1, colors.HexColor('#e1e8f0'))
+            ]))
+            story.append(stats_table)
+        
+        elif data['type'] == 'categorical':
+            analysis = data['analysis']
+            stats_data = [
+                ['Total Responses', str(analysis['total_responses'])],
+                ['Most Selected', str(analysis['most_common'])],
+                ['Total Options', str(analysis['unique_categories'])]
+            ]
+            
+            stats_table = Table(stats_data, colWidths=[2.5*inch, 1.5*inch])
+            stats_table.setStyle(TableStyle([
+                ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#f0f4ff')),
+                ('TEXTCOLOR', (0, 0), (-1, 0), colors.HexColor('#667eea')),
+                ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+                ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                ('FONTSIZE', (0, 0), (-1, 0), 12),
+                ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+                ('BACKGROUND', (0, 1), (-1, -1), colors.white),
+                ('GRID', (0, 0), (-1, -1), 1, colors.HexColor('#e1e8f0'))
+            ]))
+            story.append(stats_table)
+        
+        elif data['type'] == 'text':
+            analysis = data['analysis']
+            stats_data = [
+                ['Total Responses', str(analysis['total_responses'])],
+                ['Average Length', f"{analysis['avg_length']:.0f} characters"],
+                ['Average Word Count', f"{analysis['avg_word_count']:.0f} words"]
+            ]
+            
+            stats_table = Table(stats_data, colWidths=[2.5*inch, 1.5*inch])
+            stats_table.setStyle(TableStyle([
+                ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#f0f4ff')),
+                ('TEXTCOLOR', (0, 0), (-1, 0), colors.HexColor('#667eea')),
+                ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+                ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                ('FONTSIZE', (0, 0), (-1, 0), 12),
+                ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+                ('BACKGROUND', (0, 1), (-1, -1), colors.white),
+                ('GRID', (0, 0), (-1, -1), 1, colors.HexColor('#e1e8f0'))
+            ]))
+            story.append(stats_table)
+        
+        story.append(Spacer(1, 12))
+        story.append(Paragraph("🔍 Key Insights", subheading_style))
+        
+        insights_text = data['insights'].replace('•', '• ').replace('\n', '<br/>')
+        story.append(Paragraph(insights_text, body_style))
+        story.append(Spacer(1, 20))
+    
+    doc.build(story)
+    buffer.seek(0)
+    return buffer.getvalue()
 
 def generate_summary_report(results: Dict[str, Any]) -> str:
     html_parts = []
@@ -797,22 +928,31 @@ def generate_summary_report(results: Dict[str, Any]) -> str:
     """)
     
     return "".join(html_parts)
-async def send_analysis_email(recipient_email: str, report: str, event_id: str):
-    """Fixed email sending with better error handling"""
+
+async def send_analysis_email(recipient_email: str, report: str, event_name: str, results: Dict[str, Any]):
     try:
-        # Validate email configuration
         if not config.EMAIL_USER or not config.EMAIL_PASSWORD:
             raise Exception("EMAIL_USER and EMAIL_PASSWORD must be set in environment variables")
         
         msg = MIMEMultipart('alternative')
-        msg['Subject'] = f"📊 Feedback Analysis Report - Event {event_id}"
+        msg['Subject'] = f"📊 Feedback Analysis Report - {event_name}"
         msg['From'] = config.FROM_EMAIL
         msg['To'] = recipient_email
         
         html_part = MIMEText(report, 'html')
         msg.attach(html_part)
         
-        # Send email asynchronously
+        pdf_data = generate_pdf_report(results, event_name)
+        
+        pdf_attachment = MIMEBase('application', 'pdf')
+        pdf_attachment.set_payload(pdf_data)
+        encoders.encode_base64(pdf_attachment)
+        pdf_attachment.add_header(
+            'Content-Disposition',
+            f'attachment; filename="feedback_analysis_{event_name.replace(" ", "_")}.pdf"'
+        )
+        msg.attach(pdf_attachment)
+        
         loop = asyncio.get_event_loop()
         
         def _send_email():
@@ -820,14 +960,12 @@ async def send_analysis_email(recipient_email: str, report: str, event_id: str):
                 print(f"🔄 Connecting to {config.SMTP_SERVER}:{config.SMTP_PORT}")
                 
                 with smtplib.SMTP(config.SMTP_SERVER, config.SMTP_PORT) as server:
-                    # Add timeout
                     server.timeout = 30
                     
                     print("🔐 Starting TLS...")
                     server.starttls()
                     
                     print(f"🔑 Logging in as: {config.EMAIL_USER}")
-                    # Make sure we're using string values
                     server.login(str(config.EMAIL_USER), str(config.EMAIL_PASSWORD))
                     
                     print(f"📤 Sending to: {recipient_email}")
@@ -858,7 +996,6 @@ async def send_analysis_email(recipient_email: str, report: str, event_id: str):
         return False
     
 async def process_analysis_task(request: AnalysisRequest, task_id: str):
-    """Main analysis task with parallel processing"""
     try:
         print_terminal_separator("🎯 RAG FEEDBACK ANALYSIS STARTED")
         logger.info(f"Starting analysis task {task_id}")
@@ -870,30 +1007,26 @@ async def process_analysis_task(request: AnalysisRequest, task_id: str):
             chunk_overlap=config.RAG_CHUNK_OVERLAP
         )
         
-        # Fetch data
         df = await fetch_worksheet_data(request.worksheet_url)
         
         if len(df) > config.MAX_PROCESSING_ROWS:
             print(f"⚠️ Limiting analysis to {config.MAX_PROCESSING_ROWS} rows")
             df = df.head(config.MAX_PROCESSING_ROWS)
         
-        # Preprocess columns
         processed_df, column_types = analyzer.preprocess_columns(df)
         
         if processed_df.empty:
             raise Exception("No relevant columns found for analysis")
         
-        # Parallel column analysis
         results = await analyze_columns_parallel(analyzer, processed_df, column_types)
         
-        # Generate report
         summary_report = generate_summary_report(results)
         
-        # Send email
         email_sent = await send_analysis_email(
             request.recipient_email, 
             summary_report, 
-            request.event_id
+            request.event_name,
+            results
         )
         
         print_terminal_separator("✅ ANALYSIS COMPLETE")
@@ -901,8 +1034,7 @@ async def process_analysis_task(request: AnalysisRequest, task_id: str):
         
     except Exception as e:
         logger.error(f"Task {task_id} failed: {str(e)}")
-        # Optionally send error email
-        await send_error_email(request.recipient_email, str(e), request.event_id)
+        await send_error_email(request.recipient_email, str(e), request.event_name)
 
 async def analyze_columns_parallel(analyzer: FeedbackRAGAnalyzer, 
                                  df: pd.DataFrame, 
@@ -967,41 +1099,7 @@ async def analyze_columns_parallel(analyzer: FeedbackRAGAnalyzer,
         
     return results
 
-async def send_error_email(recipient_email: str, error_msg: str, event_id: str):
-    """Send error notification email"""
-    try:
-        subject = f"❌ Feedback Analysis Failed - Event {event_id}"
-        body = f"""
-        <html>
-        <body>
-            <h2>Analysis Failed</h2>
-            <p>The feedback analysis for Event {event_id} encountered an error:</p>
-            <p><strong>Error:</strong> {error_msg}</p>
-            <p>Please contact support for assistance.</p>
-        </body>
-        </html>
-        """
-        
-        msg = MIMEMultipart('alternative')
-        msg['Subject'] = subject
-        msg['From'] = config.FROM_EMAIL
-        msg['To'] = recipient_email
-        
-        html_part = MIMEText(body, 'html')
-        msg.attach(html_part)
-        
-        loop = asyncio.get_event_loop()
-        
-        def _send_email():
-            with smtplib.SMTP(config.SMTP_SERVER, config.SMTP_PORT) as server:
-                server.starttls()
-                server.login(config.EMAIL_USER, config.EMAIL_PASSWORD)
-                server.send_message(msg)
-        
-        await loop.run_in_executor(None, _send_email)
-        
-    except Exception as e:
-        logger.error(f"Failed to send error email: {str(e)}")
+
 
 # FastAPI Endpoints
 @app.post("/analyze", response_model=AnalysisResponse)
