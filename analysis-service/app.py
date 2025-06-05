@@ -6,7 +6,7 @@ import pandas as pd
 import numpy as np
 from fastapi import FastAPI, BackgroundTasks, HTTPException
 from pydantic import BaseModel
-
+import io
 
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
@@ -19,7 +19,14 @@ from langchain.chains.llm import LLMChain
 from langchain.chains.combine_documents.stuff import StuffDocumentsChain
 
 app = FastAPI(title="Feedback Analysis Service")
-
+from reportlab.lib.pagesizes import letter, A4
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib.units import inch
+from reportlab.lib import colors
+from reportlab.lib.enums import TA_CENTER, TA_LEFT
+from email.mime.base import MIMEBase
+from email import encoders
 import os
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
@@ -1116,7 +1123,40 @@ async def start_analysis(request: AnalysisRequest, background_tasks: BackgroundT
         message="Analysis started. You will receive an email when complete.",
         task_id=task_id
     )
-
+async def send_error_email(recipient_email: str, error_msg: str, event_name: str):
+    try:
+        subject = f"❌ Feedback Analysis Failed - {event_name}"
+        body = f"""
+        <html>
+        <body>
+            <h2>Analysis Failed</h2>
+            <p>The feedback analysis for {event_name} encountered an error:</p>
+            <p><strong>Error:</strong> {error_msg}</p>
+            <p>Please contact support for assistance.</p>
+        </body>
+        </html>
+        """
+        
+        msg = MIMEMultipart('alternative')
+        msg['Subject'] = subject
+        msg['From'] = config.FROM_EMAIL
+        msg['To'] = recipient_email
+        
+        html_part = MIMEText(body, 'html')
+        msg.attach(html_part)
+        
+        loop = asyncio.get_event_loop()
+        
+        def _send_email():
+            with smtplib.SMTP(config.SMTP_SERVER, config.SMTP_PORT) as server:
+                server.starttls()
+                server.login(config.EMAIL_USER, config.EMAIL_PASSWORD)
+                server.send_message(msg)
+        
+        await loop.run_in_executor(None, _send_email)
+        
+    except Exception as e:
+        logger.error(f"Failed to send error email: {str(e)}")
 @app.get("/health")
 async def health_check():
     """Health check endpoint"""
