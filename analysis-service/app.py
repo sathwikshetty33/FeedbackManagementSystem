@@ -7,7 +7,11 @@ import numpy as np
 from fastapi import FastAPI, BackgroundTasks, HTTPException
 from pydantic import BaseModel
 import io
-
+import asyncio
+from asyncio import Semaphore, Queue
+from datetime import datetime
+from typing import Dict, Set
+import threading
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from langchain_community.embeddings import OllamaEmbeddings
@@ -17,8 +21,6 @@ from langchain.schema import Document
 from langchain.prompts import PromptTemplate
 from langchain.chains.llm import LLMChain
 from langchain.chains.combine_documents.stuff import StuffDocumentsChain
-
-app = FastAPI(title="Feedback Analysis Service")
 from reportlab.lib.pagesizes import letter, A4
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
@@ -59,8 +61,115 @@ from langchain.prompts import PromptTemplate
 from langchain.chains.llm import LLMChain
 from langchain.chains.combine_documents.stuff import StuffDocumentsChain
 import logging
+class AnalysisRequest(BaseModel):
+    event_name: str
+    worksheet_url: str
+    recipient_email: str = "sathwikshetty9876@gmail.com"
+    
+    class Config:
+        extra = "allow"
+        schema_extra = {
+            "example": {
+                "event_name": "Tech Conference 2024",
+                "worksheet_url": "https://docs.google.com/spreadsheets/d/abc123/edit",
+                "recipient_email": "user@example.com"
+            }
+        }
+class AnalysisResponse(BaseModel):
+    status: str
+    message: str
+    task_id: str
 
+class TaskManager:
+    def __init__(self, max_concurrent_tasks: int = 2):
+        self.max_concurrent_tasks = max_concurrent_tasks
+        self.semaphore = Semaphore(max_concurrent_tasks)
+        self.active_tasks: Dict[str, dict] = {}
+        self.task_queue: Queue = Queue()
+        self.processing_lock = threading.Lock()
+        
+    async def add_task(self, task_id: str, request: AnalysisRequest):
+        """Add task to queue with status tracking"""
+        task_info = {
+            'task_id': task_id,
+            'request': request,
+            'status': 'queued',
+            'created_at': datetime.now(),
+            'started_at': None,
+            'completed_at': None
+        }
+        
+        with self.processing_lock:
+            self.active_tasks[task_id] = task_info
+        
+        await self.task_queue.put((task_id, request))
+        
+        # Start processing if not already running
+        asyncio.create_task(self._process_queue())
+    
+    async def _process_queue(self):
+        """Process tasks from queue with concurrency control"""
+        while not self.task_queue.empty():
+            async with self.semaphore:  # Limit concurrent tasks
+                try:
+                    task_id, request = await asyncio.wait_for(
+                        self.task_queue.get(), timeout=1.0
+                    )
+                    
+                    # Update task status
+                    with self.processing_lock:
+                        if task_id in self.active_tasks:
+                            self.active_tasks[task_id]['status'] = 'processing'
+                            self.active_tasks[task_id]['started_at'] = datetime.now()
+                    
+                    # Process the task
+                    await self._execute_task(task_id, request)
+                    
+                except asyncio.TimeoutError:
+                    break  # No more tasks in queue
+                except Exception as e:
+                    logger.error(f"Error processing task queue: {e}")
+    
+    async def _execute_task(self, task_id: str, request: AnalysisRequest):
+        """Execute individual analysis task"""
+        try:
+            await process_analysis_task(request, task_id)
+            
+            # Update task status
+            with self.processing_lock:
+                if task_id in self.active_tasks:
+                    self.active_tasks[task_id]['status'] = 'completed'
+                    self.active_tasks[task_id]['completed_at'] = datetime.now()
+                    
+        except Exception as e:
+            logger.error(f"Task {task_id} failed: {e}")
+            with self.processing_lock:
+                if task_id in self.active_tasks:
+                    self.active_tasks[task_id]['status'] = 'failed'
+                    self.active_tasks[task_id]['error'] = str(e)
+                    self.active_tasks[task_id]['completed_at'] = datetime.now()
+    
+    def get_task_status(self, task_id: str) -> dict:
+        """Get status of a specific task"""
+        with self.processing_lock:
+            return self.active_tasks.get(task_id, {'status': 'not_found'})
+    
+    def get_queue_info(self) -> dict:
+        """Get overall queue information"""
+        with self.processing_lock:
+            active_count = sum(1 for task in self.active_tasks.values() 
+                             if task['status'] == 'processing')
+            queued_count = sum(1 for task in self.active_tasks.values() 
+                             if task['status'] == 'queued')
+            
+            return {
+                'active_tasks': active_count,
+                'queued_tasks': queued_count,
+                'total_tasks': len(self.active_tasks),
+                'max_concurrent': self.max_concurrent_tasks
+            }
 app = FastAPI(title="Feedback Analysis Service")
+task_manager = TaskManager(max_concurrent_tasks=1)  # Limit to 2 concurrent tasks
 
 # Add validation error handler
 @app.exception_handler(RequestValidationError)
@@ -81,24 +190,6 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 logging.getLogger("faiss").setLevel(logging.ERROR)
 # Request/Response Models
-class AnalysisRequest(BaseModel):
-    event_name: str
-    worksheet_url: str
-    recipient_email: str = "sathwikshetty9876@gmail.com"
-    
-    class Config:
-        extra = "allow"
-        schema_extra = {
-            "example": {
-                "event_name": "Tech Conference 2024",
-                "worksheet_url": "https://docs.google.com/spreadsheets/d/abc123/edit",
-                "recipient_email": "user@example.com"
-            }
-        }
-class AnalysisResponse(BaseModel):
-    status: str
-    message: str
-    task_id: str
 
 # Configuration
 class Config:
@@ -1004,40 +1095,46 @@ async def send_analysis_email(recipient_email: str, report: str, event_name: str
     
 async def process_analysis_task(request: AnalysisRequest, task_id: str):
     try:
-        print_terminal_separator("🎯 RAG FEEDBACK ANALYSIS STARTED")
+        print_terminal_separator(f"🎯 RAG FEEDBACK ANALYSIS STARTED - Task: {task_id}")
         logger.info(f"Starting analysis task {task_id}")
         
-        analyzer = FeedbackRAGAnalyzer(
-            ollama_base_url=config.OLLAMA_BASE_URL,
-            model_name=config.OLLAMA_MODEL,
-            chunk_size=config.RAG_CHUNK_SIZE,
-            chunk_overlap=config.RAG_CHUNK_OVERLAP
-        )
-        
-        df = await fetch_worksheet_data(request.worksheet_url)
-        
-        if len(df) > config.MAX_PROCESSING_ROWS:
-            print(f"⚠️ Limiting analysis to {config.MAX_PROCESSING_ROWS} rows")
-            df = df.head(config.MAX_PROCESSING_ROWS)
-        
-        processed_df, column_types = analyzer.preprocess_columns(df)
-        
-        if processed_df.empty:
-            raise Exception("No relevant columns found for analysis")
-        
-        results = await analyze_columns_parallel(analyzer, processed_df, column_types)
-        
-        summary_report = generate_summary_report(results)
-        
-        email_sent = await send_analysis_email(
-            request.recipient_email, 
-            summary_report, 
-            request.event_name,
-            results
-        )
-        
-        print_terminal_separator("✅ ANALYSIS COMPLETE")
-        logger.info(f"Task {task_id} completed successfully")
+        # Add timeout to prevent tasks from running indefinitely
+        async with asyncio.timeout(1800):  # 30 minute timeout
+            analyzer = FeedbackRAGAnalyzer(
+                ollama_base_url=config.OLLAMA_BASE_URL,
+                model_name=config.OLLAMA_MODEL,
+                chunk_size=config.RAG_CHUNK_SIZE,
+                chunk_overlap=config.RAG_CHUNK_OVERLAP
+            )
+            
+            df = await fetch_worksheet_data(request.worksheet_url)
+            
+            if len(df) > config.MAX_PROCESSING_ROWS:
+                print(f"⚠️ Limiting analysis to {config.MAX_PROCESSING_ROWS} rows")
+                df = df.head(config.MAX_PROCESSING_ROWS)
+            
+            processed_df, column_types = analyzer.preprocess_columns(df)
+            
+            if processed_df.empty:
+                raise Exception("No relevant columns found for analysis")
+            
+            results = await analyze_columns_parallel(analyzer, processed_df, column_types)
+            
+            summary_report = generate_summary_report(results)
+            
+            email_sent = await send_analysis_email(
+                request.recipient_email, 
+                summary_report, 
+                request.event_name,
+                results
+            )
+            
+            print_terminal_separator(f"✅ ANALYSIS COMPLETE - Task: {task_id}")
+            logger.info(f"Task {task_id} completed successfully")
+            
+    except asyncio.TimeoutError:
+        logger.error(f"Task {task_id} timed out after 30 minutes")
+        await send_error_email(request.recipient_email, "Analysis timed out", request.event_name)
         
     except Exception as e:
         logger.error(f"Task {task_id} failed: {str(e)}")
@@ -1110,19 +1207,36 @@ async def analyze_columns_parallel(analyzer: FeedbackRAGAnalyzer,
 
 # FastAPI Endpoints
 @app.post("/analyze", response_model=AnalysisResponse)
-async def start_analysis(request: AnalysisRequest, background_tasks: BackgroundTasks):
-    """Start feedback analysis task"""
+async def start_analysis(request: AnalysisRequest):
+    """Start feedback analysis task with queue management"""
     import uuid
     task_id = str(uuid.uuid4())
     
-    # Add the analysis task to background tasks
-    background_tasks.add_task(process_analysis_task, request, task_id)
+    # Check current queue status
+    queue_info = task_manager.get_queue_info()
+    
+    # Add task to managed queue
+    await task_manager.add_task(task_id, request)
+    
+    # Provide more detailed response
+    estimated_wait = queue_info['queued_tasks'] * 5  # Rough estimate: 5 mins per task
     
     return AnalysisResponse(
         status="accepted",
-        message="Analysis started. You will receive an email when complete.",
+        message=f"Analysis queued. Current position: {queue_info['queued_tasks'] + 1}. Estimated wait: {estimated_wait} minutes. You will receive an email when complete.",
         task_id=task_id
     )
+@app.get("/status/{task_id}")
+async def get_task_status(task_id: str):
+    """Get status of a specific analysis task"""
+    status = task_manager.get_task_status(task_id)
+    return status
+
+# Add endpoint to check overall queue status
+@app.get("/queue/status")
+async def get_queue_status():
+    """Get overall queue status"""
+    return task_manager.get_queue_info()
 async def send_error_email(recipient_email: str, error_msg: str, event_name: str):
     try:
         subject = f"❌ Feedback Analysis Failed - {event_name}"
