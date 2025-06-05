@@ -47,56 +47,6 @@ graph TB
     style Analysis Service fill:#ddf,stroke:#333,stroke-width:2px
 ```
 
-### User Role Hierarchy
-```mermaid
-graph TB
-    A[Admin] --> T[Teachers]
-    T --> S[Students]
-    S --> AN[Anyone]
-
-    subgraph Permissions
-        subgraph Admin Rights
-            A1[System Configuration]
-            A2[User Management]
-            A3[Analytics Access]
-            A4[Template Management]
-        end
-
-        subgraph Teacher Rights
-            T1[Create Feedback Events]
-            T2[View Class Analytics]
-            T3[Export Reports]
-        end
-
-        subgraph Student Rights
-            S1[Submit Feedback]
-            S2[Track Submissions]
-        end
-
-        subgraph Public Access
-            AN1[View Public Feedback]
-        end
-    end
-
-    A --> A1 & A2 & A3 & A4
-    A --> T1 & T2 & T3 & T4
-    A --> S1 & S2 & S3
-    A --> AN1 & AN2
-
-    T --> T1 & T2 & T3 & T4
-    T --> S1 & S2 & S3
-    T --> AN1 & AN2
-
-    S --> S1 & S2 & S3
-    S --> AN1 & AN2
-
-    AN --> AN1 & AN2
-
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style T fill:#dfd,stroke:#333,stroke-width:2px
-    style S fill:#ddf,stroke:#333,stroke-width:2px
-    style AN fill:#ffd,stroke:#333,stroke-width:2px
-```
 
 ### Task Processing Architecture
 ```mermaid
@@ -263,9 +213,8 @@ Each entity is fully normalized to:
 
 ## 🔐 Security Features
 
-- JWT-based authentication
+- Token-based authentication
 - Role-based access control
-- HTTPS enforcement
 - Rate limiting
 - SQL injection protection
 - XSS prevention
