@@ -5,8 +5,6 @@ services:
     build:
       context: ./core
       dockerfile: Dockerfile
-    volumes:
-      - ./django:/app
     ports:
       - "8000"
     env_file:
@@ -20,6 +18,8 @@ services:
       dockerfile: Dockerfile
     env_file:
       - ./analysis-service/.env
+    extra_hosts:
+      - "host.docker.internal:host-gateway" 
     expose:
       - "8001"
 
@@ -29,6 +29,4 @@ services:
       - "8000:80"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-    depends_on:
-      - django
-      - fastapi
+

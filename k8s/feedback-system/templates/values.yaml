@@ -1,0 +1,4 @@
+django:
+  image: fms-django-app:latest
+fastapi:
+  image: fms-fastapi-app:latest

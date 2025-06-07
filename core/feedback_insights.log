@@ -68,3 +68,19 @@ KeyError: 'request'
 2025-06-04 11:49:05,044 INFO views Received LangChain RAG feedback analysis request
 2025-06-04 11:51:20,126 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/core/settings.py changed, reloading.
 2025-06-04 17:21:21,442 INFO autoreload Watching for file changes with StatReloader
+2025-06-05 19:36:52,127 INFO autoreload Watching for file changes with StatReloader
+2025-06-05 19:37:53,056 INFO views Received LangChain RAG feedback analysis request
+2025-06-05 19:38:03,094 ERROR views Cannot connect to FastAPI service
+2025-06-05 19:38:03,095 ERROR log Service Unavailable: /insights/generate-insights/
+2025-06-05 19:38:27,848 INFO autoreload Watching for file changes with StatReloader
+2025-06-05 19:38:36,177 INFO views Received LangChain RAG feedback analysis request
+2025-06-05 19:57:14,824 INFO views Received LangChain RAG feedback analysis request
+2025-06-05 19:59:03,650 INFO views Received LangChain RAG feedback analysis request
+2025-06-05 19:59:07,167 INFO views Received LangChain RAG feedback analysis request
+2025-06-05 20:03:05,998 INFO views Received LangChain RAG feedback analysis request
+2025-06-05 20:03:10,806 INFO views Received LangChain RAG feedback analysis request
+2025-06-05 20:14:38,727 INFO views Received LangChain RAG feedback analysis request
+2025-06-06 10:53:50,964 INFO autoreload Watching for file changes with StatReloader
+2025-06-06 10:54:07,106 INFO views Received LangChain RAG feedback analysis request
+2025-06-06 18:30:19,465 INFO autoreload Watching for file changes with StatReloader
+2025-06-06 18:33:00,372 INFO autoreload Watching for file changes with StatReloader

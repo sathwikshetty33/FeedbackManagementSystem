@@ -1,0 +1,8 @@
+env:
+  - name: OLLAMA_URL
+    value: http://host.minikube.internal:11434
+
+    - name: FASTAPI_ANALYSIS_URL
+      value: http://fastapi:8001
+    - name: MAX_WORKERS
+      value: "4"

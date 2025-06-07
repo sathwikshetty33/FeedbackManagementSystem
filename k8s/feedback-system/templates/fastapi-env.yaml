@@ -1,0 +1,19 @@
+env:
+  - name: OLLAMA_URL
+    value: http://host.minikube.internal:11434
+  - name: EMAIL_USER
+    value: 
+  - name: EMAIL_PASSWORD
+    value: 
+  - name: FROM_EMAIL
+    value: tester7760775061@gmail.com
+  - name: SMTP_SERVER
+    value: smtp.gmail.com
+  - name: SMTP_PORT
+    value: "587"
+  - name: MAX_WORKERS
+    value: "4"
+  # - name: OLLAMA_BASE_URL
+  #   value: http://host.docker.internal:11434
+  - name: OLLAMA_MODEL
+    value: llama3.2:1b
