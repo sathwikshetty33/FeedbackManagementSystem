@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Feedback Management</title>
+    <style>
+            body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #d8d7d7;
+            color: #333;
+        }
+
+        header{
+             background-color: #1a237e;
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          
+        }
+           .logo-title{
+            display:flex;
+            align-items:center;
+            gap:0.5rem;
+        }
+
+        .logo{
+            height:40px
+        }
+         .container h1{
+            text-align:center;
+            color: rgb(56, 56, 56);
+            font-size:2.5rem;
+         }
+        .container{
+         
+            line-height:1.6;
+            margin: 0 auto;
+            padding: 1rem;
+        } 
+        .abtus{
+            margin : 0 auto;
+            width:80%;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+           
+        }
+        .feedtrack{
+               margin : 0 auto;
+            width:80%;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 2rem; 
+        }
+
+        .about{
+              margin : 0 auto;
+            width:80%;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+        .codezero{
+             margin : 0 auto;
+            width:80%;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+        .container h3{
+            color: #f44336;
+        
+        }
+          :root {
+      --primary-color: #4a90e2;
+      --secondary-color: #f4f6f8;
+      --text-color: #333;
+      --footer-bg: #222;
+      --footer-text: #ddd;
+      --footer-link-hover: #4a90e2;
+      --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+  
+    .footer {
+        margin-top:50px;
+      background-color: rgb(43, 43, 44);
+      color: white;
+      padding: 40px 20px 20px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .footer-section {
+      flex: 1 1 220px;
+      min-width: 220px;
+    }
+    .footer h3 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+      color:#e9410e;
+    }
+    .footer p {
+      line-height: 1.5;
+      font-size: 0.95rem;
+      margin: 0 0 10px 0;
+      max-width: 320px;
+    }
+    .footer a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s ease;
+      font-size: 0.95rem;
+    }
+    .footer a:hover {
+      color: var(--footer-link-hover);
+      text-decoration: underline;
+    }
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .footer-links li {
+      margin-bottom: 8px;
+    }
+    .footer-contact p {
+      margin: 5px 0;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .footer-contact svg {
+      fill: var(--primary-color);
+      width: 18px;
+      height: 18px;
+    }
+    .footer-social {
+      display: flex;
+      gap: 15px;
+      margin-top: 8px;
+    }
+    .footer-social a {
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      background-color: var(--primary-color);
+      border-radius: 50%;
+      text-align: center;
+      line-height: 28px;
+      color: white;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+    .footer-social a:hover {
+      background-color: #357abd;
+    }
+    .footer-bottom {
+      width: 100%;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      margin-top: 30px;
+      padding-top: 15px;
+      text-align: center;
+      font-size: 0.85rem;
+      color:white;
+    }
+    @media (max-width: 600px) {
+      .footer {
+        flex-direction: column;
+        padding: 30px 15px 15px 15px;
+      }
+      .footer-section {
+        min-width: unset;
+      }
+    }
+
+        .toggle-button{
+  height:30px;
+            width:80px;
+            color:white;
+            border-radius:4px;
+            font-size:18px;
+            cursor:pointer;
+            border:none;
+            margin-left:30px;
+            background-color: #f44336;
+        }
+        
+    </style>
+</head>
+<body>
+  <header>
+    <div class="logo-title">
+    <img src="https://drive.google.com/uc?id=1fr9qQSUL7ui0SvNfLqviJzJHbo1EaPtA " alt ="logo" />
+        <h1>FeedTrack</h1>
+        </div>
+     <button class="toggle-button" onclick="toggleMenu()">login</button>
+    </header>
+    
+    <div class="container">
+         <h1>About us</h1>
+    <div class="abtus">
+       
+
+        <h3>About Department</h3>
+      <p>
+       🧠  The Artificial Intelligence and Machine Learning (AIML) department at Dayananda Sagar College of Engineering is a hub of innovation, problem-solving, and advanced learning. Focused on cutting-edge technologies, the department equips students with strong foundations in AI, data science, machine learning, and deep learning, preparing them to be leaders in the tech-driven world.
+
+With experienced faculty, hands-on labs, and a vibrant student community, AIML at DSCE goes beyond textbooks — offering real-world exposure through hackathons, workshops, industry projects, and active student clubs like Anvaya and CodeZero. The department encourages creativity, collaboration, and continuous learning to shape well-rounded professionals who are ready to solve tomorrow’s challenges today.
+      </p>
+    </div>
+
+<br>
+<div class="feedtrack">
+<h3>About FeedTrack</h3>
+<p>
+📊 About FeedTrack – Your Feedback, Our Fuel
+
+FeedTrack is the official feedback management platform designed specifically for the AIML department. It provides a structured and student-friendly way to collect insights on events, teaching, and overall experiences. Whether it’s a workshop, competition, or semester feedback, FeedTrack ensures every voice is heard and valued.
+
+Built to drive continuous improvement, FeedTrack empowers students to share honest and constructive feedback easily, helping the department refine its activities and deliver even better outcomes. Transparent, organized, and efficient — FeedTrack is the bridge between participation and progress.
+<br>
+ <h4>"Because your opinion matters. Always."</h4>
+      </p>
+    
+    </div>
+<br>
+    <div class="about">
+        <h3>About Anvaya</h3>
+        <p>
+<b>✨Will. Work. Win.✨</b><br>
+<br>
+Anvaya is the official departmental club—a unified front for all academic, cultural, and technical events within the department. It was established as a student-led initiative to coordinate, streamline, and elevate all intra- and inter-departmental activities.
+
+From hosting vibrant festivals to managing workshops and competitions, Anvaya serves as the one-stop hub that reflects the collective enthusiasm, creativity, and leadership of our student community. True to its motto—Will. Work. Win.—Anvaya is a dynamic embodiment of unity and execution.
+
+The club not only encourages innovation and collaboration but also empowers students to take ownership of their ideas and bring them to life. With a focus on skill development and inclusive participation, Anvaya fosters a culture of continuous learning, critical thinking, and excellence. Every event, every initiative, and every challenge taken up by Anvaya is a step toward building future-ready professionals with a strong sense of community and purpose</p>
+
+    </div>
+<br>
+    <div class="codezero">
+        <h3>About CodeZero</h3>
+        
+        <p>💻 CodeZero is the student-driven technical wing of Anvaya, passionately committed to fostering a culture of innovation, collaboration, and technical excellence. With a core mission to explore, upskill, participate, and conquer, CodeZero acts as a catalyst for students who are eager to dive deep into the dynamic world of technology. Through regular coding challenges, hands-on workshops, open-source contributions, and engaging tech talks, we provide a vibrant platform for students to sharpen their skills and stay ahead in the ever-evolving tech landscape. From dominating national-level hackathons to launching independent tech initiatives, CodeZero empowers students to transform their passion into real-world impact. It’s not just a club — it's a launchpad for the next generation of developers, problem-solvers, and tech leaders. At CodeZero, we don’t just learn technology 
+        </p>
+        <h4> we live it, lead it, and redefine it.</h4>
+    </div>
+    
+</div>
+        
+<script>
+      function toggleMenu() {
+      // Redirect to index.html containing the login page
+      window.location.href = '/index/';
+    }
+</script>
+
+  
+
+  <footer class="footer" role="contentinfo">
+    <div class="footer-section footer-about">
+      <h3>About FeedTrack</h3>
+      <p>"FeedTrack is a comprehensive feedback management platform tailored for department events. It empowers organizers to create tailored feedback forms, collect valuable responses, and gain actionable insights—enhancing the quality and impact of every event.</p>
+    </div>
+    <div class="footer-section footer-links">
+      <h3>Useful Links</h3>
+      <ul>
+        <li><a href="aboutus.html">Home</a></li>
+        <li><a href="createEvent.html">Create Feedback Form</a></li>
+        <li><a href="adminDashboard.html">Analyze Feedback</a></li>
+       
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-section footer-contact">
+      <h3>Contact</h3>
+      <p>
+        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+          <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 2-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"></path>
+        </svg>
+        CodeZero@gmail.com
+      </p>
+      <p>
+        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+          <path d="M6.62 10.79a15.053 15.053 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.11-.21 11.36 11.36 0 0 0 3.55.57 1 1 0 0 1 1 1v3.5a1 1 0 0 1-1 1A16 16 0 0 1 4 6a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.36 11.36 0 0 0 .57 3.55 1 1 0 0 1-.21 1.11l-2.24 2.13z"></path>
+        </svg>
+        +91 6678898997
+      </p>
+      <div class="footer-social" aria-label="Social Media links">
+        <!-- <a href="#" title="Facebook" aria-label="Facebook" target="_blank" rel="noopener noreferrer">f</a>
+        <a href="#" title="Twitter" aria-label="Twitter" target="_blank" rel="noopener noreferrer">t</a> -->
+        <a href="https://www.instagram.com/codezeroaiml/" title="Instagram" img src = "images/square-instagram-brands.svg"aria-label="Instagram" target="_blank" rel="noopener noreferrer">i</a>
+        <a href="https://www.linkedin.com/in/code-zero-4a3406334?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" img src ="images/linkedin-brands.svg" title="LinkedIn" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">in</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2024 FeedTrack. All rights reserved. | Designed by CodeZero Team
+    </div>
+  </footer>
+
+
+
+    
+</body>
+</html>

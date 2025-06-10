@@ -7,4 +7,5 @@ urlpatterns = [
     path('admin-dashboard/',views.adminDashboard,name="admin-dashboard"),
     path('admin-create/',views.createevent,name='admin-create'),
     path('admin-create/<int:id>/',views.createevent,name='admin-create'),
+    path('about/',views.about,name='about'),
     ]

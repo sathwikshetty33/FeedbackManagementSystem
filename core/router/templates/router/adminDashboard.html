@@ -9,7 +9,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f5f5f5;
+            background-color: #d8d7d7;
             color: #333;
         }
 
@@ -22,6 +22,15 @@
             align-items: center;
         }
 
+        .logo-title{
+            display:flex;
+            align-items:center;
+            gap:0.5rem;
+        }
+
+        .logo{
+            height:40px
+        }
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -85,7 +94,16 @@
         }
 
         .logout-btn {
-            background-color: #f44336;
+         background-color: #f44336;
+            color: white;
+            border: none;
+            width:70px;
+            height:30px;
+            margin-left:30px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
         }
 
         .logout-btn:hover {
@@ -158,14 +176,13 @@
 
         .modal-content {
             background-color: #fff;
-            margin: 5% auto;
+            margin: 15% auto;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
             width: 80%;
-            max-width: 800px;
-            max-height: 80vh;
-            overflow-y: auto;
+            max-width: 500px;
+            text-align: center;
         }
 
         .modal-header {
@@ -193,17 +210,6 @@
             color: #333;
         }
 
-        .insights-section {
-            margin-bottom: 1.5rem;
-        }
-
-        .insights-section h4 {
-            margin-top: 0;
-            color: #1a237e;
-            border-bottom: 1px solid #e0e0e0;
-            padding-bottom: 0.5rem;
-        }
-
         .spinner {
             border: 4px solid rgba(0, 0, 0, 0.1);
             width: 36px;
@@ -214,17 +220,141 @@
             margin: 20px auto;
         }
 
+        .navadmin{
+            font-size:16px;
+        }
+
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+
+        .success-message {
+            color: #4CAF50;
+            font-size: 1.2rem;
+            margin: 1rem 0;
+        }
+
+        .error-message {
+            color: #f44336;
+            font-size: 1.2rem;
+            margin: 1rem 0;
+        }
+
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #f4f6f8;
+            --text-color: #333;
+            --footer-bg: #222;
+            --footer-text: #ddd;
+            --footer-link-hover: #4a90e2;
+            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+  
+        .footer {
+            margin-top:50px;
+            background-color: rgb(43, 43, 44);
+            color: white;
+            padding: 40px 20px 20px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        .footer-section {
+            flex: 1 1 220px;
+            min-width: 220px;
+        }
+        .footer h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            color:#e9410e;
+        }
+        .footer p {
+            line-height: 1.5;
+            font-size: 0.95rem;
+            margin: 0 0 10px 0;
+            max-width: 320px;
+        }
+        .footer a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+        .footer a:hover {
+            color: var(--footer-link-hover);
+            text-decoration: underline;
+        }
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+        .footer-contact p {
+            margin: 5px 0;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .footer-contact svg {
+            fill: var(--primary-color);
+            width: 18px;
+            height: 18px;
+        }
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            margin-top: 8px;
+        }
+        .footer-social a {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            color: white;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        .footer-social a:hover {
+            background-color: #357abd;
+        }
+        .footer-bottom {
+            width: 100%;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            margin-top: 30px;
+            padding-top: 15px;
+            text-align: center;
+            font-size: 0.85rem;
+            color:white;
+        }
+        @media (max-width: 600px) {
+            .footer {
+                flex-direction: column;
+                padding: 30px 15px 15px 15px;
+            }
+            .footer-section {
+                min-width: unset;
+            }
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Admin Dashboard</h1>
-        <div>
-            <span id="adminName">Admin</span>
+        <div class="logo-title">
+        <img src="https://drive.google.com/uc?id=1fr9qQSUL7ui0SvNfLqviJzJHbo1EaPtA" alt ="logo" />
+        <h1>FeedTrack</h1>
+        </div>
+        <div class="navadmin">
+            <span id="adminName">Admin Dashboard</span>
             <button class="logout-btn" onclick="logout()">Logout</button>
         </div>
     </header>
@@ -244,14 +374,13 @@
     <div id="insightsModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="insightsModalTitle">Feedback Insights</h3>
+                <h3 class="modal-title" id="insightsModalTitle">Generate Insights</h3>
                 <span class="close" onclick="closeModal()">&times;</span>
             </div>
             <div id="insightsContent">
-                <!-- Insights will be loaded here -->
+                <!-- Content will be loaded here -->
             </div>
-            <div class="modal-footer" style="display: flex; justify-content: space-between; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #eee;">
-                <button class="btn btn-success" onclick="downloadInsights()">Download Insights</button>
+            <div class="modal-footer" style="display: flex; justify-content: center; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #eee;">
                 <button class="btn" onclick="closeModal()">Close</button>
             </div>
         </div>
@@ -404,14 +533,14 @@
             window.location.href = '/index/';
         }
 
-        // Insights generation functions
+        // Insights generation function
         function generateInsights(eventId, eventName) {
             const modal = document.getElementById('insightsModal');
             const modalTitle = document.getElementById('insightsModalTitle');
             const insightsContent = document.getElementById('insightsContent');
             
-            modalTitle.textContent = `Feedback Insights: ${eventName}`;
-            insightsContent.innerHTML = `<div class="spinner"></div><p style="text-align: center;">Generating insights from feedback data...</p>`;
+            modalTitle.textContent = `Generate Insights: ${eventName}`;
+            insightsContent.innerHTML = `<div class="spinner"></div><p>Generating insights...</p>`;
             
             modal.style.display = 'block';
             
@@ -427,127 +556,33 @@
                 body: JSON.stringify({ event_id: eventId })
             })
             .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to generate insights');
+                if (response.status === 200) {
+                    // Success - show email message
+                    insightsContent.innerHTML = `
+                        <div class="success-message">
+                            <h3>✅ Success!</h3>
+                            <p>Insights will be sent through email</p>
+                        </div>
+                    `;
+                } else {
+                    // Error occurred
+                    insightsContent.innerHTML = `
+                        <div class="error-message">
+                            <h3>❌ Error</h3>
+                            <p>Some error has occurred</p>
+                        </div>
+                    `;
                 }
-                return response.json();
-            })
-            .then(data => {
-                // Display insights in the modal
-                displayInsights(data);
             })
             .catch(error => {
                 console.error('Error:', error);
                 insightsContent.innerHTML = `
-                    <div class="empty-state">
-                        <h3>Error generating insights</h3>
-                        <p>${error.message}</p>
+                    <div class="error-message">
+                        <h3>❌ Error</h3>
+                        <p>Some error has occurred</p>
                     </div>
                 `;
             });
-        }
-        
-        function displayInsights(data) {
-            const insightsContent = document.getElementById('insightsContent');
-            
-            if (data.error) {
-                insightsContent.innerHTML = `
-                    <div class="empty-state">
-                        <h3>Error</h3>
-                        <p>${data.error}</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            const insights = data.insights;
-            let html = '';
-            
-            // Overall sentiment
-            if (insights.overall_sentiment || insights.sentiment_analysis) {
-                html += `
-                    <div class="insights-section">
-                        <h4>Overall Sentiment</h4>
-                        <p>${insights.overall_sentiment || insights.sentiment_analysis}</p>
-                    </div>
-                `;
-            }
-            
-            // Areas of improvement
-            if (insights.key_areas_of_improvement || insights.areas_of_improvement) {
-                html += `<div class="insights-section"><h4>Areas for Improvement</h4><ul>`;
-                
-                const improvements = insights.key_areas_of_improvement || insights.areas_of_improvement;
-                if (Array.isArray(improvements)) {
-                    improvements.forEach(item => {
-                        html += `<li>${item}</li>`;
-                    });
-                } else {
-                    html += `<li>${improvements}</li>`;
-                }
-                
-                html += `</ul></div>`;
-            }
-            
-            // Strengths
-            if (insights.strengths || insights.positive_feedback) {
-                html += `<div class="insights-section"><h4>Strengths & Positive Feedback</h4><ul>`;
-                
-                const strengths = insights.strengths || insights.positive_feedback;
-                if (Array.isArray(strengths)) {
-                    strengths.forEach(item => {
-                        html += `<li>${item}</li>`;
-                    });
-                } else {
-                    html += `<li>${strengths}</li>`;
-                }
-                
-                html += `</ul></div>`;
-            }
-            
-            // Trend analysis
-            if (insights.trend_analysis) {
-                html += `
-                    <div class="insights-section">
-                        <h4>Trend Analysis</h4>
-                        <p>${insights.trend_analysis}</p>
-                    </div>
-                `;
-            }
-            
-            // Action items
-            if (insights.recommended_action_items || insights.action_items) {
-                html += `<div class="insights-section"><h4>Recommended Actions</h4><ul>`;
-                
-                const actions = insights.recommended_action_items || insights.action_items;
-                if (Array.isArray(actions)) {
-                    actions.forEach(item => {
-                        html += `<li>${item}</li>`;
-                    });
-                } else {
-                    html += `<li>${actions}</li>`;
-                }
-                
-                html += `</ul></div>`;
-            }
-            
-            // Handle raw insights if structured format wasn't provided
-            if (insights.raw_insights) {
-                html += `
-                    <div class="insights-section">
-                        <h4>Detailed Analysis</h4>
-                        <pre style="white-space: pre-wrap; background-color: #f5f5f5; padding: 1rem; border-radius: 4px;">${insights.raw_insights}</pre>
-                    </div>
-                `;
-            }
-            
-            // Store insights data for download
-            window.currentInsights = {
-                eventName: data.event_name,
-                insights: insights
-            };
-            
-            insightsContent.innerHTML = html;
         }
         
         function closeModal() {
@@ -562,97 +597,44 @@
                 modal.style.display = 'none';
             }
         }
-        
-        function downloadInsights() {
-            if (!window.currentInsights) {
-                alert('No insights data available for download');
-                return;
-            }
-            
-            const eventName = window.currentInsights.eventName;
-            const insights = window.currentInsights.insights;
-            
-            // Format insights for download
-            let content = `# Feedback Insights: ${eventName}\n\n`;
-            
-            // Overall sentiment
-            if (insights.overall_sentiment || insights.sentiment_analysis) {
-                content += `## Overall Sentiment\n${insights.overall_sentiment || insights.sentiment_analysis}\n\n`;
-            }
-            
-            // Areas of improvement
-            if (insights.key_areas_of_improvement || insights.areas_of_improvement) {
-                content += `## Areas for Improvement\n`;
-                
-                const improvements = insights.key_areas_of_improvement || insights.areas_of_improvement;
-                if (Array.isArray(improvements)) {
-                    improvements.forEach(item => {
-                        content += `- ${item}\n`;
-                    });
-                } else {
-                    content += `- ${improvements}\n`;
-                }
-                
-                content += '\n';
-            }
-            
-            // Strengths
-            if (insights.strengths || insights.positive_feedback) {
-                content += `## Strengths & Positive Feedback\n`;
-                
-                const strengths = insights.strengths || insights.positive_feedback;
-                if (Array.isArray(strengths)) {
-                    strengths.forEach(item => {
-                        content += `- ${item}\n`;
-                    });
-                } else {
-                    content += `- ${strengths}\n`;
-                }
-                
-                content += '\n';
-            }
-            
-            // Trend analysis
-            if (insights.trend_analysis) {
-                content += `## Trend Analysis\n${insights.trend_analysis}\n\n`;
-            }
-            
-            // Action items
-            if (insights.recommended_action_items || insights.action_items) {
-                content += `## Recommended Actions\n`;
-                
-                const actions = insights.recommended_action_items || insights.action_items;
-                if (Array.isArray(actions)) {
-                    actions.forEach(item => {
-                        content += `- ${item}\n`;
-                    });
-                } else {
-                    content += `- ${actions}\n`;
-                }
-                
-                content += '\n';
-            }
-            
-            // Raw insights
-            if (insights.raw_insights) {
-                content += `## Detailed Analysis\n${insights.raw_insights}\n\n`;
-            }
-            
-            // Generate date stamp
-            const date = new Date();
-            content += `\nGenerated on: ${date.toLocaleString()}`;
-            
-            // Create blob and download
-            const blob = new Blob([content], { type: 'text/markdown' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `${eventName.replace(/\s+/g, '-').toLowerCase()}-insights.md`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        }
     </script>
+     <footer class="footer" role="contentinfo">
+    <div class="footer-section footer-about">
+      <h3>About FeedTrack</h3>
+      <p>"FeedTrack is a comprehensive feedback management platform tailored for department events. It empowers organizers to create tailored feedback forms, collect valuable responses, and gain actionable insights—enhancing the quality and impact of every event.</p>
+    </div>
+    <div class="footer-section footer-links">
+      <h3>Useful Links</h3>
+      <ul>
+        <li><a href="aboutus.html">Home</a></li>
+        <li><a href="createEvent.html">Create Feedback Form</a></li>
+        <li><a href="adminDashboard.html">Analyze Feedback</a></li>
+       
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-section footer-contact">
+      <h3>Contact</h3>
+      <p>
+        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+          <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 2-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"></path>
+        </svg>
+        CodeZero@gmail.com
+      </p>
+      <p>
+        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+          <path d="M6.62 10.79a15.053 15.053 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.11-.21 11.36 11.36 0 0 0 3.55.57 1 1 0 0 1 1 1v3.5a1 1 0 0 1-1 1A16 16 0 0 1 4 6a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.36 11.36 0 0 0 .57 3.55 1 1 0 0 1-.21 1.11l-2.24 2.13z"></path>
+        </svg>
+        +91 6678898997
+      </p>
+      <div class="footer-social" aria-label="Social Media links">
+        <a href="https://www.instagram.com/codezeroaiml/" title="Instagram" img src = "images/square-instagram-brands.svg"aria-label="Instagram" target="_blank" rel="noopener noreferrer">i</a>
+        <a href="https://www.linkedin.com/in/code-zero-4a3406334?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" img src ="images/linkedin-brands.svg" title="LinkedIn" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">in</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2024 FeedTrack. All rights reserved. | Designed by CodeZero Team
+    </div>
+  </footer>
 </body>
 </html>

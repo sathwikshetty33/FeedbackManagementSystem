@@ -9,7 +9,8 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f5f5f5;
+            /* background-color: #f5f5f5; */
+             background-color:#d8d7d7;
             color: #333;
         }
 
@@ -20,7 +21,19 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+           
         }
+
+        .logo-title{
+            display:flex;
+            align-items:center;
+            gap:0.5rem;
+        }
+
+        .logo{
+            height:40px
+        }
+      
 
         .header-buttons {
             display: flex;
@@ -355,6 +368,110 @@
                 justify-content: center;
             }
         }
+           :root {
+      --primary-color: #4a90e2;
+      --secondary-color: #f4f6f8;
+      --text-color: #333;
+      --footer-bg: #222;
+      --footer-text: #ddd;
+      --footer-link-hover: #4a90e2;
+      --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+  
+    .footer {
+        margin-top:50px;
+      background-color: rgb(43, 43, 44);
+      color: white;
+      padding: 40px 20px 20px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .footer-section {
+      flex: 1 1 220px;
+      min-width: 220px;
+    }
+    .footer h3 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+      color:#e9410e;
+    }
+    .footer p {
+      line-height: 1.5;
+      font-size: 0.95rem;
+      margin: 0 0 10px 0;
+      max-width: 320px;
+    }
+    .footer a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s ease;
+      font-size: 0.95rem;
+    }
+    .footer a:hover {
+      color: var(--footer-link-hover);
+      text-decoration: underline;
+    }
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .footer-links li {
+      margin-bottom: 8px;
+    }
+    .footer-contact p {
+      margin: 5px 0;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .footer-contact svg {
+      fill: var(--primary-color);
+      width: 18px;
+      height: 18px;
+    }
+    .footer-social {
+      display: flex;
+      gap: 15px;
+      margin-top: 8px;
+    }
+    .footer-social a {
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      background-color: var(--primary-color);
+      border-radius: 50%;
+      text-align: center;
+      line-height: 28px;
+      color: white;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+    .footer-social a:hover {
+      background-color: #357abd;
+    }
+    .footer-bottom {
+      width: 100%;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      margin-top: 30px;
+      padding-top: 15px;
+      text-align: center;
+      font-size: 0.85rem;
+      color:white;
+    }
+    @media (max-width: 600px) {
+      .footer {
+        flex-direction: column;
+        padding: 30px 15px 15px 15px;
+      }
+      .footer-section {
+        min-width: unset;
+      }
+    }
     </style>
 </head>
 <body>
@@ -365,9 +482,16 @@
     <div id="notification" class="notification"></div>
 
     <header>
-        <h1>Campus Events Dashboard</h1>
+        <div class="logo-title">
+        <img src="https://drive.google.com/uc?id=1fr9qQSUL7ui0SvNfLqviJzJHbo1EaPtA" alt ="logo" />
+      
+        <h1>FeedTrack</h1>
+          </div>
         <div class="header-buttons">
             <a href="/admin-dashboard/" class="dashboard-btn">Events Dashboard</a>
+             <!-- Hide the button by default -->
+            <!-- <a href="/admin-dashboard/" class="dashboard-btn" style="display: none;">Events Dashboard</a> -->
+
             <div id="userStatus"></div>
         </div>
     </header>
@@ -643,12 +767,34 @@
             });
         }
             // Show/hide Events Dashboard button based on user type
-const eventsBtn = document.querySelector('.dashboard-btn');
-if (userType === 'teacher') {
+// const eventsBtn = document.querySelector('.dashboard-btn');
+// if(eventsBtn)
+// if (userType === 'teacher') {
+//     eventsBtn.style.display = 'inline-block';
+// } else {
+//     eventsBtn.style.display = 'none';
+// }
+
+  // Get the user type from localStorage
+  const userType = localStorage.getItem('userType'); // 'teacher' or 'student'
+
+  // Find the Events Dashboard button
+  const eventsBtn = document.querySelector('.dashboard-btn');
+
+  // Show it only if the user is a teacher
+  if (userType === 'teacher') {
     eventsBtn.style.display = 'inline-block';
-} else {
+  } else  {
     eventsBtn.style.display = 'none';
-}
+  }
+
+
+
+
+
+
+
+
         function displayEvents(events) {
             const eventsList = document.getElementById('eventsList');
             eventsList.innerHTML = '';
@@ -879,11 +1025,12 @@ if (userType === 'teacher') {
 
         function logout() {
             // Clear all tokens from local storage
-            localStorage.removeItem('studentToken');
-            localStorage.removeItem('studentId');
-            localStorage.removeItem('staffToken');
-            localStorage.removeItem('teacherId');
-            localStorage.removeItem('adminToken');
+          localStorage.removeItem('studentToken');
+    localStorage.removeItem('studentId');
+    localStorage.removeItem('staffToken');
+    localStorage.removeItem('teacherId');
+    localStorage.removeItem('adminId');
+    localStorage.removeItem('userType');
             
             // Redirect to login page
             window.location.href = '/index/';
@@ -894,5 +1041,45 @@ if (userType === 'teacher') {
             loadingOverlay.style.display = 'none';
         }
     </script>
+     <footer class="footer" role="contentinfo">
+    <div class="footer-section footer-about">
+      <h3>About FeedTrack</h3>
+      <p>"FeedTrack is a comprehensive feedback management platform tailored for department events. It empowers organizers to create tailored feedback forms, collect valuable responses, and gain actionable insights—enhancing the quality and impact of every event.</p>
+    </div>
+    <div class="footer-section footer-links">
+      <h3>Useful Links</h3>
+      <ul>
+        <li><a href="aboutus.html">Home</a></li>
+        <li><a href="createEvent.html">Create Feedback Form</a></li>
+        <li><a href="adminDashboard.html">Analyze Feedback</a></li>
+       
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-section footer-contact">
+      <h3>Contact</h3>
+      <p>
+        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+          <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 2-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"></path>
+        </svg>
+        CodeZero@gmail.com
+      </p>
+      <p>
+        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+          <path d="M6.62 10.79a15.053 15.053 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.11-.21 11.36 11.36 0 0 0 3.55.57 1 1 0 0 1 1 1v3.5a1 1 0 0 1-1 1A16 16 0 0 1 4 6a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.36 11.36 0 0 0 .57 3.55 1 1 0 0 1-.21 1.11l-2.24 2.13z"></path>
+        </svg>
+        +91 6678898997
+      </p>
+      <div class="footer-social" aria-label="Social Media links">
+        <!-- <a href="#" title="Facebook" aria-label="Facebook" target="_blank" rel="noopener noreferrer">f</a>
+        <a href="#" title="Twitter" aria-label="Twitter" target="_blank" rel="noopener noreferrer">t</a> -->
+        <a href="https://www.instagram.com/codezeroaiml/" title="Instagram" img src = "images/square-instagram-brands.svg"aria-label="Instagram" target="_blank" rel="noopener noreferrer">i</a>
+        <a href="https://www.linkedin.com/in/code-zero-4a3406334?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" img src ="images/linkedin-brands.svg" title="LinkedIn" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">in</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2024 FeedTrack. All rights reserved. | Designed by CodeZero Team
+    </div>
+  </footer>
 </body>
 </html>

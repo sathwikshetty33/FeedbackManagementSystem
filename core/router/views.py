@@ -12,3 +12,5 @@ def adminDashboard(request):
 
 def createevent(request,id=None):
     return render(request,'router/createEvent.html',{'id':id})
+def about(request):
+    return render(request,'router/about.html')

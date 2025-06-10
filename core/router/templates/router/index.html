@@ -5,12 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Campus Events</title>
     <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #f4f6f8;
+            --text-color: #333;
+            --footer-bg: #2b2b2c;
+            --footer-text: #ddd;
+            --footer-link-hover: #4a90e2;
+            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: var(--font-family);
             margin: 0;
             padding: 0;
-            background-color: #f5f5f5;
-            color: #333;
+            background-color: #d8d7d7;
+            color: var(--text-color);
+            line-height: 1.6;
         }
 
         header {
@@ -20,6 +31,25 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+       
+        .logo-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            min-width: 0;
+        }
+
+        .logo {
+            height: 40px;
+            width: auto; 
+            flex-shrink: 0;
+        }
+
+        h1 {
+            font-size: 1.8rem;
         }
 
         .container {
@@ -28,7 +58,70 @@
             padding: 1rem;
         }
 
+        /* --- Modal Styles --- */
+        .modal-overlay {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            padding: 1rem; /* Padding around the modal content */
+            box-sizing: border-box; /* Include padding in dimensions */
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            width: 90%; /* Responsive width */
+            max-width: 500px; /* Max width for larger screens */
+            position: relative; /* For close button positioning */
+            animation: fadeIn 0.3s ease-out; /* Simple fade-in effect */
+        }
+
+        .modal-close-btn {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .modal-close-btn:hover,
+        .modal-close-btn:focus {
+            color: #333;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- End Modal Styles --- */
+
+
         .login-section {
+            /* This section is now inside the modal, so its direct display is controlled by the modal */
+            /* We can keep its internal styling for the forms */
+            /* Removed direct display: block/none here, as modal-overlay will handle it */
+            margin-bottom: 0; /* No margin-bottom needed inside the modal */
+            box-shadow: none; /* No shadow needed inside the modal */
+            padding: 0; /* Padding handled by modal-content */
+        }
+
+        .events-section {
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -39,12 +132,18 @@
         .login-tabs {
             display: flex;
             margin-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+            flex-wrap: wrap;
         }
 
         .login-tab {
-            padding: 0.5rem 1rem;
+            padding: 0.75rem 1.25rem;
             cursor: pointer;
             border-bottom: 2px solid transparent;
+            color: #555;
+            transition: all 0.3s ease;
+            flex-grow: 1;
+            text-align: center;
         }
 
         .login-tab.active {
@@ -55,6 +154,7 @@
 
         .login-form {
             display: none;
+            padding-top: 1rem;
         }
 
         .login-form.active {
@@ -72,11 +172,12 @@
         }
 
         input {
-            width: 100%;
+            width: calc(100% - 1.5rem);
             padding: 0.75rem;
             border: 1px solid #ddd;
             border-radius: 4px;
             font-size: 1rem;
+            box-sizing: border-box;
         }
 
         button {
@@ -88,22 +189,16 @@
             cursor: pointer;
             font-size: 1rem;
             transition: background-color 0.3s;
+            width: auto;
         }
 
         button:hover {
             background-color: #303f9f;
         }
 
-        .events-section {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 2rem;
-        }
-
         .events-list {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 1.5rem;
         }
 
@@ -112,6 +207,9 @@
             border-radius: 8px;
             overflow: hidden;
             transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .event-card:hover {
@@ -127,27 +225,34 @@
 
         .event-body {
             padding: 1rem;
+            flex-grow: 1;
         }
 
         .event-footer {
             padding: 1rem;
             border-top: 1px solid #eee;
             display: flex;
+            flex-direction: column;
+            gap: 10px;
             justify-content: space-between;
+            align-items: flex-start;
         }
 
         .event-time {
             color: #666;
             font-size: 0.9rem;
+            margin-bottom: 0.5rem;
         }
 
         .event-visibility {
             display: inline-block;
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
             background-color: #e3f2fd;
             color: #1976d2;
+            font-weight: 500;
+            white-space: nowrap;
         }
 
         .hidden {
@@ -156,6 +261,7 @@
 
         .logout-btn {
             background-color: #f44336;
+            white-space: nowrap;
         }
 
         .logout-btn:hover {
@@ -169,85 +275,321 @@
             background-color: #e8f5e9;
             color: #2e7d32;
             display: none;
+            text-align: center;
         }
 
+        /* Footer Styles (unchanged from previous responsive version, but included for completeness) */
+        .footer {
+            margin-top: 50px;
+            background-color: var(--footer-bg);
+            color: var(--footer-text);
+            padding: 40px 20px 20px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 30px;
+        }
+        .footer-section {
+            flex: 1 1 250px;
+            min-width: 250px;
+        }
+        .footer h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            color:#e9410e;
+            border-bottom: 2px solid #e9410e;
+            padding-bottom: 5px;
+            display: inline-block;
+        }
+        .footer p {
+            line-height: 1.6;
+            font-size: 0.95rem;
+            margin: 0 0 10px 0;
+            max-width: 320px;
+        }
+        .footer a {
+            color: var(--footer-text);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+        .footer a:hover {
+            color: var(--footer-link-hover);
+            text-decoration: underline;
+        }
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        .footer-contact p {
+            margin: 10px 0;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .footer-contact svg {
+            fill: #e9410e;
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .footer-social a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 35px;
+            height: 35px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            color: white;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+            flex-shrink: 0;
+        }
+        .footer-social a:hover {
+            background-color: #357abd;
+        }
+        .footer-bottom {
+            width: 100%;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            margin-top: 30px;
+            padding-top: 15px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--footer-text);
+        }
+
+        /* --- Media Queries for Phone Responsiveness --- */
         @media (max-width: 768px) {
+            .container {
+                padding: 0.75rem;
+            }
+
+            .login-section, .events-section {
+                padding: 1.5rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .login-tabs {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .login-tab {
+                padding: 0.75rem;
+            }
+
             .events-list {
                 grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .event-card .event-footer {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+
+            .footer {
+                flex-direction: column;
+                padding: 20px 15px;
+                gap: 20px;
+            }
+            .footer-section {
+                min-width: unset;
+                flex: 1 1 auto;
+            }
+            .footer h3 {
+                font-size: 1.2rem;
+            }
+            .footer p, .footer a {
+                font-size: 0.9rem;
+            }
+            .footer-social a {
+                width: 30px;
+                height: 30px;
+                font-size: 16px;
+            }
+
+            .modal-content {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 0.75rem;
+            }
+
+            .logo {
+                height: 35px;
+            }
+
+            h1 {
+                font-size: 1.3rem;
+            }
+
+            .container {
+                padding: 0.5rem;
+            }
+
+            .login-section, .events-section {
+                padding: 1rem;
+            }
+
+            button {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+
+            input {
+                padding: 0.6rem;
+                font-size: 0.9rem;
+            }
+
+            .event-header h3 {
+                font-size: 1.1rem;
+            }
+
+            .event-body p, .event-time, .event-footer a {
+                font-size: 0.85rem;
+            }
+
+            .event-visibility {
+                font-size: 0.75rem;
+                padding: 0.2rem 0.6rem;
+            }
+
+            .modal-content {
+                padding: 1rem;
+            }
+            .modal-close-btn {
+                font-size: 24px;
+                top: 5px;
+                right: 10px;
             }
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Campus Events</h1>
-        <div id="loginStatus"></div>
+        <div class="logo-title">
+            <img src="https://drive.google.com/uc?id=1fr9qQSUL7ui0SvNfLqviJzJHbo1EaPtA" alt="FeedTrack Logo" class="logo" />
+            <h1>FeedTrack</h1>
+        </div>
+        
+        <div id="loginStatus">
+            <button class="login-prompt-btn" onclick="openLoginModal()">Login</button>
+        </div>
     </header>
 
     <div class="container">
-        <div class="login-section" id="loginSection">
-            <div class="login-tabs">
-                <div class="login-tab active" data-tab="student">Student Login</div>
-                <div class="login-tab" data-tab="teacher">Teacher Login</div>
-                <div class="login-tab" data-tab="admin">Admin Login</div>
-            </div>
-
-            <div class="login-form active" id="studentLoginForm">
-                <h2>Student Login</h2>
-                <div class="form-group">
-                    <label for="studentUsername">Username</label>
-                    <input type="text" id="studentUsername" required>
-                </div>
-                <div class="form-group">
-                    <label for="studentPassword">Password</label>
-                    <input type="password" id="studentPassword" required>
-                </div>
-                <button type="button" onclick="loginStudent()">Login</button>
-                <p id="studentLoginError" style="color: red;"></p>
-            </div>
-
-            <div class="login-form" id="teacherLoginForm">
-                <h2>Teacher Login</h2>
-                <div class="form-group">
-                    <label for="teacherUsername">Username</label>
-                    <input type="text" id="teacherUsername" required>
-                </div>
-                <div class="form-group">
-                    <label for="teacherPassword">Password</label>
-                    <input type="password" id="teacherPassword" required>
-                </div>
-                <button type="button" onclick="loginTeacher()">Login</button>
-                <p id="teacherLoginError" style="color: red;"></p>
-            </div>
-
-            <div class="login-form" id="adminLoginForm">
-                <h2>Admin Login</h2>
-                <div class="form-group">
-                    <label for="adminUsername">Username</label>
-                    <input type="text" id="adminUsername" required>
-                </div>
-                <div class="form-group">
-                    <label for="adminPassword">Password</label>
-                    <input type="password" id="adminPassword" required>
-                </div>
-                <button type="button" onclick="loginAdmin()">Login</button>
-                <p id="adminLoginError" style="color: red;"></p>
-            </div>
-        </div>
-
         <div class="login-status" id="userLoggedInStatus"></div>
 
         <div class="events-section">
             <h2>Available Events</h2>
             <div class="events-list" id="eventsList">
-                <!-- Events will be loaded here dynamically -->
                 <div class="loading">Loading events...</div>
             </div>
         </div>
     </div>
 
+    <div id="loginModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="modal-close-btn" onclick="closeLoginModal()">&times;</span>
+            <div class="login-section" id="loginSection">
+                <div class="login-tabs">
+                    <div class="login-tab active" data-tab="student">Student Login</div>
+                    <div class="login-tab" data-tab="teacher">Teacher Login</div>
+                    <div class="login-tab" data-tab="admin">Admin Login</div>
+                </div>
+
+                <div class="login-form active" id="studentLoginForm">
+                    <h2>Student Login</h2>
+                    <div class="form-group">
+                        <label for="studentUsername">Username</label>
+                        <input type="text" id="studentUsername" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="studentPassword">Password</label>
+                        <input type="password" id="studentPassword" required>
+                    </div>
+                    <button type="button" onclick="loginStudent()">Login</button>
+                    <p id="studentLoginError" style="color: red;"></p>
+                </div>
+
+                <div class="login-form" id="teacherLoginForm">
+                    <h2>Teacher Login</h2>
+                    <div class="form-group">
+                        <label for="teacherUsername">Username</label>
+                        <input type="text" id="teacherUsername" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="teacherPassword">Password</label>
+                        <input type="password" id="teacherPassword" required>
+                    </div>
+                    <button type="button" onclick="loginTeacher()">Login</button>
+                    <p id="teacherLoginError" style="color: red;"></p>
+                </div>
+
+                <div class="login-form" id="adminLoginForm">
+                    <h2>Admin Login</h2>
+                    <div class="form-group">
+                        <label for="adminUsername">Username</label>
+                        <input type="text" id="adminUsername" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="adminPassword">Password</label>
+                        <input type="password" id="adminPassword" required>
+                    </div>
+                    <button type="button" onclick="loginAdmin()">Login</button>
+                    <p id="adminLoginError" style="color: red;"></p>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
-        // Toggle between login tabs
+        // Modal elements
+        const loginModal = document.getElementById('loginModal');
+        const loginSection = document.getElementById('loginSection'); // Still need this ID for internal login forms
+        const userLoggedInStatus = document.getElementById('userLoggedInStatus');
+        const loginStatusHeader = document.getElementById('loginStatus');
+
+        // Functions to open and close the modal
+        function openLoginModal() {
+            loginModal.style.display = 'flex'; // Use flex to center content
+        }
+
+        function closeLoginModal() {
+            loginModal.style.display = 'none';
+            // Clear any error messages when closing the modal
+            document.getElementById('studentLoginError').textContent = '';
+            document.getElementById('teacherLoginError').textContent = '';
+            document.getElementById('adminLoginError').textContent = '';
+        }
+
+        // Close modal if user clicks outside of the modal content
+        window.onclick = function(event) {
+            if (event.target == loginModal) {
+                closeLoginModal();
+            }
+        }
+
+        // Toggle between login tabs (remains mostly the same)
         const loginTabs = document.querySelectorAll('.login-tab');
         const loginForms = document.querySelectorAll('.login-form');
 
@@ -260,43 +602,64 @@
                 
                 tab.classList.add('active');
                 document.getElementById(`${tabName}LoginForm`).classList.add('active');
+
+                // Clear any previous error messages when switching tabs
+                document.getElementById('studentLoginError').textContent = '';
+                document.getElementById('teacherLoginError').textContent = '';
+                document.getElementById('adminLoginError').textContent = '';
             });
         });
 
-        // Load events when the page loads
+        // Function to update the header login status
+        function updateHeaderLoginStatus() {
+            const userType = localStorage.getItem('userType');
+            if (userType) {
+                loginStatusHeader.innerHTML = `
+                    <span>Logged in as ${userType}</span>
+                    <button class="logout-btn" onclick="logout()">Logout</button>
+                `;
+                // When logged in, hide the modal and show the status message below the header
+                loginModal.style.display = 'none'; 
+                userLoggedInStatus.style.display = 'block';
+                userLoggedInStatus.innerHTML = `<p>You are logged in as ${userType}.</p>`;
+            } else {
+                // When logged out, show the "Login" button in the header and hide the status message
+                loginStatusHeader.innerHTML = `<button class="login-prompt-btn" onclick="openLoginModal()">Login</button>`;
+                loginModal.style.display = 'none'; // Ensure modal is hidden
+                userLoggedInStatus.style.display = 'none'; // Hide status message
+            }
+        }
+
+        // Load events and check login status when the page loads
         document.addEventListener('DOMContentLoaded', function() {
             loadEvents();
+            updateHeaderLoginStatus(); // Update header status on page load
         });
 
         function showLoggedInStatus(userType) {
-            const loginSection = document.getElementById('loginSection');
-            const userLoggedInStatus = document.getElementById('userLoggedInStatus');
-            const loginStatus = document.getElementById('loginStatus');
+            localStorage.setItem('userType', userType); // Store userType in local storage
+            updateHeaderLoginStatus(); // Update header status
+            closeLoginModal(); // Close the modal on successful login
 
-            loginSection.style.display = 'none';
-            userLoggedInStatus.style.display = 'block';
-            userLoggedInStatus.innerHTML = `
-                <p>You are logged in as ${userType}.</p>
-                <button class="logout-btn" onclick="logout()">Logout</button>
-            `;
-            
-            loginStatus.innerHTML = `
-                <span>Logged in as ${userType}</span>
-                <button class="logout-btn" onclick="logout()" style="margin-left: 10px; padding: 5px 10px; font-size: 0.8rem;">Logout</button>
-            `;
+            // Redirect based on user type after successful login
+            if (userType === 'admin') {
+                window.location.href = '/admin-dashboard/'; 
+            } else {
+                window.location.href = '/'; // Redirect to home/events for students/teachers
+            }
         }
 
         function loginStudent() {
             const username = document.getElementById('studentUsername').value;
             const password = document.getElementById('studentPassword').value;
             const errorElement = document.getElementById('studentLoginError');
-            
+            errorElement.textContent = ''; // Clear previous error
+
             if (!username || !password) {
                 errorElement.textContent = 'Please enter both username and password';
                 return;
             }
 
-            // API call to student login endpoint
             fetch('/auth/student-login/', {
                 method: 'POST',
                 headers: {
@@ -306,7 +669,7 @@
             })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Login failed');
+                    return response.json().then(err => { throw new Error(err.message || 'Login failed'); });
                 }
                 return response.json();
             })
@@ -314,7 +677,6 @@
                 localStorage.setItem('studentToken', data.token);
                 localStorage.setItem('studentId', data.hospId);
                 showLoggedInStatus('student');
-                window.location.href = '/'; 
             })
             .catch(error => {
                 errorElement.textContent = 'Invalid username or password';
@@ -326,13 +688,13 @@
             const username = document.getElementById('teacherUsername').value;
             const password = document.getElementById('teacherPassword').value;
             const errorElement = document.getElementById('teacherLoginError');
+            errorElement.textContent = ''; // Clear previous error
             
             if (!username || !password) {
                 errorElement.textContent = 'Please enter both username and password';
                 return;
             }
 
-            // API call to teacher login endpoint
             fetch('/auth/teacher-login/', {
                 method: 'POST',
                 headers: {
@@ -342,15 +704,14 @@
             })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Login failed');
+                    return response.json().then(err => { throw new Error(err.message || 'Login failed'); });
                 }
                 return response.json();
             })
             .then(data => {
-                localStorage.setItem('staffToken', data.token);
+                localStorage.setItem('staffToken', data.token); // Assuming teachers use staff token
                 localStorage.setItem('teacherId', data.hospId);
                 showLoggedInStatus('teacher');
-                window.location.href = '/';  // Redirect to dashboard
             })
             .catch(error => {
                 errorElement.textContent = 'Invalid username or password';
@@ -362,13 +723,13 @@
             const username = document.getElementById('adminUsername').value;
             const password = document.getElementById('adminPassword').value;
             const errorElement = document.getElementById('adminLoginError');
+            errorElement.textContent = ''; // Clear previous error
             
             if (!username || !password) {
                 errorElement.textContent = 'Please enter both username and password';
                 return;
             }
 
-            // API call to admin login endpoint
             fetch('/auth/admin-login/', {
                 method: 'POST',
                 headers: {
@@ -378,15 +739,14 @@
             })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Login failed');
+                    return response.json().then(err => { throw new Error(err.message || 'Login failed'); });
                 }
                 return response.json();
             })
             .then(data => {
-                localStorage.setItem('staffToken', data.token);
+                localStorage.setItem('staffToken', data.token); // Admins also use staff token
                 localStorage.setItem('adminId', data.hospId);
                 showLoggedInStatus('admin');
-                window.location.href = '/admin-dashboard/';  
             })
             .catch(error => {
                 errorElement.textContent = 'Invalid username or password';
@@ -399,25 +759,18 @@
             localStorage.removeItem('studentId');
             localStorage.removeItem('staffToken');
             localStorage.removeItem('teacherId');
-            localStorage.removeItem('staffToken');
             localStorage.removeItem('adminId');
-            
-            const loginSection = document.getElementById('loginSection');
-            const userLoggedInStatus = document.getElementById('userLoggedInStatus');
-            const loginStatus = document.getElementById('loginStatus');
-            
-            loginSection.style.display = 'block';
-            userLoggedInStatus.style.display = 'none';
-            loginStatus.innerHTML = '';
-            
-            // Reload events
-            loadEvents();
+            localStorage.removeItem('userType');
+
+            updateHeaderLoginStatus(); // Will now show the "Login" button again
+            loadEvents(); // Reload events after logout
+            window.location.href = '/'; // Redirect to home page after logout
         }
 
         function loadEvents() {
             const eventsList = document.getElementById('eventsList');
-            
-            // Always fetch all events from the events endpoint regardless of auth status
+            eventsList.innerHTML = '<div class="loading">Loading events...</div>';
+
             fetch('/events/', {
                 method: 'GET',
                 headers: {
@@ -432,7 +785,7 @@
             })
             .then(events => {
                 eventsList.innerHTML = '';
-                
+
                 if (events.length === 0) {
                     eventsList.innerHTML = '<p>No events available at this time.</p>';
                     return;
@@ -457,7 +810,7 @@
                             <span class="event-visibility">${getVisibilityLabel(event.visibility)}</span>
                         </div>
                         <div class="event-footer">
-                            <a href="${event.form_url}" target="_blank">Registration Form</a>
+                            <a href="${event.form_url}" target="_blank" rel="noopener noreferrer">Feedback Form</a>
                         </div>
                     `;
                     
@@ -487,5 +840,42 @@
             return visibilityMap[visibility] || visibility;
         }
     </script>
+    <footer class="footer" role="contentinfo">
+        <div class="footer-section footer-about">
+            <h3>About FeedTrack</h3>
+            <p>"FeedTrack is a comprehensive feedback management platform tailored for department events. It empowers organizers to create tailored feedback forms, collect valuable responses, and gain actionable insights—enhancing the quality and impact of every event.</p>
+        </div>
+        <div class="footer-section footer-links">
+            <h3>Useful Links</h3>
+            <ul>
+                <li><a href="aboutus.html">Home</a></li>
+                <li><a href="https://drive.google.com/file/d/13j70dc2kgS2MJGp3Gaml9QcQJpbUhuTI/view?usp=sharing">Sample 1</a></li>
+                <li><a href="https://drive.google.com/file/d/1EY2M7-QqiE3TL0M7tDUuiE-EMWY7nH8e/view?usp=sharing">Sample 2</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </div>
+        <div class="footer-section footer-contact">
+            <h3>Contact</h3>
+            <p>
+                <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+                    <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 2-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"></path>
+                </svg>
+                CodeZero@gmail.com
+            </p>
+            <p>
+                <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+                    <path d="M6.62 10.79a15.053 15.053 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.11-.21 11.36 11.36 0 0 0 3.55.57 1 1 0 0 1 1 1v3.5a1 1 0 0 1-1 1A16 16 0 0 1 4 6a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.36 11.36 0 0 0 .57 3.55 1 1 0 0 1-.21 1.11l-2.24 2.13z"></path>
+                </svg>
+                +91 6678898997
+            </p>
+            <div class="footer-social" aria-label="Social Media links">
+                <a href="https://www.instagram.com/codezeroaiml/" title="Instagram" aria-label="Instagram" target="_blank" rel="noopener noreferrer">Ig</a>
+                <a href="https://www.linkedin.com/in/code-zero-4a3406334?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" title="LinkedIn" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">Li</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2024 FeedTrack. All rights reserved. | Designed by CodeZero Team
+        </div>
+    </footer>
 </body>
 </html>

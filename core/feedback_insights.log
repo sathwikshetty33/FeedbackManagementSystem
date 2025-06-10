@@ -84,3 +84,16 @@ KeyError: 'request'
 2025-06-06 10:54:07,106 INFO views Received LangChain RAG feedback analysis request
 2025-06-06 18:30:19,465 INFO autoreload Watching for file changes with StatReloader
 2025-06-06 18:33:00,372 INFO autoreload Watching for file changes with StatReloader
+2025-06-08 22:48:48,900 INFO autoreload Watching for file changes with StatReloader
+2025-06-08 22:50:57,168 INFO views Received LangChain RAG feedback analysis request
+2025-06-08 22:51:12,677 INFO views Received LangChain RAG feedback analysis request
+2025-06-10 10:40:02,896 INFO autoreload Watching for file changes with StatReloader
+2025-06-10 10:42:39,390 INFO views Received LangChain RAG feedback analysis request
+2025-06-10 10:43:54,985 INFO autoreload Watching for file changes with StatReloader
+2025-06-10 10:44:03,774 INFO views Received LangChain RAG feedback analysis request
+2025-06-10 10:44:32,406 INFO views Received LangChain RAG feedback analysis request
+2025-06-10 10:50:11,654 INFO views Received LangChain RAG feedback analysis request
+2025-06-10 10:50:11,659 ERROR views Cannot connect to FastAPI service
+2025-06-10 10:50:11,660 ERROR log Service Unavailable: /insights/generate-insights/
+2025-06-10 10:50:23,188 INFO views Received LangChain RAG feedback analysis request
+2025-06-10 11:05:26,610 INFO autoreload Watching for file changes with StatReloader
