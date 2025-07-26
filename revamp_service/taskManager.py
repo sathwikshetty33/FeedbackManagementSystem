@@ -46,7 +46,7 @@ class TaskManager:
                     )
                     
                     # Update task status
-                    with self.config.processing_lock:
+                    async with self.config.processing_lock:
                         if task_id in self.config.active_tasks:
                             self.config.active_tasks[task_id]['status'] = 'processing'
                             self.config.active_tasks[task_id]['started_at'] = datetime.now()
@@ -75,20 +75,20 @@ class TaskManager:
                     
         except Exception as e:
             logging.error(f"Task {task_id} failed: {e}")
-            with self.config.processing_lock:
+            async with self.config.processing_lock:
                 if task_id in self.config.active_tasks:
                     self.config.active_tasks[task_id]['status'] = 'failed'
                     self.config.active_tasks[task_id]['error'] = str(e)
                     self.config.active_tasks[task_id]['completed_at'] = datetime.now()
     
-    def get_task_status(self, task_id: str) -> dict:
+    async def get_task_status(self, task_id: str) -> dict:
         """Get status of a specific task"""
-        with self.config.processing_lock:
+        async with self.config.processing_lock:
             return self.config.active_tasks.get(task_id, {'status': 'not_found'})
     
-    def get_queue_info(self) -> dict:
+    async def get_queue_info(self) -> dict:
         """Get overall queue information"""
-        with self.config.processing_lock:
+        async with self.config.processing_lock:
             active_count = sum(1 for task in self.config.active_tasks.values() 
                              if task['status'] == 'processing')
             queued_count = sum(1 for task in self.config.active_tasks.values() 
@@ -98,5 +98,5 @@ class TaskManager:
                 'active_tasks': active_count,
                 'queued_tasks': queued_count,
                 'total_tasks': len(self.config.active_tasks),
-                'max_concurrent': self.config.max_concurrent_tasks
+                'max_concurrent': self.config.MAX_CONCURRENT_TASKS
             }

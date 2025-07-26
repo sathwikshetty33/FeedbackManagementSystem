@@ -1,3 +1,4 @@
 core/.env
 .venv
 analysis-service/.env
+revamp-analysis/.env

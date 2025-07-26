@@ -26,7 +26,9 @@ from revamp_service.models import *
 from revamp_service.logger import logging
 from revamp_service.analyzer import OllamaRAGAnalyzer
 from revamp_service.baseAnalyzer import *
-def send_error_email(recipient_email: str, error_msg: str, event_name: str,config: Config):
+from .configs import *
+def send_error_email(recipient_email: str, error_msg: str, event_name: str):
+    config = Mailconfig()
     try:
         subject = f"❌ Feedback Analysis Failed - {event_name}"
         body = f"""
@@ -383,7 +385,8 @@ def generate_summary_report(results: Dict[str, Any]) -> str:
     
     return "".join(html_parts)
 
-async def send_analysis_email(recipient_email: str, report: str, event_name: str, results: Dict[str, Any],config: Config):
+async def send_analysis_email(recipient_email: str, report: str, event_name: str, results: Dict[str, Any]):
+    config = Mailconfig()
     try:
         if not config.EMAIL_USER or not config.EMAIL_PASSWORD:
             raise Exception("EMAIL_USER and EMAIL_PASSWORD must be set in environment variables")
@@ -509,7 +512,7 @@ async def send_no_row_email(
         print(f"❌ Failed to send email: {str(e)}")
         return False
 
-async def process_analysis_task(request: AnalysisRequest, task_id: str,config: Config):
+async def process_analysis_task(request: AnalysisRequest, task_id: str):
     try:
         print_terminal_separator(f"🎯 RAG FEEDBACK ANALYSIS STARTED - Task: {task_id}")
         logging.debug(f"Starting analysis task {task_id}")
@@ -519,9 +522,9 @@ async def process_analysis_task(request: AnalysisRequest, task_id: str,config: C
             analyzer : Analyzer = OllamaRAGAnalyzer()
             
             df = await fetch_worksheet_data(request.worksheet_url)
-            if len(df) > config.MAX_PROCESSING_ROWS:
-                print(f"⚠️ Limiting analysis to {config.MAX_PROCESSING_ROWS} rows")
-                df = df.head(config.MAX_PROCESSING_ROWS)
+            if len(df) > analyzer.config.MAX_PROCESSING_ROWS:
+                print(f"⚠️ Limiting analysis to {analyzer.config.MAX_PROCESSING_ROWS} rows")
+                df = df.head(analyzer.config.MAX_PROCESSING_ROWS)
             
             processed_df, column_types = analyzer.preprocess_columns(df)
             
@@ -555,9 +558,7 @@ async def process_analysis_task(request: AnalysisRequest, task_id: str,config: C
         logging.error(f"Task {task_id} failed: {str(e)}")
         await send_error_email(request.recipient_email, str(e), request.event_name)
 
-async def analyze_columns_parallel(analyzer: Analyzer, 
-                                 df: pd.DataFrame, 
-                                 column_types: Dict[str, str],config: Config) -> Dict[str, Any]:
+async def analyze_columns_parallel(analyzer: Analyzer, df: pd.DataFrame, column_types: Dict[str, str]) -> Dict[str, Any]:
     """Analyze columns in parallel using ThreadPoolExecutor"""
     
     def analyze_single_column(column_data):
@@ -570,7 +571,7 @@ async def analyze_columns_parallel(analyzer: Analyzer,
                 insights = analyzer.generate_column_insights(column, analysis)
                 return column, {
                     'analysis': analysis,
-                    'insights': insights,
+                    'insights': insights.feedback,
                     'type': col_type
                 }
                 
@@ -601,7 +602,7 @@ async def analyze_columns_parallel(analyzer: Analyzer,
     
     # Process columns in parallel
     loop = asyncio.get_event_loop()
-    with ThreadPoolExecutor(max_workers=config.MAX_WORKERS) as executor:
+    with ThreadPoolExecutor(max_workers=analyzer.config.MAX_WORKERS) as executor:
         column_items = list(column_types.items())
         
         # Submit all tasks

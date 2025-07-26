@@ -28,7 +28,7 @@ async def start_analysis(request: AnalysisRequest):
     import uuid
     task_id = str(uuid.uuid4())
     
-    queue_info = task_manager.get_queue_info()
+    queue_info = await task_manager.get_queue_info()
     try:
         await task_manager.add_task(task_id, request)
     except Exception as e:

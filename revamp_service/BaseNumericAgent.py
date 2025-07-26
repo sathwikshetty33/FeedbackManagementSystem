@@ -4,7 +4,7 @@ from .configs import *
 from .models import *
 class BaseNumericAgent(ABC):
     def __init__(self,prompt=None,output_parser=None,llm=None):
-        self.config : NumericColumnAnalyzerAgentConfig
+        self.config : Any
         self.llm : Any
         self.output_parser : Any
         self.prompt : Any
