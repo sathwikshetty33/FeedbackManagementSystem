@@ -8,4 +8,5 @@ urlpatterns = [
     path('admin-create/',views.createevent,name='admin-create'),
     path('admin-create/<int:id>/',views.createevent,name='admin-create'),
     path('about/',views.about,name='about'),
+    path('chat/', views.chat_view, name='chat_view'),
     ]

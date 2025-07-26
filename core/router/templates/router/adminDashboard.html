@@ -93,6 +93,14 @@
             background-color: #1976D2;
         }
 
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background-color: #545b62;
+        }
+
         .logout-btn {
          background-color: #f44336;
             color: white;
@@ -137,6 +145,7 @@
         .actions {
             display: flex;
             gap: 0.5rem;
+            flex-wrap: wrap;
         }
 
         .badge {
@@ -344,6 +353,9 @@
             .footer-section {
                 min-width: unset;
             }
+            .actions {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -457,6 +469,7 @@
                             <td><span class="badge">${getVisibilityLabel(event.visibility)}</span></td>
                             <td class="actions">
                                 <button class="btn btn-info" onclick="generateInsights(${event.id}, '${event.name}')">Generate Insights</button>
+                                <button class="btn btn-secondary" onclick="openChat(${event.id}, '${event.name}')">Chat</button>
                                 <a href="/admin-create/${event.id}/" class="btn btn-warning">Edit</a>
                                 <button class="btn btn-danger" onclick="deleteEvent(${event.id})">Delete</button>
                             </td>
@@ -583,6 +596,18 @@
                     </div>
                 `;
             });
+        }
+
+        // Chat function
+        function openChat(eventId, eventName) {
+            // Get current dashboard URL
+            const currentUrl = window.location.href;
+            
+            // Create the chat URL with query parameters
+            const chatUrl = `/chat?dashboard_url=${encodeURIComponent(currentUrl)}&event_id=${eventId}&event_name=${encodeURIComponent(eventName)}`;
+            
+            // Redirect to chat page
+            window.location.href = chatUrl;
         }
         
         function closeModal() {

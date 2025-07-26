@@ -1,8 +1,12 @@
 import os
+from chat import *
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
 from typing import Dict, List, Any, Tuple
 import pandas as pd
+from langchain.embeddings import HuggingFaceEmbeddings
+from langchain.llms import Ollama
+
 import numpy as np
 from fastapi import FastAPI, BackgroundTasks, HTTPException
 from pydantic import BaseModel
@@ -14,7 +18,7 @@ from typing import Dict, Set
 import threading
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
-from langchain_community.embeddings import OllamaEmbeddings
+from langchain_ollama import OllamaEmbeddings
 from langchain_community.llms import Ollama
 from langchain.chains import RetrievalQA
 from langchain.schema import Document
@@ -48,6 +52,7 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from dotenv import load_dotenv
+from fastapi.middleware.cors import CORSMiddleware
 
 # Load environment variables from .env file
 load_dotenv()
@@ -61,6 +66,8 @@ from langchain.prompts import PromptTemplate
 from langchain.chains.llm import LLMChain
 from langchain.chains.combine_documents.stuff import StuffDocumentsChain
 import logging
+cache = TTLCache(maxsize=100, ttl=1800)  # 30 min
+
 class AnalysisRequest(BaseModel):
     event_name: str
     worksheet_url: str
@@ -1275,7 +1282,144 @@ async def send_error_email(recipient_email: str, error_msg: str, event_name: str
 async def health_check():
     """Health check endpoint"""
     return {"status": "healthy", "service": "feedback-analysis"}
+def dataframe_to_text_rows(df):
+    headers = list(df.columns)
+    rows = []
+    for _, row in df.iterrows():
+        row_text = " | ".join([f"{header}: {value}" for header, value in zip(headers, row)])
+        rows.append(row_text)
+    return rows
 
+@app.post("/start_session")
+async def start_session(data: StartSession):
+    print(f"Received start_session for {data.session_id}")
+    # Step 1: Download the CSV
+    try:
+        df = await fetch_worksheet_data(data.sheet_url)
+    except Exception as e:
+        return {"error": f"Failed to load sheet: {str(e)}"}
+
+    # Step 2: Format rows with headers
+    rows = dataframe_to_text_rows(df)
+    text = "\n".join(rows)
+    print("Loaded and combined text.")
+
+    # Step 3: Chunk and embed
+    splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
+    chunks = splitter.split_text(text)
+    print(f"Split into {len(chunks)} chunks.")
+
+    try:
+        embedding_model = HuggingFaceEmbeddings(
+    model_name="sentence-transformers/all-MiniLM-L6-v2"
+)
+
+        vectorstore = FAISS.from_texts(
+    texts=chunks,
+    embedding=embedding_model
+)
+
+        print("Vectorstore created.")
+    except Exception as e:
+        return {"error": f"Error creating vectorstore: {str(e)}"}
+
+    retriever = vectorstore.as_retriever()
+    retriever.search_kwargs["k"] = len(chunks)
+
+
+    # Custom prompt
+    from langchain.prompts import PromptTemplate
+
+    refine_prompt = PromptTemplate(
+        input_variables=["context_str", "question", "existing_answer"],
+        template="""
+You are an assistant refining an existing answer using more context.
+
+Original Question: {question}
+
+Existing Answer: {existing_answer}
+
+Additional Context:
+{context_str}
+
+Refine the answer if needed. If the context is not helpful, repeat the existing answer.
+
+Refined Answer:"""
+)
+
+# This is used to refine the answer as additional chunks are processed
+
+    question_prompt = PromptTemplate(
+        input_variables=["context_str", "question"],
+        template="""
+You are an assistant helping to answer questions about student feedback.
+
+Use the context below to answer the question.
+
+Context:
+{context_str}
+
+Question: {question}
+
+Answer:"""
+)
+
+
+#     prompt = PromptTemplate(
+#     template=system_template,
+#     input_variables=["description", "context", "question"]
+# )
+
+
+    qa_chain = RetrievalQA.from_chain_type(
+    llm=Ollama(model="llama3.2:1b"),
+    retriever=retriever,
+    chain_type="refine",
+    chain_type_kwargs={
+        "question_prompt": question_prompt,
+        "refine_prompt": refine_prompt
+    }
+)
+
+
+
+
+
+    print(f"Session created with ID: {data.session_id}")
+    cache[data.session_id] = {
+        "qa_chain": qa_chain,
+        "description": data.description
+    }
+
+    return {"message": "Session created."}
+
+
+
+@app.post("/query")
+async def query(q: QueryRequest):
+    print(f"Received query for session {q.session_id}: {q.question}")
+    session = cache.get(q.session_id)
+    if not session:
+        return {"error": "Session expired or not found"}
+
+    qa_chain = session["qa_chain"]
+    description = session["description"]
+
+    response = qa_chain(
+        {
+            "description": description,
+            "query": q.question
+        }
+    )
+
+    return {"answer": response}
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # or specify your Django domain
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(
