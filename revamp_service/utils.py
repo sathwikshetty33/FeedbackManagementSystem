@@ -2,9 +2,9 @@ import asyncio
 from concurrent.futures import ThreadPoolExecutor
 from typing import Dict, Any
 import pandas as pd
-from .prompts import *
+from revamp_service.prompts import *
 import io
-from .configs import *
+from revamp_service.configs import *
 from reportlab.lib.pagesizes import A4
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
@@ -22,10 +22,9 @@ from io import StringIO
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from .models import *
-from .logger import logging
-from .analyzer import *
-from .analyzer import *
+from revamp_service.models import *
+from revamp_service.logger import logging
+from revamp_service.analyzer import *
 def send_error_email(recipient_email: str, error_msg: str, event_name: str,config: Config):
     try:
         subject = f"❌ Feedback Analysis Failed - {event_name}"
@@ -451,7 +450,7 @@ async def send_analysis_email(recipient_email: str, report: str, event_name: str
 async def process_analysis_task(request: AnalysisRequest, task_id: str,config: Config):
     try:
         print_terminal_separator(f"🎯 RAG FEEDBACK ANALYSIS STARTED - Task: {task_id}")
-        logging.info(f"Starting analysis task {task_id}")
+        logging.debug(f"Starting analysis task {task_id}")
         
         # Add timeout to prevent tasks from running indefinitely
         async with asyncio.timeout(1800):  # 30 minute timeout

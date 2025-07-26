@@ -1,12 +1,12 @@
 import asyncio
-from .prompts import *
+from revamp_service.prompts import *
 import asyncio
 from datetime import datetime
-from .utils import *
+from revamp_service.utils import *
 import asyncio
-from .logger import logging
-from .models import *
-from .configs import *
+from revamp_service.logger import logging
+from revamp_service.models import *
+from revamp_service.configs import *
 
 class TaskManager:
     def __init__(self):
@@ -50,7 +50,7 @@ class TaskManager:
                         if task_id in self.config.active_tasks:
                             self.config.active_tasks[task_id]['status'] = 'processing'
                             self.config.active_tasks[task_id]['started_at'] = datetime.now()
-                            logging.debug("Processing started for Task: %s at time : %s", task_id, datetime.now())
+                            logging.debug("Processing called for Task: %s at time : %s", task_id, datetime.now())
                     
                     # Process the task
                     await self._execute_task(task_id, request)
@@ -68,15 +68,15 @@ class TaskManager:
             await process_analysis_task(request, task_id)
             
             # Update task status
-            with self.config.processing_lock:
+            async with self.config.processing_lock:
                 if task_id in self.config.active_tasks:
-                    self.active_tasks[task_id]['status'] = 'completed'
-                    self.active_tasks[task_id]['completed_at'] = datetime.now()
+                    self.config.active_tasks[task_id]['status'] = 'completed'
+                    self.config.active_tasks[task_id]['completed_at'] = datetime.now()
                     
         except Exception as e:
             logging.error(f"Task {task_id} failed: {e}")
             with self.config.processing_lock:
-                if task_id in self.active_tasks:
+                if task_id in self.config.active_tasks:
                     self.config.active_tasks[task_id]['status'] = 'failed'
                     self.config.active_tasks[task_id]['error'] = str(e)
                     self.config.active_tasks[task_id]['completed_at'] = datetime.now()

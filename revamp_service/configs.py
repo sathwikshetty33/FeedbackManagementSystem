@@ -1,5 +1,5 @@
 from asyncio import Queue, Semaphore
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import os
 import threading
 from typing import Dict
@@ -10,7 +10,7 @@ load_dotenv()
 class taskManagerConfig:
     max_concurrent_tasks : int = 2
     semaphore = Semaphore(max_concurrent_tasks)
-    active_tasks: Dict[str, dict] = {}
+    active_tasks: Dict[str, dict] = field(default_factory=dict)
     task_queue: Queue = Queue()
     processing_lock = threading.Lock()
     is_processing: bool = False

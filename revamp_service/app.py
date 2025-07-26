@@ -1,27 +1,26 @@
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.llms import Ollama
-from .prompts import *
+from revamp_service.prompts import *
 from fastapi import FastAPI
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from langchain_community.llms import Ollama
 from langchain.chains import RetrievalQA
 from reportlab.lib.enums import TA_CENTER, TA_LEFT
-from .utils import *
+from revamp_service.utils import *
 from fastapi import FastAPI
 from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
 from .logger import logging
 # Load environment variables from .env file
 load_dotenv()
-from .logger import logging
-from .models import *
-from .taskManager import *
+from revamp_service.models import *
+from revamp_service.taskManager import *
 
 
 
 app = FastAPI(title="Feedback Analysis Service")
-task_manager = TaskManager(max_concurrent_tasks=1)  
+task_manager = TaskManager()  
 # FastAPI Endpoints
 @app.post("/analyze", response_model=AnalysisResponse)
 async def start_analysis(request: AnalysisRequest):
