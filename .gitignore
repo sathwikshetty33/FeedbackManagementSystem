@@ -1,4 +1,4 @@
 core/.env
 .venv
 analysis-service/.env
-revamp-service/.env
+./revamp-service/.env

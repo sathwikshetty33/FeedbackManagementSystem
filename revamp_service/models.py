@@ -1,6 +1,5 @@
 from datetime import datetime
-from typing import Literal, Optional, TypedDict, Union
-from dotenv import load_dotenv
+from typing import Literal, Optional, Sequence, TypedDict, Union
 from pydantic import BaseModel, Field
 
 
@@ -44,7 +43,7 @@ class TaskInfo(TypedDict):
     started_at: Optional[datetime]  # When the task started
     completed_at: Optional[datetime]  # When the task completed
 
-class NumericEvaluationResponse(BaseModel):
+class EvaluationResponse(BaseModel):
     feedback: str = Field(description="feedback about the distribution of values")
 class QuartileDict(TypedDict):
     Q1: float
@@ -60,4 +59,16 @@ class NumericAnalysis(TypedDict):
     min_value: Union[int, float]
     max_value: Union[int, float]
     quartiles: QuartileDict
+    feedback: Optional[str]
+
+class CategoricalAnalysis(TypedDict):
+    column_heading : str
+    type: Literal['categorical']
+    total_responses: int
+    unique_categories: int
+    distribution: dict
+    percentages: float
+    most_common: str
+    least_common: str
+    all_values : Sequence[str]
     feedback: Optional[str]

@@ -1,9 +1,8 @@
-import os
+from .OllamaCategoricalAnalyzer import *
 from .configs import *
 from typing import Dict, List, Any, Tuple
 from cachetools import TTLCache
 import pandas as pd
-from langchain.llms import Ollama
 from .prompts import *
 from typing import Dict
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -23,7 +22,6 @@ from .logger import logging
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from langchain_community.embeddings import OllamaEmbeddings
-from langchain_community.llms import Ollama
 from langchain.chains import RetrievalQA
 from langchain.schema import Document
 from langchain.prompts import PromptTemplate
@@ -202,16 +200,16 @@ class OllamaRAGAnalyzer(Analyzer):
         value_counts = data.value_counts()
         total = len(data)
         
-        analysis = {
+        analysis: CategoricalAnalysis = {
             'type': 'categorical',
+            'column_heading': df.columns[0],
             'total_responses': total,
             'unique_categories': len(value_counts),
             'distribution': value_counts.to_dict(),
             'percentages': (value_counts / total * 100).round(2).to_dict(),
             'most_common': value_counts.index[0],
-            'least_common': value_counts.index[-1]
+            'least_common': value_counts.index[-1],
         }
-        
         return analysis
 
     def analyze_text_column(self, df: pd.DataFrame, column: str) -> Dict[str, Any]:
@@ -242,7 +240,7 @@ class OllamaRAGAnalyzer(Analyzer):
         print(f"🧠 Generating insights for column: {column_name}")
         
         documents = []
-        
+        analyzer : BaseAgent
         if analysis_data.get('type') == 'numerical' or analysis_data.get('type') == 'rating':
             analysis : NumericAnalysis = {
             'column_heading': analysis_data['column_heading'],
@@ -258,22 +256,24 @@ class OllamaRAGAnalyzer(Analyzer):
                 'Q3': analysis_data['quartiles']['Q3']
             }
         }
-            analyzer : BaseNumericAgent = OllamaNumeriCAnalyzer()
+            analyzer = OllamaNumeriCAnalyzer()
             analysis['feedback'] = analyzer.evaluate(analysis)  
             return analysis['feedback']
             
         elif analysis_data.get('type') == 'categorical':
-            doc_content = f"""
-            Column: {column_name}
-            Type: Categorical
-            Total Responses: {analysis_data['total_responses']}
-            Categories: {analysis_data['unique_categories']}
-            Distribution: {analysis_data['distribution']}
-            Most Common: {analysis_data['most_common']}
-            Least Common: {analysis_data['least_common']}
-            """
-            
-            documents.append(Document(page_content=doc_content, metadata={"column": column_name, "type": "categorical"}))
+            analysis: CategoricalAnalysis = {
+            'type': 'categorical',
+            'column_heading': analysis_data['column_heading'],
+            'total_responses': analysis_data['total_responses'],
+            'unique_categories': analysis_data['unique_categories'],
+            'distribution': analysis_data['distribution'],
+            'percentages': analysis_data['percentages'],
+            'most_common': analysis_data['most_common'],
+            'least_common': analysis_data['least_common'],
+        }
+            analyzer = OllamaCategoricalCAnalyzer()
+            analysis['feedback'] = analyzer.evaluate(analysis)  
+            return analysis['feedback']
             
         elif analysis_data.get('type') == 'text' and all_text:
             text_chunks = self.text_splitter.split_text(all_text)

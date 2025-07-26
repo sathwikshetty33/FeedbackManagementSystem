@@ -580,7 +580,7 @@ async def analyze_columns_parallel(analyzer: Analyzer, df: pd.DataFrame, column_
                 insights = analyzer.generate_column_insights(column, analysis)
                 return column, {
                     'analysis': analysis,
-                    'insights': insights,
+                    'insights': insights.feedback,
                     'type': col_type
                 }
                 

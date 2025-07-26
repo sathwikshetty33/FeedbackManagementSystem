@@ -1,5 +1,4 @@
-from langchain.embeddings import HuggingFaceEmbeddings
-from langchain.llms import Ollama
+from langchain_community.embeddings import HuggingFaceEmbeddings
 from revamp_service.prompts import *
 from fastapi import FastAPI
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -98,7 +97,7 @@ async def start_session(data: StartSession):
 # This is used to refine the answer as additional chunks are processed
 
     question_prompt = question_prompt
-
+   
 
 #     prompt = PromptTemplate(
 #     template=system_template,

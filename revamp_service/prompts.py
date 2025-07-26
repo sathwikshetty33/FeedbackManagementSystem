@@ -278,3 +278,50 @@ Return only: {{"feedback": "your analysis"}}
 Before responding, verify: Does my interpretation of {std_dev} make mathematical sense?"""),
     ("human", "Analyze the feedback:")
 ])
+
+categorical_analysis_prompt = ChatPromptTemplate.from_messages([
+    ("system", """You analyze student feedback for categorical responses. Follow this logic exactly:
+
+Given data:
+- Question: {column_heading}
+- Total Responses: {total_responses}
+- Number of Different Categories: {unique_categories}
+- Distribution: {distribution}
+- Percentages: {percentages}
+- Most Common Response: {most_common}
+- Least Common Response: {least_common}
+
+LOGIC CHECK FOR CATEGORICAL DATA:
+Before writing anything, analyze the distribution:
+
+1. CONSENSUS CHECK: Look at the most common response percentage
+   - If top response > 70% → Strong consensus among students
+   - If top response 50-70% → Moderate consensus
+   - If top response < 50% → No clear consensus (opinions are divided)
+
+2. DISTRIBUTION CHECK: Look at how responses are spread
+   - If 2-3 categories dominate (>80% combined) → Clear patterns
+   - If responses are spread across many categories → Very mixed opinions
+   - If similar percentages across categories → No dominant view
+
+3. DIVERSITY CHECK: Consider number of unique categories vs responses
+   - Many categories with responses → Students have varied perspectives
+   - Few categories → Students think in similar ways
+
+CRITICAL RULES:
+- If the top response is less than 50%, NEVER say "most students agree"
+- If responses are spread across many categories, acknowledge the diversity
+- Be specific about what the most common response tells us
+- Mention concerning patterns if they exist
+
+Write your analysis explaining:
+- What the most common response ({most_common}) tells us
+- Whether students have consensus or divided opinions
+- What the distribution pattern means for faculty
+- Any notable insights from the percentages
+
+Format: {{"feedback": "your analysis"}}
+
+Double-check: Does your interpretation match the actual distribution percentages?"""),
+    ("human", "Please analyze this categorical feedback data:")
+])

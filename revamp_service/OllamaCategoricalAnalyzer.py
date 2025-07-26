@@ -6,7 +6,7 @@ from .models import *
 from .prompts import *
 from .BaseNumericAgent import *
 from langchain_core.output_parsers import JsonOutputParser
-class OllamaNumeriCAnalyzer(BaseAgent):
+class OllamaCategoricalCAnalyzer(BaseAgent):
     def __init__(self,prompt=None,output_parser=None,llm=None):
         self.config = OllamaNumericColumnAnalyzerAgentConfig()
         self.llm = Ollama(
@@ -14,20 +14,19 @@ class OllamaNumeriCAnalyzer(BaseAgent):
             model=self.config.MODEL,
         )
         self.output_parser = JsonOutputParser(pydantic_object = EvaluationResponse) 
-        self.prompt = numeric_analysis_prompt_v2
-    def evaluate(self, req: NumericAnalysis)-> EvaluationResponse:
+        self.prompt = categorical_analysis_prompt
+    def evaluate(self, req: CategoricalAnalysis)-> EvaluationResponse:
         evaluation_chain = self.prompt | self.llm | self.output_parser
         print(req['column_heading'])
         result = evaluation_chain.invoke({
-    "column_heading": req['column_heading'],
-    "total_responses": req['total_responses'],
-    "mean": req['mean'],
-    "median": req['median'],
-    "std_dev": req['std_dev'],
-    "min_value": req['min_value'],
-    "max_value": req['max_value'],
-    "q1": req['quartiles']['Q1'],
-    "q3": req['quartiles']['Q3'],
+    'type': 'categorical',
+            'column_heading': req['column_heading'],
+            'total_responses': req['total_responses'],
+            'unique_categories': req['unique_categories'],
+            'distribution': req['distribution'],
+            'percentages': req['percentages'],
+            'most_common': req['most_common'],
+            'least_common': req['least_common'],
     "format_instructions": self.output_parser.get_format_instructions()
 })
         return EvaluationResponse(
