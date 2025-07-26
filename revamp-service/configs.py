@@ -8,11 +8,13 @@ load_dotenv()
 
 @dataclass
 class taskManagerConfig:
-    max_concurrent_tasks = 3
+    max_concurrent_tasks : int = 2
     semaphore = Semaphore(max_concurrent_tasks)
     active_tasks: Dict[str, dict] = {}
     task_queue: Queue = Queue()
-    processing_lock: threading = threading.Lock()
+    processing_lock = threading.Lock()
+    is_processing: bool = False
+
 
 @dataclass
 class Config:

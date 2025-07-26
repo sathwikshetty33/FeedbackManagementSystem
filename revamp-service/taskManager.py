@@ -1,60 +1,63 @@
 import asyncio
-from cachetools import TTLCache
-import pandas as pd
 from .prompts import *
 import asyncio
-from asyncio import Semaphore, Queue
 from datetime import datetime
-from typing import Dict
-import threading
 from .utils import *
 import asyncio
 from .logger import logging
 from .models import *
 from .configs import *
-cache = TTLCache(maxsize=100, ttl=1800)  # 30 min
+
 class TaskManager:
     def __init__(self):
         self.config = taskManagerConfig()
-        
+
     async def add_task(self, task_id: str, request: AnalysisRequest):
         """Add task to queue with status tracking"""
-        task_info = {
+        task_info: TaskInfo = {
             'task_id': task_id,
             'request': request,
             'status': 'queued',
             'created_at': datetime.now(),
             'started_at': None,
-            'completed_at': None
+            'completed_at': None,
         }
-        
-        with self.processing_lock:
-            self.active_tasks[task_id] = task_info
-        
-        await self.task_queue.put((task_id, request))
-        
-        # Start processing if not already running
-        asyncio.create_task(self._process_queue())
+
+        async with self.config.processing_lock:
+            self.config.active_tasks[task_id] = task_info
+
+        logging.debug(f"Task: {task_id} added to queue")
+
+        await self.config.task_queue.put((task_id, request))
+
+        async with self.config.processing_lock:
+            if not self.config.is_processing:
+                asyncio.create_task(self._process_queue())
+                self.config.is_processing = True
+
     
     async def _process_queue(self):
         """Process tasks from queue with concurrency control"""
-        while not self.task_queue.empty():
-            async with self.semaphore:  # Limit concurrent tasks
+        while True:
+            async with self.config.semaphore:  # Limit concurrent tasks
                 try:
                     task_id, request = await asyncio.wait_for(
-                        self.task_queue.get(), timeout=1.0
+                        self.config.task_queue.get(), timeout=2.0
                     )
                     
                     # Update task status
-                    with self.processing_lock:
-                        if task_id in self.active_tasks:
-                            self.active_tasks[task_id]['status'] = 'processing'
-                            self.active_tasks[task_id]['started_at'] = datetime.now()
+                    with self.config.processing_lock:
+                        if task_id in self.config.active_tasks:
+                            self.config.active_tasks[task_id]['status'] = 'processing'
+                            self.config.active_tasks[task_id]['started_at'] = datetime.now()
+                            logging.debug("Processing started for Task: %s at time : %s", task_id, datetime.now())
                     
                     # Process the task
                     await self._execute_task(task_id, request)
                     
                 except asyncio.TimeoutError:
+                    async with self.config.processing_lock:
+                        self.config.is_processing = False
                     break  # No more tasks in queue
                 except Exception as e:
                     logging.error(f"Error processing task queue: {e}")
@@ -65,35 +68,35 @@ class TaskManager:
             await process_analysis_task(request, task_id)
             
             # Update task status
-            with self.processing_lock:
-                if task_id in self.active_tasks:
+            with self.config.processing_lock:
+                if task_id in self.config.active_tasks:
                     self.active_tasks[task_id]['status'] = 'completed'
                     self.active_tasks[task_id]['completed_at'] = datetime.now()
                     
         except Exception as e:
             logging.error(f"Task {task_id} failed: {e}")
-            with self.processing_lock:
+            with self.config.processing_lock:
                 if task_id in self.active_tasks:
-                    self.active_tasks[task_id]['status'] = 'failed'
-                    self.active_tasks[task_id]['error'] = str(e)
-                    self.active_tasks[task_id]['completed_at'] = datetime.now()
+                    self.config.active_tasks[task_id]['status'] = 'failed'
+                    self.config.active_tasks[task_id]['error'] = str(e)
+                    self.config.active_tasks[task_id]['completed_at'] = datetime.now()
     
     def get_task_status(self, task_id: str) -> dict:
         """Get status of a specific task"""
-        with self.processing_lock:
-            return self.active_tasks.get(task_id, {'status': 'not_found'})
+        with self.config.processing_lock:
+            return self.config.active_tasks.get(task_id, {'status': 'not_found'})
     
     def get_queue_info(self) -> dict:
         """Get overall queue information"""
-        with self.processing_lock:
-            active_count = sum(1 for task in self.active_tasks.values() 
+        with self.config.processing_lock:
+            active_count = sum(1 for task in self.config.active_tasks.values() 
                              if task['status'] == 'processing')
-            queued_count = sum(1 for task in self.active_tasks.values() 
+            queued_count = sum(1 for task in self.config.active_tasks.values() 
                              if task['status'] == 'queued')
             
             return {
                 'active_tasks': active_count,
                 'queued_tasks': queued_count,
-                'total_tasks': len(self.active_tasks),
-                'max_concurrent': self.max_concurrent_tasks
+                'total_tasks': len(self.config.active_tasks),
+                'max_concurrent': self.config.max_concurrent_tasks
             }

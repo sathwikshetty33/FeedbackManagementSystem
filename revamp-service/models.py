@@ -1,5 +1,7 @@
 from dataclasses import dataclass
+from datetime import datetime
 import os
+from typing import Literal, Optional, TypedDict
 from dotenv import load_dotenv
 from pydantic import BaseModel
 
@@ -34,3 +36,12 @@ class StartSession(BaseModel):
 class QueryRequest(BaseModel):
     session_id: str
     question: str
+
+class TaskInfo(TypedDict):
+    """ Used to enforce type safety for task info """
+    task_id: str  # Unique identifier for the task
+    request: AnalysisRequest  # Original analysis request payload for the task
+    status: Literal["queued", "running", "completed", "failed"]  # Task status
+    created_at: datetime  # When the task was created
+    started_at: Optional[datetime]  # When the task started
+    completed_at: Optional[datetime]  # When the task completed

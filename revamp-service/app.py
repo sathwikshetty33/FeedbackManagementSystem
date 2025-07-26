@@ -14,7 +14,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from .logger import logging
 # Load environment variables from .env file
 load_dotenv()
-import logging
+from .logger import logging
 from .models import *
 from .taskManager import *
 
@@ -22,14 +22,6 @@ from .taskManager import *
 
 app = FastAPI(title="Feedback Analysis Service")
 task_manager = TaskManager(max_concurrent_tasks=1)  
-
-# Add validation error handler
-
-# Configure logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-logging.getLogger("faiss").setLevel(logging.ERROR)
-# Request/Response Models
 # FastAPI Endpoints
 @app.post("/analyze", response_model=AnalysisResponse)
 async def start_analysis(request: AnalysisRequest):
@@ -38,9 +30,10 @@ async def start_analysis(request: AnalysisRequest):
     task_id = str(uuid.uuid4())
     
     queue_info = task_manager.get_queue_info()
-    
-    await task_manager.add_task(task_id, request)
-    
+    try:
+        await task_manager.add_task(task_id, request)
+    except Exception as e:
+        logging.error(f"Error adding task to queue: {e}")
     estimated_wait = queue_info['queued_tasks'] * 5  
     return AnalysisResponse(
         status="accepted",
