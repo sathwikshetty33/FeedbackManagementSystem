@@ -120,34 +120,34 @@ async def start_session(data: StartSession):
 
 
 
-    print(f"Session created with ID: {data.session_id}")
-    cache[data.session_id] = {
-        "qa_chain": qa_chain,
-        "description": data.description
-    }
+    # print(f"Session created with ID: {data.session_id}")
+    # cache[data.session_id] = {
+    #     "qa_chain": qa_chain,
+    #     "description": data.description
+    # }
 
     return {"message": "Session created."}
 
 
 
-@app.post("/query")
-async def query(q: QueryRequest):
-    print(f"Received query for session {q.session_id}: {q.question}")
-    session = cache.get(q.session_id)
-    if not session:
-        return {"error": "Session expired or not found"}
+# @app.post("/query")
+# async def query(q: QueryRequest):
+#     print(f"Received query for session {q.session_id}: {q.question}")
+#     # session = cache.get(q.session_id)
+#     if not session:
+#         return {"error": "Session expired or not found"}
 
-    qa_chain = session["qa_chain"]
-    description = session["description"]
+#     qa_chain = session["qa_chain"]
+#     description = session["description"]
 
-    response = qa_chain(
-        {
-            "description": description,
-            "query": q.question
-        }
-    )
+#     response = qa_chain(
+#         {
+#             "description": description,
+#             "query": q.question
+#         }
+#     )
 
-    return {"answer": response}
+#     return {"answer": response}
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # or specify your Django domain

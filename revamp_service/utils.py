@@ -454,12 +454,7 @@ async def process_analysis_task(request: AnalysisRequest, task_id: str,config: C
         
         # Add timeout to prevent tasks from running indefinitely
         async with asyncio.timeout(1800):  # 30 minute timeout
-            analyzer = FeedbackRAGAnalyzer(
-                ollama_base_url=config.OLLAMA_BASE_URL,
-                model_name=config.OLLAMA_MODEL,
-                chunk_size=config.RAG_CHUNK_SIZE,
-                chunk_overlap=config.RAG_CHUNK_OVERLAP
-            )
+            analyzer = OllamaRAGAnalyzer()
             
             df = await fetch_worksheet_data(request.worksheet_url)
             
@@ -494,7 +489,7 @@ async def process_analysis_task(request: AnalysisRequest, task_id: str,config: C
         logging.error(f"Task {task_id} failed: {str(e)}")
         await send_error_email(request.recipient_email, str(e), request.event_name)
 
-async def analyze_columns_parallel(analyzer: FeedbackRAGAnalyzer, 
+async def analyze_columns_parallel(analyzer: OllamaRAGAnalyzer, 
                                  df: pd.DataFrame, 
                                  column_types: Dict[str, str],config: Config) -> Dict[str, Any]:
     """Analyze columns in parallel using ThreadPoolExecutor"""

@@ -19,9 +19,7 @@ from .utils import *
 from typing import Dict, List, Any, Tuple
 import pandas as pd
 import re
-from dotenv import load_dotenv
 from .logger import logging
-load_dotenv()
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from langchain_community.embeddings import OllamaEmbeddings
@@ -33,31 +31,32 @@ from langchain.chains.llm import LLMChain
 from langchain.chains.combine_documents.stuff import StuffDocumentsChain
 import logging
 from .models import *
+from .baseAnalyzer import *
 cache = TTLCache(maxsize=100, ttl=1800)  # 30 min
 
 
-class FeedbackRAGAnalyzer:
-    def __init__(self, ollama_base_url, model_name, chunk_size=300, chunk_overlap=30):
+class OllamaRAGAnalyzer(Analyzer):
+    def __init__(self):
         self.config = Config()
         
         self.embeddings = OllamaEmbeddings(
-            base_url=ollama_base_url,
-            model=model_name,
+            base_url=self.config.BASE_URL,
+            model=self.config.MODEL,
             show_progress=False
         )
         
         self.llm = Ollama(
-            base_url=ollama_base_url,
-            model=model_name,
-            temperature=0.1,
-            num_ctx=2048,
-            num_thread=min(4, os.cpu_count()),
+            base_url=self.config.BASE_URL,
+            model=self.config.MODEL,
+            temperature=self.config.TEMPERATURE,
+            num_ctx=self.config.NUM_CTX,
+            num_thread=self.config.NUM_THREAD,
             verbose=False
         )
         
         self.text_splitter = RecursiveCharacterTextSplitter(
-            chunk_size=chunk_size,
-            chunk_overlap=chunk_overlap,
+            chunk_size=self.config.RAG_CHUNK_SIZE,
+            chunk_overlap=self.config.RAG_CHUNK_OVERLAP,
             length_function=len,
         )
 

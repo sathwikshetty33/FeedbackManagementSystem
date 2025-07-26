@@ -8,8 +8,8 @@ load_dotenv()
 
 @dataclass
 class taskManagerConfig:
-    max_concurrent_tasks : int = 2
-    semaphore = Semaphore(max_concurrent_tasks)
+    MAX_CONCURRENT_TASKS : int = 2
+    semaphore = Semaphore(MAX_CONCURRENT_TASKS)
     active_tasks: Dict[str, dict] = field(default_factory=dict)
     task_queue: Queue = Queue()
     processing_lock = threading.Lock()
@@ -19,16 +19,37 @@ class taskManagerConfig:
 @dataclass
 class Config:
 
-    OLLAMA_BASE_URL = os.environ.get('OLLAMA_BASE_URL', 'http://localhost:11434')
-    OLLAMA_MODEL = os.environ.get('OLLAMA_MODEL', 'llama3.2:1b')
-    RAG_CHUNK_SIZE = int(os.environ.get('RAG_CHUNK_SIZE', '300'))
-    RAG_CHUNK_OVERLAP = int(os.environ.get('RAG_CHUNK_OVERLAP', '30'))
-    MAX_PROCESSING_ROWS = int(os.environ.get('MAX_PROCESSING_ROWS', '100'))
-    MAX_WORKERS = int(os.environ.get('MAX_WORKERS', '4'))
-    
+    BASE_URL: str 
+    MODEL: str 
+    RAG_CHUNK_SIZE: int 
+    RAG_CHUNK_OVERLAP: int
+    MAX_PROCESSING_ROWS: int 
+    MAX_WORKERS: int 
+    TEMPERATURE: float 
+    NUM_CTX: int
+    NUM_THREAD: int
     # Email Configuration
-    SMTP_SERVER = os.environ.get('SMTP_SERVER', 'smtp.gmail.com')
-    SMTP_PORT = int(os.environ.get('SMTP_PORT', '587'))
-    EMAIL_USER = os.environ.get('EMAIL_USER')
-    EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD')
-    FROM_EMAIL = os.environ.get('FROM_EMAIL', 'tester7760775061@gmail.com')
+    SMTP_SERVER : str
+    SMTP_PORT : int
+    EMAIL_USER: str 
+    EMAIL_PASSWORD : str 
+    FROM_EMAIL : str
+
+@dataclass
+class OllamaConfig(Config):
+
+    BASE_URL: str = os.environ.get('OLLAMA_BASE_URL', 'http://localhost:11434')
+    MODEL: str = os.environ.get('OLLAMA_MODEL', 'llama3.2:1b')
+    RAG_CHUNK_SIZE: int = int(os.environ.get('RAG_CHUNK_SIZE', '300'))
+    RAG_CHUNK_OVERLAP: int = int(os.environ.get('RAG_CHUNK_OVERLAP', '30'))
+    MAX_PROCESSING_ROWS: int = int(os.environ.get('MAX_PROCESSING_ROWS', '100'))
+    MAX_WORKERS: int = int(os.environ.get('MAX_WORKERS', '4'))
+    TEMPERATURE: float =0.1,
+    NUM_CTX: int=2048,
+    NUM_THREAD: int=min(4, os.cpu_count()),
+    # Email Configuration
+    SMTP_SERVER : str= os.environ.get('SMTP_SERVER', 'smtp.gmail.com')
+    SMTP_PORT : int= int(os.environ.get('SMTP_PORT', '587'))
+    EMAIL_USER: str = os.environ.get('EMAIL_USER')
+    EMAIL_PASSWORD : str = os.environ.get('EMAIL_PASSWORD')
+    FROM_EMAIL : str= os.environ.get('FROM_EMAIL', 'tester7760775061@gmail.com')
