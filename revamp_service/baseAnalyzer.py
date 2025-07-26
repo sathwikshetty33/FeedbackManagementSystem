@@ -2,9 +2,12 @@ from abc import ABC, abstractmethod
 import pandas as pd
 from typing import Dict, Any, Tuple, List
 from langchain.schema import Document
-
+from .configs import *
 class Analyzer(ABC):
-
+    def __init__(self):
+        self.config : Config
+        self.embeddings : Any
+        self.llm :Any
     @abstractmethod
     def preprocess_columns(self, df: pd.DataFrame) -> Tuple[pd.DataFrame, Dict[str, str]]:
         pass

@@ -1,7 +1,7 @@
 from datetime import datetime
-from typing import Literal, Optional, TypedDict
+from typing import Literal, Optional, TypedDict, Union
 from dotenv import load_dotenv
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class AnalysisRequest(BaseModel):
@@ -43,3 +43,21 @@ class TaskInfo(TypedDict):
     created_at: datetime  # When the task was created
     started_at: Optional[datetime]  # When the task started
     completed_at: Optional[datetime]  # When the task completed
+
+class NumericEvaluationResponse(BaseModel):
+    feedback: str = Field(description="feedback about the distribution of values")
+class QuartileDict(TypedDict):
+    Q1: float
+    Q3: float
+class NumericAnalysis(TypedDict):
+    """ Used to enforce type safety for numeric analysis """
+    column_heading : str
+    type: Literal["numerical"]
+    total_responses: int
+    mean: float
+    median: float
+    std_dev: float
+    min_value: Union[int, float]
+    max_value: Union[int, float]
+    quartiles: QuartileDict
+    feedback: Optional[str]

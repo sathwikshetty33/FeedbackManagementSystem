@@ -24,7 +24,8 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from revamp_service.models import *
 from revamp_service.logger import logging
-from revamp_service.analyzer import *
+from revamp_service.analyzer import OllamaRAGAnalyzer
+from revamp_service.baseAnalyzer import *
 def send_error_email(recipient_email: str, error_msg: str, event_name: str,config: Config):
     try:
         subject = f"❌ Feedback Analysis Failed - {event_name}"
@@ -80,12 +81,13 @@ async def fetch_worksheet_data(worksheet_url: str) -> pd.DataFrame:
                 csv_url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv"
             else:
                 csv_url = worksheet_url
-            
+            logging.debug(f" Fetching data from: {csv_url}")
             print(f"📥 Fetching data from: {csv_url}")
             response = requests.get(csv_url, timeout=30)
             response.raise_for_status()
             
             df = pd.read_csv(StringIO(response.text))
+            logging.debug(f"✅ Successfully loaded {len(df)} rows and {len(df.columns)} columns")
             print(f"✅ Successfully loaded {len(df)} rows and {len(df.columns)} columns")
             return df
             
@@ -446,7 +448,67 @@ async def send_analysis_email(recipient_email: str, report: str, event_name: str
         logging.error(f"Error sending email: {str(e)}")
         print(f"❌ Failed to send email: {str(e)}")
         return False
-    
+async def send_no_row_email(
+    recipient_email: str,
+    event_name: str,
+    config: Config,
+    row_count: int
+):
+    try:
+        if not config.EMAIL_USER or not config.EMAIL_PASSWORD:
+            raise Exception("EMAIL_USER and EMAIL_PASSWORD must be set in environment variables")
+
+        msg = MIMEMultipart('alternative')
+        msg['Subject'] = f"📊 Feedback Analysis Report - {event_name}"
+        msg['From'] = config.FROM_EMAIL
+        msg['To'] = recipient_email
+
+        # Add warning if dataset is empty
+        if row_count == 0:
+            warning_html = """
+                <div style="padding:10px; background-color:#ffe5e5; border-left:6px solid #ff0000; margin-bottom:10px;">
+                    ⚠️ <strong>Notice:</strong> The provided dataset has <strong>0 rows</strong>. 
+                    The analysis results may be empty or incomplete.
+                </div>
+            """
+            report = warning_html + report
+
+        html_part = MIMEText(report, 'html')
+        msg.attach(html_part)
+
+        loop = asyncio.get_event_loop()
+
+        def _send_email():
+            try:
+                print(f"🔄 Connecting to {config.SMTP_SERVER}:{config.SMTP_PORT}")
+                with smtplib.SMTP(config.SMTP_SERVER, config.SMTP_PORT) as server:
+                    server.timeout = 30
+                    print("🔐 Starting TLS...")
+                    server.starttls()
+                    print(f"🔑 Logging in as: {config.EMAIL_USER}")
+                    server.login(str(config.EMAIL_USER), str(config.EMAIL_PASSWORD))
+                    print(f"📤 Sending to: {recipient_email}")
+                    server.send_message(msg)
+                    print("✅ Email sent successfully!")
+            except smtplib.SMTPAuthenticationError as auth_error:
+                print(f"❌ Authentication failed: {auth_error}")
+                raise Exception(f"SMTP Authentication failed: {auth_error}")
+            except smtplib.SMTPException as smtp_error:
+                print(f"❌ SMTP error: {smtp_error}")
+                raise Exception(f"SMTP error: {smtp_error}")
+            except Exception as general_error:
+                print(f"❌ General error: {general_error}")
+                raise Exception(f"Email sending failed: {general_error}")
+
+        await loop.run_in_executor(None, _send_email)
+        print(f"✅ Analysis report sent to {recipient_email}")
+        return True
+
+    except Exception as e:
+        logging.error(f"Error sending email: {str(e)}")
+        print(f"❌ Failed to send email: {str(e)}")
+        return False
+
 async def process_analysis_task(request: AnalysisRequest, task_id: str,config: Config):
     try:
         print_terminal_separator(f"🎯 RAG FEEDBACK ANALYSIS STARTED - Task: {task_id}")
@@ -454,10 +516,9 @@ async def process_analysis_task(request: AnalysisRequest, task_id: str,config: C
         
         # Add timeout to prevent tasks from running indefinitely
         async with asyncio.timeout(1800):  # 30 minute timeout
-            analyzer = OllamaRAGAnalyzer()
+            analyzer : Analyzer = OllamaRAGAnalyzer()
             
             df = await fetch_worksheet_data(request.worksheet_url)
-            
             if len(df) > config.MAX_PROCESSING_ROWS:
                 print(f"⚠️ Limiting analysis to {config.MAX_PROCESSING_ROWS} rows")
                 df = df.head(config.MAX_PROCESSING_ROWS)
@@ -465,13 +526,18 @@ async def process_analysis_task(request: AnalysisRequest, task_id: str,config: C
             processed_df, column_types = analyzer.preprocess_columns(df)
             
             if processed_df.empty:
-                raise Exception("No relevant columns found for analysis")
+                logging.error("No relevant Columns")
+                await send_no_row_email(
+                request.recipient_email, 
+                request.event_name,
+                results
+            )
             
             results = await analyze_columns_parallel(analyzer, processed_df, column_types)
             
             summary_report = generate_summary_report(results)
             
-            email_sent = await send_analysis_email(
+            await send_analysis_email(
                 request.recipient_email, 
                 summary_report, 
                 request.event_name,
@@ -489,7 +555,7 @@ async def process_analysis_task(request: AnalysisRequest, task_id: str,config: C
         logging.error(f"Task {task_id} failed: {str(e)}")
         await send_error_email(request.recipient_email, str(e), request.event_name)
 
-async def analyze_columns_parallel(analyzer: OllamaRAGAnalyzer, 
+async def analyze_columns_parallel(analyzer: Analyzer, 
                                  df: pd.DataFrame, 
                                  column_types: Dict[str, str],config: Config) -> Dict[str, Any]:
     """Analyze columns in parallel using ThreadPoolExecutor"""

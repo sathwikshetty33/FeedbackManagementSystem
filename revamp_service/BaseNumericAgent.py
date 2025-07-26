@@ -1,0 +1,13 @@
+from abc import ABC, abstractmethod
+from typing import Any
+from .configs import *
+from .models import *
+class BaseNumericAgent(ABC):
+    def __init__(self,prompt=None,output_parser=None,llm=None):
+        self.config : NumericColumnAnalyzerAgentConfig
+        self.llm : Any
+        self.output_parser : Any
+        self.prompt : Any
+    @abstractmethod
+    def evaluate(self, req: NumericAnalysis)-> NumericEvaluationResponse:
+        pass

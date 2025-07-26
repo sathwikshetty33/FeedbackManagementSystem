@@ -53,3 +53,14 @@ class OllamaConfig(Config):
     EMAIL_USER: str = os.environ.get('EMAIL_USER')
     EMAIL_PASSWORD : str = os.environ.get('EMAIL_PASSWORD')
     FROM_EMAIL : str= os.environ.get('FROM_EMAIL', 'tester7760775061@gmail.com')
+@dataclass
+class NumericColumnAnalyzerAgentConfig():
+    BASE_URL: str 
+    MODEL: str 
+    TEMPERATURE: float 
+
+@dataclass
+class OllamaNumericColumnAnalyzerAgentConfig():
+    BASE_URL: str = os.environ.get('OLLAMA_BASE_URL', 'http://localhost:11434')
+    MODEL: str = os.environ.get('OLLAMA_MODEL', 'llama3.2:1b')
+    TEMPERATURE: float =0.1,

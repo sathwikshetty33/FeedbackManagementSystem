@@ -32,13 +32,15 @@ from langchain.chains.combine_documents.stuff import StuffDocumentsChain
 import logging
 from .models import *
 from .baseAnalyzer import *
+from .BaseNumericAgent import *
+from .OllamaNumericAgent import *
 cache = TTLCache(maxsize=100, ttl=1800)  # 30 min
 
 
 class OllamaRAGAnalyzer(Analyzer):
     def __init__(self):
-        self.config = Config()
-        
+        super().__init__()
+        self.config = OllamaConfig()
         self.embeddings = OllamaEmbeddings(
             base_url=self.config.BASE_URL,
             model=self.config.MODEL,
@@ -76,19 +78,11 @@ class OllamaRAGAnalyzer(Analyzer):
             r'^full.*name$', r'^first.*name$', r'^last.*name$',
             
             # Event/Organization identification patterns (NEW)
-            r'^event.*name$', r'^hackathon.*name$', r'^competition.*name$', r'^course.*name$',
-            r'^workshop.*name$', r'^seminar.*name$', r'^conference.*name$',
-            r'^organization$', r'^company$', r'^institution$', r'^university$', r'^college$',
-            r'^department$', r'^branch$', r'^stream$', r'^batch$', r'^section$',
+            r'^organization$', r'^institution$', r'^university$', r'^college$',
+            r'^department$', r'^branch$',r'^batch$', r'^section$',
             
             # Date/Time patterns
             r'^timestamp$', r'^date$', r'^time$', r'^created$', r'^updated$', r'^submitted$',
-            
-            # Administrative patterns
-            r'^status$', r'^approved$', r'^verified$', r'^processed$',
-            
-            # Location patterns (NEW)
-            r'^location$', r'^venue$', r'^city$', r'^state$', r'^country$',
             
             # Registration patterns (NEW)
             r'^registration.*id$', r'^participant.*id$', r'^team.*name$', r'^team.*id$'
@@ -123,7 +117,9 @@ class OllamaRAGAnalyzer(Analyzer):
                 relevant_columns.append(col)
             else:
                 removed_columns.append(col)
-        
+        logging.debug(f"{len(relevant_columns)} columns considerd and they are {relevant_columns}")
+        logging.debug(f"{len(removed_columns)} columns removed and they are {removed_columns}")
+
         print(f"📊 Original columns: {len(original_columns)}")
         print(f"✅ Relevant columns: {len(relevant_columns)}")
         print(f"❌ Removed columns: {removed_columns}")
@@ -180,7 +176,8 @@ class OllamaRAGAnalyzer(Analyzer):
         if data.empty:
             return {"error": "No valid numerical data"}
         
-        analysis = {
+        analysis : NumericAnalysis = {
+             'column_heading': df.columns[0],
             'type': 'numerical',
             'total_responses': len(data),
             'mean': round(data.mean(), 2),
@@ -193,12 +190,7 @@ class OllamaRAGAnalyzer(Analyzer):
                 'Q3': round(data.quantile(0.75), 2)
             }
         }
-        
-        unique_vals = sorted(data.unique())
-        if len(unique_vals) <= 10:
-            analysis['rating_distribution'] = data.value_counts().sort_index().to_dict()
-            analysis['mode'] = data.mode().iloc[0] if not data.mode().empty else None
-        
+             
         return analysis
 
     def analyze_categorical_column(self, df: pd.DataFrame, column: str) -> Dict[str, Any]:
@@ -252,20 +244,23 @@ class OllamaRAGAnalyzer(Analyzer):
         documents = []
         
         if analysis_data.get('type') == 'numerical' or analysis_data.get('type') == 'rating':
-            doc_content = f"""
-            Column: {column_name}
-            Type: {analysis_data['type']}
-            Total Responses: {analysis_data['total_responses']}
-            Mean: {analysis_data['mean']}
-            Median: {analysis_data['median']}
-            Standard Deviation: {analysis_data['std_dev']}
-            Range: {analysis_data['min_value']} to {analysis_data['max_value']}
-            """
-            
-            if 'rating_distribution' in analysis_data:
-                doc_content += f"\nRating Distribution: {analysis_data['rating_distribution']}"
-            
-            documents.append(Document(page_content=doc_content, metadata={"column": column_name, "type": "numerical"}))
+            analysis : NumericAnalysis = {
+            'column_heading': analysis_data['column_heading'],
+            'type': 'numerical',
+            'total_responses': analysis_data['total_responses'],
+            'mean': analysis_data['mean'],
+            'median': analysis_data['median'],
+            'std_dev': analysis_data['std_dev'],
+            'min_value': analysis_data['min_value'],
+            'max_value': analysis_data['max_value'],
+            'quartiles': {
+                'Q1': analysis_data['quartiles']['Q1'],
+                'Q3': analysis_data['quartiles']['Q3']
+            }
+        }
+            analyzer : BaseNumericAgent = OllamaNumeriCAnalyzer()
+            analysis['feedback'] = analyzer.evaluate(analysis)  
+            return analysis['feedback']
             
         elif analysis_data.get('type') == 'categorical':
             doc_content = f"""
