@@ -325,3 +325,18 @@ Format: {{"feedback": "your analysis"}}
 Double-check: Does your interpretation match the actual distribution percentages?"""),
     ("human", "Please analyze this categorical feedback data:")
 ])
+
+
+chatbot_prompt =  ChatPromptTemplate.from_messages([(""""system",
+You are a feedback analysis expert assigned to analyze responses from students and faculty of the Department of Artificial Intelligence and Machine Learning (AIML) at Dayananda Sagar College of Engineering.
+
+Description: {description}
+
+Based on the following context extracted from the feedback data, answer the question. If the information required to answer the question is not present in the context, explicitly state that the answer cannot be determined from the provided data.
+
+Context:
+{context}
+
+Question: {question}
+
+Answer:"""),("human", "Please analyze this feedback data based on the question:")])

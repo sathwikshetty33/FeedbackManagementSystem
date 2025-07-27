@@ -18,7 +18,7 @@ from .utils import *
 from typing import Dict, List, Any, Tuple
 import pandas as pd
 import re
-from .logger import logging
+from .logger import *
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from langchain_community.embeddings import OllamaEmbeddings
@@ -27,11 +27,11 @@ from langchain.schema import Document
 from langchain.prompts import PromptTemplate
 from langchain.chains.llm import LLMChain
 from langchain.chains.combine_documents.stuff import StuffDocumentsChain
-import logging
 from .models import *
 from .baseAnalyzer import *
 from .BaseNumericAgent import *
 from .OllamaNumericAgent import *
+logging = get_logger(__name__)
 cache = TTLCache(maxsize=100, ttl=1800)  # 30 min
 
 
@@ -202,7 +202,7 @@ class OllamaRAGAnalyzer(Analyzer):
         
         analysis: CategoricalAnalysis = {
             'type': 'categorical',
-            'column_heading': df.columns[0],
+            'column_heading': column,
             'total_responses': total,
             'unique_categories': len(value_counts),
             'distribution': value_counts.to_dict(),

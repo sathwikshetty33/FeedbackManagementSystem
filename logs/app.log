@@ -1,0 +1,88 @@
+[2025-07-27 15:23:39] [INFO] [proceessor.py:59] Neo4j connected successfully
+[2025-07-27 15:23:44] [INFO] [proceessor.py:171] RAG Processor initialized
+[2025-07-27 15:23:59] [WARNING] [ChatbotSessionManager.py:62] Redis connection failed: type object 'Config' has no attribute 'REDIS_URL'. Falling back to local cache only
+[2025-07-27 15:23:59] [INFO] [proceessor.py:59] Neo4j connected successfully
+[2025-07-27 15:24:04] [INFO] [proceessor.py:171] RAG Processor initialized
+[2025-07-27 15:24:07] [WARNING] [ChatbotSessionManager.py:62] Redis connection failed: type object 'Config' has no attribute 'REDIS_URL'. Falling back to local cache only
+[2025-07-27 15:24:07] [INFO] [proceessor.py:59] Neo4j connected successfully
+[2025-07-27 15:24:11] [INFO] [proceessor.py:171] RAG Processor initialized
+[2025-07-27 15:24:11] [INFO] [app.py:168] Starting session 614f92b5-8cf7-4a85-b406-3fd60ed14ddb
+[2025-07-27 15:24:11] [WARNING] [ChatbotSessionManager.py:140] Session 614f92b5-8cf7-4a85-b406-3fd60ed14ddb not found in either Redis or local cache
+[2025-07-27 15:24:13] [INFO] [app.py:183] Created 3 chunks
+[2025-07-27 15:24:13] [INFO] [ChatbotSessionManager.py:110] Session 614f92b5-8cf7-4a85-b406-3fd60ed14ddb stored in local cache only (Redis unavailable)
+[2025-07-27 15:24:13] [INFO] [app.py:208] Session 614f92b5-8cf7-4a85-b406-3fd60ed14ddb created successfully
+[2025-07-27 15:25:13] [INFO] [app.py:223] Processing query for session 614f92b5-8cf7-4a85-b406-3fd60ed14ddb
+[2025-07-27 15:25:13] [INFO] [ChatbotSessionManager.py:137] Session 614f92b5-8cf7-4a85-b406-3fd60ed14ddb retrieved from local cache (fallback)
+[2025-07-27 15:31:42] [INFO] [ChatbotSessionManager.py:60] Redis connected successfully - using as primary cache
+[2025-07-27 15:31:42] [INFO] [proceessor.py:59] Neo4j connected successfully
+[2025-07-27 15:31:48] [INFO] [proceessor.py:171] RAG Processor initialized
+[2025-07-27 15:31:52] [INFO] [ChatbotSessionManager.py:60] Redis connected successfully - using as primary cache
+[2025-07-27 15:31:52] [INFO] [proceessor.py:59] Neo4j connected successfully
+[2025-07-27 15:31:57] [INFO] [proceessor.py:171] RAG Processor initialized
+[2025-07-27 15:32:00] [INFO] [ChatbotSessionManager.py:60] Redis connected successfully - using as primary cache
+[2025-07-27 15:32:00] [INFO] [proceessor.py:59] Neo4j connected successfully
+[2025-07-27 15:32:06] [INFO] [proceessor.py:171] RAG Processor initialized
+[2025-07-27 15:32:10] [INFO] [ChatbotSessionManager.py:60] Redis connected successfully - using as primary cache
+[2025-07-27 15:32:10] [INFO] [proceessor.py:59] Neo4j connected successfully
+[2025-07-27 15:32:15] [INFO] [proceessor.py:171] RAG Processor initialized
+[2025-07-27 15:32:18] [INFO] [ChatbotSessionManager.py:60] Redis connected successfully - using as primary cache
+[2025-07-27 15:32:18] [INFO] [proceessor.py:59] Neo4j connected successfully
+[2025-07-27 15:32:24] [INFO] [proceessor.py:171] RAG Processor initialized
+[2025-07-27 15:32:39] [INFO] [app.py:168] Starting session f5c52d74-6f73-4801-ba76-8ce89d50dc9f
+[2025-07-27 15:32:39] [WARNING] [ChatbotSessionManager.py:140] Session f5c52d74-6f73-4801-ba76-8ce89d50dc9f not found in either Redis or local cache
+[2025-07-27 15:32:40] [INFO] [app.py:183] Created 3 chunks
+[2025-07-27 15:32:40] [ERROR] [ChatbotSessionManager.py:78] Data serialization failed: Object of type datetime is not JSON serializable
+[2025-07-27 15:32:40] [WARNING] [ChatbotSessionManager.py:106] Failed to serialize session f5c52d74-6f73-4801-ba76-8ce89d50dc9f, stored in local cache only
+[2025-07-27 15:32:40] [INFO] [app.py:208] Session f5c52d74-6f73-4801-ba76-8ce89d50dc9f created successfully
+[2025-07-27 15:33:06] [INFO] [app.py:223] Processing query for session f5c52d74-6f73-4801-ba76-8ce89d50dc9f
+[2025-07-27 15:33:06] [INFO] [ChatbotSessionManager.py:137] Session f5c52d74-6f73-4801-ba76-8ce89d50dc9f retrieved from local cache (fallback)
+[2025-07-27 17:19:11] [WARNING] [ChatbotSessionManager.py:61] Redis connection failed: Error 111 connecting to localhost:6380. Connect call failed ('127.0.0.1', 6380).. Falling back to local cache only
+[2025-07-27 17:19:11] [ERROR] [graphClass.py:46] Neo4j connection failed: Couldn't connect to localhost:7687 (resolved to ('127.0.0.1:7687',)):
+Failed to establish connection to ResolvedIPv4Address(('127.0.0.1', 7687)) (reason [Errno 111] Connect call failed ('127.0.0.1', 7687))
+[2025-07-27 17:19:21] [INFO] [proceessor.py:36] RAG Processor initialized
+[2025-07-27 17:20:02] [INFO] [ChatbotSessionManager.py:59] Redis connected successfully - using as primary cache
+[2025-07-27 17:20:02] [ERROR] [graphClass.py:46] Neo4j connection failed: Couldn't connect to localhost:7687 (resolved to ('127.0.0.1:7687',)):
+Failed to read four byte Bolt handshake response from server ResolvedIPv4Address(('127.0.0.1', 7687)) (deadline Deadline(timeout=60.0))
+[2025-07-27 17:20:11] [INFO] [proceessor.py:36] RAG Processor initialized
+[2025-07-27 17:20:54] [INFO] [ChatbotSessionManager.py:59] Redis connected successfully - using as primary cache
+[2025-07-27 17:20:57] [INFO] [graphClass.py:44] Neo4j connected successfully
+[2025-07-27 17:21:07] [INFO] [proceessor.py:36] RAG Processor initialized
+[2025-07-27 17:21:13] [INFO] [ChatbotSessionManager.py:54] Redis connected successfully - using as primary cache
+[2025-07-27 17:21:13] [INFO] [graphClass.py:44] Neo4j connected successfully
+[2025-07-27 17:21:22] [INFO] [proceessor.py:36] RAG Processor initialized
+[2025-07-27 17:21:55] [INFO] [ChatbotSessionManager.py:43] Redis connected successfully - using as primary cache
+[2025-07-27 17:21:55] [INFO] [graphClass.py:44] Neo4j connected successfully
+[2025-07-27 17:22:04] [INFO] [proceessor.py:36] RAG Processor initialized
+[2025-07-27 17:22:48] [INFO] [app.py:169] Starting session 962e0915-a587-48c6-a20a-4f4b38f86e7b
+[2025-07-27 17:22:48] [WARNING] [ChatbotSessionManager.py:123] Session 962e0915-a587-48c6-a20a-4f4b38f86e7b not found in either Redis or local cache
+[2025-07-27 17:22:48] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/17wuE4zThdDHuRMfGZF4IR9R_RxoyzYU1PQ52IikMXoY/export?format=csv
+[2025-07-27 17:22:49] [DEBUG] [utils.py:94] ✅ Successfully loaded 100 rows and 1 columns
+[2025-07-27 17:22:49] [INFO] [app.py:184] Created 3 chunks
+[2025-07-27 17:22:53] [ERROR] [ChatbotSessionManager.py:61] Data serialization failed: Object of type datetime is not JSON serializable
+[2025-07-27 17:22:53] [WARNING] [ChatbotSessionManager.py:89] Failed to serialize session 962e0915-a587-48c6-a20a-4f4b38f86e7b, stored in local cache only
+[2025-07-27 17:22:53] [INFO] [app.py:209] Session 962e0915-a587-48c6-a20a-4f4b38f86e7b created successfully
+[2025-07-27 17:24:26] [INFO] [ChatbotSessionManager.py:71] Redis connected successfully - using as primary cache
+[2025-07-27 17:24:26] [INFO] [graphClass.py:44] Neo4j connected successfully
+[2025-07-27 17:24:34] [INFO] [proceessor.py:36] RAG Processor initialized
+[2025-07-27 17:24:47] [INFO] [ChatbotSessionManager.py:71] Redis connected successfully - using as primary cache
+[2025-07-27 17:24:47] [INFO] [graphClass.py:45] Neo4j connected successfully
+[2025-07-27 17:24:55] [INFO] [proceessor.py:36] RAG Processor initialized
+[2025-07-27 17:25:05] [INFO] [app.py:169] Starting session d0799d40-6c6c-427a-90ce-c8918731c261
+[2025-07-27 17:25:05] [WARNING] [ChatbotSessionManager.py:185] Session d0799d40-6c6c-427a-90ce-c8918731c261 not found in either Redis or local cache
+[2025-07-27 17:25:05] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/17wuE4zThdDHuRMfGZF4IR9R_RxoyzYU1PQ52IikMXoY/export?format=csv
+[2025-07-27 17:25:06] [DEBUG] [utils.py:94] ✅ Successfully loaded 100 rows and 1 columns
+[2025-07-27 17:25:06] [INFO] [app.py:184] Created 3 chunks
+[2025-07-27 17:25:07] [INFO] [ChatbotSessionManager.py:149] Session d0799d40-6c6c-427a-90ce-c8918731c261 stored in Redis (primary) and local cache (fallback)
+[2025-07-27 17:25:07] [INFO] [app.py:209] Session d0799d40-6c6c-427a-90ce-c8918731c261 created successfully
+[2025-07-27 17:25:36] [INFO] [app.py:169] Starting session a35c2a08-ae5d-415c-ba35-b58d90d5463d
+[2025-07-27 17:25:36] [WARNING] [ChatbotSessionManager.py:185] Session a35c2a08-ae5d-415c-ba35-b58d90d5463d not found in either Redis or local cache
+[2025-07-27 17:25:36] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1STyEshSdfP5ilAJrjxLRRZCXnoQRYBa8fxlWJYFHPzU/export?format=csv
+[2025-07-27 17:25:37] [DEBUG] [utils.py:94] ✅ Successfully loaded 46 rows and 19 columns
+[2025-07-27 17:25:37] [INFO] [app.py:184] Created 230 chunks
+[2025-07-27 17:25:55] [INFO] [ChatbotSessionManager.py:149] Session a35c2a08-ae5d-415c-ba35-b58d90d5463d stored in Redis (primary) and local cache (fallback)
+[2025-07-27 17:25:55] [INFO] [app.py:209] Session a35c2a08-ae5d-415c-ba35-b58d90d5463d created successfully
+[2025-07-27 17:26:16] [INFO] [app.py:224] Processing query for session a35c2a08-ae5d-415c-ba35-b58d90d5463d
+[2025-07-27 17:26:16] [INFO] [ChatbotSessionManager.py:167] Session a35c2a08-ae5d-415c-ba35-b58d90d5463d retrieved from Redis (primary cache)
+[2025-07-27 17:28:26] [INFO] [ChatbotSessionManager.py:71] Redis connected successfully - using as primary cache
+[2025-07-27 17:28:26] [INFO] [graphClass.py:45] Neo4j connected successfully
+[2025-07-27 17:28:41] [INFO] [proceessor.py:36] RAG Processor initialized

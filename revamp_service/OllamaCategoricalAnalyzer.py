@@ -6,6 +6,9 @@ from .models import *
 from .prompts import *
 from .BaseNumericAgent import *
 from langchain_core.output_parsers import JsonOutputParser
+from .logger import *
+logging = get_logger(__name__)
+
 class OllamaCategoricalCAnalyzer(BaseAgent):
     def __init__(self,prompt=None,output_parser=None,llm=None):
         self.config = OllamaNumericColumnAnalyzerAgentConfig()

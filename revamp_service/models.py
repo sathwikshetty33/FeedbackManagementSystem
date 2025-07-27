@@ -23,16 +23,17 @@ class AnalysisResponse(BaseModel):
     message: str
     task_id: str
     
-
-
 class StartSession(BaseModel):
     session_id: str
     sheet_url: str
     description: str
+    use_graph: bool = True
+    cache_enabled: bool = True
 
 class QueryRequest(BaseModel):
     session_id: str
     question: str
+    use_hybrid_search: bool = True
 
 class TaskInfo(TypedDict):
     """ Used to enforce type safety for task info """

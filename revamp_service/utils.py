@@ -23,10 +23,12 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from revamp_service.models import *
-from revamp_service.logger import logging
+from revamp_service.logger import *
 from revamp_service.analyzer import OllamaRAGAnalyzer
 from revamp_service.baseAnalyzer import *
 from .configs import *
+logging = get_logger(__name__)
+
 def send_error_email(recipient_email: str, error_msg: str, event_name: str):
     config = Mailconfig()
     try:

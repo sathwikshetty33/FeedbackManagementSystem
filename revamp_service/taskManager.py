@@ -4,9 +4,10 @@ import asyncio
 from datetime import datetime
 from revamp_service.utils import *
 import asyncio
-from revamp_service.logger import logging
+from revamp_service.logger import *
 from revamp_service.models import *
 from revamp_service.configs import *
+logging = get_logger(__name__)
 
 class TaskManager:
     def __init__(self):

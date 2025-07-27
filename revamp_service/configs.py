@@ -65,3 +65,16 @@ class OllamaNumericColumnAnalyzerAgentConfig(NumericColumnAnalyzerAgentConfig):
     BASE_URL: str = os.environ.get('OLLAMA_BASE_URL', 'http://localhost:11434')
     MODEL: str = os.environ.get('OLLAMA_MODEL', 'llama3.2:1b')
     TEMPERATURE: float =0.1,
+@dataclass
+class CachingConfig:
+    CACHE_TTL = 3600
+    MAX_CACHE_SIZE = 100
+    CHUNK_SIZE = 500
+    CHUNK_OVERLAP = 50
+    EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
+    LLM_MODEL = "llama3.2:3b"
+    NEO4J_URI = "bolt://localhost:7687"
+    NEO4J_USER = "neo4j"
+    NEO4J_PASSWORD = "password"
+    REDIS_URL = "redis://localhost:6380"
+    BASE_URL='http://localhost:11434'
