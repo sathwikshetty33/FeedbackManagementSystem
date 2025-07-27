@@ -5,6 +5,8 @@ import os
 import threading
 from typing import Dict
 from dotenv import load_dotenv
+from .logger import *
+logging = get_logger(__name__)
 load_dotenv()
 
 @dataclass
@@ -78,3 +80,26 @@ class CachingConfig:
     NEO4J_PASSWORD = "password"
     REDIS_URL = "redis://localhost:6380"
     BASE_URL='http://localhost:11434'
+    def __init__(self):
+        # Enhanced caching (optional)
+        try:
+            from cachetools import TTLCache
+            import redis.asyncio as redis
+            self.REDIS_AVAILABLE = True
+            self.TTLCache = TTLCache
+            self.redis = redis
+        except ImportError:
+            self.REDIS_AVAILABLE = False
+            logging.warning("Redis not available. Using local cache only.")
+@dataclass
+class GroqChatRag:
+    EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
+    LLM_MODEL = "meta-llama/llama-4-scout-17b-16e-instruct"
+    TEMPERATURE=0.7
+    MAX_TOKEN=2000
+    CHUNK_SIZE = 500
+    CHUNK_OVERLAP = 50
+    GROQ_API_KEY=os.environ.get('groq_api_key')
+            
+        
+

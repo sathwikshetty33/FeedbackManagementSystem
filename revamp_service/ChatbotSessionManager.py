@@ -18,7 +18,6 @@ from .configs import *
 logging = get_logger(__name__)
 from cachetools import TTLCache
 import redis.asyncio as redis
-from .graphClass import *
 
 class DateTimeEncoder(json.JSONEncoder):
     """Custom JSON encoder that handles datetime objects"""
@@ -50,7 +49,7 @@ class EnhancedSessionManager:
     def __init__(self):
         self.Config = CachingConfig()
         # Local cache as fallback
-        if REDIS_AVAILABLE:
+        if self.Config.REDIS_AVAILABLE:
             self.local_cache = TTLCache(maxsize=self.Config.MAX_CACHE_SIZE, ttl=self.Config.CACHE_TTL)
         else:
             self.local_cache = {}
@@ -60,7 +59,7 @@ class EnhancedSessionManager:
         
     async def init_redis(self):
         """Initialize Redis connection"""
-        if not REDIS_AVAILABLE:
+        if not self.Config.REDIS_AVAILABLE:
             logging.warning("Redis library not available, using local cache only")
             return
             
@@ -202,7 +201,7 @@ class EnhancedSessionManager:
     
     async def clear_expired_sessions(self):
         """Clear expired sessions (Redis handles TTL automatically, this is for local cache)"""
-        if REDIS_AVAILABLE:
+        if self.Config.REDIS_AVAILABLE:
             # TTLCache handles expiration automatically
             expired_count = len(self.local_cache) - self.Config.MAX_CACHE_SIZE
             if expired_count > 0:

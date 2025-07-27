@@ -16,7 +16,7 @@ from cachetools import TTLCache
 load_dotenv()
 from revamp_service.models import *
 from revamp_service.taskManager import *
-from .proceessor import *
+from .GroqRAGProcessor import *
 logging = get_logger(__name__)
 cache = TTLCache(maxsize=100, ttl=1800)  # 30 min
 
@@ -24,7 +24,7 @@ cache = TTLCache(maxsize=100, ttl=1800)  # 30 min
 
 app = FastAPI(title="Feedback Analysis Service")
 task_manager = TaskManager()  
-processor = SimpleRAGProcessor()
+processor = GroqRAGProcessor()
 # FastAPI Endpoints
 @app.post("/analyze", response_model=AnalysisResponse)
 async def start_analysis(request: AnalysisRequest):
