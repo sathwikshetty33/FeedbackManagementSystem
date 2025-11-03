@@ -4,20 +4,62 @@ import { useAuth } from '../hooks/useAuth'
 
 const Login = () => {
   const [formData, setFormData] = useState({
-    email: '',
+    username: '',
     password: ''
   })
-  const { login } = useAuth()
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
+  const { API_URL,setUser } = useAuth()
   const navigate = useNavigate()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // Simulate login (in real app, you'd validate against backend)
-    login({
-      name: formData.email.split('@')[0],
-      email: formData.email
-    })
-    navigate('/dashboard')
+    setError('')
+    setLoading(true)
+
+    try {
+      const response = await fetch(`${API_URL}/auth/login/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: formData.username,
+          password: formData.password
+        })
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        setError(data.error || 'Login failed. Please try again.')
+        setLoading(false)
+        return
+      }
+
+      // Store token and user data
+      localStorage.setItem('token', data.token)
+      setUser(data)
+
+      // Redirect based on user type
+      switch(data.user_type) {
+        case 'Student':
+          navigate('/student-dashboard')
+          break
+        case 'Teacher':
+          navigate('/teacher-dashboard')
+          break
+        case 'Superuser':
+          navigate('/admin-dashboard')
+          break
+        default:
+          navigate('/dashboard')
+      }
+    } catch (err) {
+      setError('Network error. Please check your connection.')
+      setLoading(false)
+      console.error(err)
+    }
   }
 
   const handleChange = (e) => {
@@ -25,31 +67,40 @@ const Login = () => {
       ...formData,
       [e.target.name]: e.target.value
     })
+    // Clear error when user types
+    if (error) setError('')
   }
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center px-4 py-12">
+    <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center px-4 py-12 bg-black">
       <div className="max-w-md w-full">
-        <div className="bg-slate-800/50 backdrop-blur-lg rounded-2xl p-8 border border-purple-500/20 shadow-2xl">
+        <div className="bg-gray-900 backdrop-blur-lg rounded-2xl p-8 border border-blue-500/20 shadow-2xl shadow-blue-500/20">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-white mb-2">Welcome Back</h2>
             <p className="text-gray-400">Sign in to your account</p>
           </div>
 
+          {error && (
+            <div className="mb-6 p-4 bg-red-500/10 border border-red-500/50 rounded-lg">
+              <p className="text-red-400 text-sm text-center">{error}</p>
+            </div>
+          )}
+
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-                Email Address
+              <label htmlFor="username" className="block text-sm font-medium text-gray-300 mb-2">
+                Username
               </label>
               <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
+                type="text"
+                id="username"
+                name="username"
+                value={formData.username}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 bg-slate-900/50 border border-purple-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
-                placeholder="you@example.com"
+                disabled={loading}
+                className="w-full px-4 py-3 bg-black border border-blue-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 disabled:opacity-50"
+                placeholder="Enter your username"
               />
             </div>
 
@@ -64,36 +115,39 @@ const Login = () => {
                 value={formData.password}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 bg-slate-900/50 border border-purple-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
+                disabled={loading}
+                className="w-full px-4 py-3 bg-black border border-blue-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 disabled:opacity-50"
                 placeholder="••••••••"
               />
             </div>
 
             <div className="flex items-center justify-between">
-              <label className="flex items-center">
+              <label className="flex items-center cursor-pointer">
                 <input
                   type="checkbox"
-                  className="w-4 h-4 bg-slate-900/50 border-purple-500/30 rounded focus:ring-purple-500"
+                  className="w-4 h-4 bg-black border-blue-500/30 rounded focus:ring-blue-500 accent-blue-500"
+                  disabled={loading}
                 />
                 <span className="ml-2 text-sm text-gray-400">Remember me</span>
               </label>
-              <a href="#" className="text-sm text-purple-400 hover:text-purple-300 transition-colors">
+              <a href="#" className="text-sm text-blue-400 hover:text-blue-300 transition-colors">
                 Forgot password?
               </a>
             </div>
 
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-lg font-semibold hover:from-purple-600 hover:to-pink-600 transition-all duration-200 shadow-lg hover:shadow-purple-500/50 hover:scale-105"
+              disabled={loading}
+              className="w-full bg-blue-500 text-white py-3 rounded-lg font-semibold hover:bg-blue-600 transition-all duration-200 shadow-lg shadow-blue-500/50 hover:shadow-blue-500/70 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
             >
-              Sign In
+              {loading ? 'Signing In...' : 'Sign In'}
             </button>
           </form>
 
           <div className="mt-6 text-center">
             <p className="text-gray-400">
               Don't have an account?{' '}
-              <Link to="/signup" className="text-purple-400 hover:text-purple-300 font-semibold transition-colors">
+              <Link to="/signup" className="text-blue-400 hover:text-blue-300 font-semibold transition-colors">
                 Sign up
               </Link>
             </p>

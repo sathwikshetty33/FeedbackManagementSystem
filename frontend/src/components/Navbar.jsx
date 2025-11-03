@@ -9,6 +9,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     logout()
+    localStorage.removeItem('token')
     navigate('/login')
   }
 
@@ -21,7 +22,7 @@ const Navbar = () => {
             <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-xl">A</span>
             </div>
-            <span className="text-white font-bold text-xl hidden sm:block">AppName</span>
+            <span className="text-white font-bold text-xl hidden sm:block">FeedTrack</span>
           </Link>
 
           {/* Desktop Navigation */}

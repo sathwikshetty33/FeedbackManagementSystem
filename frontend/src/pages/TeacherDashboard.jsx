@@ -1,5 +1,5 @@
 
- const Dashboard = () => {
+ const TeacherDashboard = () => {
   const team = [
     { name: 'Alex Johnson', role: 'CEO & Founder', avatar: '👨‍💼' },
     { name: 'Sarah Williams', role: 'CTO', avatar: '👩‍💻' },
@@ -173,4 +173,4 @@
   )
 }
 
-export default Dashboard
+export default TeacherDashboard
