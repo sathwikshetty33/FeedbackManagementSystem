@@ -1,88 +1,751 @@
-[2025-07-27 15:23:39] [INFO] [proceessor.py:59] Neo4j connected successfully
-[2025-07-27 15:23:44] [INFO] [proceessor.py:171] RAG Processor initialized
-[2025-07-27 15:23:59] [WARNING] [ChatbotSessionManager.py:62] Redis connection failed: type object 'Config' has no attribute 'REDIS_URL'. Falling back to local cache only
-[2025-07-27 15:23:59] [INFO] [proceessor.py:59] Neo4j connected successfully
-[2025-07-27 15:24:04] [INFO] [proceessor.py:171] RAG Processor initialized
-[2025-07-27 15:24:07] [WARNING] [ChatbotSessionManager.py:62] Redis connection failed: type object 'Config' has no attribute 'REDIS_URL'. Falling back to local cache only
-[2025-07-27 15:24:07] [INFO] [proceessor.py:59] Neo4j connected successfully
-[2025-07-27 15:24:11] [INFO] [proceessor.py:171] RAG Processor initialized
-[2025-07-27 15:24:11] [INFO] [app.py:168] Starting session 614f92b5-8cf7-4a85-b406-3fd60ed14ddb
-[2025-07-27 15:24:11] [WARNING] [ChatbotSessionManager.py:140] Session 614f92b5-8cf7-4a85-b406-3fd60ed14ddb not found in either Redis or local cache
-[2025-07-27 15:24:13] [INFO] [app.py:183] Created 3 chunks
-[2025-07-27 15:24:13] [INFO] [ChatbotSessionManager.py:110] Session 614f92b5-8cf7-4a85-b406-3fd60ed14ddb stored in local cache only (Redis unavailable)
-[2025-07-27 15:24:13] [INFO] [app.py:208] Session 614f92b5-8cf7-4a85-b406-3fd60ed14ddb created successfully
-[2025-07-27 15:25:13] [INFO] [app.py:223] Processing query for session 614f92b5-8cf7-4a85-b406-3fd60ed14ddb
-[2025-07-27 15:25:13] [INFO] [ChatbotSessionManager.py:137] Session 614f92b5-8cf7-4a85-b406-3fd60ed14ddb retrieved from local cache (fallback)
-[2025-07-27 15:31:42] [INFO] [ChatbotSessionManager.py:60] Redis connected successfully - using as primary cache
-[2025-07-27 15:31:42] [INFO] [proceessor.py:59] Neo4j connected successfully
-[2025-07-27 15:31:48] [INFO] [proceessor.py:171] RAG Processor initialized
-[2025-07-27 15:31:52] [INFO] [ChatbotSessionManager.py:60] Redis connected successfully - using as primary cache
-[2025-07-27 15:31:52] [INFO] [proceessor.py:59] Neo4j connected successfully
-[2025-07-27 15:31:57] [INFO] [proceessor.py:171] RAG Processor initialized
-[2025-07-27 15:32:00] [INFO] [ChatbotSessionManager.py:60] Redis connected successfully - using as primary cache
-[2025-07-27 15:32:00] [INFO] [proceessor.py:59] Neo4j connected successfully
-[2025-07-27 15:32:06] [INFO] [proceessor.py:171] RAG Processor initialized
-[2025-07-27 15:32:10] [INFO] [ChatbotSessionManager.py:60] Redis connected successfully - using as primary cache
-[2025-07-27 15:32:10] [INFO] [proceessor.py:59] Neo4j connected successfully
-[2025-07-27 15:32:15] [INFO] [proceessor.py:171] RAG Processor initialized
-[2025-07-27 15:32:18] [INFO] [ChatbotSessionManager.py:60] Redis connected successfully - using as primary cache
-[2025-07-27 15:32:18] [INFO] [proceessor.py:59] Neo4j connected successfully
-[2025-07-27 15:32:24] [INFO] [proceessor.py:171] RAG Processor initialized
-[2025-07-27 15:32:39] [INFO] [app.py:168] Starting session f5c52d74-6f73-4801-ba76-8ce89d50dc9f
-[2025-07-27 15:32:39] [WARNING] [ChatbotSessionManager.py:140] Session f5c52d74-6f73-4801-ba76-8ce89d50dc9f not found in either Redis or local cache
-[2025-07-27 15:32:40] [INFO] [app.py:183] Created 3 chunks
-[2025-07-27 15:32:40] [ERROR] [ChatbotSessionManager.py:78] Data serialization failed: Object of type datetime is not JSON serializable
-[2025-07-27 15:32:40] [WARNING] [ChatbotSessionManager.py:106] Failed to serialize session f5c52d74-6f73-4801-ba76-8ce89d50dc9f, stored in local cache only
-[2025-07-27 15:32:40] [INFO] [app.py:208] Session f5c52d74-6f73-4801-ba76-8ce89d50dc9f created successfully
-[2025-07-27 15:33:06] [INFO] [app.py:223] Processing query for session f5c52d74-6f73-4801-ba76-8ce89d50dc9f
-[2025-07-27 15:33:06] [INFO] [ChatbotSessionManager.py:137] Session f5c52d74-6f73-4801-ba76-8ce89d50dc9f retrieved from local cache (fallback)
-[2025-07-27 17:19:11] [WARNING] [ChatbotSessionManager.py:61] Redis connection failed: Error 111 connecting to localhost:6380. Connect call failed ('127.0.0.1', 6380).. Falling back to local cache only
-[2025-07-27 17:19:11] [ERROR] [graphClass.py:46] Neo4j connection failed: Couldn't connect to localhost:7687 (resolved to ('127.0.0.1:7687',)):
-Failed to establish connection to ResolvedIPv4Address(('127.0.0.1', 7687)) (reason [Errno 111] Connect call failed ('127.0.0.1', 7687))
-[2025-07-27 17:19:21] [INFO] [proceessor.py:36] RAG Processor initialized
-[2025-07-27 17:20:02] [INFO] [ChatbotSessionManager.py:59] Redis connected successfully - using as primary cache
-[2025-07-27 17:20:02] [ERROR] [graphClass.py:46] Neo4j connection failed: Couldn't connect to localhost:7687 (resolved to ('127.0.0.1:7687',)):
-Failed to read four byte Bolt handshake response from server ResolvedIPv4Address(('127.0.0.1', 7687)) (deadline Deadline(timeout=60.0))
-[2025-07-27 17:20:11] [INFO] [proceessor.py:36] RAG Processor initialized
-[2025-07-27 17:20:54] [INFO] [ChatbotSessionManager.py:59] Redis connected successfully - using as primary cache
-[2025-07-27 17:20:57] [INFO] [graphClass.py:44] Neo4j connected successfully
-[2025-07-27 17:21:07] [INFO] [proceessor.py:36] RAG Processor initialized
-[2025-07-27 17:21:13] [INFO] [ChatbotSessionManager.py:54] Redis connected successfully - using as primary cache
-[2025-07-27 17:21:13] [INFO] [graphClass.py:44] Neo4j connected successfully
-[2025-07-27 17:21:22] [INFO] [proceessor.py:36] RAG Processor initialized
-[2025-07-27 17:21:55] [INFO] [ChatbotSessionManager.py:43] Redis connected successfully - using as primary cache
-[2025-07-27 17:21:55] [INFO] [graphClass.py:44] Neo4j connected successfully
-[2025-07-27 17:22:04] [INFO] [proceessor.py:36] RAG Processor initialized
-[2025-07-27 17:22:48] [INFO] [app.py:169] Starting session 962e0915-a587-48c6-a20a-4f4b38f86e7b
-[2025-07-27 17:22:48] [WARNING] [ChatbotSessionManager.py:123] Session 962e0915-a587-48c6-a20a-4f4b38f86e7b not found in either Redis or local cache
-[2025-07-27 17:22:48] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/17wuE4zThdDHuRMfGZF4IR9R_RxoyzYU1PQ52IikMXoY/export?format=csv
-[2025-07-27 17:22:49] [DEBUG] [utils.py:94] ✅ Successfully loaded 100 rows and 1 columns
-[2025-07-27 17:22:49] [INFO] [app.py:184] Created 3 chunks
-[2025-07-27 17:22:53] [ERROR] [ChatbotSessionManager.py:61] Data serialization failed: Object of type datetime is not JSON serializable
-[2025-07-27 17:22:53] [WARNING] [ChatbotSessionManager.py:89] Failed to serialize session 962e0915-a587-48c6-a20a-4f4b38f86e7b, stored in local cache only
-[2025-07-27 17:22:53] [INFO] [app.py:209] Session 962e0915-a587-48c6-a20a-4f4b38f86e7b created successfully
-[2025-07-27 17:24:26] [INFO] [ChatbotSessionManager.py:71] Redis connected successfully - using as primary cache
-[2025-07-27 17:24:26] [INFO] [graphClass.py:44] Neo4j connected successfully
-[2025-07-27 17:24:34] [INFO] [proceessor.py:36] RAG Processor initialized
-[2025-07-27 17:24:47] [INFO] [ChatbotSessionManager.py:71] Redis connected successfully - using as primary cache
-[2025-07-27 17:24:47] [INFO] [graphClass.py:45] Neo4j connected successfully
-[2025-07-27 17:24:55] [INFO] [proceessor.py:36] RAG Processor initialized
-[2025-07-27 17:25:05] [INFO] [app.py:169] Starting session d0799d40-6c6c-427a-90ce-c8918731c261
-[2025-07-27 17:25:05] [WARNING] [ChatbotSessionManager.py:185] Session d0799d40-6c6c-427a-90ce-c8918731c261 not found in either Redis or local cache
-[2025-07-27 17:25:05] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/17wuE4zThdDHuRMfGZF4IR9R_RxoyzYU1PQ52IikMXoY/export?format=csv
-[2025-07-27 17:25:06] [DEBUG] [utils.py:94] ✅ Successfully loaded 100 rows and 1 columns
-[2025-07-27 17:25:06] [INFO] [app.py:184] Created 3 chunks
-[2025-07-27 17:25:07] [INFO] [ChatbotSessionManager.py:149] Session d0799d40-6c6c-427a-90ce-c8918731c261 stored in Redis (primary) and local cache (fallback)
-[2025-07-27 17:25:07] [INFO] [app.py:209] Session d0799d40-6c6c-427a-90ce-c8918731c261 created successfully
-[2025-07-27 17:25:36] [INFO] [app.py:169] Starting session a35c2a08-ae5d-415c-ba35-b58d90d5463d
-[2025-07-27 17:25:36] [WARNING] [ChatbotSessionManager.py:185] Session a35c2a08-ae5d-415c-ba35-b58d90d5463d not found in either Redis or local cache
-[2025-07-27 17:25:36] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1STyEshSdfP5ilAJrjxLRRZCXnoQRYBa8fxlWJYFHPzU/export?format=csv
-[2025-07-27 17:25:37] [DEBUG] [utils.py:94] ✅ Successfully loaded 46 rows and 19 columns
-[2025-07-27 17:25:37] [INFO] [app.py:184] Created 230 chunks
-[2025-07-27 17:25:55] [INFO] [ChatbotSessionManager.py:149] Session a35c2a08-ae5d-415c-ba35-b58d90d5463d stored in Redis (primary) and local cache (fallback)
-[2025-07-27 17:25:55] [INFO] [app.py:209] Session a35c2a08-ae5d-415c-ba35-b58d90d5463d created successfully
-[2025-07-27 17:26:16] [INFO] [app.py:224] Processing query for session a35c2a08-ae5d-415c-ba35-b58d90d5463d
-[2025-07-27 17:26:16] [INFO] [ChatbotSessionManager.py:167] Session a35c2a08-ae5d-415c-ba35-b58d90d5463d retrieved from Redis (primary cache)
-[2025-07-27 17:28:26] [INFO] [ChatbotSessionManager.py:71] Redis connected successfully - using as primary cache
-[2025-07-27 17:28:26] [INFO] [graphClass.py:45] Neo4j connected successfully
-[2025-07-27 17:28:41] [INFO] [proceessor.py:36] RAG Processor initialized
+[2025-07-27 17:43:54] [INFO] [ChatbotSessionManager.py:71] Redis connected successfully - using as primary cache
+[2025-07-27 17:43:54] [INFO] [graphClass.py:37] Neo4j connected successfully
+[2025-07-27 17:44:03] [INFO] [proceessor.py:37] RAG Processor initialized
+[2025-07-27 17:44:28] [INFO] [app.py:169] Starting session 7733bcfe-d66b-4079-bb25-a2e1af2f0318
+[2025-07-27 17:44:28] [WARNING] [ChatbotSessionManager.py:185] Session 7733bcfe-d66b-4079-bb25-a2e1af2f0318 not found in either Redis or local cache
+[2025-07-27 17:44:28] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1STyEshSdfP5ilAJrjxLRRZCXnoQRYBa8fxlWJYFHPzU/export?format=csv
+[2025-07-27 17:44:29] [DEBUG] [utils.py:94] ✅ Successfully loaded 46 rows and 19 columns
+[2025-07-27 17:44:29] [INFO] [app.py:184] Created 230 chunks
+[2025-07-27 17:44:51] [INFO] [ChatbotSessionManager.py:149] Session 7733bcfe-d66b-4079-bb25-a2e1af2f0318 stored in Redis (primary) and local cache (fallback)
+[2025-07-27 17:44:51] [INFO] [app.py:209] Session 7733bcfe-d66b-4079-bb25-a2e1af2f0318 created successfully
+[2025-07-27 17:45:13] [INFO] [app.py:224] Processing query for session 7733bcfe-d66b-4079-bb25-a2e1af2f0318
+[2025-07-27 17:45:13] [INFO] [ChatbotSessionManager.py:167] Session 7733bcfe-d66b-4079-bb25-a2e1af2f0318 retrieved from Redis (primary cache)
+[2025-07-27 17:45:13] [INFO] [proceessor.py:94] Retrived from Graph: []
+[2025-07-27 17:48:06] [INFO] [ChatbotSessionManager.py:71] Redis connected successfully - using as primary cache
+[2025-07-27 17:48:06] [INFO] [graphClass.py:37] Neo4j connected successfully
+[2025-07-27 17:48:15] [INFO] [proceessor.py:37] RAG Processor initialized
+[2025-07-27 17:48:22] [INFO] [ChatbotSessionManager.py:71] Redis connected successfully - using as primary cache
+[2025-07-27 17:48:22] [INFO] [graphClass.py:37] Neo4j connected successfully
+[2025-07-27 17:48:33] [INFO] [proceessor.py:37] RAG Processor initialized
+[2025-07-27 17:48:57] [INFO] [ChatbotSessionManager.py:71] Redis connected successfully - using as primary cache
+[2025-07-27 17:48:57] [INFO] [graphClass.py:37] Neo4j connected successfully
+[2025-07-27 17:49:05] [INFO] [proceessor.py:37] RAG Processor initialized
+[2025-07-27 17:49:53] [INFO] [ChatbotSessionManager.py:71] Redis connected successfully - using as primary cache
+[2025-07-27 17:49:53] [INFO] [graphClass.py:37] Neo4j connected successfully
+[2025-07-27 17:50:01] [INFO] [proceessor.py:37] RAG Processor initialized
+[2025-07-27 17:50:08] [INFO] [ChatbotSessionManager.py:71] Redis connected successfully - using as primary cache
+[2025-07-27 17:50:08] [INFO] [graphClass.py:37] Neo4j connected successfully
+[2025-07-27 17:50:17] [INFO] [proceessor.py:37] RAG Processor initialized
+[2025-07-27 17:50:24] [INFO] [ChatbotSessionManager.py:71] Redis connected successfully - using as primary cache
+[2025-07-27 17:50:24] [INFO] [graphClass.py:37] Neo4j connected successfully
+[2025-07-27 17:50:32] [INFO] [proceessor.py:39] RAG Processor initialized
+[2025-07-27 17:50:40] [INFO] [ChatbotSessionManager.py:71] Redis connected successfully - using as primary cache
+[2025-07-27 17:50:40] [INFO] [graphClass.py:37] Neo4j connected successfully
+[2025-07-27 17:50:49] [INFO] [proceessor.py:39] RAG Processor initialized
+[2025-07-27 17:51:04] [INFO] [ChatbotSessionManager.py:71] Redis connected successfully - using as primary cache
+[2025-07-27 17:51:05] [INFO] [graphClass.py:37] Neo4j connected successfully
+[2025-07-27 17:51:13] [INFO] [proceessor.py:39] RAG Processor initialized
+[2025-07-27 17:51:19] [DEBUG] [taskManager.py:30] Task: 8b30b707-ff42-4364-9770-1d299ceaf4b9 added to queue
+[2025-07-27 17:51:19] [DEBUG] [taskManager.py:54] Processing called for Task: 8b30b707-ff42-4364-9770-1d299ceaf4b9 at time : 2025-07-27 17:51:19.121317
+[2025-07-27 17:51:19] [DEBUG] [utils.py:520] Starting analysis task 8b30b707-ff42-4364-9770-1d299ceaf4b9
+[2025-07-27 17:51:19] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1STyEshSdfP5ilAJrjxLRRZCXnoQRYBa8fxlWJYFHPzU/export?format=csv
+[2025-07-27 17:51:20] [DEBUG] [utils.py:94] ✅ Successfully loaded 46 rows and 19 columns
+[2025-07-27 17:51:20] [DEBUG] [analyzer.py:118] 15 columns considerd and they are ['1. Gained knowledge of mathematics and science required for AIML branch of Engineering.', '2. Able to identify, formulate and solve engineering problems', '3. Learn to design solutions for complex computer science and systems, considering public health, safety, and cultural, societal, and environmental factors.', '4. Capable of conducting investigations into complex artificial intelligence and machine learning issues.', '5. Learned to use modern software and equipment to analyze problems essential for engineering practice.', '6. Able to recognize the impact of engineering on society.', '7. Recognize the societal and environmental impact of solutions and the need for sustainable development.', '8. Understand professional and ethical responsibility.', '9. Able to function effectively as an individual and as a member or leader in diverse, multidisciplinary teams.', '10. Able to communicate effectively in both verbal and written form.', '\n11. Acquired project management and finance skills, including budgeting and resource allocation, and can lead projects effectively.', '12. Embraced life-long learning and committed to continuous professional development.', '13. Adept in programming and problem solving skills for developing and managing software.', '14. Identify, formulate, predict and solve real-world problems by applying Artificial Intelligence & Machine Learning principles.', '15. Proficient in efficiently managing computer system resources using cloud computing technologies.']
+[2025-07-27 17:51:20] [DEBUG] [analyzer.py:119] 4 columns removed and they are ['Timestamp', 'Email Address', 'Student USN', 'Student Name']
+[2025-07-27 17:51:23] [INFO] [app.py:169] Starting session b5216c2f-7015-4b38-9e8c-541f3010b039
+[2025-07-27 17:51:23] [WARNING] [ChatbotSessionManager.py:185] Session b5216c2f-7015-4b38-9e8c-541f3010b039 not found in either Redis or local cache
+[2025-07-27 17:51:23] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1STyEshSdfP5ilAJrjxLRRZCXnoQRYBa8fxlWJYFHPzU/export?format=csv
+[2025-07-27 17:51:24] [DEBUG] [utils.py:94] ✅ Successfully loaded 46 rows and 19 columns
+[2025-07-27 17:51:24] [INFO] [app.py:184] Created 230 chunks
+[2025-07-27 17:51:47] [INFO] [ChatbotSessionManager.py:71] Redis connected successfully - using as primary cache
+[2025-07-27 17:51:47] [INFO] [graphClass.py:37] Neo4j connected successfully
+[2025-07-27 17:52:00] [INFO] [proceessor.py:39] RAG Processor initialized
+[2025-07-27 17:52:09] [INFO] [app.py:169] Starting session 631d82f0-960b-41a9-8e88-a7bdd6bbf98d
+[2025-07-27 17:52:09] [WARNING] [ChatbotSessionManager.py:185] Session 631d82f0-960b-41a9-8e88-a7bdd6bbf98d not found in either Redis or local cache
+[2025-07-27 17:52:09] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1STyEshSdfP5ilAJrjxLRRZCXnoQRYBa8fxlWJYFHPzU/export?format=csv
+[2025-07-27 17:52:10] [ERROR] [utils.py:99] Error fetching worksheet data: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))
+[2025-07-27 17:52:10] [ERROR] [app.py:218] Session creation failed: Failed to fetch worksheet data: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))
+[2025-07-27 17:52:14] [INFO] [app.py:169] Starting session 11ea04c7-5672-4b9b-b9f8-05daf29ab9f0
+[2025-07-27 17:52:14] [WARNING] [ChatbotSessionManager.py:185] Session 11ea04c7-5672-4b9b-b9f8-05daf29ab9f0 not found in either Redis or local cache
+[2025-07-27 17:52:14] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1STyEshSdfP5ilAJrjxLRRZCXnoQRYBa8fxlWJYFHPzU/export?format=csv
+[2025-07-27 17:52:15] [DEBUG] [utils.py:94] ✅ Successfully loaded 46 rows and 19 columns
+[2025-07-27 17:52:15] [INFO] [app.py:184] Created 230 chunks
+[2025-07-27 17:52:37] [INFO] [ChatbotSessionManager.py:149] Session 11ea04c7-5672-4b9b-b9f8-05daf29ab9f0 stored in Redis (primary) and local cache (fallback)
+[2025-07-27 17:52:37] [INFO] [app.py:209] Session 11ea04c7-5672-4b9b-b9f8-05daf29ab9f0 created successfully
+[2025-07-27 17:52:45] [INFO] [app.py:224] Processing query for session 11ea04c7-5672-4b9b-b9f8-05daf29ab9f0
+[2025-07-27 17:52:45] [INFO] [ChatbotSessionManager.py:167] Session 11ea04c7-5672-4b9b-b9f8-05daf29ab9f0 retrieved from Redis (primary cache)
+[2025-07-27 17:52:45] [INFO] [proceessor.py:97] Retrived from Graph: []
+[2025-07-27 17:53:10] [INFO] [app.py:224] Processing query for session 11ea04c7-5672-4b9b-b9f8-05daf29ab9f0
+[2025-07-27 17:53:10] [INFO] [ChatbotSessionManager.py:167] Session 11ea04c7-5672-4b9b-b9f8-05daf29ab9f0 retrieved from Redis (primary cache)
+[2025-07-27 17:53:10] [INFO] [proceessor.py:97] Retrived from Graph: []
+[2025-07-27 17:53:33] [INFO] [app.py:224] Processing query for session 11ea04c7-5672-4b9b-b9f8-05daf29ab9f0
+[2025-07-27 17:53:33] [INFO] [ChatbotSessionManager.py:167] Session 11ea04c7-5672-4b9b-b9f8-05daf29ab9f0 retrieved from Redis (primary cache)
+[2025-07-27 17:53:34] [INFO] [proceessor.py:97] Retrived from Graph: []
+[2025-07-27 17:56:27] [INFO] [ChatbotSessionManager.py:71] Redis connected successfully - using as primary cache
+[2025-07-27 17:56:27] [INFO] [graphClass.py:37] Neo4j connected successfully
+[2025-07-27 17:56:37] [INFO] [proceessor.py:39] RAG Processor initialized
+[2025-07-27 17:59:18] [INFO] [ChatbotSessionManager.py:71] Redis connected successfully - using as primary cache
+[2025-07-27 17:59:18] [INFO] [graphClass.py:37] Neo4j connected successfully
+[2025-07-27 17:59:19] [INFO] [graphClass.py:47] SpaCy model loaded successfully
+[2025-07-27 17:59:28] [INFO] [proceessor.py:37] RAG Processor initialized
+[2025-07-27 17:59:42] [INFO] [ChatbotSessionManager.py:71] Redis connected successfully - using as primary cache
+[2025-07-27 17:59:42] [INFO] [graphClass.py:37] Neo4j connected successfully
+[2025-07-27 17:59:43] [INFO] [graphClass.py:47] SpaCy model loaded successfully
+[2025-07-27 17:59:50] [INFO] [proceessor.py:37] RAG Processor initialized
+[2025-07-27 18:00:01] [INFO] [app.py:169] Starting session f74ced04-1e1f-491f-aacf-fe52814a589f
+[2025-07-27 18:00:01] [WARNING] [ChatbotSessionManager.py:185] Session f74ced04-1e1f-491f-aacf-fe52814a589f not found in either Redis or local cache
+[2025-07-27 18:00:01] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1STyEshSdfP5ilAJrjxLRRZCXnoQRYBa8fxlWJYFHPzU/export?format=csv
+[2025-07-27 18:00:02] [DEBUG] [utils.py:94] ✅ Successfully loaded 46 rows and 19 columns
+[2025-07-27 18:00:02] [INFO] [proceessor.py:54] Created 230 chunks from text of length 81573
+[2025-07-27 18:00:02] [DEBUG] [proceessor.py:58] Chunk 0 preview: Timestamp: 10/26/2024 10:39:10 | 1. Gained knowledge of mathematics and science required for AIML br...
+[2025-07-27 18:00:02] [DEBUG] [proceessor.py:58] Chunk 1 preview: and machine learning issues.: Excellent | 5. Learned to use modern software and equipment to analyze...
+[2025-07-27 18:00:02] [DEBUG] [proceessor.py:58] Chunk 2 preview: as an individual and as a member or leader in diverse, multidisciplinary teams.: Excellent | 10. Abl...
+[2025-07-27 18:00:02] [INFO] [app.py:184] Created 230 chunks
+[2025-07-27 18:00:07] [INFO] [proceessor.py:78] QA system created with 230 chunks
+[2025-07-27 18:00:07] [INFO] [graphClass.py:85] Created session node for: f74ced04-1e1f-491f-aacf-fe52814a589f
+[2025-07-27 18:00:07] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 10:39:10 | 1. Gained knowled...': ['safety', 'machine', 'problems', 'mathematics', 'computer', 'excellent', 'solutions', 'science', 'issues', 'branch', 'systems', 'health', 'learning', 'engineering', 'aiml', 'knowledge', 'investigations', 'intelligence', 'factors', 'timestamp']
+[2025-07-27 18:00:08] [DEBUG] [graphClass.py:122] Chunk 0: 20 entities - ['safety', 'machine', 'problems', 'mathematics', 'computer']
+[2025-07-27 18:00:08] [DEBUG] [graphClass.py:69] Extracted entities from 'and machine learning issues.: Excellent | 5. Learn...': ['leader', 'machine', 'problems', 'software', 'impact', 'solutions', 'need', 'member', 'individual', 'society', 'responsibility', 'excellent', 'development', 'equipment', 'learning', 'practice', 'engineering', 'issues']
+[2025-07-27 18:00:08] [DEBUG] [graphClass.py:122] Chunk 1: 18 entities - ['leader', 'machine', 'problems', 'software', 'impact']
+[2025-07-27 18:00:08] [DEBUG] [graphClass.py:69] Extracted entities from 'as an individual and as a member or leader in dive...': ['leader', 'member', 'individual', 'excellent', 'teams', 'form']
+[2025-07-27 18:00:08] [DEBUG] [graphClass.py:122] Chunk 2: 6 entities - ['leader', 'member', 'individual', 'excellent', 'teams']
+[2025-07-27 18:00:08] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'software', 'allocation', 'excellent', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:08] [DEBUG] [graphClass.py:122] Chunk 3: 23 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:08] [DEBUG] [graphClass.py:69] Extracted entities from '& Machine Learning principles.: Excellent | 15. Pr...': ['computing', 'machine', 'resources', 'principles', 'computer', 'excellent', 'technologies', 'learning', 'system']
+[2025-07-27 18:00:08] [DEBUG] [graphClass.py:122] Chunk 4: 9 entities - ['computing', 'machine', 'resources', 'principles', 'computer']
+[2025-07-27 18:00:08] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 11:24:55 | Email Address: ay...': ['safety', 'problems', 'email', 'address', 'mathematics', 'computer', 'excellent', 'solutions', 'science', 'ayush aditya', 'ayush', 'branch', 'usn', 'systems', 'health', 'factors', 'engineering', 'aiml', 'email address', 'knowledge', 'student', 'aditya', 'timestamp']
+[2025-07-27 18:00:08] [DEBUG] [graphClass.py:122] Chunk 5: 23 entities - ['safety', 'problems', 'email', 'address', 'mathematics']
+[2025-07-27 18:00:08] [DEBUG] [graphClass.py:69] Extracted entities from 'environmental factors.: Excellent | 4. Capable of ...': ['machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'excellent', 'development', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:08] [DEBUG] [graphClass.py:122] Chunk 6: 17 entities - ['machine', 'problems', 'software', 'impact', 'solutions']
+[2025-07-27 18:00:08] [DEBUG] [graphClass.py:69] Extracted entities from 'Excellent | 8. Understand professional and ethical...': ['leader', 'member', 'individual', 'responsibility', 'excellent', 'teams', 'form']
+[2025-07-27 18:00:08] [DEBUG] [graphClass.py:122] Chunk 7: 7 entities - ['leader', 'member', 'individual', 'responsibility', 'excellent']
+[2025-07-27 18:00:08] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'software', 'allocation', 'excellent', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:09] [DEBUG] [graphClass.py:122] Chunk 8: 23 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:09] [DEBUG] [graphClass.py:69] Extracted entities from '& Machine Learning principles.: Excellent | 15. Pr...': ['computing', 'machine', 'resources', 'principles', 'computer', 'excellent', 'technologies', 'learning', 'system']
+[2025-07-27 18:00:09] [DEBUG] [graphClass.py:122] Chunk 9: 9 entities - ['computing', 'machine', 'resources', 'principles', 'computer']
+[2025-07-27 18:00:09] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 11:25:12 | Email Address: 20...': ['safety', 'problems', 'email', 'address', 'sunil', 'mathematics', 'computer', 'excellent', 'solutions', 'science', 'branch', 'usn', 'systems', 'health', 'engineering', 'aiml', 'email address', 'knowledge', 'student', 'advaik', 'factors', 'timestamp']
+[2025-07-27 18:00:09] [DEBUG] [graphClass.py:122] Chunk 10: 22 entities - ['safety', 'problems', 'email', 'address', 'sunil']
+[2025-07-27 18:00:09] [DEBUG] [graphClass.py:69] Extracted entities from 'factors.: Excellent | 4. Capable of conducting inv...': ['machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'excellent', 'development', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:09] [DEBUG] [graphClass.py:122] Chunk 11: 17 entities - ['machine', 'problems', 'software', 'impact', 'solutions']
+[2025-07-27 18:00:09] [DEBUG] [graphClass.py:69] Extracted entities from '| 8. Understand professional and ethical responsib...': ['leader', 'member', 'individual', 'responsibility', 'excellent', 'teams', 'form']
+[2025-07-27 18:00:09] [DEBUG] [graphClass.py:122] Chunk 12: 7 entities - ['leader', 'member', 'individual', 'responsibility', 'excellent']
+[2025-07-27 18:00:09] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'software', 'allocation', 'excellent', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:09] [DEBUG] [graphClass.py:122] Chunk 13: 23 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:09] [DEBUG] [graphClass.py:69] Extracted entities from '& Machine Learning principles.: Excellent | 15. Pr...': ['computing', 'machine', 'resources', 'principles', 'computer', 'excellent', 'technologies', 'learning', 'system']
+[2025-07-27 18:00:09] [DEBUG] [graphClass.py:122] Chunk 14: 9 entities - ['computing', 'machine', 'resources', 'principles', 'computer']
+[2025-07-27 18:00:09] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 11:25:36 | Email Address: ra...': ['safety', 'problems', 'rahul', 'email', 'malekop', 'address', 'mathematics', 'computer', 'excellent', 'solutions', 'science', 'branch', 'usn', 'systems', 'health', 'engineering', 'aiml', 'knowledge', 'student', 'factors', 'timestamp']
+[2025-07-27 18:00:09] [DEBUG] [graphClass.py:122] Chunk 15: 21 entities - ['safety', 'problems', 'rahul', 'email', 'malekop']
+[2025-07-27 18:00:09] [DEBUG] [graphClass.py:69] Extracted entities from 'environmental factors.: Excellent | 4. Capable of ...': ['machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'excellent', 'development', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:09] [DEBUG] [graphClass.py:122] Chunk 16: 17 entities - ['machine', 'problems', 'software', 'impact', 'solutions']
+[2025-07-27 18:00:09] [DEBUG] [graphClass.py:69] Extracted entities from 'Excellent | 8. Understand professional and ethical...': ['leader', 'member', 'individual', 'responsibility', 'excellent', 'teams', 'form']
+[2025-07-27 18:00:10] [DEBUG] [graphClass.py:122] Chunk 17: 7 entities - ['leader', 'member', 'individual', 'responsibility', 'excellent']
+[2025-07-27 18:00:10] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'software', 'allocation', 'excellent', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:10] [DEBUG] [graphClass.py:122] Chunk 18: 23 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:10] [DEBUG] [graphClass.py:69] Extracted entities from '& Machine Learning principles.: Excellent | 15. Pr...': ['computing', 'machine', 'resources', 'principles', 'computer', 'excellent', 'technologies', 'learning', 'system']
+[2025-07-27 18:00:10] [DEBUG] [graphClass.py:122] Chunk 19: 9 entities - ['computing', 'machine', 'resources', 'principles', 'computer']
+[2025-07-27 18:00:10] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 11:25:43 | Email Address: ch...': ['safety', 'problems', 'email', 'address', 'very good', 'mathematics', 'computer', 'excellent', 'science', 'solutions', 'choubey', 'branch', 'usn', 'kumar', 'systems', 'health', 'aditya kumar choubey', 'factors', 'engineering', 'aiml', 'email address', 'knowledge', 'student', 'choubeyaditya123@gmail.com', 'aditya', 'timestamp']
+[2025-07-27 18:00:10] [DEBUG] [graphClass.py:122] Chunk 20: 26 entities - ['safety', 'problems', 'email', 'address', 'very good']
+[2025-07-27 18:00:10] [DEBUG] [graphClass.py:69] Extracted entities from 'environmental factors.: Very Good | 4. Capable of ...': ['very good', 'machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'excellent', 'development', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:10] [DEBUG] [graphClass.py:122] Chunk 21: 18 entities - ['very good', 'machine', 'problems', 'software', 'impact']
+[2025-07-27 18:00:10] [DEBUG] [graphClass.py:69] Extracted entities from 'Very Good | 8. Understand professional and ethical...': ['leader', 'very good', 'member', 'individual', 'responsibility', 'excellent', 'teams', 'form']
+[2025-07-27 18:00:10] [DEBUG] [graphClass.py:122] Chunk 22: 8 entities - ['leader', 'very good', 'member', 'individual', 'responsibility']
+[2025-07-27 18:00:10] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'software', 'allocation', 'excellent', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:10] [DEBUG] [graphClass.py:122] Chunk 23: 23 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:10] [DEBUG] [graphClass.py:69] Extracted entities from '& Machine Learning principles.: Excellent | 15. Pr...': ['computing', 'machine', 'resources', 'principles', 'computer', 'excellent', 'technologies', 'learning', 'system']
+[2025-07-27 18:00:10] [DEBUG] [graphClass.py:122] Chunk 24: 9 entities - ['computing', 'machine', 'resources', 'principles', 'computer']
+[2025-07-27 18:00:10] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 11:25:50 | Email Address: ra...': ['safety', 'problems', 'email', 'rakesh', 'address', 'very good', 'mathematics', 'computer', 'solutions', 'science', 'branch', 'usn', 'systems', 'health', 'engineering', 'aiml', 'email address', 'knowledge', 'student', 'factors', 'timestamp']
+[2025-07-27 18:00:10] [DEBUG] [graphClass.py:122] Chunk 25: 21 entities - ['safety', 'problems', 'email', 'rakesh', 'address']
+[2025-07-27 18:00:10] [DEBUG] [graphClass.py:69] Extracted entities from 'factors.: Very Good | 4. Capable of conducting inv...': ['very good', 'machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'development', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:11] [DEBUG] [graphClass.py:122] Chunk 26: 17 entities - ['very good', 'machine', 'problems', 'software', 'impact']
+[2025-07-27 18:00:11] [DEBUG] [graphClass.py:69] Extracted entities from 'Good | 8. Understand professional and ethical resp...': ['leader', 'very good', 'member', 'individual', 'responsibility', 'teams', 'form']
+[2025-07-27 18:00:11] [DEBUG] [graphClass.py:122] Chunk 27: 7 entities - ['leader', 'very good', 'member', 'individual', 'responsibility']
+[2025-07-27 18:00:11] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'very good', 'software', 'allocation', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:11] [DEBUG] [graphClass.py:122] Chunk 28: 23 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:11] [DEBUG] [graphClass.py:69] Extracted entities from '& Machine Learning principles.: Very  Good | 15. P...': ['very good', 'computing', 'machine', 'resources', 'principles', 'computer', 'technologies', 'learning', 'system']
+[2025-07-27 18:00:11] [DEBUG] [graphClass.py:122] Chunk 29: 9 entities - ['very good', 'computing', 'machine', 'resources', 'principles']
+[2025-07-27 18:00:11] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 11:25:58 | Email Address: sa...': ['safety', 'problems', 'email', 'address', 'very good', 'mathematics', 'computer', 'solutions', 'science', 'samiksha', 'branch', 'usn', 'systems', 'samiksha mehta', 'health', 'engineering', 'aiml', 'email address', 'mehta', 'knowledge', 'student', 'factors', 'timestamp']
+[2025-07-27 18:00:11] [DEBUG] [graphClass.py:122] Chunk 30: 23 entities - ['safety', 'problems', 'email', 'address', 'very good']
+[2025-07-27 18:00:11] [DEBUG] [graphClass.py:69] Extracted entities from 'and environmental factors.: Good | 4. Capable of c...': ['very good', 'machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'development', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:11] [DEBUG] [graphClass.py:122] Chunk 31: 17 entities - ['very good', 'machine', 'problems', 'software', 'impact']
+[2025-07-27 18:00:11] [DEBUG] [graphClass.py:69] Extracted entities from 'Good | 8. Understand professional and ethical resp...': ['leader', 'very good', 'member', 'individual', 'responsibility', 'excellent', 'teams', 'form']
+[2025-07-27 18:00:11] [DEBUG] [graphClass.py:122] Chunk 32: 8 entities - ['leader', 'very good', 'member', 'individual', 'responsibility']
+[2025-07-27 18:00:11] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'software', 'allocation', 'excellent', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:11] [DEBUG] [graphClass.py:122] Chunk 33: 23 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:11] [DEBUG] [graphClass.py:69] Extracted entities from '& Machine Learning principles.: Excellent | 15. Pr...': ['computing', 'machine', 'resources', 'principles', 'computer', 'excellent', 'technologies', 'learning', 'system']
+[2025-07-27 18:00:11] [DEBUG] [graphClass.py:122] Chunk 34: 9 entities - ['computing', 'machine', 'resources', 'principles', 'computer']
+[2025-07-27 18:00:11] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 11:27:16 | Email Address: 20...': ['safety', 'problems', 'email', 'yash', 'yash rathi', 'address', 'mathematics', 'computer', 'solutions', 'science', 'branch', 'usn', 'systems', 'health', 'engineering', 'aiml', 'rathi', 'email address', 'knowledge', 'investigations', 'student', 'factors', 'timestamp']
+[2025-07-27 18:00:12] [DEBUG] [graphClass.py:122] Chunk 35: 23 entities - ['safety', 'problems', 'email', 'yash', 'yash rathi']
+[2025-07-27 18:00:12] [DEBUG] [graphClass.py:69] Extracted entities from 'Good | 4. Capable of conducting investigations int...': ['very good', 'machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'development', 'responsibility', 'equipment', 'intelligence', 'learning', 'practice', 'engineering', 'issues']
+[2025-07-27 18:00:12] [DEBUG] [graphClass.py:122] Chunk 36: 17 entities - ['very good', 'machine', 'problems', 'software', 'impact']
+[2025-07-27 18:00:12] [DEBUG] [graphClass.py:69] Extracted entities from 'professional and ethical responsibility.: Satisfac...': ['very good', 'leader', 'member', 'individual', 'form', 'responsibility', 'teams', 'professional and ethical']
+[2025-07-27 18:00:12] [DEBUG] [graphClass.py:122] Chunk 37: 8 entities - ['very good', 'leader', 'member', 'individual', 'form']
+[2025-07-27 18:00:12] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'satisfactory', 'very good', 'software', 'allocation', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:12] [DEBUG] [graphClass.py:122] Chunk 38: 24 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:12] [DEBUG] [graphClass.py:69] Extracted entities from '& Machine Learning principles.: Very  Good | 15. P...': ['computing', 'machine', 'resources', 'principles', 'computer', 'technologies', 'learning', 'system']
+[2025-07-27 18:00:12] [DEBUG] [graphClass.py:122] Chunk 39: 8 entities - ['computing', 'machine', 'resources', 'principles', 'computer']
+[2025-07-27 18:00:12] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 11:27:35 | Email Address: po...': ['safety', 'problems', 'email', 'singari', 'address', 'pooja', 'very good', 'pooja singari', 'mathematics', 'computer', 'solutions', 'science', 'branch', 'usn', 'systems', 'health', 'engineering', 'aiml', 'email address', 'knowledge', 'student', 'factors', 'timestamp']
+[2025-07-27 18:00:12] [DEBUG] [graphClass.py:122] Chunk 40: 23 entities - ['safety', 'problems', 'email', 'singari', 'address']
+[2025-07-27 18:00:12] [DEBUG] [graphClass.py:69] Extracted entities from 'factors.: Very Good | 4. Capable of conducting inv...': ['very good', 'machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'development', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:12] [DEBUG] [graphClass.py:122] Chunk 41: 17 entities - ['very good', 'machine', 'problems', 'software', 'impact']
+[2025-07-27 18:00:12] [DEBUG] [graphClass.py:69] Extracted entities from 'Good | 8. Understand professional and ethical resp...': ['leader', 'very good', 'member', 'individual', 'responsibility', 'teams', 'form']
+[2025-07-27 18:00:12] [DEBUG] [graphClass.py:122] Chunk 42: 7 entities - ['leader', 'very good', 'member', 'individual', 'responsibility']
+[2025-07-27 18:00:12] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'very good', 'software', 'allocation', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:13] [DEBUG] [graphClass.py:122] Chunk 43: 23 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:13] [DEBUG] [graphClass.py:69] Extracted entities from '& Machine Learning principles.: Very  Good | 15. P...': ['very good', 'computing', 'machine', 'resources', 'principles', 'computer', 'technologies', 'learning', 'system']
+[2025-07-27 18:00:13] [DEBUG] [graphClass.py:122] Chunk 44: 9 entities - ['very good', 'computing', 'machine', 'resources', 'principles']
+[2025-07-27 18:00:13] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 11:28:25 | Email Address: ku...': ['safety', 'problems', 'email', 'address', 'very good', 'mathematics', 'computer', 'excellent', 'omprakash', 'solutions', 'science', 'branch', 'usn', 'kumar', 'systems', 'health', 'engineering', 'aiml', 'email address', 'knowledge', 'student', 'factors', 'timestamp']
+[2025-07-27 18:00:13] [DEBUG] [graphClass.py:122] Chunk 45: 23 entities - ['safety', 'problems', 'email', 'address', 'very good']
+[2025-07-27 18:00:13] [DEBUG] [graphClass.py:69] Extracted entities from 'environmental factors.: Very Good | 4. Capable of ...': ['very good', 'machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'development', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:13] [DEBUG] [graphClass.py:122] Chunk 46: 17 entities - ['very good', 'machine', 'problems', 'software', 'impact']
+[2025-07-27 18:00:13] [DEBUG] [graphClass.py:69] Extracted entities from 'Very Good | 8. Understand professional and ethical...': ['leader', 'very good', 'member', 'individual', 'responsibility', 'teams', 'form']
+[2025-07-27 18:00:13] [DEBUG] [graphClass.py:122] Chunk 47: 7 entities - ['leader', 'very good', 'member', 'individual', 'responsibility']
+[2025-07-27 18:00:13] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'very good', 'software', 'allocation', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:13] [DEBUG] [graphClass.py:122] Chunk 48: 23 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:13] [DEBUG] [graphClass.py:69] Extracted entities from '& Machine Learning principles.: Very  Good | 15. P...': ['computing', 'machine', 'resources', 'principles', 'computer', 'technologies', 'learning', 'system']
+[2025-07-27 18:00:13] [DEBUG] [graphClass.py:122] Chunk 49: 8 entities - ['computing', 'machine', 'resources', 'principles', 'computer']
+[2025-07-27 18:00:13] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 11:28:51 | Email Address: an...': ['safety', 'problems', 'bhambore', 'email', 'address', 'very good', 'mathematics', 'computer', 'excellent', 'anusha bhambore  | 1', 'solutions', 'science', 'branch', 'usn', 'systems', 'health', 'engineering', 'aiml', 'email address', 'anusha', 'knowledge', 'student', 'factors', 'timestamp']
+[2025-07-27 18:00:13] [DEBUG] [graphClass.py:122] Chunk 50: 24 entities - ['safety', 'problems', 'bhambore', 'email', 'address']
+[2025-07-27 18:00:13] [DEBUG] [graphClass.py:69] Extracted entities from 'environmental factors.: Excellent | 4. Capable of ...': ['machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'excellent', 'development', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:13] [DEBUG] [graphClass.py:122] Chunk 51: 17 entities - ['machine', 'problems', 'software', 'impact', 'solutions']
+[2025-07-27 18:00:13] [DEBUG] [graphClass.py:69] Extracted entities from 'Excellent | 8. Understand professional and ethical...': ['leader', 'member', 'individual', 'responsibility', 'excellent', 'teams', 'form']
+[2025-07-27 18:00:13] [DEBUG] [graphClass.py:122] Chunk 52: 7 entities - ['leader', 'member', 'individual', 'responsibility', 'excellent']
+[2025-07-27 18:00:13] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'software', 'allocation', 'excellent', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:14] [DEBUG] [graphClass.py:122] Chunk 53: 23 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:14] [DEBUG] [graphClass.py:69] Extracted entities from '& Machine Learning principles.: Very  Good | 15. P...': ['very good', 'computing', 'machine', 'resources', 'principles', 'computer', 'technologies', 'learning', 'system']
+[2025-07-27 18:00:14] [DEBUG] [graphClass.py:122] Chunk 54: 9 entities - ['very good', 'computing', 'machine', 'resources', 'principles']
+[2025-07-27 18:00:14] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 11:30:34 | Email Address: 20...': ['safety', 'problems', 'email', 'address', 'very good', 'rakshit', 'halijol', 'mathematics', 'computer', 'solutions', 'science', 'branch', 'usn', 'systems', 'health', 'engineering', 'aiml', 'email address', 'knowledge', 'student', 'factors', 'timestamp']
+[2025-07-27 18:00:14] [DEBUG] [graphClass.py:122] Chunk 55: 22 entities - ['safety', 'problems', 'email', 'address', 'very good']
+[2025-07-27 18:00:14] [DEBUG] [graphClass.py:69] Extracted entities from 'environmental factors.: Very Good | 4. Capable of ...': ['very good', 'machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'development', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:14] [DEBUG] [graphClass.py:122] Chunk 56: 17 entities - ['very good', 'machine', 'problems', 'software', 'impact']
+[2025-07-27 18:00:14] [DEBUG] [graphClass.py:69] Extracted entities from 'Very Good | 8. Understand professional and ethical...': ['leader', 'very good', 'member', 'individual', 'responsibility', 'teams', 'form']
+[2025-07-27 18:00:14] [DEBUG] [graphClass.py:122] Chunk 57: 7 entities - ['leader', 'very good', 'member', 'individual', 'responsibility']
+[2025-07-27 18:00:14] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'very good', 'software', 'allocation', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:14] [DEBUG] [graphClass.py:122] Chunk 58: 23 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:14] [DEBUG] [graphClass.py:69] Extracted entities from '& Machine Learning principles.: Very  Good | 15. P...': ['very good', 'computing', 'machine', 'resources', 'principles', 'computer', 'technologies', 'learning', 'system']
+[2025-07-27 18:00:14] [DEBUG] [graphClass.py:122] Chunk 59: 9 entities - ['very good', 'computing', 'machine', 'resources', 'principles']
+[2025-07-27 18:00:14] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 11:31:45 | Email Address: 20...': ['ashif', 'safety', 'problems', 'email', 'address', 'very good', 'mathematics', 'computer', 'excellent', 'solutions', 'science', 'branch', 'usn', 'systems', 'health', 'engineering', 'aiml', 'email address', 'knowledge', 'student', 'alam', 'factors', 'timestamp']
+[2025-07-27 18:00:14] [DEBUG] [graphClass.py:122] Chunk 60: 23 entities - ['ashif', 'safety', 'problems', 'email', 'address']
+[2025-07-27 18:00:14] [DEBUG] [graphClass.py:69] Extracted entities from 'factors.: Very Good | 4. Capable of conducting inv...': ['very good', 'machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'excellent', 'development', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:14] [DEBUG] [graphClass.py:122] Chunk 61: 18 entities - ['very good', 'machine', 'problems', 'software', 'impact']
+[2025-07-27 18:00:14] [DEBUG] [graphClass.py:69] Extracted entities from 'Good | 8. Understand professional and ethical resp...': ['leader', 'member', 'individual', 'responsibility', 'excellent', 'teams', 'form']
+[2025-07-27 18:00:14] [DEBUG] [graphClass.py:122] Chunk 62: 7 entities - ['leader', 'member', 'individual', 'responsibility', 'excellent']
+[2025-07-27 18:00:14] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'software', 'allocation', 'excellent', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:15] [DEBUG] [graphClass.py:122] Chunk 63: 23 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:15] [DEBUG] [graphClass.py:69] Extracted entities from '& Machine Learning principles.: Excellent | 15. Pr...': ['computing', 'machine', 'resources', 'principles', 'computer', 'excellent', 'technologies', 'learning', 'system']
+[2025-07-27 18:00:15] [DEBUG] [graphClass.py:122] Chunk 64: 9 entities - ['computing', 'machine', 'resources', 'principles', 'computer']
+[2025-07-27 18:00:15] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 11:31:55 | Email Address: 1d...': ['safety', 'problems', 'email', 'address', 'very good', 'mathematics', 'computer', 'solutions', 'science', 'branch', 'usn', 'systems', 'health', 'engineering', 'gaur', 'aiml', 'email address', 'knowledge', 'student', 'peeyush', 'factors', 'timestamp']
+[2025-07-27 18:00:15] [DEBUG] [graphClass.py:122] Chunk 65: 22 entities - ['safety', 'problems', 'email', 'address', 'very good']
+[2025-07-27 18:00:15] [DEBUG] [graphClass.py:69] Extracted entities from 'factors.: Very Good | 4. Capable of conducting inv...': ['very good', 'machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'development', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:15] [DEBUG] [graphClass.py:122] Chunk 66: 17 entities - ['very good', 'machine', 'problems', 'software', 'impact']
+[2025-07-27 18:00:15] [DEBUG] [graphClass.py:69] Extracted entities from 'Good | 8. Understand professional and ethical resp...': ['leader', 'very good', 'member', 'individual', 'responsibility', 'teams', 'form']
+[2025-07-27 18:00:15] [DEBUG] [graphClass.py:122] Chunk 67: 7 entities - ['leader', 'very good', 'member', 'individual', 'responsibility']
+[2025-07-27 18:00:15] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'very good', 'software', 'allocation', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:15] [DEBUG] [graphClass.py:122] Chunk 68: 23 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:15] [DEBUG] [graphClass.py:69] Extracted entities from '& Machine Learning principles.: Very  Good | 15. P...': ['very good', 'computing', 'machine', 'resources', 'principles', 'computer', 'technologies', 'learning', 'system']
+[2025-07-27 18:00:15] [DEBUG] [graphClass.py:122] Chunk 69: 9 entities - ['very good', 'computing', 'machine', 'resources', 'principles']
+[2025-07-27 18:00:15] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 11:32:03 | Email Address: pu...': ['safety', 'problems', 'email', 'address', 'mathematics', 'computer', 'excellent', 'solutions', 'science', 'branch', 'usn', 'systems', 'health', 'factors', 'engineering', 'aiml', 'knowledge', 'student', 'puneeth', 'timestamp']
+[2025-07-27 18:00:14] [DEBUG] [graphClass.py:122] Chunk 70: 20 entities - ['safety', 'problems', 'email', 'address', 'mathematics']
+[2025-07-27 18:00:14] [DEBUG] [graphClass.py:69] Extracted entities from 'factors.: Excellent | 4. Capable of conducting inv...': ['machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'excellent', 'development', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:14] [DEBUG] [graphClass.py:122] Chunk 71: 17 entities - ['machine', 'problems', 'software', 'impact', 'solutions']
+[2025-07-27 18:00:14] [DEBUG] [graphClass.py:69] Extracted entities from '| 8. Understand professional and ethical responsib...': ['leader', 'member', 'individual', 'responsibility', 'excellent', 'teams', 'form']
+[2025-07-27 18:00:14] [DEBUG] [graphClass.py:122] Chunk 72: 7 entities - ['leader', 'member', 'individual', 'responsibility', 'excellent']
+[2025-07-27 18:00:14] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'software', 'allocation', 'excellent', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:14] [DEBUG] [graphClass.py:122] Chunk 73: 23 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:14] [DEBUG] [graphClass.py:69] Extracted entities from '& Machine Learning principles.: Excellent | 15. Pr...': ['computing', 'machine', 'resources', 'principles', 'computer', 'excellent', 'technologies', 'learning', 'system']
+[2025-07-27 18:00:14] [DEBUG] [graphClass.py:122] Chunk 74: 9 entities - ['computing', 'machine', 'resources', 'principles', 'computer']
+[2025-07-27 18:00:14] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 11:32:06 | Email Address: 20...': ['safety', 'problems', 'email', 'address', 'mathematics', 'computer', 'excellent', 'solutions', 'science', 'branch', 'usn', 'systems', 'health', 'shreyas', 'engineering', 'aiml', 'email address', 'knowledge', 'student', 'factors', 'timestamp']
+[2025-07-27 18:00:15] [DEBUG] [graphClass.py:122] Chunk 75: 21 entities - ['safety', 'problems', 'email', 'address', 'mathematics']
+[2025-07-27 18:00:15] [DEBUG] [graphClass.py:69] Extracted entities from 'factors.: Excellent | 4. Capable of conducting inv...': ['machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'excellent', 'development', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:15] [DEBUG] [graphClass.py:122] Chunk 76: 17 entities - ['machine', 'problems', 'software', 'impact', 'solutions']
+[2025-07-27 18:00:15] [DEBUG] [graphClass.py:69] Extracted entities from '| 8. Understand professional and ethical responsib...': ['leader', 'member', 'individual', 'responsibility', 'excellent', 'teams', 'form']
+[2025-07-27 18:00:15] [DEBUG] [graphClass.py:122] Chunk 77: 7 entities - ['leader', 'member', 'individual', 'responsibility', 'excellent']
+[2025-07-27 18:00:15] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'software', 'allocation', 'excellent', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:15] [DEBUG] [graphClass.py:122] Chunk 78: 23 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:15] [DEBUG] [graphClass.py:69] Extracted entities from '& Machine Learning principles.: Excellent | 15. Pr...': ['computing', 'machine', 'resources', 'principles', 'computer', 'excellent', 'technologies', 'learning', 'system']
+[2025-07-27 18:00:15] [DEBUG] [graphClass.py:122] Chunk 79: 9 entities - ['computing', 'machine', 'resources', 'principles', 'computer']
+[2025-07-27 18:00:15] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 11:32:13 | Email Address: ma...': ['safety', 'problems', 'bukapindi', 'email', 'manikanta', 'address', 'very good', 'mathematics', 'computer', 'solutions', 'science', 'branch', 'usn', 'systems', 'health', 'engineering', 'aiml', 'email address', 'student name', 'knowledge', 'student', 'factors', 'timestamp']
+[2025-07-27 18:00:15] [DEBUG] [graphClass.py:122] Chunk 80: 23 entities - ['safety', 'problems', 'bukapindi', 'email', 'manikanta']
+[2025-07-27 18:00:15] [DEBUG] [graphClass.py:69] Extracted entities from 'environmental factors.: Very Good | 4. Capable of ...': ['very good', 'machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'development', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:15] [DEBUG] [graphClass.py:122] Chunk 81: 17 entities - ['very good', 'machine', 'problems', 'software', 'impact']
+[2025-07-27 18:00:15] [DEBUG] [graphClass.py:69] Extracted entities from 'Good | 8. Understand professional and ethical resp...': ['leader', 'very good', 'member', 'individual', 'responsibility', 'teams', 'form']
+[2025-07-27 18:00:15] [DEBUG] [graphClass.py:122] Chunk 82: 7 entities - ['leader', 'very good', 'member', 'individual', 'responsibility']
+[2025-07-27 18:00:15] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'very good', 'software', 'allocation', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:15] [DEBUG] [graphClass.py:122] Chunk 83: 23 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:15] [DEBUG] [graphClass.py:69] Extracted entities from 'Learning principles.: Good | 15. Proficient in eff...': ['computing', 'resources', 'principles', 'computer', 'technologies', 'system']
+[2025-07-27 18:00:16] [DEBUG] [graphClass.py:122] Chunk 84: 6 entities - ['computing', 'resources', 'principles', 'computer', 'technologies']
+[2025-07-27 18:00:16] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 11:33:58 | Email Address: 20...': ['safety', 'problems', 'email', 'address', 'very good', 'guru akhil', 'mathematics', 'computer', 'solutions', 'science', 'akhil', 'branch', 'usn', 'systems', 'health', 'engineering', 'aiml', 'email address', 'knowledge', 'guru', 'student', 'factors', 'timestamp']
+[2025-07-27 18:00:16] [DEBUG] [graphClass.py:122] Chunk 85: 23 entities - ['safety', 'problems', 'email', 'address', 'very good']
+[2025-07-27 18:00:16] [DEBUG] [graphClass.py:69] Extracted entities from 'factors.: Good | 4. Capable of conducting investig...': ['machine', 'problems', 'need', 'responsibility', 'very good', 'software', 'society', 'excellent', 'solutions', 'issues', 'impact', 'development', 'learning', 'practice', 'engineering', 'investigations', 'equipment', 'intelligence', 'factors']
+[2025-07-27 18:00:16] [DEBUG] [graphClass.py:122] Chunk 86: 19 entities - ['machine', 'problems', 'need', 'responsibility', 'very good']
+[2025-07-27 18:00:16] [DEBUG] [graphClass.py:69] Extracted entities from 'professional and ethical responsibility.: Excellen...': ['very good', 'leader', 'member', 'individual', 'form', 'responsibility', 'excellent', 'teams', 'professional and ethical']
+[2025-07-27 18:00:16] [DEBUG] [graphClass.py:122] Chunk 87: 9 entities - ['very good', 'leader', 'member', 'individual', 'form']
+[2025-07-27 18:00:16] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'very good', 'software', 'allocation', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:16] [DEBUG] [graphClass.py:122] Chunk 88: 23 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:16] [DEBUG] [graphClass.py:69] Extracted entities from 'Learning principles.: Good | 15. Proficient in eff...': ['very good', 'computing', 'resources', 'principles', 'computer', 'technologies', 'system']
+[2025-07-27 18:00:16] [DEBUG] [graphClass.py:122] Chunk 89: 7 entities - ['very good', 'computing', 'resources', 'principles', 'computer']
+[2025-07-27 18:00:16] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 11:34:38 | Email Address: rr...': ['safety', 'problems', 'rahul', 'email', 'ramesh', 'address', 'very good', 'mathematics', 'computer', 'solutions', 'science', 'yaragatti', 'branch', 'usn', 'systems', 'health', 'engineering', 'aiml', 'email address', 'knowledge', 'student', 'factors', 'timestamp']
+[2025-07-27 18:00:16] [DEBUG] [graphClass.py:122] Chunk 90: 23 entities - ['safety', 'problems', 'rahul', 'email', 'ramesh']
+[2025-07-27 18:00:16] [DEBUG] [graphClass.py:69] Extracted entities from 'environmental factors.: Very Good | 4. Capable of ...': ['very good', 'machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'development', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:16] [DEBUG] [graphClass.py:122] Chunk 91: 17 entities - ['very good', 'machine', 'problems', 'software', 'impact']
+[2025-07-27 18:00:16] [DEBUG] [graphClass.py:69] Extracted entities from 'Good | 8. Understand professional and ethical resp...': ['leader', 'very good', 'member', 'individual', 'responsibility', 'teams', 'form']
+[2025-07-27 18:00:16] [DEBUG] [graphClass.py:122] Chunk 92: 7 entities - ['leader', 'very good', 'member', 'individual', 'responsibility']
+[2025-07-27 18:00:16] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'very good', 'software', 'allocation', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:16] [DEBUG] [graphClass.py:122] Chunk 93: 23 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:16] [DEBUG] [graphClass.py:69] Extracted entities from 'Learning principles.: Good | 15. Proficient in eff...': ['very good', 'computing', 'resources', 'principles', 'computer', 'technologies', 'system']
+[2025-07-27 18:00:17] [DEBUG] [graphClass.py:122] Chunk 94: 7 entities - ['very good', 'computing', 'resources', 'principles', 'computer']
+[2025-07-27 18:00:17] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 11:35:26 | Email Address: ch...': ['safety', 'problems', 'email', 'naganoshith', 'address', 'mathematics', 'computer', 'excellent', 'solutions', 'science', 'branch', 'usn', 'systems', 'health', 'engineering', 'aiml', 'email address', 'knowledge', 'student', 'factors', 'timestamp']
+[2025-07-27 18:00:17] [DEBUG] [graphClass.py:122] Chunk 95: 21 entities - ['safety', 'problems', 'email', 'naganoshith', 'address']
+[2025-07-27 18:00:17] [DEBUG] [graphClass.py:69] Extracted entities from 'factors.: Excellent | 4. Capable of conducting inv...': ['machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'excellent', 'development', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:17] [DEBUG] [graphClass.py:122] Chunk 96: 17 entities - ['machine', 'problems', 'software', 'impact', 'solutions']
+[2025-07-27 18:00:17] [DEBUG] [graphClass.py:69] Extracted entities from '| 8. Understand professional and ethical responsib...': ['leader', 'member', 'individual', 'responsibility', 'excellent', 'teams', 'form']
+[2025-07-27 18:00:17] [DEBUG] [graphClass.py:122] Chunk 97: 7 entities - ['leader', 'member', 'individual', 'responsibility', 'excellent']
+[2025-07-27 18:00:17] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'software', 'allocation', 'excellent', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:17] [DEBUG] [graphClass.py:122] Chunk 98: 23 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:17] [DEBUG] [graphClass.py:69] Extracted entities from '& Machine Learning principles.: Excellent | 15. Pr...': ['computing', 'machine', 'resources', 'principles', 'computer', 'excellent', 'technologies', 'learning', 'system']
+[2025-07-27 18:00:17] [DEBUG] [graphClass.py:122] Chunk 99: 9 entities - ['computing', 'machine', 'resources', 'principles', 'computer']
+[2025-07-27 18:00:17] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 11:36:35 | Email Address: gs...': ['gouda', 'somana', 'safety', 'problems', 'email', 'address', 'somana gouda', 'mathematics', 'computer', 'excellent', 'solutions', 'science', 'branch', 'usn', 'systems', 'health', 'engineering', 'aiml', 'email address', 'knowledge', 'student', 'factors', 'timestamp']
+[2025-07-27 18:00:17] [DEBUG] [graphClass.py:122] Chunk 100: 23 entities - ['gouda', 'somana', 'safety', 'problems', 'email']
+[2025-07-27 18:00:17] [DEBUG] [graphClass.py:69] Extracted entities from 'factors.: Excellent | 4. Capable of conducting inv...': ['machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'excellent', 'development', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:18] [DEBUG] [graphClass.py:122] Chunk 101: 17 entities - ['machine', 'problems', 'software', 'impact', 'solutions']
+[2025-07-27 18:00:18] [DEBUG] [graphClass.py:69] Extracted entities from '| 8. Understand professional and ethical responsib...': ['leader', 'member', 'individual', 'responsibility', 'excellent', 'teams', 'form']
+[2025-07-27 18:00:18] [DEBUG] [graphClass.py:122] Chunk 102: 7 entities - ['leader', 'member', 'individual', 'responsibility', 'excellent']
+[2025-07-27 18:00:18] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'software', 'allocation', 'excellent', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:18] [DEBUG] [graphClass.py:122] Chunk 103: 23 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:18] [DEBUG] [graphClass.py:69] Extracted entities from '& Machine Learning principles.: Excellent | 15. Pr...': ['computing', 'machine', 'resources', 'principles', 'computer', 'excellent', 'technologies', 'learning', 'system']
+[2025-07-27 18:00:18] [DEBUG] [graphClass.py:122] Chunk 104: 9 entities - ['computing', 'machine', 'resources', 'principles', 'computer']
+[2025-07-27 18:00:18] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 11:36:41 | Email Address: ne...': ['safety', 'problems', 'email', 'address', 'very good', 'mathematics', 'computer', 'solutions', 'science', 'neeraj kalantri', 'branch', 'usn', 'systems', 'timestamp', 'health', 'engineering', 'aiml', 'knowledge', 'kalantri', 'student', 'factors', 'neeraj']
+[2025-07-27 18:00:18] [DEBUG] [graphClass.py:122] Chunk 105: 22 entities - ['safety', 'problems', 'email', 'address', 'very good']
+[2025-07-27 18:00:18] [DEBUG] [graphClass.py:69] Extracted entities from 'environmental factors.: Very Good | 4. Capable of ...': ['very good', 'machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'excellent', 'development', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:18] [DEBUG] [graphClass.py:122] Chunk 106: 18 entities - ['very good', 'machine', 'problems', 'software', 'impact']
+[2025-07-27 18:00:18] [DEBUG] [graphClass.py:69] Extracted entities from 'Good | 8. Understand professional and ethical resp...': ['very good', 'leader', 'member', 'individual', 'responsibility', 'excellent', 'teams', 'form']
+[2025-07-27 18:00:18] [DEBUG] [graphClass.py:122] Chunk 107: 8 entities - ['very good', 'leader', 'member', 'individual', 'responsibility']
+[2025-07-27 18:00:18] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'very good', 'software', 'allocation', 'excellent', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:19] [DEBUG] [graphClass.py:122] Chunk 108: 24 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:19] [DEBUG] [graphClass.py:69] Extracted entities from '& Machine Learning principles.: Very  Good | 15. P...': ['very good', 'computing', 'machine', 'resources', 'principles', 'computer', 'technologies', 'learning', 'system']
+[2025-07-27 18:00:19] [DEBUG] [graphClass.py:122] Chunk 109: 9 entities - ['very good', 'computing', 'machine', 'resources', 'principles']
+[2025-07-27 18:00:19] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 11:41:32 | Email Address: aa...': ['safety', 'problems', 'email', 'address', 'very good', 'mathematics', 'computer', 'anukalp jain', 'solutions', 'science', 'branch', 'usn', 'systems', 'health', 'engineering', 'aiml', 'anukalp', 'email address', 'jain', 'knowledge', 'student', 'factors', 'timestamp']
+[2025-07-27 18:00:19] [DEBUG] [graphClass.py:122] Chunk 110: 23 entities - ['safety', 'problems', 'email', 'address', 'very good']
+[2025-07-27 18:00:19] [DEBUG] [graphClass.py:69] Extracted entities from 'factors.: Very Good | 4. Capable of conducting inv...': ['machine', 'problems', 'need', 'responsibility', 'very good', 'software', 'society', 'excellent', 'solutions', 'issues', 'impact', 'development', 'learning', 'practice', 'engineering', 'investigations', 'equipment', 'intelligence', 'factors']
+[2025-07-27 18:00:19] [DEBUG] [graphClass.py:122] Chunk 111: 19 entities - ['machine', 'problems', 'need', 'responsibility', 'very good']
+[2025-07-27 18:00:19] [DEBUG] [graphClass.py:69] Extracted entities from 'professional and ethical responsibility.: Very Goo...': ['very good', 'leader', 'member', 'individual', 'form', 'responsibility', 'excellent', 'teams', 'professional and ethical']
+[2025-07-27 18:00:19] [DEBUG] [graphClass.py:122] Chunk 112: 9 entities - ['very good', 'leader', 'member', 'individual', 'form']
+[2025-07-27 18:00:19] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'very good', 'software', 'allocation', 'excellent', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:19] [DEBUG] [graphClass.py:122] Chunk 113: 24 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:19] [DEBUG] [graphClass.py:69] Extracted entities from '& Machine Learning principles.: Very  Good | 15. P...': ['very good', 'computing', 'machine', 'resources', 'principles', 'computer', 'technologies', 'learning', 'system']
+[2025-07-27 18:00:19] [DEBUG] [graphClass.py:122] Chunk 114: 9 entities - ['very good', 'computing', 'machine', 'resources', 'principles']
+[2025-07-27 18:00:19] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 11:44:35 | Email Address: 1d...': ['safety', 'problems', 'email', 'address', 'mathematics', 'computer', 'solutions', 'science', 'yeshwanth', 'branch', 'usn', 'systems', 'health', 'engineering', 'aiml', 'email address', 'student name', 'knowledge', 'student', 'factors', 'timestamp']
+[2025-07-27 18:00:19] [DEBUG] [graphClass.py:122] Chunk 115: 21 entities - ['safety', 'problems', 'email', 'address', 'mathematics']
+[2025-07-27 18:00:19] [DEBUG] [graphClass.py:69] Extracted entities from 'factors.: Good | 4. Capable of conducting investig...': ['machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'development', 'responsibility', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:19] [DEBUG] [graphClass.py:122] Chunk 116: 17 entities - ['machine', 'problems', 'software', 'impact', 'solutions']
+[2025-07-27 18:00:19] [DEBUG] [graphClass.py:69] Extracted entities from 'and ethical responsibility.: Good | 9. Able to fun...': ['leader', 'member', 'individual', 'responsibility', 'teams', 'form']
+[2025-07-27 18:00:19] [DEBUG] [graphClass.py:122] Chunk 117: 6 entities - ['leader', 'member', 'individual', 'responsibility', 'teams']
+[2025-07-27 18:00:19] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'software', 'allocation', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:20] [DEBUG] [graphClass.py:122] Chunk 118: 22 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:20] [DEBUG] [graphClass.py:69] Extracted entities from 'principles.: Good | 15. Proficient in efficiently ...': ['computing', 'resources', 'principles', 'computer', 'technologies', 'system']
+[2025-07-27 18:00:20] [DEBUG] [graphClass.py:122] Chunk 119: 6 entities - ['computing', 'resources', 'principles', 'computer', 'technologies']
+[2025-07-27 18:00:20] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 11:50:29 | Email Address: ab...': ['safety', 'problems', 'email', 'address', 'very good', 'mathematics', 'computer', 'solutions', 'science', 'branch', 'usn', 'systems', 'health', 'engineering', 'aiml', 'email address', 'student name', 'knowledge', 'student', 'abhishek', 'factors', 'timestamp']
+[2025-07-27 18:00:20] [DEBUG] [graphClass.py:122] Chunk 120: 22 entities - ['safety', 'problems', 'email', 'address', 'very good']
+[2025-07-27 18:00:20] [DEBUG] [graphClass.py:69] Extracted entities from 'environmental factors.: Very Good | 4. Capable of ...': ['very good', 'machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'development', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:20] [DEBUG] [graphClass.py:122] Chunk 121: 17 entities - ['very good', 'machine', 'problems', 'software', 'impact']
+[2025-07-27 18:00:20] [DEBUG] [graphClass.py:69] Extracted entities from 'Very Good | 8. Understand professional and ethical...': ['leader', 'very good', 'member', 'individual', 'responsibility', 'teams', 'form']
+[2025-07-27 18:00:20] [DEBUG] [graphClass.py:122] Chunk 122: 7 entities - ['leader', 'very good', 'member', 'individual', 'responsibility']
+[2025-07-27 18:00:20] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'very good', 'software', 'allocation', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:20] [DEBUG] [graphClass.py:122] Chunk 123: 23 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:20] [DEBUG] [graphClass.py:69] Extracted entities from '& Machine Learning principles.: Very  Good | 15. P...': ['very good', 'computing', 'machine', 'resources', 'principles', 'computer', 'technologies', 'learning', 'system']
+[2025-07-27 18:00:20] [DEBUG] [graphClass.py:122] Chunk 124: 9 entities - ['very good', 'computing', 'machine', 'resources', 'principles']
+[2025-07-27 18:00:20] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 12:11:18 | Email Address: ab...': ['safety', 'problems', 'email', 'address', 'abdur', 'mathematics', 'computer', 'excellent', 'solutions', 'science', 'branch', 'usn', 'systems', 'health', 'engineering', 'aiml', 'email address', 'abdur rahman', 'knowledge', 'student', 'rahman', 'factors', 'timestamp']
+[2025-07-27 18:00:20] [DEBUG] [graphClass.py:122] Chunk 125: 23 entities - ['safety', 'problems', 'email', 'address', 'abdur']
+[2025-07-27 18:00:20] [DEBUG] [graphClass.py:69] Extracted entities from 'environmental factors.: Excellent | 4. Capable of ...': ['machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'excellent', 'development', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:20] [DEBUG] [graphClass.py:122] Chunk 126: 17 entities - ['machine', 'problems', 'software', 'impact', 'solutions']
+[2025-07-27 18:00:20] [DEBUG] [graphClass.py:69] Extracted entities from 'Excellent | 8. Understand professional and ethical...': ['leader', 'member', 'individual', 'responsibility', 'excellent', 'teams', 'form']
+[2025-07-27 18:00:20] [DEBUG] [graphClass.py:122] Chunk 127: 7 entities - ['leader', 'member', 'individual', 'responsibility', 'excellent']
+[2025-07-27 18:00:20] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'software', 'allocation', 'excellent', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:21] [DEBUG] [graphClass.py:122] Chunk 128: 23 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:21] [DEBUG] [graphClass.py:69] Extracted entities from '& Machine Learning principles.: Excellent | 15. Pr...': ['computing', 'machine', 'resources', 'principles', 'computer', 'excellent', 'technologies', 'learning', 'system']
+[2025-07-27 18:00:21] [DEBUG] [graphClass.py:122] Chunk 129: 9 entities - ['computing', 'machine', 'resources', 'principles', 'computer']
+[2025-07-27 18:00:21] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 12:26:16 | Email Address: vk...': ['safety', 'problems', 'email', 'address', 'kshitij', 'kshitij verma  | 1', 'mathematics', 'computer', 'solutions', 'science', 'branch', 'usn', 'systems', 'health', 'engineering', 'aiml', 'email address', 'knowledge', 'investigations', 'student', 'factors', 'verma', 'timestamp']
+[2025-07-27 18:00:21] [DEBUG] [graphClass.py:122] Chunk 130: 23 entities - ['safety', 'problems', 'email', 'address', 'kshitij']
+[2025-07-27 18:00:21] [DEBUG] [graphClass.py:69] Extracted entities from 'Good | 4. Capable of conducting investigations int...': ['very good', 'machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'development', 'responsibility', 'equipment', 'intelligence', 'learning', 'practice', 'engineering', 'issues']
+[2025-07-27 18:00:21] [DEBUG] [graphClass.py:122] Chunk 131: 17 entities - ['very good', 'machine', 'problems', 'software', 'impact']
+[2025-07-27 18:00:21] [DEBUG] [graphClass.py:69] Extracted entities from 'ethical responsibility.: Very Good | 9. Able to fu...': ['leader', 'very good', 'member', 'individual', 'responsibility', 'teams', 'form']
+[2025-07-27 18:00:21] [DEBUG] [graphClass.py:122] Chunk 132: 7 entities - ['leader', 'very good', 'member', 'individual', 'responsibility']
+[2025-07-27 18:00:21] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'software', 'allocation', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:21] [DEBUG] [graphClass.py:122] Chunk 133: 22 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:21] [DEBUG] [graphClass.py:69] Extracted entities from 'principles.: Good | 15. Proficient in efficiently ...': ['computing', 'resources', 'principles', 'computer', 'technologies', 'system']
+[2025-07-27 18:00:21] [DEBUG] [graphClass.py:122] Chunk 134: 6 entities - ['computing', 'resources', 'principles', 'computer', 'technologies']
+[2025-07-27 18:00:21] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 12:47:05 | Email Address: ma...': ['safety', 'problems', 'email', 'address', 'very good', 'mathematics', 'computer', 'excellent', 'solutions', 'science', 'branch', 'usn', 'systems', 'health', 'engineering', 'aiml', 'email address', 'knowledge', 'maaz', 'student', 'karim', 'factors', 'timestamp']
+[2025-07-27 18:00:21] [DEBUG] [graphClass.py:122] Chunk 135: 23 entities - ['safety', 'problems', 'email', 'address', 'very good']
+[2025-07-27 18:00:21] [DEBUG] [graphClass.py:69] Extracted entities from 'factors.: Very Good | 4. Capable of conducting inv...': ['very good', 'machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'excellent', 'development', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:21] [DEBUG] [graphClass.py:122] Chunk 136: 18 entities - ['very good', 'machine', 'problems', 'software', 'impact']
+[2025-07-27 18:00:21] [DEBUG] [graphClass.py:69] Extracted entities from '| 8. Understand professional and ethical responsib...': ['leader', 'member', 'individual', 'responsibility', 'excellent', 'teams', 'form']
+[2025-07-27 18:00:21] [DEBUG] [graphClass.py:122] Chunk 137: 7 entities - ['leader', 'member', 'individual', 'responsibility', 'excellent']
+[2025-07-27 18:00:21] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'software', 'allocation', 'excellent', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:22] [DEBUG] [graphClass.py:122] Chunk 138: 23 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:22] [DEBUG] [graphClass.py:69] Extracted entities from '& Machine Learning principles.: Excellent | 15. Pr...': ['computing', 'machine', 'resources', 'principles', 'computer', 'excellent', 'technologies', 'learning', 'system']
+[2025-07-27 18:00:22] [DEBUG] [graphClass.py:122] Chunk 139: 9 entities - ['computing', 'machine', 'resources', 'principles', 'computer']
+[2025-07-27 18:00:22] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 12:54:34 | Email Address: ak...': ['akanksha', 'safety', 'problems', 'email', 'address', 'satisfactory', 'mathematics', 'computer', 'solutions', 'science', 'branch', 'usn', 'systems', 'health', 'akanksha bansal', 'engineering', 'aiml', 'email address', 'knowledge', 'student', 'bansal', 'factors', 'timestamp']
+[2025-07-27 18:00:22] [DEBUG] [graphClass.py:122] Chunk 140: 23 entities - ['akanksha', 'safety', 'problems', 'email', 'address']
+[2025-07-27 18:00:22] [DEBUG] [graphClass.py:69] Extracted entities from 'and environmental factors.: Satisfactory | 4. Capa...': ['machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'development', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:22] [DEBUG] [graphClass.py:122] Chunk 141: 16 entities - ['machine', 'problems', 'software', 'impact', 'solutions']
+[2025-07-27 18:00:22] [DEBUG] [graphClass.py:69] Extracted entities from 'development.: Satisfactory | 8. Understand profess...': ['leader', 'member', 'individual', 'responsibility', 'development', 'teams', 'form']
+[2025-07-27 18:00:22] [DEBUG] [graphClass.py:122] Chunk 142: 7 entities - ['leader', 'member', 'individual', 'responsibility', 'development']
+[2025-07-27 18:00:22] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'software', 'allocation', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:22] [DEBUG] [graphClass.py:122] Chunk 143: 22 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:22] [DEBUG] [graphClass.py:69] Extracted entities from '& Machine Learning principles.: Satisfactory | 15....': ['computing', 'machine', 'resources', 'principles', 'computer', 'technologies', 'learning', 'system']
+[2025-07-27 18:00:22] [DEBUG] [graphClass.py:122] Chunk 144: 8 entities - ['computing', 'machine', 'resources', 'principles', 'computer']
+[2025-07-27 18:00:22] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 13:07:49 | Email Address: ka...': ['safety', 'problems', 'email', 'address', 'satisfactory', 'very good', 'karthikkckarthik02@gmail.com', 'mathematics', 'computer', 'solutions', 'science', 'karthik', 'branch', 'usn', 'systems', 'health', 'engineering', 'aiml', 'email address', 'knowledge', 'student', 'factors', 'timestamp']
+[2025-07-27 18:00:22] [DEBUG] [graphClass.py:122] Chunk 145: 23 entities - ['safety', 'problems', 'email', 'address', 'satisfactory']
+[2025-07-27 18:00:22] [DEBUG] [graphClass.py:69] Extracted entities from 'environmental factors.: Very Good | 4. Capable of ...': ['very good', 'machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'excellent', 'development', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:23] [DEBUG] [graphClass.py:122] Chunk 146: 18 entities - ['very good', 'machine', 'problems', 'software', 'impact']
+[2025-07-27 18:00:23] [DEBUG] [graphClass.py:69] Extracted entities from 'Very Good | 8. Understand professional and ethical...': ['leader', 'very good', 'member', 'individual', 'responsibility', 'teams', 'form']
+[2025-07-27 18:00:23] [DEBUG] [graphClass.py:122] Chunk 147: 7 entities - ['leader', 'very good', 'member', 'individual', 'responsibility']
+[2025-07-27 18:00:23] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'very good', 'software', 'allocation', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:23] [DEBUG] [graphClass.py:122] Chunk 148: 23 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:23] [DEBUG] [graphClass.py:69] Extracted entities from 'Learning principles.: Good | 15. Proficient in eff...': ['very good', 'computing', 'resources', 'principles', 'computer', 'technologies', 'system']
+[2025-07-27 18:00:23] [DEBUG] [graphClass.py:122] Chunk 149: 7 entities - ['very good', 'computing', 'resources', 'principles', 'computer']
+[2025-07-27 18:00:23] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 13:16:01 | Email Address: ab...': ['safety', 'problems', 'email', 'pattanaik', 'address', 'satisfactory', 'mathematics', 'computer', 'abhijit', 'solutions', 'science', 'branch', 'usn', 'systems', 'health', 'abhijit pattanaik', 'engineering', 'aiml', 'email address', 'knowledge', 'student', 'factors', 'timestamp']
+[2025-07-27 18:00:23] [DEBUG] [graphClass.py:122] Chunk 150: 23 entities - ['safety', 'problems', 'email', 'pattanaik', 'address']
+[2025-07-27 18:00:23] [DEBUG] [graphClass.py:69] Extracted entities from 'and environmental factors.: Satisfactory | 4. Capa...': ['machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'development', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:23] [DEBUG] [graphClass.py:122] Chunk 151: 16 entities - ['machine', 'problems', 'software', 'impact', 'solutions']
+[2025-07-27 18:00:23] [DEBUG] [graphClass.py:69] Extracted entities from 'development.: Satisfactory | 8. Understand profess...': ['leader', 'member', 'individual', 'responsibility', 'development', 'teams', 'form']
+[2025-07-27 18:00:23] [DEBUG] [graphClass.py:122] Chunk 152: 7 entities - ['leader', 'member', 'individual', 'responsibility', 'development']
+[2025-07-27 18:00:23] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'software', 'allocation', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:23] [DEBUG] [graphClass.py:122] Chunk 153: 22 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:23] [DEBUG] [graphClass.py:69] Extracted entities from '& Machine Learning principles.: Satisfactory | 15....': ['computing', 'machine', 'resources', 'principles', 'computer', 'technologies', 'learning', 'system']
+[2025-07-27 18:00:23] [DEBUG] [graphClass.py:122] Chunk 154: 8 entities - ['computing', 'machine', 'resources', 'principles', 'computer']
+[2025-07-27 18:00:23] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 13:33:35 | Email Address: de...': ['safety', 'problems', 'email', 'khetan', 'dev', 'dev kumar', 'address', 'mathematics', 'computer', 'excellent', 'solutions', 'science', 'branch', 'usn', 'kumar', 'systems', 'health', 'engineering', 'aiml', 'email address', 'knowledge', 'student', 'factors', 'timestamp']
+[2025-07-27 18:00:24] [DEBUG] [graphClass.py:122] Chunk 155: 24 entities - ['safety', 'problems', 'email', 'khetan', 'dev']
+[2025-07-27 18:00:24] [DEBUG] [graphClass.py:69] Extracted entities from 'factors.: Excellent | 4. Capable of conducting inv...': ['machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'excellent', 'development', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:24] [DEBUG] [graphClass.py:122] Chunk 156: 17 entities - ['machine', 'problems', 'software', 'impact', 'solutions']
+[2025-07-27 18:00:24] [DEBUG] [graphClass.py:69] Extracted entities from '| 8. Understand professional and ethical responsib...': ['leader', 'member', 'individual', 'responsibility', 'excellent', 'teams', 'form']
+[2025-07-27 18:00:24] [DEBUG] [graphClass.py:122] Chunk 157: 7 entities - ['leader', 'member', 'individual', 'responsibility', 'excellent']
+[2025-07-27 18:00:24] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'software', 'allocation', 'excellent', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:24] [DEBUG] [graphClass.py:122] Chunk 158: 23 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:24] [DEBUG] [graphClass.py:69] Extracted entities from '& Machine Learning principles.: Excellent | 15. Pr...': ['computing', 'machine', 'resources', 'principles', 'computer', 'excellent', 'technologies', 'learning', 'system']
+[2025-07-27 18:00:24] [DEBUG] [graphClass.py:122] Chunk 159: 9 entities - ['computing', 'machine', 'resources', 'principles', 'computer']
+[2025-07-27 18:00:24] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 13:35:07 | Email Address: 20...': ['safety', 'problems', 'ankur singh', 'email', 'address', 'singh', 'mathematics', 'computer', 'excellent', 'solutions', 'science', 'branch', 'usn', 'systems', 'health', 'ankur', 'engineering', 'aiml', 'email address', 'knowledge', 'student', 'factors', 'timestamp']
+[2025-07-27 18:00:24] [DEBUG] [graphClass.py:122] Chunk 160: 23 entities - ['safety', 'problems', 'ankur singh', 'email', 'address']
+[2025-07-27 18:00:24] [DEBUG] [graphClass.py:69] Extracted entities from 'factors.: Excellent | 4. Capable of conducting inv...': ['machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'excellent', 'development', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:24] [DEBUG] [graphClass.py:122] Chunk 161: 17 entities - ['machine', 'problems', 'software', 'impact', 'solutions']
+[2025-07-27 18:00:24] [DEBUG] [graphClass.py:69] Extracted entities from '| 8. Understand professional and ethical responsib...': ['leader', 'member', 'individual', 'responsibility', 'excellent', 'teams', 'form']
+[2025-07-27 18:00:24] [DEBUG] [graphClass.py:122] Chunk 162: 7 entities - ['leader', 'member', 'individual', 'responsibility', 'excellent']
+[2025-07-27 18:00:24] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'software', 'allocation', 'excellent', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:24] [DEBUG] [graphClass.py:122] Chunk 163: 23 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:24] [DEBUG] [graphClass.py:69] Extracted entities from '& Machine Learning principles.: Excellent | 15. Pr...': ['computing', 'machine', 'resources', 'principles', 'computer', 'excellent', 'technologies', 'learning', 'system']
+[2025-07-27 18:00:25] [DEBUG] [graphClass.py:122] Chunk 164: 9 entities - ['computing', 'machine', 'resources', 'principles', 'computer']
+[2025-07-27 18:00:25] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 13:40:13 | Email Address: 20...': ['safety', 'problems', 'email', 'address', 'rivana', 'mathematics', 'computer', 'excellent', 'sridaran', 'solutions', 'science', 'branch', 'usn', 'systems', 'health', 'engineering', 'aiml', 'rivana sridaran', 'email address', 'knowledge', 'student', 'factors', 'timestamp']
+[2025-07-27 18:00:25] [DEBUG] [graphClass.py:122] Chunk 165: 23 entities - ['safety', 'problems', 'email', 'address', 'rivana']
+[2025-07-27 18:00:25] [DEBUG] [graphClass.py:69] Extracted entities from 'environmental factors.: Excellent | 4. Capable of ...': ['machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'excellent', 'development', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:25] [DEBUG] [graphClass.py:122] Chunk 166: 17 entities - ['machine', 'problems', 'software', 'impact', 'solutions']
+[2025-07-27 18:00:25] [DEBUG] [graphClass.py:69] Extracted entities from 'Excellent | 8. Understand professional and ethical...': ['leader', 'member', 'individual', 'responsibility', 'excellent', 'teams', 'form']
+[2025-07-27 18:00:25] [DEBUG] [graphClass.py:122] Chunk 167: 7 entities - ['leader', 'member', 'individual', 'responsibility', 'excellent']
+[2025-07-27 18:00:25] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'software', 'allocation', 'excellent', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:25] [DEBUG] [graphClass.py:122] Chunk 168: 23 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:25] [DEBUG] [graphClass.py:69] Extracted entities from '& Machine Learning principles.: Excellent | 15. Pr...': ['computing', 'machine', 'resources', 'principles', 'computer', 'excellent', 'technologies', 'learning', 'system']
+[2025-07-27 18:00:26] [DEBUG] [graphClass.py:122] Chunk 169: 9 entities - ['computing', 'machine', 'resources', 'principles', 'computer']
+[2025-07-27 18:00:26] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 13:50:35 | Email Address: li...': ['safety', 'problems', 'email', 'address', 'likith', 'very good', 'mathematics', 'computer', 'solutions', 'science', 'branch', 'usn', 'systems', 'health', 'engineering', 'aiml', 'email address', 'knowledge', 'student', 'factors', 'timestamp']
+[2025-07-27 18:00:26] [DEBUG] [graphClass.py:122] Chunk 170: 21 entities - ['safety', 'problems', 'email', 'address', 'likith']
+[2025-07-27 18:00:26] [DEBUG] [graphClass.py:69] Extracted entities from 'factors.: Very Good | 4. Capable of conducting inv...': ['very good', 'machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'excellent', 'development', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:26] [DEBUG] [graphClass.py:122] Chunk 171: 18 entities - ['very good', 'machine', 'problems', 'software', 'impact']
+[2025-07-27 18:00:26] [DEBUG] [graphClass.py:69] Extracted entities from '| 8. Understand professional and ethical responsib...': ['leader', 'member', 'individual', 'responsibility', 'excellent', 'teams', 'form']
+[2025-07-27 18:00:26] [DEBUG] [graphClass.py:122] Chunk 172: 7 entities - ['leader', 'member', 'individual', 'responsibility', 'excellent']
+[2025-07-27 18:00:26] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'software', 'allocation', 'excellent', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:27] [DEBUG] [graphClass.py:122] Chunk 173: 23 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:27] [DEBUG] [graphClass.py:69] Extracted entities from '& Machine Learning principles.: Excellent | 15. Pr...': ['computing', 'machine', 'resources', 'principles', 'computer', 'excellent', 'technologies', 'learning', 'system']
+[2025-07-27 18:00:27] [DEBUG] [graphClass.py:122] Chunk 174: 9 entities - ['computing', 'machine', 'resources', 'principles', 'computer']
+[2025-07-27 18:00:27] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 13:50:45 | Email Address: 20...': ['safety', 'problems', 'email', 'address', 'very good', 'sahana', 'mathematics', 'computer', 'solutions', 'science', 'branch', 'usn', 'systems', 'health', 'engineering', 'aiml', 'email address', 'knowledge', 'student', 'factors', 'timestamp']
+[2025-07-27 18:00:27] [DEBUG] [graphClass.py:122] Chunk 175: 21 entities - ['safety', 'problems', 'email', 'address', 'very good']
+[2025-07-27 18:00:27] [DEBUG] [graphClass.py:69] Extracted entities from 'factors.: Very Good | 4. Capable of conducting inv...': ['very good', 'machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'development', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:28] [DEBUG] [graphClass.py:122] Chunk 176: 17 entities - ['very good', 'machine', 'problems', 'software', 'impact']
+[2025-07-27 18:00:28] [DEBUG] [graphClass.py:69] Extracted entities from 'Good | 8. Understand professional and ethical resp...': ['leader', 'very good', 'member', 'individual', 'responsibility', 'teams', 'form']
+[2025-07-27 18:00:28] [DEBUG] [graphClass.py:122] Chunk 177: 7 entities - ['leader', 'very good', 'member', 'individual', 'responsibility']
+[2025-07-27 18:00:28] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'very good', 'software', 'allocation', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:28] [DEBUG] [graphClass.py:122] Chunk 178: 23 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:28] [DEBUG] [graphClass.py:69] Extracted entities from '& Machine Learning principles.: Very  Good | 15. P...': ['very good', 'computing', 'machine', 'resources', 'principles', 'computer', 'technologies', 'learning', 'system']
+[2025-07-27 18:00:28] [DEBUG] [graphClass.py:122] Chunk 179: 9 entities - ['very good', 'computing', 'machine', 'resources', 'principles']
+[2025-07-27 18:00:28] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 13:50:51 | Email Address: sa...': ['safety', 'problems', 'email', 'address', 'mathematics', 'computer', 'excellent', 'malachira', 'solutions', 'science', 'branch', 'usn', 'systems', 'health', 'engineering', 'aiml', 'email address', 'knowledge', 'student', 'chittiappa', 'samit', 'timestamp']
+[2025-07-27 18:00:29] [DEBUG] [graphClass.py:122] Chunk 180: 22 entities - ['safety', 'problems', 'email', 'address', 'mathematics']
+[2025-07-27 18:00:29] [DEBUG] [graphClass.py:69] Extracted entities from 'safety, and cultural, societal, and environmental ...': ['safety', 'machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'excellent', 'development', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:29] [DEBUG] [graphClass.py:122] Chunk 181: 18 entities - ['safety', 'machine', 'problems', 'software', 'impact']
+[2025-07-27 18:00:29] [DEBUG] [graphClass.py:69] Extracted entities from 'need for sustainable development.: Excellent | 8. ...': ['leader', 'member', 'individual', 'responsibility', 'development', 'excellent', 'teams', 'form']
+[2025-07-27 18:00:29] [DEBUG] [graphClass.py:122] Chunk 182: 8 entities - ['leader', 'member', 'individual', 'responsibility', 'development']
+[2025-07-27 18:00:29] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'software', 'allocation', 'excellent', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:30] [DEBUG] [graphClass.py:122] Chunk 183: 23 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:30] [DEBUG] [graphClass.py:69] Extracted entities from '& Machine Learning principles.: Excellent | 15. Pr...': ['computing', 'machine', 'resources', 'principles', 'computer', 'excellent', 'technologies', 'learning', 'system']
+[2025-07-27 18:00:30] [DEBUG] [graphClass.py:122] Chunk 184: 9 entities - ['computing', 'machine', 'resources', 'principles', 'computer']
+[2025-07-27 18:00:30] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 14:05:28 | Email Address: vi...': ['vigneshnvicky567@gmail.com', 'safety', 'problems', 'email', 'vignesh', 'address', 'mathematics', 'computer', 'vignesh n  | 1', 'excellent', 'solutions', 'science', 'branch', 'usn', 'systems', 'health', 'engineering', 'aiml', 'email address', 'knowledge', 'student', 'factors', 'timestamp']
+[2025-07-27 18:00:30] [DEBUG] [graphClass.py:122] Chunk 185: 23 entities - ['vigneshnvicky567@gmail.com', 'safety', 'problems', 'email', 'vignesh']
+[2025-07-27 18:00:30] [DEBUG] [graphClass.py:69] Extracted entities from 'environmental factors.: Excellent | 4. Capable of ...': ['very good', 'machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'excellent', 'development', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:31] [DEBUG] [graphClass.py:122] Chunk 186: 18 entities - ['very good', 'machine', 'problems', 'software', 'impact']
+[2025-07-27 18:00:31] [DEBUG] [graphClass.py:69] Extracted entities from 'Good | 8. Understand professional and ethical resp...': ['leader', 'very good', 'member', 'individual', 'responsibility', 'teams', 'form']
+[2025-07-27 18:00:31] [DEBUG] [graphClass.py:122] Chunk 187: 7 entities - ['leader', 'very good', 'member', 'individual', 'responsibility']
+[2025-07-27 18:00:31] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'very good', 'software', 'allocation', 'excellent', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:31] [DEBUG] [graphClass.py:122] Chunk 188: 24 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:31] [DEBUG] [graphClass.py:69] Extracted entities from '& Machine Learning principles.: Excellent | 15. Pr...': ['computing', 'machine', 'resources', 'principles', 'computer', 'excellent', 'technologies', 'learning', 'system']
+[2025-07-27 18:00:31] [DEBUG] [graphClass.py:122] Chunk 189: 9 entities - ['computing', 'machine', 'resources', 'principles', 'computer']
+[2025-07-27 18:00:31] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 14:22:40 | Email Address: pb...': ['safety', 'problems', 'email', 'address', 'mathematics', 'computer', 'excellent', 'solutions', 'science', 'pbs.dsce2001@gmail.com', 'branch', 'usn', 'systems', 'health', 'swaroop', 'engineering', 'aiml', 'email address', 'knowledge', 'student', 'factors', 'timestamp']
+[2025-07-27 18:00:32] [DEBUG] [graphClass.py:122] Chunk 190: 22 entities - ['safety', 'problems', 'email', 'address', 'mathematics']
+[2025-07-27 18:00:32] [DEBUG] [graphClass.py:69] Extracted entities from 'factors.: Excellent | 4. Capable of conducting inv...': ['machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'excellent', 'development', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:32] [DEBUG] [graphClass.py:122] Chunk 191: 17 entities - ['machine', 'problems', 'software', 'impact', 'solutions']
+[2025-07-27 18:00:32] [DEBUG] [graphClass.py:69] Extracted entities from '| 8. Understand professional and ethical responsib...': ['leader', 'member', 'individual', 'responsibility', 'excellent', 'teams', 'form']
+[2025-07-27 18:00:32] [DEBUG] [graphClass.py:122] Chunk 192: 7 entities - ['leader', 'member', 'individual', 'responsibility', 'excellent']
+[2025-07-27 18:00:32] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'software', 'allocation', 'excellent', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:32] [DEBUG] [graphClass.py:122] Chunk 193: 23 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:32] [DEBUG] [graphClass.py:69] Extracted entities from '& Machine Learning principles.: Excellent | 15. Pr...': ['computing', 'machine', 'resources', 'principles', 'computer', 'excellent', 'technologies', 'learning', 'system']
+[2025-07-27 18:00:33] [DEBUG] [graphClass.py:122] Chunk 194: 9 entities - ['computing', 'machine', 'resources', 'principles', 'computer']
+[2025-07-27 18:00:33] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 14:23:00 | Email Address: ta...': ['safety', 'problems', 'email', 'address', 'very good', 'mathematics', 'computer', 'solutions', 'science', 'branch', 'usn', 'systems', 'health', 'engineering', 'aiml', 'email address', 'knowledge', 'fathima', 'student', 'factors', 'tazyeen', 'timestamp']
+[2025-07-27 18:00:33] [DEBUG] [graphClass.py:122] Chunk 195: 22 entities - ['safety', 'problems', 'email', 'address', 'very good']
+[2025-07-27 18:00:33] [DEBUG] [graphClass.py:69] Extracted entities from 'environmental factors.: Very Good | 4. Capable of ...': ['very good', 'machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'development', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:33] [DEBUG] [graphClass.py:122] Chunk 196: 17 entities - ['very good', 'machine', 'problems', 'software', 'impact']
+[2025-07-27 18:00:33] [DEBUG] [graphClass.py:69] Extracted entities from 'Very Good | 8. Understand professional and ethical...': ['leader', 'very good', 'member', 'individual', 'responsibility', 'excellent', 'teams', 'form']
+[2025-07-27 18:00:33] [DEBUG] [graphClass.py:122] Chunk 197: 8 entities - ['leader', 'very good', 'member', 'individual', 'responsibility']
+[2025-07-27 18:00:33] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'very good', 'software', 'allocation', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:34] [DEBUG] [graphClass.py:122] Chunk 198: 23 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:34] [DEBUG] [graphClass.py:69] Extracted entities from '& Machine Learning principles.: Very  Good | 15. P...': ['very good', 'computing', 'machine', 'resources', 'principles', 'computer', 'technologies', 'learning', 'system']
+[2025-07-27 18:00:34] [DEBUG] [graphClass.py:122] Chunk 199: 9 entities - ['very good', 'computing', 'machine', 'resources', 'principles']
+[2025-07-27 18:00:34] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 14:23:20 | Email Address: ne...': ['nehal k sahukar', 'safety', 'problems', 'email', 'address', 'mathematics', 'computer', 'excellent', 'solutions', 'science', 'sahukar', 'branch', 'usn', 'systems', 'health', 'nehal', 'engineering', 'aiml', 'email address', 'knowledge', 'student', 'factors', 'timestamp']
+[2025-07-27 18:00:34] [DEBUG] [graphClass.py:122] Chunk 200: 23 entities - ['nehal k sahukar', 'safety', 'problems', 'email', 'address']
+[2025-07-27 18:00:34] [DEBUG] [graphClass.py:69] Extracted entities from 'environmental factors.: Excellent | 4. Capable of ...': ['machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'excellent', 'development', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:35] [DEBUG] [graphClass.py:122] Chunk 201: 17 entities - ['machine', 'problems', 'software', 'impact', 'solutions']
+[2025-07-27 18:00:35] [DEBUG] [graphClass.py:69] Extracted entities from 'Excellent | 8. Understand professional and ethical...': ['leader', 'member', 'individual', 'responsibility', 'excellent', 'teams', 'form']
+[2025-07-27 18:00:35] [DEBUG] [graphClass.py:122] Chunk 202: 7 entities - ['leader', 'member', 'individual', 'responsibility', 'excellent']
+[2025-07-27 18:00:35] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'software', 'allocation', 'excellent', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:35] [DEBUG] [graphClass.py:122] Chunk 203: 23 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:35] [DEBUG] [graphClass.py:69] Extracted entities from '& Machine Learning principles.: Excellent | 15. Pr...': ['computing', 'machine', 'resources', 'principles', 'computer', 'excellent', 'technologies', 'learning', 'system']
+[2025-07-27 18:00:35] [DEBUG] [graphClass.py:122] Chunk 204: 9 entities - ['computing', 'machine', 'resources', 'principles', 'computer']
+[2025-07-27 18:00:35] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 14:35:01 | Email Address: pa...': ['safety', 'problems', 'email', 'pavithra', 'address', 'mathematics', 'computer', 'excellent', 'solutions', 'science', 'branch', 'usn', 'systems', 'health', 'engineering', 'aiml', 'email address', 'knowledge', 'student', 'factors', 'timestamp']
+[2025-07-27 18:00:35] [DEBUG] [graphClass.py:122] Chunk 205: 21 entities - ['safety', 'problems', 'email', 'pavithra', 'address']
+[2025-07-27 18:00:35] [DEBUG] [graphClass.py:69] Extracted entities from 'factors.: Excellent | 4. Capable of conducting inv...': ['machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'excellent', 'development', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:35] [DEBUG] [graphClass.py:122] Chunk 206: 17 entities - ['machine', 'problems', 'software', 'impact', 'solutions']
+[2025-07-27 18:00:35] [DEBUG] [graphClass.py:69] Extracted entities from '| 8. Understand professional and ethical responsib...': ['leader', 'member', 'individual', 'responsibility', 'excellent', 'teams', 'form']
+[2025-07-27 18:00:36] [DEBUG] [graphClass.py:122] Chunk 207: 7 entities - ['leader', 'member', 'individual', 'responsibility', 'excellent']
+[2025-07-27 18:00:36] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'software', 'allocation', 'excellent', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:36] [DEBUG] [graphClass.py:122] Chunk 208: 23 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:36] [DEBUG] [graphClass.py:69] Extracted entities from '& Machine Learning principles.: Excellent | 15. Pr...': ['computing', 'machine', 'resources', 'principles', 'computer', 'excellent', 'technologies', 'learning', 'system']
+[2025-07-27 18:00:36] [DEBUG] [graphClass.py:122] Chunk 209: 9 entities - ['computing', 'machine', 'resources', 'principles', 'computer']
+[2025-07-27 18:00:36] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 14:38:41 | Email Address: 20...': ['safety', 'problems', 'email', 'atada', 'address', 'kishor', 'mathematics', 'computer', 'excellent', 'solutions', 'science', 'hemanth', 'branch', 'usn', 'systems', 'health', 'engineering', 'aiml', 'email address', 'student name', 'knowledge', 'student', 'factors', 'timestamp']
+[2025-07-27 18:00:36] [DEBUG] [graphClass.py:122] Chunk 210: 24 entities - ['safety', 'problems', 'email', 'atada', 'address']
+[2025-07-27 18:00:37] [DEBUG] [graphClass.py:69] Extracted entities from 'factors.: Good | 4. Capable of conducting investig...': ['very good', 'machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'development', 'responsibility', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:37] [DEBUG] [graphClass.py:122] Chunk 211: 18 entities - ['very good', 'machine', 'problems', 'software', 'impact']
+[2025-07-27 18:00:37] [DEBUG] [graphClass.py:69] Extracted entities from 'professional and ethical responsibility.: Satisfac...': ['very good', 'leader', 'member', 'individual', 'form', 'responsibility', 'teams', 'professional and ethical']
+[2025-07-27 18:00:37] [DEBUG] [graphClass.py:122] Chunk 212: 8 entities - ['very good', 'leader', 'member', 'individual', 'form']
+[2025-07-27 18:00:37] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'software', 'allocation', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:37] [DEBUG] [graphClass.py:122] Chunk 213: 22 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:37] [DEBUG] [graphClass.py:69] Extracted entities from 'principles.: Very  Good | 15. Proficient in effici...': ['very good', 'computing', 'resources', 'principles', 'computer', 'technologies', 'system']
+[2025-07-27 18:00:37] [DEBUG] [graphClass.py:122] Chunk 214: 7 entities - ['very good', 'computing', 'resources', 'principles', 'computer']
+[2025-07-27 18:00:37] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 15:09:21 | Email Address: 1d...': ['safety', 'problems', 'email', 'address', 'shravan  a s', 'mathematics', 'computer', 'excellent', 'solutions', 'science', 'shravan', 'branch', 'usn', 'systems', 'health', 'engineering', 'aiml', 'email address', 'knowledge', 'student', 'factors', 'timestamp']
+[2025-07-27 18:00:38] [DEBUG] [graphClass.py:122] Chunk 215: 22 entities - ['safety', 'problems', 'email', 'address', 'shravan  a s']
+[2025-07-27 18:00:38] [DEBUG] [graphClass.py:69] Extracted entities from 'factors.: Excellent | 4. Capable of conducting inv...': ['machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'excellent', 'development', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:38] [DEBUG] [graphClass.py:122] Chunk 216: 17 entities - ['machine', 'problems', 'software', 'impact', 'solutions']
+[2025-07-27 18:00:38] [DEBUG] [graphClass.py:69] Extracted entities from '| 8. Understand professional and ethical responsib...': ['leader', 'member', 'individual', 'responsibility', 'excellent', 'teams', 'form']
+[2025-07-27 18:00:38] [DEBUG] [graphClass.py:122] Chunk 217: 7 entities - ['leader', 'member', 'individual', 'responsibility', 'excellent']
+[2025-07-27 18:00:38] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'software', 'allocation', 'excellent', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:38] [DEBUG] [graphClass.py:122] Chunk 218: 23 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:38] [DEBUG] [graphClass.py:69] Extracted entities from '& Machine Learning principles.: Excellent | 15. Pr...': ['computing', 'machine', 'resources', 'principles', 'computer', 'excellent', 'technologies', 'learning', 'system']
+[2025-07-27 18:00:39] [DEBUG] [graphClass.py:122] Chunk 219: 9 entities - ['computing', 'machine', 'resources', 'principles', 'computer']
+[2025-07-27 18:00:39] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 15:19:49 | Email Address: vi...': ['safety', 'problems', 'email', 'address', 'mathematics', 'computer', 'excellent', 'solutions', 'science', 'vineel', 'branch', 'usn', 'systems', 'health', 'engineering', 'aiml', 'email address', 'knowledge', 'student', 'factors', 'timestamp']
+[2025-07-27 18:00:39] [DEBUG] [graphClass.py:122] Chunk 220: 21 entities - ['safety', 'problems', 'email', 'address', 'mathematics']
+[2025-07-27 18:00:39] [DEBUG] [graphClass.py:69] Extracted entities from 'factors.: Excellent | 4. Capable of conducting inv...': ['machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'excellent', 'development', 'equipment', 'intelligence', 'learning', 'practice', 'factors', 'issues', 'engineering']
+[2025-07-27 18:00:39] [DEBUG] [graphClass.py:122] Chunk 221: 17 entities - ['machine', 'problems', 'software', 'impact', 'solutions']
+[2025-07-27 18:00:39] [DEBUG] [graphClass.py:69] Extracted entities from '| 8. Understand professional and ethical responsib...': ['leader', 'member', 'individual', 'responsibility', 'excellent', 'teams', 'form']
+[2025-07-27 18:00:39] [DEBUG] [graphClass.py:122] Chunk 222: 7 entities - ['leader', 'member', 'individual', 'responsibility', 'excellent']
+[2025-07-27 18:00:39] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'software', 'allocation', 'excellent', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:40] [DEBUG] [graphClass.py:122] Chunk 223: 23 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:40] [DEBUG] [graphClass.py:69] Extracted entities from '& Machine Learning principles.: Excellent | 15. Pr...': ['computing', 'machine', 'resources', 'principles', 'computer', 'excellent', 'technologies', 'learning', 'system']
+[2025-07-27 18:00:40] [DEBUG] [graphClass.py:122] Chunk 224: 9 entities - ['computing', 'machine', 'resources', 'principles', 'computer']
+[2025-07-27 18:00:40] [DEBUG] [graphClass.py:69] Extracted entities from 'Timestamp: 10/26/2024 16:01:21 | Email Address: ni...': ['safety', 'problems', 'email', 'niranthar', 'address', 'mathematics', 'computer', 'solutions', 'science', 'branch', 'usn', 'systems', 'health', 'engineering', 'aiml', 'email address', 'knowledge', 'investigations', 'student', 'factors', 'timestamp']
+[2025-07-27 18:00:40] [DEBUG] [graphClass.py:122] Chunk 225: 21 entities - ['safety', 'problems', 'email', 'niranthar', 'address']
+[2025-07-27 18:00:40] [DEBUG] [graphClass.py:69] Extracted entities from 'Good | 4. Capable of conducting investigations int...': ['machine', 'problems', 'software', 'impact', 'solutions', 'need', 'investigations', 'society', 'development', 'responsibility', 'equipment', 'intelligence', 'learning', 'practice', 'engineering', 'issues']
+[2025-07-27 18:00:41] [DEBUG] [graphClass.py:122] Chunk 226: 16 entities - ['machine', 'problems', 'software', 'impact', 'solutions']
+[2025-07-27 18:00:41] [DEBUG] [graphClass.py:69] Extracted entities from 'responsibility.: Good | 9. Able to function effect...': ['leader', 'member', 'individual', 'responsibility', 'teams', 'form']
+[2025-07-27 18:00:41] [DEBUG] [graphClass.py:122] Chunk 227: 6 entities - ['leader', 'member', 'individual', 'responsibility', 'teams']
+[2025-07-27 18:00:41] [DEBUG] [graphClass.py:69] Extracted entities from '11. Acquired project management and finance skills...': ['project', 'machine', 'problems', 'finance', 'principles', 'world', 'artificial', 'management', 'software', 'allocation', 'resource', 'problem', 'skills', 'adept', 'development', 'life', 'learning', 'budgeting', 'projects', 'programming', 'artificial intelligence & machine learning', 'intelligence']
+[2025-07-27 18:00:41] [DEBUG] [graphClass.py:122] Chunk 228: 22 entities - ['project', 'machine', 'problems', 'finance', 'principles']
+[2025-07-27 18:00:41] [DEBUG] [graphClass.py:69] Extracted entities from 'principles.: Good | 15. Proficient in efficiently ...': ['computing', 'resources', 'principles', 'computer', 'technologies', 'system']
+[2025-07-27 18:00:41] [DEBUG] [graphClass.py:122] Chunk 229: 6 entities - ['computing', 'resources', 'principles', 'computer', 'technologies']
+[2025-07-27 18:00:41] [INFO] [graphClass.py:124] Graph created: 230 chunks, 3598 total entities
+[2025-07-27 18:00:42] [INFO] [graphClass.py:150] Graph verification - Session: f74ced04-1e1f-491f-aacf-fe52814a589f, Chunks: 230, Entities: 162
+[2025-07-27 18:00:42] [INFO] [ChatbotSessionManager.py:149] Session f74ced04-1e1f-491f-aacf-fe52814a589f stored in Redis (primary) and local cache (fallback)
+[2025-07-27 18:00:42] [INFO] [app.py:209] Session f74ced04-1e1f-491f-aacf-fe52814a589f created successfully
+[2025-07-27 18:01:06] [INFO] [app.py:224] Processing query for session f74ced04-1e1f-491f-aacf-fe52814a589f
+[2025-07-27 18:01:06] [INFO] [ChatbotSessionManager.py:167] Session f74ced04-1e1f-491f-aacf-fe52814a589f retrieved from Redis (primary cache)
+[2025-07-27 18:01:06] [INFO] [proceessor.py:115] Answering question: 'how is the overall feedback of the student' for session: f74ced04-1e1f-491f-aacf-fe52814a589f
+[2025-07-27 18:01:06] [INFO] [proceessor.py:122] Vector search returned 10 documents
+[2025-07-27 18:01:06] [DEBUG] [proceessor.py:124] Vector doc 0: development.: Satisfactory | 8. Understand professional and ethical responsibility.: Satisfactory | ...
+[2025-07-27 18:01:06] [DEBUG] [proceessor.py:124] Vector doc 1: development.: Satisfactory | 8. Understand professional and ethical responsibility.: Satisfactory | ...
+[2025-07-27 18:01:06] [INFO] [proceessor.py:129] Attempting graph search...
+[2025-07-27 18:01:06] [DEBUG] [graphClass.py:69] Extracted entities from 'how is the overall feedback of the student...': ['feedback', 'student']
+[2025-07-27 18:01:06] [DEBUG] [graphClass.py:163] Query: 'how is the overall feedback of the student' -> Entities: ['feedback', 'student']
+[2025-07-27 18:01:07] [INFO] [graphClass.py:186] Graph search found 5 results via entity matching
+[2025-07-27 18:01:07] [INFO] [proceessor.py:131] Graph search returned 5 results
+[2025-07-27 18:01:07] [DEBUG] [proceessor.py:134] Graph result 0: Timestamp: 10/26/2024 16:01:21 | Email Address: nirantharnnms@gmail.com | Student USN: 1DS20AI035 | ...
+[2025-07-27 18:01:07] [DEBUG] [proceessor.py:134] Graph result 1: Timestamp: 10/26/2024 15:19:49 | Email Address: vineelakashp@gmail.com | Student USN: 1DS20AI041 | S...
+[2025-07-27 18:01:07] [INFO] [proceessor.py:143] Using hybrid context (vector + graph)
+[2025-07-27 18:01:07] [DEBUG] [proceessor.py:149] Context length: 6351 characters
+[2025-07-27 18:01:08] [INFO] [proceessor.py:168] Answer generated: 2036 characters, search_type: hybrid
+[2025-07-27 18:02:15] [INFO] [app.py:224] Processing query for session f74ced04-1e1f-491f-aacf-fe52814a589f
+[2025-07-27 18:02:15] [INFO] [ChatbotSessionManager.py:167] Session f74ced04-1e1f-491f-aacf-fe52814a589f retrieved from Redis (primary cache)
+[2025-07-27 18:02:15] [INFO] [proceessor.py:115] Answering question: 'is there any specific outier or any major dissatisfaction mentioned' for session: f74ced04-1e1f-491f-aacf-fe52814a589f
+[2025-07-27 18:02:15] [INFO] [proceessor.py:122] Vector search returned 10 documents
+[2025-07-27 18:02:15] [DEBUG] [proceessor.py:124] Vector doc 0: development.: Satisfactory | 8. Understand professional and ethical responsibility.: Satisfactory | ...
+[2025-07-27 18:02:15] [DEBUG] [proceessor.py:124] Vector doc 1: development.: Satisfactory | 8. Understand professional and ethical responsibility.: Satisfactory | ...
+[2025-07-27 18:02:15] [INFO] [proceessor.py:129] Attempting graph search...
+[2025-07-27 18:02:15] [DEBUG] [graphClass.py:69] Extracted entities from 'is there any specific outier or any major dissatis...': ['dissatisfaction', 'outier']
+[2025-07-27 18:02:15] [DEBUG] [graphClass.py:163] Query: 'is there any specific outier or any major dissatisfaction mentioned' -> Entities: ['dissatisfaction', 'outier']
+[2025-07-27 18:02:15] [DEBUG] [graphClass.py:190] No exact matches, trying fuzzy search
+[2025-07-27 18:02:15] [INFO] [proceessor.py:131] Graph search returned 0 results
+[2025-07-27 18:02:15] [INFO] [proceessor.py:146] Using vector-only context
+[2025-07-27 18:02:15] [DEBUG] [proceessor.py:149] Context length: 3944 characters
+[2025-07-27 18:02:15] [INFO] [proceessor.py:168] Answer generated: 613 characters, search_type: vector_only
+[2025-07-27 18:04:07] [INFO] [app.py:224] Processing query for session f74ced04-1e1f-491f-aacf-fe52814a589f
+[2025-07-27 18:04:07] [INFO] [ChatbotSessionManager.py:167] Session f74ced04-1e1f-491f-aacf-fe52814a589f retrieved from Redis (primary cache)
+[2025-07-27 18:04:07] [INFO] [proceessor.py:115] Answering question: 'thank you' for session: f74ced04-1e1f-491f-aacf-fe52814a589f
+[2025-07-27 18:04:07] [INFO] [proceessor.py:122] Vector search returned 10 documents
+[2025-07-27 18:04:07] [DEBUG] [proceessor.py:124] Vector doc 0: Timestamp: 10/26/2024 11:28:51 | Email Address: anusha.cse20@gmail.com | Student USN: 1DS20AI010 | S...
+[2025-07-27 18:04:07] [DEBUG] [proceessor.py:124] Vector doc 1: Timestamp: 10/26/2024 14:23:00 | Email Address: tazyeenfathima007@gmail.com | Student USN: 1DS20AI05...
+[2025-07-27 18:04:07] [INFO] [proceessor.py:129] Attempting graph search...
+[2025-07-27 18:04:07] [DEBUG] [graphClass.py:69] Extracted entities from 'thank you...': []
+[2025-07-27 18:04:07] [DEBUG] [graphClass.py:163] Query: 'thank you' -> Entities: []
+[2025-07-27 18:04:07] [DEBUG] [graphClass.py:166] No entities found in query, trying keyword search
+[2025-07-27 18:04:07] [INFO] [proceessor.py:131] Graph search returned 0 results
+[2025-07-27 18:04:07] [INFO] [proceessor.py:146] Using vector-only context
+[2025-07-27 18:04:07] [DEBUG] [proceessor.py:149] Context length: 4948 characters
+[2025-07-27 18:04:07] [INFO] [proceessor.py:168] Answer generated: 130 characters, search_type: vector_only
+[2025-07-27 18:04:23] [INFO] [app.py:169] Starting session 8aa3b262-1c9b-416f-b38b-53ac7a86372e
+[2025-07-27 18:04:23] [WARNING] [ChatbotSessionManager.py:185] Session 8aa3b262-1c9b-416f-b38b-53ac7a86372e not found in either Redis or local cache
+[2025-07-27 18:04:23] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/17wuE4zThdDHuRMfGZF4IR9R_RxoyzYU1PQ52IikMXoY/export?format=csv
+[2025-07-27 18:04:23] [DEBUG] [utils.py:94] ✅ Successfully loaded 100 rows and 1 columns
+[2025-07-27 18:04:23] [INFO] [proceessor.py:54] Created 3 chunks from text of length 1008
+[2025-07-27 18:04:23] [DEBUG] [proceessor.py:58] Chunk 0 preview: rating: 8
+rating: 10
+rating: 3
+rating: 2
+rating: 1
+rating: 3
+rating: 8
+rating: 6
+rating: 8
+rating: 5...
+[2025-07-27 18:04:23] [DEBUG] [proceessor.py:58] Chunk 1 preview: rating: 2
+rating: 1
+rating: 7
+rating: 2
+rating: 2
+rating: 9
+rating: 5
+rating: 6
+rating: 1
+rating: 5
+...
+[2025-07-27 18:04:23] [DEBUG] [proceessor.py:58] Chunk 2 preview: rating: 9
+rating: 10
+rating: 6
+rating: 3
+rating: 7
+rating: 10
+rating: 3
+rating: 5
+rating: 2
+rating: ...
+[2025-07-27 18:04:23] [INFO] [app.py:184] Created 3 chunks
+[2025-07-27 18:04:23] [INFO] [proceessor.py:78] QA system created with 3 chunks
+[2025-07-27 18:04:23] [INFO] [graphClass.py:85] Created session node for: 8aa3b262-1c9b-416f-b38b-53ac7a86372e
+[2025-07-27 18:04:23] [DEBUG] [graphClass.py:69] Extracted entities from 'rating: 8
+rating: 10
+rating: 3
+rating: 2
+rating: 1...': ['rating']
+[2025-07-27 18:04:23] [DEBUG] [graphClass.py:122] Chunk 0: 1 entities - ['rating']
+[2025-07-27 18:04:23] [DEBUG] [graphClass.py:69] Extracted entities from 'rating: 2
+rating: 1
+rating: 7
+rating: 2
+rating: 2
+...': ['rating']
+[2025-07-27 18:04:23] [DEBUG] [graphClass.py:122] Chunk 1: 1 entities - ['rating']
+[2025-07-27 18:04:23] [DEBUG] [graphClass.py:69] Extracted entities from 'rating: 9
+rating: 10
+rating: 6
+rating: 3
+rating: 7...': ['rating']
+[2025-07-27 18:04:23] [DEBUG] [graphClass.py:122] Chunk 2: 1 entities - ['rating']
+[2025-07-27 18:04:23] [INFO] [graphClass.py:124] Graph created: 3 chunks, 3 total entities
+[2025-07-27 18:04:23] [INFO] [graphClass.py:150] Graph verification - Session: 8aa3b262-1c9b-416f-b38b-53ac7a86372e, Chunks: 3, Entities: 1
+[2025-07-27 18:04:23] [INFO] [ChatbotSessionManager.py:149] Session 8aa3b262-1c9b-416f-b38b-53ac7a86372e stored in Redis (primary) and local cache (fallback)
+[2025-07-27 18:04:23] [INFO] [app.py:209] Session 8aa3b262-1c9b-416f-b38b-53ac7a86372e created successfully
+[2025-07-27 18:04:30] [INFO] [app.py:224] Processing query for session 8aa3b262-1c9b-416f-b38b-53ac7a86372e
+[2025-07-27 18:04:30] [INFO] [ChatbotSessionManager.py:167] Session 8aa3b262-1c9b-416f-b38b-53ac7a86372e retrieved from Redis (primary cache)
+[2025-07-27 18:04:30] [INFO] [proceessor.py:115] Answering question: 'hello' for session: 8aa3b262-1c9b-416f-b38b-53ac7a86372e
+[2025-07-27 18:04:30] [INFO] [proceessor.py:122] Vector search returned 3 documents
+[2025-07-27 18:04:30] [DEBUG] [proceessor.py:124] Vector doc 0: rating: 9
+rating: 10
+rating: 6
+rating: 3
+rating: 7
+rating: 10
+rating: 3
+rating: 5
+rating: 2
+rating: ...
+[2025-07-27 18:04:30] [DEBUG] [proceessor.py:124] Vector doc 1: rating: 8
+rating: 10
+rating: 3
+rating: 2
+rating: 1
+rating: 3
+rating: 8
+rating: 6
+rating: 8
+rating: 5...
+[2025-07-27 18:04:30] [INFO] [proceessor.py:129] Attempting graph search...
+[2025-07-27 18:04:30] [DEBUG] [graphClass.py:69] Extracted entities from 'hello...': []
+[2025-07-27 18:04:30] [DEBUG] [graphClass.py:163] Query: 'hello' -> Entities: []
+[2025-07-27 18:04:30] [DEBUG] [graphClass.py:166] No entities found in query, trying keyword search
+[2025-07-27 18:04:31] [INFO] [proceessor.py:131] Graph search returned 0 results
+[2025-07-27 18:04:31] [INFO] [proceessor.py:146] Using vector-only context
+[2025-07-27 18:04:31] [DEBUG] [proceessor.py:149] Context length: 1091 characters
+[2025-07-27 18:04:31] [INFO] [proceessor.py:168] Answer generated: 174 characters, search_type: vector_only
+[2025-07-27 18:04:41] [INFO] [app.py:224] Processing query for session 8aa3b262-1c9b-416f-b38b-53ac7a86372e
+[2025-07-27 18:04:41] [INFO] [ChatbotSessionManager.py:167] Session 8aa3b262-1c9b-416f-b38b-53ac7a86372e retrieved from Redis (primary cache)
+[2025-07-27 18:04:41] [INFO] [proceessor.py:115] Answering question: 'how is the overall rating?' for session: 8aa3b262-1c9b-416f-b38b-53ac7a86372e
+[2025-07-27 18:04:41] [INFO] [proceessor.py:122] Vector search returned 3 documents
+[2025-07-27 18:04:41] [DEBUG] [proceessor.py:124] Vector doc 0: rating: 9
+rating: 10
+rating: 6
+rating: 3
+rating: 7
+rating: 10
+rating: 3
+rating: 5
+rating: 2
+rating: ...
+[2025-07-27 18:04:41] [DEBUG] [proceessor.py:124] Vector doc 1: rating: 2
+rating: 1
+rating: 7
+rating: 2
+rating: 2
+rating: 9
+rating: 5
+rating: 6
+rating: 1
+rating: 5
+...
+[2025-07-27 18:04:41] [INFO] [proceessor.py:129] Attempting graph search...
+[2025-07-27 18:04:41] [DEBUG] [graphClass.py:69] Extracted entities from 'how is the overall rating?...': ['rating']
+[2025-07-27 18:04:41] [DEBUG] [graphClass.py:163] Query: 'how is the overall rating?' -> Entities: ['rating']
+[2025-07-27 18:04:42] [INFO] [graphClass.py:186] Graph search found 3 results via entity matching
+[2025-07-27 18:04:42] [INFO] [proceessor.py:131] Graph search returned 3 results
+[2025-07-27 18:04:42] [DEBUG] [proceessor.py:134] Graph result 0: rating: 9
+rating: 10
+rating: 6
+rating: 3
+rating: 7
+rating: 10
+rating: 3
+rating: 5
+rating: 2
+rating: ...
+[2025-07-27 18:04:42] [DEBUG] [proceessor.py:134] Graph result 1: rating: 2
+rating: 1
+rating: 7
+rating: 2
+rating: 2
+rating: 9
+rating: 5
+rating: 6
+rating: 1
+rating: 5
+...
+[2025-07-27 18:04:42] [INFO] [proceessor.py:143] Using hybrid context (vector + graph)
+[2025-07-27 18:04:42] [DEBUG] [proceessor.py:149] Context length: 2229 characters
+[2025-07-27 18:04:44] [INFO] [proceessor.py:168] Answer generated: 1663 characters, search_type: hybrid
