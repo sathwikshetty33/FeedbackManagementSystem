@@ -1,4 +1,5 @@
 core/.env
 .venv
 analysis-service/.env
-./revamp-service/.env
+revamp_service/.env
+frontend/node_modules

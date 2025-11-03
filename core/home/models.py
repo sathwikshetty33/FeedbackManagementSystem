@@ -13,6 +13,7 @@ VISIBILITY_CHOICES = [
     ('8', 'Semester 8'),
     ('anyone', 'Anyone'),
     ('teachers', 'Teachers'),
+    ('students', 'Students')
 ]
 
 class Student(models.Model):

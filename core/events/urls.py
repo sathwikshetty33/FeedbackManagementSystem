@@ -9,4 +9,5 @@ urlpatterns = [
     path('events/<int:pk>/', EventDetailAPIView.as_view(), name='event-detail'),
     path('claim-event/<int:event_id>/', ClaimEventAttendance.as_view(), name='claim-event'),
     path('attended-events/', ListAttendedEvents.as_view(), name='attended-events'),
+    path('student-events/', GetAllStudentsEvents.as_view(), name='student-events'),
     ]

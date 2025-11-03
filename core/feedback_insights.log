@@ -435,3 +435,114 @@ Traceback (most recent call last):
   File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/django/template/loader.py", line 19, in get_template
     raise TemplateDoesNotExist(template_name, chain=chain)
 django.template.exceptions.TemplateDoesNotExist: error.html
+2025-07-28 00:01:20,645 INFO views Received LangChain RAG feedback analysis request
+2025-10-22 12:21:15,324 INFO autoreload Watching for file changes with StatReloader
+2025-10-22 12:31:49,877 INFO views Received LangChain RAG feedback analysis request
+2025-10-22 12:34:42,182 INFO views Received LangChain RAG feedback analysis request
+2025-11-03 19:35:32,391 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 19:44:27,650 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/authorization/views.py changed, reloading.
+2025-11-03 19:44:27,989 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 19:44:32,274 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/authorization/views.py changed, reloading.
+2025-11-03 19:44:32,586 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 19:44:36,788 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/authorization/views.py changed, reloading.
+2025-11-03 19:44:37,076 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 19:44:40,310 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/authorization/urls.py changed, reloading.
+2025-11-03 19:44:40,561 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 19:44:43,771 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/authorization/urls.py changed, reloading.
+2025-11-03 19:44:44,018 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 19:44:46,227 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/authorization/urls.py changed, reloading.
+2025-11-03 19:44:46,474 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:18:04,836 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:18:05,391 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:18:08,628 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:18:08,868 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:18:12,030 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:18:12,288 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:18:14,468 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:18:14,723 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:18:18,892 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:18:19,137 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:18:23,398 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:18:23,703 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:18:25,889 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:18:26,201 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:18:32,517 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:18:32,816 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:18:37,076 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:18:37,355 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:18:45,598 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:18:45,958 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:19:29,419 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:19:29,673 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:19:30,872 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:19:31,141 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:19:33,507 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:19:33,779 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:19:36,061 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:19:36,396 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:19:38,720 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:19:39,032 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:19:41,275 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:19:41,543 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:19:43,785 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:19:44,065 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:19:50,381 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:19:50,608 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:19:53,812 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:19:54,101 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:20:07,396 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:20:07,663 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:20:16,966 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:20:17,205 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:20:20,411 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:20:20,648 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:20:23,874 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:20:24,130 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:22:44,542 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:22:44,800 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:23:00,111 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:23:00,327 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:23:11,650 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/urls.py changed, reloading.
+2025-11-03 20:23:12,046 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:23:16,379 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/urls.py changed, reloading.
+2025-11-03 20:23:16,698 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:23:21,868 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/urls.py changed, reloading.
+2025-11-03 20:23:22,074 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:23:24,211 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/urls.py changed, reloading.
+2025-11-03 20:23:24,501 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:23:28,729 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/urls.py changed, reloading.
+2025-11-03 20:23:28,976 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:23:32,151 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/urls.py changed, reloading.
+2025-11-03 20:23:32,367 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:26:09,820 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/home/models.py changed, reloading.
+2025-11-03 20:26:10,067 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:26:12,265 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/home/models.py changed, reloading.
+2025-11-03 20:26:12,526 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:26:27,881 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:26:28,140 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:43:06,081 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:43:06,404 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:43:09,654 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:43:09,973 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:43:13,198 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:43:13,464 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:43:14,638 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:43:14,926 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:43:17,078 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:43:17,336 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:43:40,723 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:43:40,965 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:43:44,195 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:43:44,437 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:43:46,688 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:43:46,957 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:43:49,235 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:43:49,472 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:43:57,771 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:43:58,006 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:44:00,209 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:44:00,517 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:44:04,777 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:44:05,031 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:44:09,352 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:44:09,596 INFO autoreload Watching for file changes with StatReloader

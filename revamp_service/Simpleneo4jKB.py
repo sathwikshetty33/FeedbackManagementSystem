@@ -67,7 +67,6 @@ class Simpleneo4jKB(BaseGraph):
         
         # Combine and deduplicate
         all_entities = list(set(entities + keywords))
-        logging.debug(f"Extracted entities from '{text[:50]}...': {all_entities}")
         return all_entities
     
     async def create_simple_graph(self, chunks: List[str], session_id: str):
@@ -120,7 +119,6 @@ class Simpleneo4jKB(BaseGraph):
                         )
                     
                     total_entities += len(entities)
-                    logging.debug(f"Chunk {i}: {len(entities)} entities - {entities[:5]}")
                 
                 logging.info(f"Graph created: {len(chunks)} chunks, {total_entities} total entities")
                 

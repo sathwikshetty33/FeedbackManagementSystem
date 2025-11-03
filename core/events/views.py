@@ -240,3 +240,76 @@ class ListAttendedEvents(APIView):
         
         serializer = EventSerializer(attended_events, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+
+class GetAllStudentsEvents(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        try:
+            # Ensure the user has a student profile
+            student = request.user.student
+        except Exception:
+            return Response({"error": "Student profile not found."}, status=status.HTTP_404_NOT_FOUND)
+
+        # Fetch events visible to this student
+        events = Event.objects.filter(
+            visibility__in=['anyone', str(student.semester),'students']
+        ).order_by('-start_time')
+
+        # Build the response list
+        response_data = []
+        for event in events:
+            is_marked = EventGiven.objects.filter(event=event, user=request.user).exists()
+            response_data.append({
+                "id": event.id,
+                "name": event.name,
+                "description": event.description,
+                "start_time": event.start_time,
+                "end_time": event.end_time,
+                "visibility": event.visibility,
+                "form_url": event.form_url,
+                "worksheet_url": event.worksheet_url,
+                "created_by": event.created_by.username if event.created_by else None,
+                "is_marked": is_marked
+            })
+
+        return Response(response_data, status=status.HTTP_200_OK)
+
+class GetAllTeachersEvents(APIView):
+    """
+    API view to list all events created by the authenticated teacher.
+    """
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated, IsTeacher]
+
+    def get(self, request):
+        try:
+            # Ensure the user has a teacher profile
+            teacher = request.user.teacher
+        except Exception:
+            return Response({"error": "Student profile not found."}, status=status.HTTP_404_NOT_FOUND)
+
+        # Fetch events visible to this student
+        events = Event.objects.filter(
+            visibility__in=['anyone', str(student.semester),'students']
+        ).order_by('-start_time')
+
+        # Build the response list
+        response_data = []
+        for event in events:
+            is_marked = EventGiven.objects.filter(event=event, user=request.user).exists()
+            response_data.append({
+                "id": event.id,
+                "name": event.name,
+                "description": event.description,
+                "start_time": event.start_time,
+                "end_time": event.end_time,
+                "visibility": event.visibility,
+                "form_url": event.form_url,
+                "worksheet_url": event.worksheet_url,
+                "created_by": event.created_by.username if event.created_by else None,
+                "is_marked": is_marked
+            })
+
+        return Response(response_data, status=status.HTTP_200_OK)

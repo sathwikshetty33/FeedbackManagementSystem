@@ -142,3 +142,50 @@ class CheckSuperuser(APIView):
             return Response({"user_type": "Superuser"}, status=status.HTTP_200_OK)
         else:
             return Response({"error": "User is not a superuser"}, status=status.HTTP_401_UNAUTHORIZED)
+
+class Login(APIView):
+    permission_classes = [AllowAny]
+    def post(self, request):
+        data = request.data
+        serializer = LoginSerializer(data=data)
+        if not serializer.is_valid():
+            return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        
+        username = serializer.data['username']
+        password = serializer.data['password']
+        user = authenticate(username=username, password=password)
+        
+        if user is None:
+            return Response({
+                "error": "Invalid username and password"
+            }, status=status.HTTP_401_UNAUTHORIZED)
+        if Student.objects.filter(user=user).exists():
+            user_type = "Student"
+        elif Teacher.objects.filter(user=user).exists():
+            user_type = "Teacher"
+        elif user.is_superuser:
+            user_type = "Superuser"
+        token, _ = Token.objects.get_or_create(user=user)
+        return Response({
+            "token": token.key,
+            "userId": user.id,
+            "user_type": user_type
+        }, status=status.HTTP_200_OK)
+    
+class VerifyToken(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request):
+        user = request.user
+        if Student.objects.filter(user=user).exists():
+            user_type = "Student"
+        elif Teacher.objects.filter(user=user).exists():
+            user_type = "Teacher"
+        elif user.is_superuser:
+            user_type = "Superuser"
+            
+        return Response({
+            "userId": user.id,
+            "username": user.username,
+            "user_type": user_type
+        }, status=status.HTTP_200_OK)
