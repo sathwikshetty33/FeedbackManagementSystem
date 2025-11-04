@@ -15,6 +15,15 @@ const Navbar = () => {
 
   const isTeacherOrAdmin = user?.user_type === 'Teacher' || user?.user_type === 'admin'
 
+  // Determine dashboard path dynamically
+  const getDashboardLink = () => {
+    if (user?.user_type === 'Student') return '/student-dashboard'
+    if (user?.user_type === 'Teacher') return '/teacher-dashboard'
+    return null // no dashboard for others
+  }
+
+  const dashboardLink = getDashboardLink()
+
   return (
     <nav className="bg-gradient-to-r from-gray-900 to-black border-b border-blue-500/30 shadow-lg shadow-blue-500/10 sticky top-0 z-50 backdrop-blur-xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -40,12 +49,14 @@ const Navbar = () => {
 
             {user ? (
               <>
-                <Link
-                  to="/dashboard"
-                  className="px-4 py-2 text-gray-300 hover:text-white hover:bg-gray-800/50 rounded-lg transition-all duration-300 font-medium"
-                >
-                  Dashboard
-                </Link>
+                {dashboardLink && (
+                  <Link
+                    to={dashboardLink}
+                    className="px-4 py-2 text-gray-300 hover:text-white hover:bg-gray-800/50 rounded-lg transition-all duration-300 font-medium"
+                  >
+                    Dashboard
+                  </Link>
+                )}
 
                 {isTeacherOrAdmin && (
                   <Link
@@ -140,13 +151,15 @@ const Navbar = () => {
 
           {user ? (
             <>
-              <Link
-                to="/dashboard"
-                className="block px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800/50 rounded-lg transition-all duration-300 font-medium"
-                onClick={() => setIsOpen(false)}
-              >
-                Dashboard
-              </Link>
+              {dashboardLink && (
+                <Link
+                  to={dashboardLink}
+                  className="block px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800/50 rounded-lg transition-all duration-300 font-medium"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Dashboard
+                </Link>
+              )}
 
               {isTeacherOrAdmin && (
                 <Link

@@ -9,6 +9,21 @@ const EventsDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [notification, setNotification] = useState({ show: false, message: '', type: '' });
   const [insightsModal, setInsightsModal] = useState({ show: false, eventId: null, eventName: '', loading: false });
+  const [formModal, setFormModal] = useState({ 
+    show: false, 
+    isEditMode: false, 
+    eventId: null,
+    loading: false
+  });
+  const [formData, setFormData] = useState({
+    name: '',
+    description: '',
+    start_time: '',
+    end_time: '',
+    visibility: 'anyone',
+    form_url: '',
+    worksheet_url: ''
+  });
 
   useEffect(() => {
     const token = getToken();
@@ -108,13 +123,133 @@ const EventsDashboard = () => {
       '1': 'Semester 1', '2': 'Semester 2', '3': 'Semester 3',
       '4': 'Semester 4', '5': 'Semester 5', '6': 'Semester 6',
       '7': 'Semester 7', '8': 'Semester 8',
-      'anyone': 'Anyone', 'teachers': 'Teachers Only'
+      'anyone': 'Anyone', 'teachers': 'Teachers Only', 'students': 'Students'
     };
     return map[visibility] || visibility;
   };
 
   const closeModal = () => {
     setInsightsModal({ show: false, eventId: null, eventName: '', loading: false });
+  };
+
+  // Event Form Functions
+  const openCreateForm = () => {
+    setFormData({
+      name: '',
+      description: '',
+      start_time: '',
+      end_time: '',
+      visibility: 'anyone',
+      form_url: '',
+      worksheet_url: ''
+    });
+    setFormModal({ show: true, isEditMode: false, eventId: null, loading: false });
+  };
+
+  const openEditForm = async (eventId) => {
+    setFormModal({ show: true, isEditMode: true, eventId, loading: true });
+
+    try {
+      const response = await fetch(`${API_URL}/events/events/${eventId}/`, {
+        headers: {
+          'Authorization': `Token ${getToken()}`
+        }
+      });
+
+      if (response.ok) {
+        const event = await response.json();
+        
+        const formatDateForInput = (dateString) => {
+          const date = new Date(dateString);
+          const year = date.getFullYear();
+          const month = String(date.getMonth() + 1).padStart(2, '0');
+          const day = String(date.getDate()).padStart(2, '0');
+          const hours = String(date.getHours()).padStart(2, '0');
+          const minutes = String(date.getMinutes()).padStart(2, '0');
+          return `${year}-${month}-${day}T${hours}:${minutes}`;
+        };
+
+        setFormData({
+          name: event.name,
+          description: event.description,
+          start_time: formatDateForInput(event.start_time),
+          end_time: formatDateForInput(event.end_time),
+          visibility: event.visibility,
+          form_url: event.form_url,
+          worksheet_url: event.worksheet_url
+        });
+        setFormModal(prev => ({ ...prev, loading: false }));
+      } else {
+        throw new Error('Failed to fetch event details');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      showNotification('Error loading event details', 'error');
+      closeFormModal();
+    }
+  };
+
+  const closeFormModal = () => {
+    setFormModal({ show: false, isEditMode: false, eventId: null, loading: false });
+  };
+
+  const handleFormInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (!formData.name || !formData.description || !formData.start_time || 
+        !formData.end_time || !formData.visibility || !formData.form_url || 
+        !formData.worksheet_url) {
+      showNotification('Please fill out all fields', 'error');
+      return;
+    }
+
+    setFormModal(prev => ({ ...prev, loading: true }));
+
+    try {
+      const eventData = {
+        ...formData,
+        start_time: new Date(formData.start_time).toISOString(),
+        end_time: new Date(formData.end_time).toISOString()
+      };
+
+      const method = formModal.isEditMode ? 'PUT' : 'POST';
+      const endpoint = formModal.isEditMode 
+        ? `${API_URL}/events/events/${formModal.eventId}/` 
+        : `${API_URL}/events/create-events/`;
+
+      const response = await fetch(endpoint, {
+        method: method,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Token ${getToken()}`
+        },
+        body: JSON.stringify(eventData)
+      });
+
+      if (response.ok) {
+        showNotification(
+          formModal.isEditMode ? 'Event updated successfully' : 'Event created successfully',
+          'success'
+        );
+        closeFormModal();
+        loadEvents();
+      } else {
+        throw new Error('Failed to save event');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      showNotification('Error saving event', 'error');
+    } finally {
+      setFormModal(prev => ({ ...prev, loading: false }));
+    }
   };
 
   if (loading) {
@@ -185,13 +320,163 @@ const EventsDashboard = () => {
         </div>
       )}
 
+      {/* Event Form Modal */}
+      {formModal.show && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4 overflow-y-auto">
+          <div className="bg-gray-900 rounded-lg border border-blue-500/30 shadow-2xl shadow-blue-500/20 max-w-2xl w-full my-8">
+            <div className="flex justify-between items-center p-6 border-b border-gray-800">
+              <h3 className="text-2xl font-bold text-white">
+                {formModal.isEditMode ? 'Edit Event' : 'Create New Event'}
+              </h3>
+              <button
+                onClick={closeFormModal}
+                className="text-gray-400 hover:text-white text-2xl transition-colors"
+              >
+                ×
+              </button>
+            </div>
+            
+            <div className="p-6 max-h-[70vh] overflow-y-auto">
+              {formModal.loading && formModal.isEditMode ? (
+                <div className="text-center py-8">
+                  <div className="animate-spin rounded-full h-16 w-16 border-4 border-blue-500 border-t-transparent mx-auto mb-4"></div>
+                  <p className="text-gray-300">Loading event details...</p>
+                </div>
+              ) : (
+                <div className="space-y-5">
+                  {/* Event Name */}
+                  <div>
+                    <label className="block text-white font-semibold mb-2">Event Name</label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleFormInputChange}
+                      className="w-full px-4 py-3 bg-black border border-gray-700 rounded-lg text-white focus:border-blue-500 focus:outline-none transition-colors"
+                      required
+                    />
+                  </div>
+
+                  {/* Description */}
+                  <div>
+                    <label className="block text-white font-semibold mb-2">Description</label>
+                    <textarea
+                      name="description"
+                      value={formData.description}
+                      onChange={handleFormInputChange}
+                      rows="4"
+                      className="w-full px-4 py-3 bg-black border border-gray-700 rounded-lg text-white focus:border-blue-500 focus:outline-none transition-colors resize-vertical"
+                      required
+                    />
+                  </div>
+
+                  {/* Start Time */}
+                  <div>
+                    <label className="block text-white font-semibold mb-2">Start Date & Time</label>
+                    <input
+                      type="datetime-local"
+                      name="start_time"
+                      value={formData.start_time}
+                      onChange={handleFormInputChange}
+                      className="w-full px-4 py-3 bg-black border border-gray-700 rounded-lg text-white focus:border-blue-500 focus:outline-none transition-colors [color-scheme:dark]"
+                      required
+                    />
+                  </div>
+
+                  {/* End Time */}
+                  <div>
+                    <label className="block text-white font-semibold mb-2">End Date & Time</label>
+                    <input
+                      type="datetime-local"
+                      name="end_time"
+                      value={formData.end_time}
+                      onChange={handleFormInputChange}
+                      className="w-full px-4 py-3 bg-black border border-gray-700 rounded-lg text-white focus:border-blue-500 focus:outline-none transition-colors [color-scheme:dark]"
+                      required
+                    />
+                  </div>
+
+                  {/* Visibility */}
+                  <div>
+                    <label className="block text-white font-semibold mb-2">Visibility</label>
+                    <select
+                      name="visibility"
+                      value={formData.visibility}
+                      onChange={handleFormInputChange}
+                      className="w-full px-4 py-3 bg-black border border-gray-700 rounded-lg text-white focus:border-blue-500 focus:outline-none transition-colors"
+                      required
+                    >
+                      <option value="anyone">Anyone</option>
+                      <option value="students">Students</option>
+                      <option value="teachers">Teachers Only</option>
+                      <option value="1">Semester 1</option>
+                      <option value="2">Semester 2</option>
+                      <option value="3">Semester 3</option>
+                      <option value="4">Semester 4</option>
+                      <option value="5">Semester 5</option>
+                      <option value="6">Semester 6</option>
+                      <option value="7">Semester 7</option>
+                      <option value="8">Semester 8</option>
+                    </select>
+                  </div>
+
+                  {/* Registration Form URL */}
+                  <div>
+                    <label className="block text-white font-semibold mb-2">Registration Form URL</label>
+                    <input
+                      type="url"
+                      name="form_url"
+                      value={formData.form_url}
+                      onChange={handleFormInputChange}
+                      className="w-full px-4 py-3 bg-black border border-gray-700 rounded-lg text-white focus:border-blue-500 focus:outline-none transition-colors"
+                      placeholder="https://example.com/form"
+                      required
+                    />
+                  </div>
+
+                  {/* Worksheet URL */}
+                  <div>
+                    <label className="block text-white font-semibold mb-2">Worksheet URL</label>
+                    <input
+                      type="url"
+                      name="worksheet_url"
+                      value={formData.worksheet_url}
+                      onChange={handleFormInputChange}
+                      className="w-full px-4 py-3 bg-black border border-gray-700 rounded-lg text-white focus:border-blue-500 focus:outline-none transition-colors"
+                      placeholder="https://example.com/worksheet"
+                      required
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="p-6 border-t border-gray-800 flex justify-end gap-3">
+              <button
+                onClick={closeFormModal}
+                className="bg-red-500/20 text-red-400 border border-red-500/50 px-6 py-2.5 rounded-lg font-semibold hover:bg-red-500/30 transition-all duration-300"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleFormSubmit}
+                disabled={formModal.loading}
+                className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2.5 rounded-lg font-semibold transition-all duration-300 shadow-lg shadow-blue-500/50 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {formModal.loading ? 'Saving...' : formModal.isEditMode ? 'Update Event' : 'Create Event'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
           <h2 className="text-3xl font-bold text-white">Events Management</h2>
           <button
-            onClick={() => navigate('/admin-create')}
+            onClick={openCreateForm}
             className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 shadow-lg shadow-blue-500/50 hover:shadow-blue-500/70"
           >
             Create New Event
@@ -205,7 +490,7 @@ const EventsDashboard = () => {
             <h3 className="text-2xl font-bold text-white mb-2">No events found</h3>
             <p className="text-gray-400 mb-6">Create your first event to get started.</p>
             <button
-              onClick={() => navigate('/admin-create')}
+              onClick={openCreateForm}
               className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 shadow-lg shadow-blue-500/50"
             >
               Create New Event
@@ -222,6 +507,8 @@ const EventsDashboard = () => {
                     <th className="px-6 py-4 text-left text-white font-semibold">Start Time</th>
                     <th className="px-6 py-4 text-left text-white font-semibold">End Time</th>
                     <th className="px-6 py-4 text-left text-white font-semibold">Visibility</th>
+                    <th className="px-6 py-4 text-left text-white font-semibold">Form URL</th>
+                    <th className="px-6 py-4 text-left text-white font-semibold">Worksheet URL</th>
                     <th className="px-6 py-4 text-left text-white font-semibold">Actions</th>
                   </tr>
                 </thead>
@@ -247,33 +534,59 @@ const EventsDashboard = () => {
                         </span>
                       </td>
                       <td className="px-6 py-4">
-                        <div className="flex flex-wrap gap-2">
-                          <button
-                            onClick={() => generateInsights(event.id, event.name)}
-                            className="bg-blue-500/20 text-blue-400 border border-blue-500/50 px-3 py-1.5 rounded text-sm hover:bg-blue-500/30 transition-all duration-300"
-                          >
-                            Insights
-                          </button>
-                          <button
-                            onClick={() => openChat(event.id, event.name)}
-                            className="bg-gray-700 text-gray-300 border border-gray-600 px-3 py-1.5 rounded text-sm hover:bg-gray-600 transition-all duration-300"
-                          >
-                            Chat
-                          </button>
-                          <button
-                            onClick={() => navigate(`/admin-create/${event.id}`)}
-                            className="bg-yellow-500/20 text-yellow-400 border border-yellow-500/50 px-3 py-1.5 rounded text-sm hover:bg-yellow-500/30 transition-all duration-300"
-                          >
-                            Edit
-                          </button>
-                          <button
-                            onClick={() => deleteEvent(event.id)}
-                            className="bg-red-500/20 text-red-400 border border-red-500/50 px-3 py-1.5 rounded text-sm hover:bg-red-500/30 transition-all duration-300"
-                          >
-                            Delete
-                          </button>
-                        </div>
+                        <a
+                          href={event.form_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-green-400 hover:text-green-300 underline transition-colors"
+                        >
+                          Open Form
+                        </a>
                       </td>
+                      <td className="px-6 py-4">
+                        <a
+                          href={event.worksheet_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-purple-400 hover:text-purple-300 underline transition-colors"
+                        >
+                          Open Worksheet
+                        </a>
+                      </td>
+                      <td className="px-6 py-4 text-right">
+  <div className="relative group inline-block">
+    <button className="px-3 py-1.5 bg-gray-800 hover:bg-gray-700 text-white rounded-md text-sm transition">
+      ⋮
+    </button>
+    <div className="absolute right-0 mt-2 hidden group-hover:block bg-gray-900 border border-gray-700 rounded-lg shadow-lg min-w-[150px] z-10">
+      <button
+        onClick={() => generateInsights(event.id, event.name)}
+        className="block w-full text-left px-4 py-2 hover:bg-blue-600/20 text-blue-400 text-sm"
+      >
+        📊 Insights
+      </button>
+      <button
+        onClick={() => openChat(event.id, event.name)}
+        className="block w-full text-left px-4 py-2 hover:bg-gray-600/20 text-gray-300 text-sm"
+      >
+        💬 Chat
+      </button>
+      <button
+        onClick={() => openEditForm(event.id)}
+        className="block w-full text-left px-4 py-2 hover:bg-yellow-600/20 text-yellow-400 text-sm"
+      >
+        ✏️ Edit
+      </button>
+      <button
+        onClick={() => deleteEvent(event.id)}
+        className="block w-full text-left px-4 py-2 hover:bg-red-600/20 text-red-400 text-sm"
+      >
+        🗑️ Delete
+      </button>
+    </div>
+  </div>
+</td>
+
                     </tr>
                   ))}
                 </tbody>
@@ -284,63 +597,7 @@ const EventsDashboard = () => {
       </div>
 
       {/* Footer */}
-      <footer className="bg-gradient-to-r from-gray-900 to-black border-t border-blue-500/30 mt-16 py-12 px-4">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div>
-            <h3 className="text-xl font-bold text-blue-400 mb-4">About FeedTrack</h3>
-            <p className="text-gray-400 leading-relaxed">
-              FeedTrack is a comprehensive feedback management platform tailored for department events. 
-              It empowers organizers to create tailored feedback forms, collect valuable responses, 
-              and gain actionable insights—enhancing the quality and impact of every event.
-            </p>
-          </div>
-          
-          <div>
-            <h3 className="text-xl font-bold text-blue-400 mb-4">Useful Links</h3>
-            <ul className="space-y-2">
-              <li><a href="/" className="text-gray-400 hover:text-blue-400 transition-colors">Home</a></li>
-              <li><a href="/admin-create" className="text-gray-400 hover:text-blue-400 transition-colors">Create Feedback Form</a></li>
-              <li><a href="/admin-dashboard" className="text-gray-400 hover:text-blue-400 transition-colors">Analyze Feedback</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-blue-400 transition-colors">Contact Us</a></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h3 className="text-xl font-bold text-blue-400 mb-4">Contact</h3>
-            <div className="space-y-2 text-gray-400">
-              <p className="flex items-center gap-2">
-                <span>📧</span> CodeZero@gmail.com
-              </p>
-              <p className="flex items-center gap-2">
-                <span>📱</span> +91 6678898997
-              </p>
-              <div className="flex gap-3 mt-4">
-                <a 
-                  href="https://www.instagram.com/codezeroaiml/" 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white hover:bg-blue-600 transition-all duration-300 shadow-lg shadow-blue-500/50"
-                >
-                  i
-                </a>
-                <a 
-                  href="https://www.linkedin.com/in/code-zero-4a3406334" 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white hover:bg-blue-600 transition-all duration-300 shadow-lg shadow-blue-500/50"
-                >
-                  in
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div className="max-w-7xl mx-auto mt-8 pt-8 border-t border-gray-800 text-center text-gray-400 text-sm">
-          © 2024 FeedTrack. All rights reserved. | Designed by CodeZero Team
-        </div>
-      </footer>
-
+      
       <style>{`
         @keyframes fade-in {
           from { opacity: 0; transform: translateY(-10px); }

@@ -10,6 +10,7 @@ import TeacherDashboard from './pages/TeacherDashboard'
 import AdminDashboard from './pages/AdminDashboard'
 import About from './pages/About'
 import EventsDashboard from './pages/EventDashboard'
+import Footer from './pages/Footer'
 
 function App() {
   return (
@@ -78,7 +79,9 @@ function App() {
             }
           />
         </Routes>
+        <Footer />
       </div>
+      
     </>
   )
 }

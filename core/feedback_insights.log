@@ -566,3 +566,4 @@ django.template.exceptions.TemplateDoesNotExist: error.html
 2025-11-04 08:17:37,792 INFO views Received LangChain RAG feedback analysis request
 2025-11-04 08:17:37,811 ERROR views Cannot connect to FastAPI service
 2025-11-04 08:17:37,811 ERROR log Service Unavailable: /insights/generate-insights/
+2025-11-04 20:08:47,442 INFO autoreload Watching for file changes with StatReloader
