@@ -563,3 +563,6 @@ django.template.exceptions.TemplateDoesNotExist: error.html
 2025-11-03 20:45:29,642 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/urls.py changed, reloading.
 2025-11-03 20:45:29,909 INFO autoreload Watching for file changes with StatReloader
 2025-11-04 07:57:19,163 INFO autoreload Watching for file changes with StatReloader
+2025-11-04 08:17:37,792 INFO views Received LangChain RAG feedback analysis request
+2025-11-04 08:17:37,811 ERROR views Cannot connect to FastAPI service
+2025-11-04 08:17:37,811 ERROR log Service Unavailable: /insights/generate-insights/

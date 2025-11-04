@@ -9,6 +9,7 @@ import StudentDashboard from './pages/StudentDashboard'
 import TeacherDashboard from './pages/TeacherDashboard'
 import AdminDashboard from './pages/AdminDashboard'
 import About from './pages/About'
+import EventsDashboard from './pages/EventDashboard'
 
 function App() {
   return (
@@ -40,7 +41,7 @@ function App() {
             }
           />
           
-          {/* Admin Dashboard */}
+          {/* Admin Dashboard
           <Route
             path="/admin-dashboard"
             element={
@@ -48,8 +49,16 @@ function App() {
                 <AdminDashboard />
               </ProtectedRoute>
             }
+          /> */}
+          {/* Admin Dashboard */}
+          <Route
+            path="/admin-dashboard"
+            element={
+              <ProtectedRoute allowedUserTypes={['Superuser']}>
+                <EventsDashboard />
+              </ProtectedRoute>
+            }
           />
-          
           {/* General Dashboard (fallback) */}
           <Route
             path="/dashboard"
