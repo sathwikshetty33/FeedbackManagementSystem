@@ -288,11 +288,11 @@ class GetAllTeachersEvents(APIView):
             # Ensure the user has a teacher profile
             teacher = request.user.teacher
         except Exception:
-            return Response({"error": "Student profile not found."}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"error": "Teacher profile not found."}, status=status.HTTP_404_NOT_FOUND)
 
         # Fetch events visible to this student
         events = Event.objects.filter(
-            visibility__in=['anyone', str(student.semester),'students']
+            visibility__in=['anyone', 'teachers']
         ).order_by('-start_time')
 
         # Build the response list

@@ -220,7 +220,7 @@ const StudentDashboard = () => {
               <div>
                 <h2 className="text-2xl font-bold text-white">Welcome back!</h2>
                 <span className="inline-block mt-2 px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm border border-blue-500/50">
-                  Student
+                  {user?.username || 'Student'}
                 </span>
               </div>
             </div>

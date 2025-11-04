@@ -546,3 +546,20 @@ django.template.exceptions.TemplateDoesNotExist: error.html
 2025-11-03 20:44:05,031 INFO autoreload Watching for file changes with StatReloader
 2025-11-03 20:44:09,352 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
 2025-11-03 20:44:09,596 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:44:48,099 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:44:48,330 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:44:49,576 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:44:49,798 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:44:51,994 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:44:52,273 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:44:56,537 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:44:56,807 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:44:59,031 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:44:59,263 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:45:02,511 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/views.py changed, reloading.
+2025-11-03 20:45:02,788 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:45:26,174 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/urls.py changed, reloading.
+2025-11-03 20:45:26,421 INFO autoreload Watching for file changes with StatReloader
+2025-11-03 20:45:29,642 INFO autoreload /home/sathwik/feedbackmanagementsystem/core/events/urls.py changed, reloading.
+2025-11-03 20:45:29,909 INFO autoreload Watching for file changes with StatReloader
+2025-11-04 07:57:19,163 INFO autoreload Watching for file changes with StatReloader
