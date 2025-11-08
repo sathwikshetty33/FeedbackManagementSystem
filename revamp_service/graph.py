@@ -166,9 +166,155 @@ def feature_analysis_tool(sheet_url: str, features: List[str]) -> Dict[str, Any]
         error_msg = f"Analysis failed: {str(e)}"
         logger.error(error_msg, exc_info=True)
         return {"error": error_msg}
+
+
+@tool
+def filter_rows_tool(sheet_url: str, conditions: Dict[str, Any]) -> Dict[str, Any]:
+    """Filter and retrieve rows from Google Sheet based on multiple conditions.
+    
+    This tool loads data from a Google Sheet and filters rows that match
+    all the specified conditions (AND logic).
+    
+    Args:
+        sheet_url: URL of the Google Sheet containing the dataset
+        conditions: Dictionary mapping column names to their expected values
+                   Example: {"Status": "Active", "Score": 85, "Department": "Engineering"}
+                   Supports exact matches for strings and numbers
+    
+    Returns:
+        Dictionary containing:
+        - filtered_rows: List of dictionaries representing matching rows
+        - total_matches: Number of rows that matched the conditions
+        - total_rows: Total number of rows in dataset
+        - conditions_applied: The conditions that were used for filtering
+        - columns: List of all column names
+    """
+    try:
+        logger.info(f"Filtering rows with conditions: {conditions}")
+        logger.info(f"From sheet: {sheet_url[:50]}...")
+        
+        # Extract the sheet ID
+        sheet_id = None
+        match = re.search(r'/d/([a-zA-Z0-9-_]+)', sheet_url)
+        if match:
+            sheet_id = match.group(1)
+        elif len(sheet_url) > 20 and '/' not in sheet_url:
+            sheet_id = sheet_url
+        
+        if not sheet_id:
+            return {"error": "Could not extract Google Sheet ID from URL"}
+        
+        logger.info(f"Extracted Sheet ID: {sheet_id}")
+        
+        # Build CSV export URL
+        csv_url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv"
+        
+        # Fetch data
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+        }
+        
+        response = requests.get(csv_url, timeout=15, headers=headers)
+        response.raise_for_status()
+        
+        if response.headers.get('content-type', '').startswith('text/html'):
+            return {
+                "error": "Google Sheet is not publicly accessible. Please make sure the sheet is shared with 'Anyone with the link' can view."
+            }
+        
+        df = pd.read_csv(BytesIO(response.content))
+        
+        logger.info(f"Loaded dataframe with {len(df)} rows and {len(df.columns)} columns")
+        logger.info(f"Available columns: {list(df.columns)}")
+        
+        # Start with all rows
+        filtered_df = df.copy()
+        applied_conditions = {}
+        
+        # Apply each condition
+        for col_name, expected_value in conditions.items():
+            # Try exact match first
+            if col_name in df.columns:
+                target_col = col_name
+            else:
+                # Try case-insensitive partial match
+                matches = [c for c in df.columns if col_name.lower() in c.lower()]
+                if matches:
+                    target_col = matches[0]
+                    logger.info(f"Matched '{col_name}' to column '{target_col}'")
+                else:
+                    logger.warning(f"Column '{col_name}' not found in dataset")
+                    return {
+                        "error": f"Column '{col_name}' not found",
+                        "available_columns": list(df.columns)
+                    }
+            
+            # Apply filter based on data type
+            if pd.api.types.is_numeric_dtype(filtered_df[target_col]):
+                # Numeric comparison
+                try:
+                    numeric_value = float(expected_value)
+                    filtered_df = filtered_df[filtered_df[target_col] == numeric_value]
+                    applied_conditions[target_col] = numeric_value
+                    logger.info(f"Applied numeric filter: {target_col} == {numeric_value}")
+                except (ValueError, TypeError):
+                    logger.warning(f"Could not convert '{expected_value}' to numeric for column '{target_col}'")
+                    return {
+                        "error": f"Value '{expected_value}' cannot be compared to numeric column '{target_col}'"
+                    }
+            else:
+                # String comparison (case-insensitive)
+                str_value = str(expected_value).strip()
+                filtered_df = filtered_df[
+                    filtered_df[target_col].astype(str).str.strip().str.lower() == str_value.lower()
+                ]
+                applied_conditions[target_col] = str_value
+                logger.info(f"Applied string filter: {target_col} == '{str_value}' (case-insensitive)")
+        
+        # Convert filtered results to list of dictionaries
+        filtered_rows = filtered_df.to_dict('records')
+        
+        # Clean up NaN values in the output
+        for row in filtered_rows:
+            for key, value in row.items():
+                if pd.isna(value):
+                    row[key] = None
+        
+        result = {
+            "filtered_rows": filtered_rows,
+            "total_matches": len(filtered_df),
+            "total_rows": len(df),
+            "conditions_applied": applied_conditions,
+            "columns": list(df.columns),
+            "match_percentage": round((len(filtered_df) / len(df) * 100), 2) if len(df) > 0 else 0
+        }
+        
+        logger.info(f"✅ Filter complete: {len(filtered_df)} matches out of {len(df)} total rows")
+        
+        return result
+
+    except requests.exceptions.HTTPError as e:
+        error_msg = f"Failed to fetch Google Sheet (HTTP {e.response.status_code}). Make sure the sheet is publicly accessible."
+        logger.error(error_msg)
+        return {"error": error_msg}
+    
+    except requests.exceptions.RequestException as e:
+        error_msg = f"Network error: {str(e)}"
+        logger.error(error_msg)
+        return {"error": error_msg}
+    
+    except Exception as e:
+        error_msg = f"Row filtering failed: {str(e)}"
+        logger.error(error_msg, exc_info=True)
+        return {"error": error_msg}
+
+
+# =============================================================================
+# LANGGRAPH WORKFLOW WITH BOTH TOOLS
+# =============================================================================
+
 from langgraph.graph import StateGraph, END
 from langchain_groq import ChatGroq
-from .configs import GroqChatRag
 from typing import TypedDict, Literal, List, Dict, Any
 import logging
 
@@ -176,6 +322,7 @@ import logging
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
+from .configs import GroqChatRag
 config = GroqChatRag()
 llm = ChatGroq(
     model=config.LLM_MODEL,
@@ -184,21 +331,24 @@ llm = ChatGroq(
     groq_api_key=config.GROQ_API_KEY
 )
 
-# Define state schema
+# Enhanced state schema with filter support
 class GraphState(TypedDict):
     question: str
     context: str
     sheet_url: str
     dataset_description: List[Dict[str, Any]]
     analysis: Dict[str, Any]
+    filtered_data: Dict[str, Any]
     answer: str
     decision: str
+    needs_filtering: bool
+    filter_conditions: Dict[str, Any]
 
 def build_tools_graph():
     workflow = StateGraph(GraphState)
 
     def decision_node(state: GraphState) -> GraphState:
-        """Decides if statistical analysis is needed - returns updated state"""
+        """Decides if statistical analysis and/or row filtering is needed"""
         logger.info("=" * 80)
         logger.info("🔍 DECISION NODE - Starting analysis")
         logger.info("=" * 80)
@@ -209,81 +359,107 @@ def build_tools_graph():
         
         logger.info(f"📝 Query: {query}")
         logger.info(f"📊 Available columns: {available_columns}")
-        logger.info(f"📄 Context length: {len(chunks)} characters")
         
-        # Few-shot prompting with clear examples
-        prompt = f"""You are a decision agent that determines if a statistical analysis tool is needed.
+        # Decision prompt for both tools
+        prompt = f"""You are a decision agent that determines which tools are needed to answer a query.
 
-CRITICAL INFORMATION:
-- The context provided is ONLY a small sample (5-10 rows) from a much larger dataset
-- You have access to a tool that can analyze the COMPLETE dataset with accurate statistics
-- Available columns: {', '.join(available_columns)}
+AVAILABLE TOOLS:
+1. Statistical Analysis Tool - Analyzes entire dataset for statistics (mean, median, counts, distributions)
+2. Row Filter Tool - Retrieves specific rows matching conditions
+
+AVAILABLE COLUMNS: {', '.join(available_columns)}
 
 USER QUERY: "{query}"
 
-SAMPLE CONTEXT (INCOMPLETE DATA):
+SAMPLE CONTEXT:
 {chunks[:1500]}
 
-FEW-SHOT EXAMPLES:
+DECISION CRITERIA:
 
-Example 1:
-Query: "Give statistical analysis of student ratings"
-Decision: YES (needs complete dataset statistics)
-Reason: Query explicitly asks for statistical analysis
+Use Statistical Analysis if query asks for:
+- Statistics (average, mean, median, std dev, min, max)
+- Counts, percentages, distributions
+- Overall patterns or trends
+Examples: "What's the average score?", "How many students rated Excellent?"
 
-Example 2:
-Query: "What is the average score for mathematics knowledge?"
-Decision: YES (needs complete dataset statistics)
-Reason: Requires calculating average across entire dataset, not just sample
-
-Example 3:
-Query: "How many responses rated 'Excellent'?"
-Decision: YES (needs complete dataset statistics)
-Reason: Needs accurate count from complete dataset
-
-Example 4:
-Query: "What is machine learning?"
-Decision: NO (context sufficient)
-Reason: General knowledge question, doesn't need dataset analysis
-
-Example 5:
-Query: "Explain the feedback process"
-Decision: NO (context sufficient)
-Reason: Qualitative question answerable from context
+Use Row Filter if query asks for:
+- Specific rows matching criteria
+- Details about records with certain conditions
+- Information filtered by specific values
+Examples: "Show students who rated Excellent", "Get records where department is Engineering"
 
 YOUR TURN:
 Query: "{query}"
 
-ANALYSIS CHECKLIST:
-1. Does query ask for statistics/analysis? (average, count, percentage, distribution, etc.)
-2. Does query mention specific columns like: {', '.join(available_columns[:3])}?
-3. Would accurate numbers from the COMPLETE dataset improve the answer?
-4. Is this asking about data patterns that require seeing all records?
+Respond in this EXACT format:
+NEEDS_ANALYSIS: yes/no
+NEEDS_FILTERING: yes/no
+FILTER_CONDITIONS: {{column1: value1, column2: value2}} (if filtering needed, otherwise empty)
 
-If you answered YES to any of the above, you MUST use the tool.
+Example responses:
+Query: "What's the average rating?"
+NEEDS_ANALYSIS: yes
+NEEDS_FILTERING: no
+FILTER_CONDITIONS: {{}}
 
-Decision (answer ONLY with 'yes' or 'no'):"""
+Query: "Show me students who rated 'Excellent' in Mathematics"
+NEEDS_ANALYSIS: no
+NEEDS_FILTERING: yes
+FILTER_CONDITIONS: {{"Subject": "Mathematics", "Rating": "Excellent"}}
+
+Query: "What's the average score for Excellent ratings?"
+NEEDS_ANALYSIS: yes
+NEEDS_FILTERING: yes
+FILTER_CONDITIONS: {{"Rating": "Excellent"}}
+
+Your response:"""
 
         logger.info("🤖 Sending decision prompt to LLM...")
-        response = llm.invoke(prompt).content.strip().lower()
-        logger.info(f"🎯 LLM Response: '{response}'")
+        response = llm.invoke(prompt).content.strip()
+        logger.info(f"🎯 LLM Response:\n{response}")
         
-        # Parse decision
-        if "yes" in response:
-            decision = "need_more"
-            logger.info("✅ DECISION: USE TOOL - Will fetch complete dataset statistics")
+        # Parse response
+        needs_analysis = "yes" in response.split("NEEDS_ANALYSIS:")[1].split("\n")[0].lower()
+        needs_filtering = "yes" in response.split("NEEDS_FILTERING:")[1].split("\n")[0].lower()
+        
+        # Extract filter conditions
+        filter_conditions = {}
+        try:
+            if "FILTER_CONDITIONS:" in response:
+                conditions_str = response.split("FILTER_CONDITIONS:")[1].strip()
+                if conditions_str and conditions_str != "{}":
+                    # Simple parsing of dictionary format
+                    import ast
+                    filter_conditions = ast.literal_eval(conditions_str)
+        except Exception as e:
+            logger.warning(f"Could not parse filter conditions: {e}")
+        
+        # Set decision based on what's needed
+        if needs_analysis and needs_filtering:
+            decision = "need_both"
+        elif needs_analysis:
+            decision = "need_analysis"
+        elif needs_filtering:
+            decision = "need_filtering"
         else:
             decision = "enough"
-            logger.info("❌ DECISION: SKIP TOOL - Will use context only")
         
+        logger.info(f"✅ DECISION: {decision}")
+        logger.info(f"   Analysis needed: {needs_analysis}")
+        logger.info(f"   Filtering needed: {needs_filtering}")
+        logger.info(f"   Filter conditions: {filter_conditions}")
         logger.info("=" * 80)
         
-        return {"decision": decision}
+        return {
+            "decision": decision,
+            "needs_filtering": needs_filtering,
+            "filter_conditions": filter_conditions
+        }
 
-    def mcp_node(state: GraphState) -> GraphState:
+    def mcp_analysis_node(state: GraphState) -> GraphState:
         """Fetches feature analysis using the tool"""
         logger.info("=" * 80)
-        logger.info("🔧 MCP NODE - Calling analysis tool")
+        logger.info("📊 MCP ANALYSIS NODE - Calling analysis tool")
         logger.info("=" * 80)
         
         sheet_url = state["sheet_url"]
@@ -293,7 +469,6 @@ Decision (answer ONLY with 'yes' or 'no'):"""
         logger.info(f"📊 Features to analyze: {features}")
         
         try:
-            # Use the tool to get analysis
             logger.info("⏳ Invoking feature_analysis_tool...")
             analysis = feature_analysis_tool.invoke({
                 "sheet_url": sheet_url,
@@ -315,6 +490,42 @@ Decision (answer ONLY with 'yes' or 'no'):"""
         
         return {"analysis": analysis}
 
+    def filter_rows_node(state: GraphState) -> GraphState:
+        """Filters rows based on conditions"""
+        logger.info("=" * 80)
+        logger.info("🔍 FILTER ROWS NODE - Calling filter tool")
+        logger.info("=" * 80)
+        
+        sheet_url = state["sheet_url"]
+        conditions = state.get("filter_conditions", {})
+        
+        logger.info(f"🌐 Sheet URL: {sheet_url[:50]}...")
+        logger.info(f"🔧 Filter conditions: {conditions}")
+        
+        if not conditions:
+            logger.warning("⚠️  No filter conditions provided")
+            return {"filtered_data": {"error": "No filter conditions specified"}}
+        
+        try:
+            logger.info("⏳ Invoking filter_rows_tool...")
+            filtered_data = filter_rows_tool.invoke({
+                "sheet_url": sheet_url,
+                "conditions": conditions
+            })
+            
+            if filtered_data.get("error"):
+                logger.error(f"❌ Tool returned error: {filtered_data['error']}")
+            else:
+                logger.info(f"✅ Tool succeeded! Found {filtered_data.get('total_matches', 0)} matching rows")
+        
+        except Exception as e:
+            logger.error(f"❌ Tool invocation failed: {str(e)}")
+            filtered_data = {"error": str(e)}
+        
+        logger.info("=" * 80)
+        
+        return {"filtered_data": filtered_data}
+
     def answer_node(state: GraphState) -> GraphState:
         """Produces final answer using LLM"""
         logger.info("=" * 80)
@@ -324,72 +535,82 @@ Decision (answer ONLY with 'yes' or 'no'):"""
         query = state["question"]
         chunks = state["context"]
         analysis = state.get("analysis", {})
+        filtered_data = state.get("filtered_data", {})
         decision = state.get("decision", "unknown")
         
         logger.info(f"📝 Query: {query}")
         logger.info(f"🔍 Decision was: {decision}")
         logger.info(f"📊 Has analysis data: {bool(analysis and not analysis.get('error'))}")
+        logger.info(f"🔍 Has filtered data: {bool(filtered_data and not filtered_data.get('error'))}")
 
-        # Build enhanced prompt with analysis
-        analysis_text = ""
-        used_tool = False
+        # Build enhanced prompt
+        additional_context = ""
         
+        # Add statistical analysis
         if analysis and not analysis.get("error"):
-            used_tool = True
-            analysis_text = "\n\n" + "=" * 60 + "\n"
-            analysis_text += "📊 COMPLETE DATASET STATISTICAL ANALYSIS\n"
-            analysis_text += "=" * 60 + "\n"
+            additional_context += "\n\n" + "=" * 60 + "\n"
+            additional_context += "📊 COMPLETE DATASET STATISTICAL ANALYSIS\n"
+            additional_context += "=" * 60 + "\n"
             
-            # Extract metadata first
             metadata = analysis.get("_metadata", {})
             if metadata:
-                analysis_text += f"\n📈 Dataset Overview:\n"
-                analysis_text += f"   • Total Records: {metadata.get('total_rows', 'N/A')}\n"
-                analysis_text += f"   • Total Columns: {metadata.get('total_columns', 'N/A')}\n\n"
+                additional_context += f"\n📈 Dataset Overview:\n"
+                additional_context += f"   • Total Records: {metadata.get('total_rows', 'N/A')}\n"
+                additional_context += f"   • Total Columns: {metadata.get('total_columns', 'N/A')}\n\n"
             
-            # Add feature-specific analysis
             for feature, stats in analysis.items():
                 if feature != "_metadata" and isinstance(stats, dict) and not stats.get("error"):
-                    analysis_text += f"\n📊 Column: {feature}\n"
-                    analysis_text += f"   Type: {stats.get('type', 'Unknown')}\n"
+                    additional_context += f"\n📊 Column: {feature}\n"
+                    additional_context += f"   Type: {stats.get('type', 'Unknown')}\n"
                     
-                    # Numeric statistics
                     if 'mean' in stats:
-                        analysis_text += f"   • Mean: {stats.get('mean', 'N/A')}\n"
-                        analysis_text += f"   • Median: {stats.get('median', 'N/A')}\n"
-                        analysis_text += f"   • Std Dev: {stats.get('std_dev', 'N/A')}\n"
-                        analysis_text += f"   • Min: {stats.get('min', 'N/A')}\n"
-                        analysis_text += f"   • Max: {stats.get('max', 'N/A')}\n"
-                        analysis_text += f"   • Count: {stats.get('count', 'N/A')}\n"
-                        analysis_text += f"   • Missing: {stats.get('missing', 'N/A')}\n"
+                        additional_context += f"   • Mean: {stats.get('mean')}\n"
+                        additional_context += f"   • Median: {stats.get('median')}\n"
+                        additional_context += f"   • Std Dev: {stats.get('std_dev')}\n"
+                        additional_context += f"   • Range: {stats.get('min')} to {stats.get('max')}\n"
                     
-                    # Categorical statistics
                     if 'most_frequent' in stats:
-                        analysis_text += f"   • Most Frequent: {stats.get('most_frequent', 'N/A')}\n"
-                        analysis_text += f"   • Frequency: {stats.get('most_frequent_count', 'N/A')}\n"
-                        analysis_text += f"   • Unique Values: {stats.get('unique_count', 'N/A')}\n"
-                        analysis_text += f"   • Mode: {stats.get('mode', 'N/A')}\n"
-                        analysis_text += f"   • Count: {stats.get('count', 'N/A')}\n"
-                        analysis_text += f"   • Missing: {stats.get('missing', 'N/A')}\n"
+                        additional_context += f"   • Most Frequent: {stats.get('most_frequent')} ({stats.get('most_frequent_count')} times)\n"
+                        additional_context += f"   • Unique Values: {stats.get('unique_count')}\n"
             
             logger.info("✅ Statistical analysis included in prompt")
-        else:
-            logger.info("⚠️  No statistical analysis available, using context only")
         
-        prompt = f"""You are a data analysis assistant providing accurate statistical insights.
+        # Add filtered rows
+        if filtered_data and not filtered_data.get("error"):
+            additional_context += "\n\n" + "=" * 60 + "\n"
+            additional_context += "🔍 FILTERED ROWS (Matching Conditions)\n"
+            additional_context += "=" * 60 + "\n"
+            additional_context += f"Conditions Applied: {filtered_data.get('conditions_applied', {})}\n"
+            additional_context += f"Total Matches: {filtered_data.get('total_matches', 0)} out of {filtered_data.get('total_rows', 0)} rows\n"
+            additional_context += f"Match Percentage: {filtered_data.get('match_percentage', 0)}%\n\n"
+            
+            rows = filtered_data.get('filtered_rows', [])
+            if rows:
+                additional_context += "Matching Records:\n"
+                for idx, row in enumerate(rows[:50], 1):  # Limit to first 50 rows
+                    additional_context += f"\nRecord {idx}:\n"
+                    for key, value in row.items():
+                        additional_context += f"   • {key}: {value}\n"
+                
+                if len(rows) > 50:
+                    additional_context += f"\n... and {len(rows) - 50} more records\n"
+            
+            logger.info("✅ Filtered data included in prompt")
+        
+        prompt = f"""You are a data analysis assistant providing accurate insights.
 
 USER QUESTION: {query}
 
-{"SAMPLE CONTEXT (Limited Data):" if not used_tool else "REFERENCE CONTEXT:"}
+REFERENCE CONTEXT:
 {chunks[:2000]}
-{analysis_text}
+{additional_context}
 
-CRITICAL INSTRUCTIONS:
-{"1. USE THE STATISTICAL ANALYSIS DATA ABOVE - these are accurate numbers from the COMPLETE dataset" if used_tool else "1. You only have sample data - mention this limitation in your answer"}
-2. Be specific with numbers when available
-3. If statistical analysis shows different numbers than the sample, USE THE STATISTICAL ANALYSIS
-4. Format your response clearly with the actual statistics
-5. Don't make up numbers - only use what's provided
+INSTRUCTIONS:
+1. Use the statistical analysis and filtered data provided above
+2. Be specific with numbers and facts
+3. Format your response clearly
+4. If you have filtered rows, reference them specifically
+5. Don't make up information - only use what's provided
 
 Generate your answer now:"""
 
@@ -400,41 +621,70 @@ Generate your answer now:"""
         
         return {"answer": response}
 
-    # Add nodes
+    # Add all nodes
     workflow.add_node("decision", decision_node)
-    workflow.add_node("mcp_analysis", mcp_node)
+    workflow.add_node("mcp_analysis", mcp_analysis_node)
+    workflow.add_node("filter_rows", filter_rows_node)
     workflow.add_node("answer", answer_node)
 
-    # Define routing function
-    def route_decision(state: GraphState) -> Literal["answer", "mcp_analysis"]:
+    # Routing function
+    def route_decision(state: GraphState) -> Literal["answer", "mcp_analysis", "filter_rows"]:
         """Routes based on decision in state"""
-        decision = state.get("decision", "need_more")
+        decision = state.get("decision", "enough")
         
         logger.info("🔀 ROUTING DECISION:")
         logger.info(f"   Decision value: {decision}")
         
         if decision == "enough":
-            logger.info("   → Route: Skip tool, go directly to ANSWER")
+            logger.info("   → Route: Go directly to ANSWER")
             return "answer"
-        else:
-            logger.info("   → Route: Call MCP_ANALYSIS tool first")
+        elif decision == "need_analysis":
+            logger.info("   → Route: Call MCP_ANALYSIS first")
+            return "mcp_analysis"
+        elif decision == "need_filtering":
+            logger.info("   → Route: Call FILTER_ROWS first")
+            return "filter_rows"
+        else:  # need_both
+            logger.info("   → Route: Call MCP_ANALYSIS first (will chain to filtering)")
             return "mcp_analysis"
 
-    # Add conditional edges
+    # Add conditional edges from decision node
     workflow.add_conditional_edges(
         "decision",
         route_decision,
         {
             "answer": "answer",
-            "mcp_analysis": "mcp_analysis"
+            "mcp_analysis": "mcp_analysis",
+            "filter_rows": "filter_rows"
         }
     )
     
-    workflow.add_edge("mcp_analysis", "answer")
+    # Chain tools when both are needed
+    def route_after_analysis(state: GraphState) -> Literal["answer", "filter_rows"]:
+        """After analysis, check if filtering is also needed"""
+        if state.get("needs_filtering", False):
+            logger.info("   → After analysis: Going to FILTER_ROWS")
+            return "filter_rows"
+        else:
+            logger.info("   → After analysis: Going to ANSWER")
+            return "answer"
+    
+    workflow.add_conditional_edges(
+        "mcp_analysis",
+        route_after_analysis,
+        {
+            "answer": "answer",
+            "filter_rows": "filter_rows"
+        }
+    )
+    
+    # After filtering, always go to answer
+    workflow.add_edge("filter_rows", "answer")
     workflow.add_edge("answer", END)
 
     workflow.set_entry_point("decision")
 
-    logger.info("✅ LangGraph workflow compiled successfully")
+    logger.info("✅ Enhanced LangGraph workflow compiled successfully")
     
     return workflow.compile()
+
