@@ -1,5 +1,5 @@
-from langchain.prompts import PromptTemplate
-from langchain.prompts import ChatPromptTemplate
+from langchain_core.prompts import PromptTemplate
+from langchain_core.prompts import ChatPromptTemplate
 
 
 refine_text = PromptTemplate(

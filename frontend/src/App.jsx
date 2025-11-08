@@ -11,7 +11,7 @@ import AdminDashboard from './pages/AdminDashboard'
 import About from './pages/About'
 import EventsDashboard from './pages/EventDashboard'
 import Footer from './pages/Footer'
-
+import EventChat from './pages/EventChat'
 function App() {
   return (
     <>
@@ -53,14 +53,14 @@ function App() {
           /> */}
           {/* Admin Dashboard */}
           <Route
-            path="/admin-dashboard"
+            path="/event-dashboard"
             element={
               <ProtectedRoute allowedUserTypes={['Superuser']}>
                 <EventsDashboard />
               </ProtectedRoute>
             }
           />
-          {/* General Dashboard (fallback) */}
+          {/* General Dashboard (fallback)
           <Route
             path="/dashboard"
             element={
@@ -68,7 +68,7 @@ function App() {
                 <Dashboard />
               </ProtectedRoute>
             }
-          />
+          /> */}
           
           <Route
             path="/about"
@@ -78,6 +78,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/chat" element={<EventChat />} />
         </Routes>
         <Footer />
       </div>

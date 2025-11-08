@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 import pandas as pd
 from typing import Dict, Any, Tuple, List
-from langchain.schema import Document
+from langchain_core.documents import Document
 from .configs import *
 class Analyzer(ABC):
     def __init__(self):

@@ -558,31 +558,34 @@ const EventsDashboard = () => {
     <button className="px-3 py-1.5 bg-gray-800 hover:bg-gray-700 text-white rounded-md text-sm transition">
       ⋮
     </button>
-    <div className="absolute right-0 mt-2 hidden group-hover:block bg-gray-900 border border-gray-700 rounded-lg shadow-lg min-w-[150px] z-10">
-      <button
-        onClick={() => generateInsights(event.id, event.name)}
-        className="block w-full text-left px-4 py-2 hover:bg-blue-600/20 text-blue-400 text-sm"
-      >
-        📊 Insights
-      </button>
-      <button
-        onClick={() => openChat(event.id, event.name)}
-        className="block w-full text-left px-4 py-2 hover:bg-gray-600/20 text-gray-300 text-sm"
-      >
-        💬 Chat
-      </button>
-      <button
-        onClick={() => openEditForm(event.id)}
-        className="block w-full text-left px-4 py-2 hover:bg-yellow-600/20 text-yellow-400 text-sm"
-      >
-        ✏️ Edit
-      </button>
-      <button
-        onClick={() => deleteEvent(event.id)}
-        className="block w-full text-left px-4 py-2 hover:bg-red-600/20 text-red-400 text-sm"
-      >
-        🗑️ Delete
-      </button>
+    {/* Remove mt-2 gap and add pt-2 padding inside to maintain visual spacing */}
+    <div className="absolute right-0 pt-2 hidden group-hover:block z-10">
+      <div className="bg-gray-900 border border-gray-700 rounded-lg shadow-lg min-w-[150px]">
+        <button
+          onClick={() => generateInsights(event.id, event.name)}
+          className="block w-full text-left px-4 py-2 hover:bg-blue-600/20 text-blue-400 text-sm first:rounded-t-lg"
+        >
+          📊 Insights
+        </button>
+        <button
+          onClick={() => openChat(event.id, event.name)}
+          className="block w-full text-left px-4 py-2 hover:bg-gray-600/20 text-gray-300 text-sm"
+        >
+          💬 Chat
+        </button>
+        <button
+          onClick={() => openEditForm(event.id)}
+          className="block w-full text-left px-4 py-2 hover:bg-yellow-600/20 text-yellow-400 text-sm"
+        >
+          ✏️ Edit
+        </button>
+        <button
+          onClick={() => deleteEvent(event.id)}
+          className="block w-full text-left px-4 py-2 hover:bg-red-600/20 text-red-400 text-sm last:rounded-b-lg"
+        >
+          🗑️ Delete
+        </button>
+      </div>
     </div>
   </div>
 </td>

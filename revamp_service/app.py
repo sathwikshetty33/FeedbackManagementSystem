@@ -1,11 +1,5 @@
-from langchain_community.embeddings import HuggingFaceEmbeddings
 from revamp_service.prompts import *
 from fastapi import FastAPI, HTTPException
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_community.vectorstores import FAISS
-from langchain_community.llms import Ollama
-from langchain.chains import RetrievalQA
-from reportlab.lib.enums import TA_CENTER, TA_LEFT
 from revamp_service.utils import *
 from fastapi import FastAPI
 from dotenv import load_dotenv
@@ -17,6 +11,14 @@ load_dotenv()
 from revamp_service.models import *
 from revamp_service.taskManager import *
 from .GroqRAGProcessor import *
+class QueryResponse(BaseModel):
+    session_id: str
+    question: str
+    answer: str
+    used_tool: str
+    context_length: int
+    sources: List[Dict[str, Any]] = []
+    timestamp: str
 logging = get_logger(__name__)
 cache = TTLCache(maxsize=100, ttl=1800)  # 30 min
 
@@ -198,9 +200,10 @@ async def start_session(data: StartSession):
             "use_graph": data.use_graph,
             "created_at": datetime.now(),
             "metadata": {
-                "columns": list(df.columns),
+                "columns": [{ "name": col, "type": str(df[col].dtype) } for col in df.columns],
                 "shape": df.shape,
-                "chunk_count": len(chunks)
+                "chunk_count": len(chunks),
+                "sheet_url": data.sheet_url
             }
         }
         
@@ -218,28 +221,64 @@ async def start_session(data: StartSession):
         logging.error(f"Session creation failed: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Failed to create session: {str(e)}")
 
-@app.post("/query")
+@app.post("/query",response_model=QueryResponse)
 async def query_session(data: QueryRequest):
-    """Simple query handling"""
-    logging.info(f"Processing query for session {data.session_id}")
+    """Handle user queries against a session's document context"""
+    logging.info(f"Processing query for session {data.session_id}: '{data.question[:100]}'")
     
     try:
+        # 1️⃣ Validate session exists
         session_data = await processor.session_manager.get_session(data.session_id)
         if not session_data:
-            raise HTTPException(status_code=404, detail="Session not found")
+            logging.warning(f"Session not found: {data.session_id}")
+            raise HTTPException(status_code=404, detail="Session not found or expired")
         
-        # Answer question
-        result = await processor.answer_question(
-            data.question, 
-            session_data, 
+        # 2️⃣ Validate session has necessary components
+        if "qa_components" not in session_data:
+            logging.error(f"Session {data.session_id} missing QA components")
+            raise HTTPException(
+                status_code=400, 
+                detail="Session not properly initialized. Please reinitialize the session."
+            )
+        
+        # 3️⃣ Answer question using tools
+        result = await processor.answer_question_with_tools(
+            question=data.question, 
+            session_data=session_data, 
             use_hybrid=data.use_hybrid_search
         )
         
-        return result
+        # 4️⃣ Check if result contains an error
+        if "error" in result:
+            logging.error(f"Query processing error: {result['error']}")
+            raise HTTPException(
+                status_code=500, 
+                detail=f"Failed to process query: {result['error']}"
+            )
+        
+        # 5️⃣ Log success and return
+        logging.info(f"Query successful for session {data.session_id}, used tool: {result.get('used_tool', 'Unknown')}")
+        
+        return {
+            "session_id": data.session_id,
+            "question": data.question,
+            "answer": result.get("answer", ""),
+            "used_tool": result.get("used_tool", "None"),
+            "context_length": result.get("context_length", 0),
+            "sources": result.get("sources", []),
+            "timestamp": datetime.now().isoformat()
+        }
+        
+    except HTTPException:
+        # Re-raise HTTP exceptions as-is
+        raise
         
     except Exception as e:
-        logging.error(f"Query failed: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"Query failed: {str(e)}")
+        logging.error(f"Unexpected error in query endpoint: {str(e)}", exc_info=True)
+        raise HTTPException(
+            status_code=500, 
+            detail=f"Internal server error: {str(e)}"
+        )
 
 @app.on_event("startup")
 async def startup_event():

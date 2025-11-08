@@ -3,19 +3,22 @@ import logging
 from typing import Dict, List, Any
 from .models import *
 import pandas as pd
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_community.llms import Ollama
-from langchain.schema import Document
+from langchain_core.documents import Document
 from .logger import *
 from .prompts import *
 from .ChatbotSessionManager import *
 from .Simpleneo4jKB import *
 from langchain_groq import ChatGroq
 from langchain_core.output_parsers import StrOutputParser
+from .graph import build_tools_graph
+import logging
 
-logging = get_logger(__name__)
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 class GroqRAGProcessor:
@@ -24,7 +27,7 @@ class GroqRAGProcessor:
         self.graph_kb = Simpleneo4jKB()
         self.embedding_model = None
         self.Config = GroqChatRag()
-        
+        self.tools_graph = build_tools_graph()
     async def initialize(self):
         """Initialize components"""
         await self.session_manager.init_redis()
@@ -116,7 +119,7 @@ class GroqRAGProcessor:
         
         # Get relevant documents from vector search
         docs = await asyncio.get_event_loop().run_in_executor(
-            None, retriever.get_relevant_documents, question
+            None, retriever.invoke, question
         )
         
         logging.info(f"Vector search returned {len(docs)} documents")
@@ -183,7 +186,87 @@ class GroqRAGProcessor:
             debug_info["graph_contents"] = graph_debug
         
         return debug_info
-    
+    async def answer_question_with_tools(self, question: str, session_data: Dict[str, Any], use_hybrid: bool = True) -> Dict[str, Any]:
+        """Answer a question using LangGraph tools workflow"""
+        
+        logger.info("=" * 80)
+        logger.info("🚀 STARTING QUERY PROCESSING")
+        logger.info("=" * 80)
+        logger.info(f"📝 Question: {question}")
+        
+        try:
+            retriever = session_data["qa_components"]["retriever"]
+            
+            # Get relevant documents
+            logger.info("🔍 Retrieving relevant documents...")
+            docs = await asyncio.get_event_loop().run_in_executor(
+                None, 
+                retriever.invoke,
+                question
+            )
+            logger.info(f"✅ Retrieved {len(docs)} documents")
+            
+            context = "\n\n".join([doc.page_content for doc in docs])
+            logger.info(f"📄 Total context length: {len(context)} characters")
+
+            # Prepare LangGraph state
+            state = {
+                "question": question,
+                "context": context,
+                "dataset_description": session_data["metadata"]["columns"],
+                "sheet_url": session_data["metadata"]["sheet_url"],
+                "analysis": {},
+                "answer": "",
+                "decision": ""
+            }
+            
+            logger.info(f"🌐 Sheet URL: {state['sheet_url'][:50]}...")
+            logger.info(f"📊 Available columns: {[c.get('name', c) for c in state['dataset_description']]}")
+
+            # Run the graph
+            logger.info("🔄 Invoking LangGraph workflow...")
+            try:
+                if hasattr(self.tools_graph, 'ainvoke'):
+                    result_state = await self.tools_graph.ainvoke(state)
+                else:
+                    result_state = await asyncio.get_event_loop().run_in_executor(
+                        None, self.tools_graph.invoke, state
+                    )
+                
+                logger.info("✅ LangGraph workflow completed")
+                logger.info(f"🎯 Final decision was: {result_state.get('decision', 'unknown')}")
+                logger.info(f"📊 Tool used: {bool(result_state.get('analysis'))}")
+                
+            except Exception as graph_error:
+                logger.error(f"❌ LangGraph execution failed: {str(graph_error)}")
+                raise
+
+            # Return final result
+            tool_used = "MCP Analysis (Complete Dataset)" if result_state.get("analysis") and not result_state["analysis"].get("error") else "Context Only (Sample Data)"
+            
+            result = {
+                "answer": result_state.get("answer", "Unable to generate answer"),
+                "used_tool": tool_used,
+                "context_length": len(context),
+                "sources": [doc.metadata for doc in docs] if docs else []
+            }
+            
+            logger.info("=" * 80)
+            logger.info("✅ QUERY PROCESSING COMPLETED")
+            logger.info(f"🔧 Tool used: {result['used_tool']}")
+            logger.info("=" * 80)
+            
+            return result
+            
+        except Exception as e:
+            logger.error(f"❌ Error in answer_question_with_tools: {str(e)}", exc_info=True)
+            return {
+                "answer": f"Error processing question: {str(e)}",
+                "used_tool": "Error",
+                "context_length": 0,
+                "error": str(e)
+            }
+
     async def get_system_stats(self) -> Dict[str, Any]:
         """Get system statistics including cache performance"""
         cache_stats = await self.session_manager.get_cache_stats()

@@ -1,17 +1,10 @@
 import asyncio
 import logging
-from typing import Dict, List, Optional, Any
+from typing import Dict, Optional, Any
 import json
 from datetime import datetime, date
 from .models import *
 import pandas as pd
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_community.embeddings import HuggingFaceEmbeddings
-from langchain_community.vectorstores import FAISS
-from langchain_community.llms import Ollama
-from langchain.schema import Document
-from langchain.chains.llm import LLMChain
-from langchain.prompts import PromptTemplate
 from .logger import *
 from .prompts import *
 from .configs import *

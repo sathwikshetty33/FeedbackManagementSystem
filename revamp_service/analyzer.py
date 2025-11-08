@@ -4,33 +4,22 @@ from typing import Dict, List, Any, Tuple
 from cachetools import TTLCache
 import pandas as pd
 from .prompts import *
-from typing import Dict
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from langchain_ollama import OllamaEmbeddings
 from langchain_community.llms import Ollama
-from langchain.chains import RetrievalQA
-from langchain.schema import Document
-from langchain.prompts import PromptTemplate
-from langchain.chains.llm import LLMChain
-from langchain.chains.combine_documents.stuff import StuffDocumentsChain
+from langchain_core.documents import Document
+from langchain_core.prompts import PromptTemplate
+from langchain_core.output_parsers import StrOutputParser
+from langchain_core.runnables import RunnablePassthrough
 from .utils import *
-from typing import Dict, List, Any, Tuple
-import pandas as pd
 import re
 from .logger import *
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_community.vectorstores import FAISS
-from langchain_community.embeddings import OllamaEmbeddings
-from langchain.chains import RetrievalQA
-from langchain.schema import Document
-from langchain.prompts import PromptTemplate
-from langchain.chains.llm import LLMChain
-from langchain.chains.combine_documents.stuff import StuffDocumentsChain
 from .models import *
 from .baseAnalyzer import *
 from .BaseNumericAgent import *
 from .OllamaNumericAgent import *
+
 logging = get_logger(__name__)
 cache = TTLCache(maxsize=100, ttl=1800)  # 30 min
 
@@ -236,7 +225,7 @@ class OllamaRAGAnalyzer(Analyzer):
         return analysis, all_text
 
     def generate_column_insights(self, column_name: str, analysis_data: Dict[str, Any], 
-                       all_text: str = None) -> str:
+                   all_text: str = None) -> str:
         print(f"🧠 Generating insights for column: {column_name}")
         
         documents = []
@@ -355,37 +344,32 @@ class OllamaRAGAnalyzer(Analyzer):
                 
                 Base analysis strictly on the provided text. Do not add general suggestions."""
             
+            # Modern LangChain approach using LCEL (LangChain Expression Language)
             custom_prompt = PromptTemplate(
                 template=prompt_template,
                 input_variables=["context"]
             )
             
-            llm_chain = LLMChain(
-                llm=self.llm, 
-                prompt=custom_prompt,
-                verbose=False
+            # Create retriever
+            retriever = vectorstore.as_retriever(
+                search_type="similarity",
+                search_kwargs={"k": 2}
             )
             
-            stuff_chain = StuffDocumentsChain(
-                llm_chain=llm_chain,
-                document_variable_name="context",
-                verbose=False
-            )
+            # Create the chain using LCEL
+            def format_docs(docs):
+                return "\n\n".join(doc.page_content for doc in docs)
             
-            qa_chain = RetrievalQA(
-                combine_documents_chain=stuff_chain,
-                retriever=vectorstore.as_retriever(
-                    search_type="similarity",
-                    search_kwargs={"k": 2}
-                ),
-                return_source_documents=False,
-                verbose=False
+            chain = (
+                {"context": retriever | format_docs}
+                | custom_prompt
+                | self.llm
+                | StrOutputParser()
             )
             
             query = f"Analyze the specific data for {column_name} based on the provided metrics"
             try:
-                result = qa_chain.invoke({"query": query})
-                insights = result.get('result', '') if isinstance(result, dict) else str(result)
+                insights = chain.invoke(query)
                 return insights
             except Exception as chain_error:
                 logging.error(f"Chain invoke error for {column_name}: {str(chain_error)}")
@@ -394,7 +378,6 @@ class OllamaRAGAnalyzer(Analyzer):
         except Exception as e:
             logging.error(f"Error generating insights for {column_name}: {str(e)}")
             return self._fallback_analysis(column_name, analysis_data, documents)
-
     def _fallback_analysis(self, column_name: str, analysis_data: Dict[str, Any], documents: List[Document]) -> str:
         try:
             if analysis_data.get('type') in ['numerical', 'rating']:

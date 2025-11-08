@@ -1654,3 +1654,1013 @@ Failed to establish connection to ResolvedIPv4Address(('127.0.0.1', 7687)) (reas
 [2025-10-22 07:21:50] [INFO] [GroqRAGProcessor.py:146] Using vector-only context
 [2025-10-22 07:21:50] [DEBUG] [GroqRAGProcessor.py:149] Context length: 3393 characters
 [2025-10-22 07:21:51] [INFO] [GroqRAGProcessor.py:168] Answer generated: 1758 characters, search_type: vector_only
+[2025-11-04 15:28:53] [WARNING] [ChatbotSessionManager.py:72] Redis connection failed: Error 111 connecting to localhost:6380. Connect call failed ('127.0.0.1', 6380).. Falling back to local cache only
+[2025-11-04 15:28:53] [ERROR] [Simpleneo4jKB.py:40] Neo4j connection failed: Couldn't connect to localhost:7687 (resolved to ('127.0.0.1:7687',)):
+Failed to establish connection to ResolvedIPv4Address(('127.0.0.1', 7687)) (reason [Errno 111] Connect call failed ('127.0.0.1', 7687))
+[2025-11-04 15:29:03] [INFO] [GroqRAGProcessor.py:37] RAG Processor initialized
+[2025-11-04 16:50:40] [WARNING] [ChatbotSessionManager.py:72] Redis connection failed: Error 111 connecting to localhost:6380. Connect call failed ('127.0.0.1', 6380).. Falling back to local cache only
+[2025-11-04 16:50:40] [ERROR] [Simpleneo4jKB.py:40] Neo4j connection failed: Couldn't connect to localhost:7687 (resolved to ('127.0.0.1:7687',)):
+Failed to establish connection to ResolvedIPv4Address(('127.0.0.1', 7687)) (reason [Errno 111] Connect call failed ('127.0.0.1', 7687))
+[2025-11-04 16:50:47] [INFO] [GroqRAGProcessor.py:37] RAG Processor initialized
+[2025-11-04 17:09:20] [INFO] [app.py:169] Starting session 93c3cd71-949b-44cf-9c6b-56c43bedef08
+[2025-11-04 17:09:20] [WARNING] [ChatbotSessionManager.py:184] Session 93c3cd71-949b-44cf-9c6b-56c43bedef08 not found in either Redis or local cache
+[2025-11-04 17:09:20] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1jrdXLprwSQwo9BQXidj1eM5R1MgLDk39L6IeMLjy_xY/export?format=csv
+[2025-11-04 17:09:22] [DEBUG] [utils.py:94] ✅ Successfully loaded 5 rows and 10 columns
+[2025-11-04 17:09:22] [INFO] [GroqRAGProcessor.py:54] Created 5 chunks from text of length 1509
+[2025-11-04 17:09:22] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Participant Name: Alice Kumar | Hackathon Name: TechSprint 2025 | Date: 2025-04-15 | Organization: D...
+[2025-11-04 17:09:22] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Participant Name: Bob Fernandez | Hackathon Name: CodeRush | Date: 2025-03-10 | Organization: IEEE C...
+[2025-11-04 17:09:22] [DEBUG] [GroqRAGProcessor.py:58] Chunk 2 preview: Participant Name: Charan S | Hackathon Name: Innovathon | Date: 2025-04-05 | Organization: Startup H...
+[2025-11-04 17:09:22] [INFO] [app.py:184] Created 5 chunks
+[2025-11-04 17:09:22] [ERROR] [app.py:218] Session creation failed: The api_key client option must be set either by passing api_key to the client or by setting the GROQ_API_KEY environment variable
+[2025-11-04 17:09:22] [INFO] [app.py:169] Starting session e0a71b4f-3168-4995-9f70-1d32b1b99f3e
+[2025-11-04 17:09:22] [WARNING] [ChatbotSessionManager.py:184] Session e0a71b4f-3168-4995-9f70-1d32b1b99f3e not found in either Redis or local cache
+[2025-11-04 17:09:22] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1jrdXLprwSQwo9BQXidj1eM5R1MgLDk39L6IeMLjy_xY/export?format=csv
+[2025-11-04 17:09:23] [DEBUG] [utils.py:94] ✅ Successfully loaded 5 rows and 10 columns
+[2025-11-04 17:09:23] [INFO] [GroqRAGProcessor.py:54] Created 5 chunks from text of length 1509
+[2025-11-04 17:09:23] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Participant Name: Alice Kumar | Hackathon Name: TechSprint 2025 | Date: 2025-04-15 | Organization: D...
+[2025-11-04 17:09:23] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Participant Name: Bob Fernandez | Hackathon Name: CodeRush | Date: 2025-03-10 | Organization: IEEE C...
+[2025-11-04 17:09:23] [DEBUG] [GroqRAGProcessor.py:58] Chunk 2 preview: Participant Name: Charan S | Hackathon Name: Innovathon | Date: 2025-04-05 | Organization: Startup H...
+[2025-11-04 17:09:23] [INFO] [app.py:184] Created 5 chunks
+[2025-11-04 17:09:23] [ERROR] [app.py:218] Session creation failed: The api_key client option must be set either by passing api_key to the client or by setting the GROQ_API_KEY environment variable
+[2025-11-04 17:10:38] [INFO] [app.py:169] Starting session b7cf39fb-d220-4040-ae09-8e47b49a159b
+[2025-11-04 17:10:38] [WARNING] [ChatbotSessionManager.py:184] Session b7cf39fb-d220-4040-ae09-8e47b49a159b not found in either Redis or local cache
+[2025-11-04 17:10:38] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-04 17:10:39] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-04 17:10:39] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-04 17:10:39] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-04 17:10:39] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-04 17:10:39] [INFO] [app.py:184] Created 2 chunks
+[2025-11-04 17:10:39] [ERROR] [app.py:218] Session creation failed: The api_key client option must be set either by passing api_key to the client or by setting the GROQ_API_KEY environment variable
+[2025-11-04 17:10:39] [INFO] [app.py:169] Starting session 02dc38f1-940b-40f0-9975-7c4676a5328c
+[2025-11-04 17:10:39] [WARNING] [ChatbotSessionManager.py:184] Session 02dc38f1-940b-40f0-9975-7c4676a5328c not found in either Redis or local cache
+[2025-11-04 17:10:39] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-04 17:10:40] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-04 17:10:40] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-04 17:10:40] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-04 17:10:40] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-04 17:10:40] [INFO] [app.py:184] Created 2 chunks
+[2025-11-04 17:10:40] [ERROR] [app.py:218] Session creation failed: The api_key client option must be set either by passing api_key to the client or by setting the GROQ_API_KEY environment variable
+[2025-11-04 17:13:20] [WARNING] [ChatbotSessionManager.py:72] Redis connection failed: Error 111 connecting to localhost:6380. Connect call failed ('127.0.0.1', 6380).. Falling back to local cache only
+[2025-11-04 17:13:20] [ERROR] [Simpleneo4jKB.py:40] Neo4j connection failed: Couldn't connect to localhost:7687 (resolved to ('127.0.0.1:7687',)):
+Failed to establish connection to ResolvedIPv4Address(('127.0.0.1', 7687)) (reason [Errno 111] Connect call failed ('127.0.0.1', 7687))
+[2025-11-04 17:13:29] [INFO] [GroqRAGProcessor.py:37] RAG Processor initialized
+[2025-11-04 17:13:53] [INFO] [app.py:169] Starting session 007bdc93-9fd7-4202-8461-f0f1e6e92ad0
+[2025-11-04 17:13:53] [WARNING] [ChatbotSessionManager.py:184] Session 007bdc93-9fd7-4202-8461-f0f1e6e92ad0 not found in either Redis or local cache
+[2025-11-04 17:13:53] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-04 17:13:54] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-04 17:13:54] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-04 17:13:54] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-04 17:13:54] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-04 17:13:54] [INFO] [app.py:184] Created 2 chunks
+[2025-11-04 17:13:54] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-04 17:13:54] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-04 17:13:54] [INFO] [ChatbotSessionManager.py:154] Session 007bdc93-9fd7-4202-8461-f0f1e6e92ad0 stored in local cache only (Redis unavailable)
+[2025-11-04 17:13:54] [INFO] [app.py:209] Session 007bdc93-9fd7-4202-8461-f0f1e6e92ad0 created successfully
+[2025-11-04 17:13:54] [INFO] [app.py:169] Starting session 63d71716-83ad-4bab-8410-33412eda59b1
+[2025-11-04 17:13:54] [WARNING] [ChatbotSessionManager.py:184] Session 63d71716-83ad-4bab-8410-33412eda59b1 not found in either Redis or local cache
+[2025-11-04 17:13:54] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-04 17:13:56] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-04 17:13:56] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-04 17:13:56] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-04 17:13:56] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-04 17:13:56] [INFO] [app.py:184] Created 2 chunks
+[2025-11-04 17:13:56] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-04 17:13:56] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-04 17:13:56] [INFO] [ChatbotSessionManager.py:154] Session 63d71716-83ad-4bab-8410-33412eda59b1 stored in local cache only (Redis unavailable)
+[2025-11-04 17:13:56] [INFO] [app.py:209] Session 63d71716-83ad-4bab-8410-33412eda59b1 created successfully
+[2025-11-04 17:18:36] [INFO] [app.py:169] Starting session 2d10bdf6-797a-4c5b-bdc5-1ab7593e3c44
+[2025-11-04 17:18:36] [WARNING] [ChatbotSessionManager.py:184] Session 2d10bdf6-797a-4c5b-bdc5-1ab7593e3c44 not found in either Redis or local cache
+[2025-11-04 17:18:36] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-04 17:18:37] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-04 17:18:37] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-04 17:18:37] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-04 17:18:37] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-04 17:18:37] [INFO] [app.py:184] Created 2 chunks
+[2025-11-04 17:18:37] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-04 17:18:37] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-04 17:18:37] [INFO] [ChatbotSessionManager.py:154] Session 2d10bdf6-797a-4c5b-bdc5-1ab7593e3c44 stored in local cache only (Redis unavailable)
+[2025-11-04 17:18:37] [INFO] [app.py:209] Session 2d10bdf6-797a-4c5b-bdc5-1ab7593e3c44 created successfully
+[2025-11-04 17:18:37] [INFO] [app.py:169] Starting session 5261faff-03a7-4424-9f6f-17450edcc861
+[2025-11-04 17:18:37] [WARNING] [ChatbotSessionManager.py:184] Session 5261faff-03a7-4424-9f6f-17450edcc861 not found in either Redis or local cache
+[2025-11-04 17:18:37] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-04 17:18:38] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-04 17:18:38] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-04 17:18:38] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-04 17:18:38] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-04 17:18:38] [INFO] [app.py:184] Created 2 chunks
+[2025-11-04 17:18:38] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-04 17:18:38] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-04 17:18:38] [INFO] [ChatbotSessionManager.py:154] Session 5261faff-03a7-4424-9f6f-17450edcc861 stored in local cache only (Redis unavailable)
+[2025-11-04 17:18:38] [INFO] [app.py:209] Session 5261faff-03a7-4424-9f6f-17450edcc861 created successfully
+[2025-11-04 17:19:00] [INFO] [app.py:224] Processing query for session 5261faff-03a7-4424-9f6f-17450edcc861
+[2025-11-04 17:19:00] [INFO] [ChatbotSessionManager.py:181] Session 5261faff-03a7-4424-9f6f-17450edcc861 retrieved from local cache (fallback)
+[2025-11-04 17:19:00] [INFO] [GroqRAGProcessor.py:115] Answering question: 'what is the form about' for session: 5261faff-03a7-4424-9f6f-17450edcc861
+[2025-11-04 17:19:00] [INFO] [GroqRAGProcessor.py:122] Vector search returned 2 documents
+[2025-11-04 17:19:00] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 0: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-04 17:19:00] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 1: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-04 17:19:00] [INFO] [GroqRAGProcessor.py:136] Graph search skipped (disabled or not requested)
+[2025-11-04 17:19:00] [INFO] [GroqRAGProcessor.py:146] Using vector-only context
+[2025-11-04 17:19:00] [DEBUG] [GroqRAGProcessor.py:149] Context length: 733 characters
+[2025-11-04 17:19:01] [INFO] [GroqRAGProcessor.py:168] Answer generated: 686 characters, search_type: vector_only
+[2025-11-04 17:19:22] [INFO] [app.py:224] Processing query for session 5261faff-03a7-4424-9f6f-17450edcc861
+[2025-11-04 17:19:22] [INFO] [ChatbotSessionManager.py:181] Session 5261faff-03a7-4424-9f6f-17450edcc861 retrieved from local cache (fallback)
+[2025-11-04 17:19:22] [INFO] [GroqRAGProcessor.py:115] Answering question: 'how is the overall feedback?' for session: 5261faff-03a7-4424-9f6f-17450edcc861
+[2025-11-04 17:19:22] [INFO] [GroqRAGProcessor.py:122] Vector search returned 2 documents
+[2025-11-04 17:19:22] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 0: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-04 17:19:22] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 1: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-04 17:19:22] [INFO] [GroqRAGProcessor.py:136] Graph search skipped (disabled or not requested)
+[2025-11-04 17:19:22] [INFO] [GroqRAGProcessor.py:146] Using vector-only context
+[2025-11-04 17:19:22] [DEBUG] [GroqRAGProcessor.py:149] Context length: 733 characters
+[2025-11-04 17:19:23] [INFO] [GroqRAGProcessor.py:168] Answer generated: 653 characters, search_type: vector_only
+[2025-11-05 02:34:10] [WARNING] [ChatbotSessionManager.py:72] Redis connection failed: Error 111 connecting to localhost:6380. Connect call failed ('127.0.0.1', 6380).. Falling back to local cache only
+[2025-11-05 02:34:10] [ERROR] [Simpleneo4jKB.py:40] Neo4j connection failed: Couldn't connect to localhost:7687 (resolved to ('127.0.0.1:7687',)):
+Failed to establish connection to ResolvedIPv4Address(('127.0.0.1', 7687)) (reason [Errno 111] Connect call failed ('127.0.0.1', 7687))
+[2025-11-05 02:34:24] [INFO] [GroqRAGProcessor.py:37] RAG Processor initialized
+[2025-11-05 02:35:16] [INFO] [app.py:169] Starting session 116392b4-5444-4bad-a8c8-f65c4f44d34a
+[2025-11-05 02:35:16] [WARNING] [ChatbotSessionManager.py:184] Session 116392b4-5444-4bad-a8c8-f65c4f44d34a not found in either Redis or local cache
+[2025-11-05 02:35:16] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-05 02:35:17] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-05 02:35:17] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-05 02:35:17] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 02:35:17] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 02:35:17] [INFO] [app.py:184] Created 2 chunks
+[2025-11-05 02:35:18] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-05 02:35:18] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-05 02:35:18] [INFO] [ChatbotSessionManager.py:154] Session 116392b4-5444-4bad-a8c8-f65c4f44d34a stored in local cache only (Redis unavailable)
+[2025-11-05 02:35:18] [INFO] [app.py:209] Session 116392b4-5444-4bad-a8c8-f65c4f44d34a created successfully
+[2025-11-05 02:35:19] [INFO] [app.py:169] Starting session a2d2328e-1720-43b6-b1d9-b7784663b925
+[2025-11-05 02:35:19] [WARNING] [ChatbotSessionManager.py:184] Session a2d2328e-1720-43b6-b1d9-b7784663b925 not found in either Redis or local cache
+[2025-11-05 02:35:19] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-05 02:35:20] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-05 02:35:20] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-05 02:35:20] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 02:35:20] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 02:35:20] [INFO] [app.py:184] Created 2 chunks
+[2025-11-05 02:35:20] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-05 02:35:20] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-05 02:35:20] [INFO] [ChatbotSessionManager.py:154] Session a2d2328e-1720-43b6-b1d9-b7784663b925 stored in local cache only (Redis unavailable)
+[2025-11-05 02:35:20] [INFO] [app.py:209] Session a2d2328e-1720-43b6-b1d9-b7784663b925 created successfully
+[2025-11-05 02:35:53] [INFO] [app.py:224] Processing query for session a2d2328e-1720-43b6-b1d9-b7784663b925
+[2025-11-05 02:35:53] [INFO] [ChatbotSessionManager.py:181] Session a2d2328e-1720-43b6-b1d9-b7784663b925 retrieved from local cache (fallback)
+[2025-11-05 02:35:53] [INFO] [GroqRAGProcessor.py:115] Answering question: 'how is the overall response?' for session: a2d2328e-1720-43b6-b1d9-b7784663b925
+[2025-11-05 02:35:54] [INFO] [GroqRAGProcessor.py:122] Vector search returned 2 documents
+[2025-11-05 02:35:54] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 0: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 02:35:54] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 1: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 02:35:54] [INFO] [GroqRAGProcessor.py:136] Graph search skipped (disabled or not requested)
+[2025-11-05 02:35:54] [INFO] [GroqRAGProcessor.py:146] Using vector-only context
+[2025-11-05 02:35:54] [DEBUG] [GroqRAGProcessor.py:149] Context length: 733 characters
+[2025-11-05 02:35:54] [INFO] [GroqRAGProcessor.py:168] Answer generated: 687 characters, search_type: vector_only
+[2025-11-05 02:38:28] [INFO] [app.py:169] Starting session c05f6d90-aaeb-435e-995a-eb7bfc26cf94
+[2025-11-05 02:38:28] [WARNING] [ChatbotSessionManager.py:184] Session c05f6d90-aaeb-435e-995a-eb7bfc26cf94 not found in either Redis or local cache
+[2025-11-05 02:38:28] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-05 02:38:29] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-05 02:38:29] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-05 02:38:29] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 02:38:29] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 02:38:29] [INFO] [app.py:184] Created 2 chunks
+[2025-11-05 02:38:30] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-05 02:38:30] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-05 02:38:30] [INFO] [ChatbotSessionManager.py:154] Session c05f6d90-aaeb-435e-995a-eb7bfc26cf94 stored in local cache only (Redis unavailable)
+[2025-11-05 02:38:30] [INFO] [app.py:209] Session c05f6d90-aaeb-435e-995a-eb7bfc26cf94 created successfully
+[2025-11-05 02:38:30] [INFO] [app.py:169] Starting session fa6422b2-10cc-4893-be89-74740a2c6632
+[2025-11-05 02:38:30] [WARNING] [ChatbotSessionManager.py:184] Session fa6422b2-10cc-4893-be89-74740a2c6632 not found in either Redis or local cache
+[2025-11-05 02:38:30] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-05 02:38:31] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-05 02:38:31] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-05 02:38:31] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 02:38:31] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 02:38:31] [INFO] [app.py:184] Created 2 chunks
+[2025-11-05 02:38:31] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-05 02:38:31] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-05 02:38:31] [INFO] [ChatbotSessionManager.py:154] Session fa6422b2-10cc-4893-be89-74740a2c6632 stored in local cache only (Redis unavailable)
+[2025-11-05 02:38:31] [INFO] [app.py:209] Session fa6422b2-10cc-4893-be89-74740a2c6632 created successfully
+[2025-11-05 02:38:52] [INFO] [app.py:224] Processing query for session fa6422b2-10cc-4893-be89-74740a2c6632
+[2025-11-05 02:38:52] [INFO] [ChatbotSessionManager.py:181] Session fa6422b2-10cc-4893-be89-74740a2c6632 retrieved from local cache (fallback)
+[2025-11-05 02:38:52] [INFO] [GroqRAGProcessor.py:115] Answering question: 'how is the overall response?' for session: fa6422b2-10cc-4893-be89-74740a2c6632
+[2025-11-05 02:38:52] [INFO] [GroqRAGProcessor.py:122] Vector search returned 2 documents
+[2025-11-05 02:38:52] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 0: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 02:38:52] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 1: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 02:38:52] [INFO] [GroqRAGProcessor.py:136] Graph search skipped (disabled or not requested)
+[2025-11-05 02:38:52] [INFO] [GroqRAGProcessor.py:146] Using vector-only context
+[2025-11-05 02:38:52] [DEBUG] [GroqRAGProcessor.py:149] Context length: 733 characters
+[2025-11-05 02:38:53] [INFO] [GroqRAGProcessor.py:168] Answer generated: 469 characters, search_type: vector_only
+[2025-11-05 02:39:14] [INFO] [app.py:169] Starting session ed752927-4cbe-4854-92ec-12915b939be3
+[2025-11-05 02:39:14] [WARNING] [ChatbotSessionManager.py:184] Session ed752927-4cbe-4854-92ec-12915b939be3 not found in either Redis or local cache
+[2025-11-05 02:39:14] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-05 02:39:15] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-05 02:39:15] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-05 02:39:15] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 02:39:15] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 02:39:15] [INFO] [app.py:184] Created 2 chunks
+[2025-11-05 02:39:16] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-05 02:39:16] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-05 02:39:16] [INFO] [ChatbotSessionManager.py:154] Session ed752927-4cbe-4854-92ec-12915b939be3 stored in local cache only (Redis unavailable)
+[2025-11-05 02:39:16] [INFO] [app.py:209] Session ed752927-4cbe-4854-92ec-12915b939be3 created successfully
+[2025-11-05 02:39:16] [INFO] [app.py:169] Starting session a8bc50cd-9d76-4b05-9dbe-80130809c74c
+[2025-11-05 02:39:16] [WARNING] [ChatbotSessionManager.py:184] Session a8bc50cd-9d76-4b05-9dbe-80130809c74c not found in either Redis or local cache
+[2025-11-05 02:39:16] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-05 02:39:17] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-05 02:39:17] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-05 02:39:17] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 02:39:17] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 02:39:17] [INFO] [app.py:184] Created 2 chunks
+[2025-11-05 02:39:17] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-05 02:39:17] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-05 02:39:17] [INFO] [ChatbotSessionManager.py:154] Session a8bc50cd-9d76-4b05-9dbe-80130809c74c stored in local cache only (Redis unavailable)
+[2025-11-05 02:39:17] [INFO] [app.py:209] Session a8bc50cd-9d76-4b05-9dbe-80130809c74c created successfully
+[2025-11-05 02:42:28] [INFO] [app.py:169] Starting session 86f0ec3b-d93a-4df7-b4f7-12de591e9dcf
+[2025-11-05 02:42:28] [WARNING] [ChatbotSessionManager.py:184] Session 86f0ec3b-d93a-4df7-b4f7-12de591e9dcf not found in either Redis or local cache
+[2025-11-05 02:42:28] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-05 02:42:30] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-05 02:42:30] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-05 02:42:30] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 02:42:30] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 02:42:30] [INFO] [app.py:184] Created 2 chunks
+[2025-11-05 02:42:30] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-05 02:42:30] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-05 02:42:30] [INFO] [ChatbotSessionManager.py:154] Session 86f0ec3b-d93a-4df7-b4f7-12de591e9dcf stored in local cache only (Redis unavailable)
+[2025-11-05 02:42:30] [INFO] [app.py:209] Session 86f0ec3b-d93a-4df7-b4f7-12de591e9dcf created successfully
+[2025-11-05 02:42:45] [INFO] [app.py:169] Starting session e85644bd-f231-4f50-928c-df81272ab5ab
+[2025-11-05 02:42:45] [WARNING] [ChatbotSessionManager.py:184] Session e85644bd-f231-4f50-928c-df81272ab5ab not found in either Redis or local cache
+[2025-11-05 02:42:45] [DEBUG] [utils.py:88]  Fetching data from: http://127.0.0.1:8000/admin/home/event/add/
+[2025-11-05 02:42:45] [ERROR] [utils.py:99] Error fetching worksheet data: Error tokenizing data. C error: Expected 1 fields in line 21, saw 2
+
+[2025-11-05 02:42:45] [ERROR] [app.py:218] Session creation failed: Failed to fetch worksheet data: Error tokenizing data. C error: Expected 1 fields in line 21, saw 2
+
+[2025-11-05 02:42:45] [INFO] [app.py:169] Starting session 403ab18b-1af7-413f-a6c8-75b948cfdc1d
+[2025-11-05 02:42:45] [WARNING] [ChatbotSessionManager.py:184] Session 403ab18b-1af7-413f-a6c8-75b948cfdc1d not found in either Redis or local cache
+[2025-11-05 02:42:45] [DEBUG] [utils.py:88]  Fetching data from: http://127.0.0.1:8000/admin/home/event/add/
+[2025-11-05 02:42:45] [ERROR] [utils.py:99] Error fetching worksheet data: Error tokenizing data. C error: Expected 1 fields in line 21, saw 2
+
+[2025-11-05 02:42:45] [ERROR] [app.py:218] Session creation failed: Failed to fetch worksheet data: Error tokenizing data. C error: Expected 1 fields in line 21, saw 2
+
+[2025-11-05 02:43:03] [INFO] [app.py:169] Starting session 604e0839-1eec-4b4d-9578-cf76c222f7dc
+[2025-11-05 02:43:03] [WARNING] [ChatbotSessionManager.py:184] Session 604e0839-1eec-4b4d-9578-cf76c222f7dc not found in either Redis or local cache
+[2025-11-05 02:43:03] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-05 02:43:05] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-05 02:43:05] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-05 02:43:05] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 02:43:05] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 02:43:05] [INFO] [app.py:184] Created 2 chunks
+[2025-11-05 02:43:05] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-05 02:43:05] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-05 02:43:05] [INFO] [ChatbotSessionManager.py:154] Session 604e0839-1eec-4b4d-9578-cf76c222f7dc stored in local cache only (Redis unavailable)
+[2025-11-05 02:43:05] [INFO] [app.py:209] Session 604e0839-1eec-4b4d-9578-cf76c222f7dc created successfully
+[2025-11-05 02:43:05] [INFO] [app.py:169] Starting session e8824b46-ca27-45d7-83e4-52bc80b0b46d
+[2025-11-05 02:43:05] [WARNING] [ChatbotSessionManager.py:184] Session e8824b46-ca27-45d7-83e4-52bc80b0b46d not found in either Redis or local cache
+[2025-11-05 02:43:05] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-05 02:43:04] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-05 02:43:04] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-05 02:43:04] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 02:43:04] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 02:43:04] [INFO] [app.py:184] Created 2 chunks
+[2025-11-05 02:43:04] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-05 02:43:04] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-05 02:43:04] [INFO] [ChatbotSessionManager.py:154] Session e8824b46-ca27-45d7-83e4-52bc80b0b46d stored in local cache only (Redis unavailable)
+[2025-11-05 02:43:04] [INFO] [app.py:209] Session e8824b46-ca27-45d7-83e4-52bc80b0b46d created successfully
+[2025-11-05 02:45:29] [INFO] [app.py:169] Starting session 8a0e2baf-b6ab-4802-b495-6de17e2ea9d0
+[2025-11-05 02:45:29] [WARNING] [ChatbotSessionManager.py:184] Session 8a0e2baf-b6ab-4802-b495-6de17e2ea9d0 not found in either Redis or local cache
+[2025-11-05 02:45:29] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-05 02:45:31] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-05 02:45:31] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-05 02:45:31] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 02:45:31] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 02:45:31] [INFO] [app.py:184] Created 2 chunks
+[2025-11-05 02:45:31] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-05 02:45:31] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-05 02:45:31] [INFO] [ChatbotSessionManager.py:154] Session 8a0e2baf-b6ab-4802-b495-6de17e2ea9d0 stored in local cache only (Redis unavailable)
+[2025-11-05 02:45:31] [INFO] [app.py:209] Session 8a0e2baf-b6ab-4802-b495-6de17e2ea9d0 created successfully
+[2025-11-05 02:45:31] [INFO] [app.py:169] Starting session 0467658e-5326-410a-a203-ad31e79390e1
+[2025-11-05 02:45:31] [WARNING] [ChatbotSessionManager.py:184] Session 0467658e-5326-410a-a203-ad31e79390e1 not found in either Redis or local cache
+[2025-11-05 02:45:31] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-05 02:45:32] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-05 02:45:32] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-05 02:45:32] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 02:45:32] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 02:45:32] [INFO] [app.py:184] Created 2 chunks
+[2025-11-05 02:45:33] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-05 02:45:33] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-05 02:45:33] [INFO] [ChatbotSessionManager.py:154] Session 0467658e-5326-410a-a203-ad31e79390e1 stored in local cache only (Redis unavailable)
+[2025-11-05 02:45:33] [INFO] [app.py:209] Session 0467658e-5326-410a-a203-ad31e79390e1 created successfully
+[2025-11-05 02:45:46] [INFO] [app.py:224] Processing query for session 0467658e-5326-410a-a203-ad31e79390e1
+[2025-11-05 02:45:46] [INFO] [ChatbotSessionManager.py:181] Session 0467658e-5326-410a-a203-ad31e79390e1 retrieved from local cache (fallback)
+[2025-11-05 02:45:46] [INFO] [GroqRAGProcessor.py:115] Answering question: 'how many submissions are there?' for session: 0467658e-5326-410a-a203-ad31e79390e1
+[2025-11-05 02:45:46] [INFO] [GroqRAGProcessor.py:122] Vector search returned 2 documents
+[2025-11-05 02:45:46] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 0: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 02:45:46] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 1: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 02:45:46] [INFO] [GroqRAGProcessor.py:136] Graph search skipped (disabled or not requested)
+[2025-11-05 02:45:46] [INFO] [GroqRAGProcessor.py:146] Using vector-only context
+[2025-11-05 02:45:46] [DEBUG] [GroqRAGProcessor.py:149] Context length: 733 characters
+[2025-11-05 02:45:47] [INFO] [GroqRAGProcessor.py:168] Answer generated: 300 characters, search_type: vector_only
+[2025-11-05 02:46:09] [INFO] [app.py:224] Processing query for session 0467658e-5326-410a-a203-ad31e79390e1
+[2025-11-05 02:46:09] [INFO] [ChatbotSessionManager.py:181] Session 0467658e-5326-410a-a203-ad31e79390e1 retrieved from local cache (fallback)
+[2025-11-05 02:46:09] [INFO] [GroqRAGProcessor.py:115] Answering question: 'any thing unusaula?' for session: 0467658e-5326-410a-a203-ad31e79390e1
+[2025-11-05 02:46:09] [INFO] [GroqRAGProcessor.py:122] Vector search returned 2 documents
+[2025-11-05 02:46:09] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 0: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 02:46:09] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 1: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 02:46:09] [INFO] [GroqRAGProcessor.py:136] Graph search skipped (disabled or not requested)
+[2025-11-05 02:46:09] [INFO] [GroqRAGProcessor.py:146] Using vector-only context
+[2025-11-05 02:46:09] [DEBUG] [GroqRAGProcessor.py:149] Context length: 733 characters
+[2025-11-05 02:46:10] [INFO] [GroqRAGProcessor.py:168] Answer generated: 585 characters, search_type: vector_only
+[2025-11-05 02:46:37] [INFO] [app.py:169] Starting session 84402ef1-83a5-4e75-b61d-1c62bcb93dd6
+[2025-11-05 02:46:37] [WARNING] [ChatbotSessionManager.py:184] Session 84402ef1-83a5-4e75-b61d-1c62bcb93dd6 not found in either Redis or local cache
+[2025-11-05 02:46:37] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-05 02:46:39] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-05 02:46:39] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-05 02:46:39] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 02:46:39] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 02:46:39] [INFO] [app.py:184] Created 2 chunks
+[2025-11-05 02:46:41] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-05 02:46:41] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-05 02:46:41] [INFO] [ChatbotSessionManager.py:154] Session 84402ef1-83a5-4e75-b61d-1c62bcb93dd6 stored in local cache only (Redis unavailable)
+[2025-11-05 02:46:41] [INFO] [app.py:209] Session 84402ef1-83a5-4e75-b61d-1c62bcb93dd6 created successfully
+[2025-11-05 02:46:41] [INFO] [app.py:169] Starting session f11efa20-7007-43f1-b79d-23b2765506c6
+[2025-11-05 02:46:41] [WARNING] [ChatbotSessionManager.py:184] Session f11efa20-7007-43f1-b79d-23b2765506c6 not found in either Redis or local cache
+[2025-11-05 02:46:41] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-05 02:46:42] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-05 02:46:42] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-05 02:46:42] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 02:46:42] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 02:46:42] [INFO] [app.py:184] Created 2 chunks
+[2025-11-05 02:46:43] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-05 02:46:43] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-05 02:46:43] [INFO] [ChatbotSessionManager.py:154] Session f11efa20-7007-43f1-b79d-23b2765506c6 stored in local cache only (Redis unavailable)
+[2025-11-05 02:46:43] [INFO] [app.py:209] Session f11efa20-7007-43f1-b79d-23b2765506c6 created successfully
+[2025-11-05 02:46:54] [INFO] [app.py:224] Processing query for session f11efa20-7007-43f1-b79d-23b2765506c6
+[2025-11-05 02:46:54] [INFO] [ChatbotSessionManager.py:181] Session f11efa20-7007-43f1-b79d-23b2765506c6 retrieved from local cache (fallback)
+[2025-11-05 02:46:54] [INFO] [GroqRAGProcessor.py:115] Answering question: 'how many submission are there?' for session: f11efa20-7007-43f1-b79d-23b2765506c6
+[2025-11-05 02:46:54] [INFO] [GroqRAGProcessor.py:122] Vector search returned 2 documents
+[2025-11-05 02:46:54] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 0: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 02:46:54] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 1: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 02:46:54] [INFO] [GroqRAGProcessor.py:136] Graph search skipped (disabled or not requested)
+[2025-11-05 02:46:54] [INFO] [GroqRAGProcessor.py:146] Using vector-only context
+[2025-11-05 02:46:54] [DEBUG] [GroqRAGProcessor.py:149] Context length: 733 characters
+[2025-11-05 02:46:55] [INFO] [GroqRAGProcessor.py:168] Answer generated: 300 characters, search_type: vector_only
+[2025-11-05 02:48:14] [INFO] [app.py:169] Starting session dc3d7fce-e3d6-48c0-a7cc-7f6972743e2a
+[2025-11-05 02:48:14] [WARNING] [ChatbotSessionManager.py:184] Session dc3d7fce-e3d6-48c0-a7cc-7f6972743e2a not found in either Redis or local cache
+[2025-11-05 02:48:14] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-05 02:48:15] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-05 02:48:15] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-05 02:48:15] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 02:48:15] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 02:48:15] [INFO] [app.py:184] Created 2 chunks
+[2025-11-05 02:48:15] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-05 02:48:15] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-05 02:48:15] [INFO] [ChatbotSessionManager.py:154] Session dc3d7fce-e3d6-48c0-a7cc-7f6972743e2a stored in local cache only (Redis unavailable)
+[2025-11-05 02:48:15] [INFO] [app.py:209] Session dc3d7fce-e3d6-48c0-a7cc-7f6972743e2a created successfully
+[2025-11-05 02:48:15] [INFO] [app.py:169] Starting session 8c2b1f37-03af-4aba-ab1e-957691ed8bee
+[2025-11-05 02:48:15] [WARNING] [ChatbotSessionManager.py:184] Session 8c2b1f37-03af-4aba-ab1e-957691ed8bee not found in either Redis or local cache
+[2025-11-05 02:48:15] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-05 02:48:16] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-05 02:48:16] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-05 02:48:16] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 02:48:16] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 02:48:16] [INFO] [app.py:184] Created 2 chunks
+[2025-11-05 02:48:17] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-05 02:48:17] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-05 02:48:17] [INFO] [ChatbotSessionManager.py:154] Session 8c2b1f37-03af-4aba-ab1e-957691ed8bee stored in local cache only (Redis unavailable)
+[2025-11-05 02:48:17] [INFO] [app.py:209] Session 8c2b1f37-03af-4aba-ab1e-957691ed8bee created successfully
+[2025-11-05 02:48:27] [INFO] [app.py:224] Processing query for session 8c2b1f37-03af-4aba-ab1e-957691ed8bee
+[2025-11-05 02:48:27] [INFO] [ChatbotSessionManager.py:181] Session 8c2b1f37-03af-4aba-ab1e-957691ed8bee retrieved from local cache (fallback)
+[2025-11-05 02:48:27] [INFO] [GroqRAGProcessor.py:115] Answering question: 'how may submissiona re ther' for session: 8c2b1f37-03af-4aba-ab1e-957691ed8bee
+[2025-11-05 02:48:27] [INFO] [GroqRAGProcessor.py:122] Vector search returned 2 documents
+[2025-11-05 02:48:27] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 0: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 02:48:27] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 1: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 02:48:27] [INFO] [GroqRAGProcessor.py:136] Graph search skipped (disabled or not requested)
+[2025-11-05 02:48:27] [INFO] [GroqRAGProcessor.py:146] Using vector-only context
+[2025-11-05 02:48:27] [DEBUG] [GroqRAGProcessor.py:149] Context length: 733 characters
+[2025-11-05 02:48:28] [INFO] [GroqRAGProcessor.py:168] Answer generated: 280 characters, search_type: vector_only
+[2025-11-05 03:49:54] [WARNING] [ChatbotSessionManager.py:72] Redis connection failed: Error 111 connecting to localhost:6380. Connect call failed ('127.0.0.1', 6380).. Falling back to local cache only
+[2025-11-05 03:49:54] [ERROR] [Simpleneo4jKB.py:40] Neo4j connection failed: Couldn't connect to localhost:7687 (resolved to ('127.0.0.1:7687',)):
+Failed to establish connection to ResolvedIPv4Address(('127.0.0.1', 7687)) (reason [Errno 111] Connect call failed ('127.0.0.1', 7687))
+[2025-11-05 03:50:21] [INFO] [GroqRAGProcessor.py:37] RAG Processor initialized
+[2025-11-05 03:50:23] [INFO] [app.py:169] Starting session a26c8613-465d-4c78-bbfd-e4731eb28812
+[2025-11-05 03:50:23] [WARNING] [ChatbotSessionManager.py:184] Session a26c8613-465d-4c78-bbfd-e4731eb28812 not found in either Redis or local cache
+[2025-11-05 03:50:23] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-05 03:50:28] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-05 03:50:28] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-05 03:50:28] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 03:50:28] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 03:50:28] [INFO] [app.py:184] Created 2 chunks
+[2025-11-05 03:50:28] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-05 03:50:28] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-05 03:50:28] [INFO] [ChatbotSessionManager.py:154] Session a26c8613-465d-4c78-bbfd-e4731eb28812 stored in local cache only (Redis unavailable)
+[2025-11-05 03:50:28] [INFO] [app.py:209] Session a26c8613-465d-4c78-bbfd-e4731eb28812 created successfully
+[2025-11-05 03:50:28] [INFO] [app.py:169] Starting session a8e539ae-bdf7-4107-a747-267030cda358
+[2025-11-05 03:50:28] [WARNING] [ChatbotSessionManager.py:184] Session a8e539ae-bdf7-4107-a747-267030cda358 not found in either Redis or local cache
+[2025-11-05 03:50:28] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-05 03:50:30] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-05 03:50:30] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-05 03:50:30] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 03:50:30] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 03:50:30] [INFO] [app.py:184] Created 2 chunks
+[2025-11-05 03:50:30] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-05 03:50:30] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-05 03:50:30] [INFO] [ChatbotSessionManager.py:154] Session a8e539ae-bdf7-4107-a747-267030cda358 stored in local cache only (Redis unavailable)
+[2025-11-05 03:50:30] [INFO] [app.py:209] Session a8e539ae-bdf7-4107-a747-267030cda358 created successfully
+[2025-11-05 03:50:40] [INFO] [app.py:224] Processing query for session a8e539ae-bdf7-4107-a747-267030cda358
+[2025-11-05 03:50:40] [INFO] [ChatbotSessionManager.py:181] Session a8e539ae-bdf7-4107-a747-267030cda358 retrieved from local cache (fallback)
+[2025-11-05 03:50:40] [INFO] [GroqRAGProcessor.py:115] Answering question: 'how is the overall response' for session: a8e539ae-bdf7-4107-a747-267030cda358
+[2025-11-05 03:50:40] [INFO] [GroqRAGProcessor.py:122] Vector search returned 2 documents
+[2025-11-05 03:50:40] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 0: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 03:50:40] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 1: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 03:50:40] [INFO] [GroqRAGProcessor.py:136] Graph search skipped (disabled or not requested)
+[2025-11-05 03:50:40] [INFO] [GroqRAGProcessor.py:146] Using vector-only context
+[2025-11-05 03:50:40] [DEBUG] [GroqRAGProcessor.py:149] Context length: 733 characters
+[2025-11-05 03:50:41] [INFO] [GroqRAGProcessor.py:168] Answer generated: 790 characters, search_type: vector_only
+[2025-11-05 03:53:45] [INFO] [app.py:169] Starting session cecd59a4-dc35-468c-8e6a-fa3e0df6b14a
+[2025-11-05 03:53:45] [WARNING] [ChatbotSessionManager.py:184] Session cecd59a4-dc35-468c-8e6a-fa3e0df6b14a not found in either Redis or local cache
+[2025-11-05 03:53:45] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-05 03:53:46] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-05 03:53:46] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-05 03:53:46] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 03:53:46] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 03:53:46] [INFO] [app.py:184] Created 2 chunks
+[2025-11-05 03:53:47] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-05 03:53:47] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-05 03:53:47] [INFO] [ChatbotSessionManager.py:154] Session cecd59a4-dc35-468c-8e6a-fa3e0df6b14a stored in local cache only (Redis unavailable)
+[2025-11-05 03:53:47] [INFO] [app.py:209] Session cecd59a4-dc35-468c-8e6a-fa3e0df6b14a created successfully
+[2025-11-05 03:53:47] [INFO] [app.py:169] Starting session db6b8c73-80b5-4d4d-b462-3f167fe46c66
+[2025-11-05 03:53:47] [WARNING] [ChatbotSessionManager.py:184] Session db6b8c73-80b5-4d4d-b462-3f167fe46c66 not found in either Redis or local cache
+[2025-11-05 03:53:47] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-05 03:53:48] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-05 03:53:48] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-05 03:53:48] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 03:53:48] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 03:53:48] [INFO] [app.py:184] Created 2 chunks
+[2025-11-05 03:53:49] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-05 03:53:49] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-05 03:53:49] [INFO] [ChatbotSessionManager.py:154] Session db6b8c73-80b5-4d4d-b462-3f167fe46c66 stored in local cache only (Redis unavailable)
+[2025-11-05 03:53:49] [INFO] [app.py:209] Session db6b8c73-80b5-4d4d-b462-3f167fe46c66 created successfully
+[2025-11-05 03:54:02] [INFO] [app.py:224] Processing query for session db6b8c73-80b5-4d4d-b462-3f167fe46c66
+[2025-11-05 03:54:02] [INFO] [ChatbotSessionManager.py:181] Session db6b8c73-80b5-4d4d-b462-3f167fe46c66 retrieved from local cache (fallback)
+[2025-11-05 03:54:02] [INFO] [GroqRAGProcessor.py:115] Answering question: 'hwo si the overall feedback' for session: db6b8c73-80b5-4d4d-b462-3f167fe46c66
+[2025-11-05 03:54:02] [INFO] [GroqRAGProcessor.py:122] Vector search returned 2 documents
+[2025-11-05 03:54:02] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 0: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 03:54:02] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 1: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 03:54:02] [INFO] [GroqRAGProcessor.py:136] Graph search skipped (disabled or not requested)
+[2025-11-05 03:54:02] [INFO] [GroqRAGProcessor.py:146] Using vector-only context
+[2025-11-05 03:54:02] [DEBUG] [GroqRAGProcessor.py:149] Context length: 733 characters
+[2025-11-05 03:54:04] [INFO] [GroqRAGProcessor.py:168] Answer generated: 548 characters, search_type: vector_only
+[2025-11-05 03:54:50] [INFO] [app.py:224] Processing query for session db6b8c73-80b5-4d4d-b462-3f167fe46c66
+[2025-11-05 03:54:50] [INFO] [ChatbotSessionManager.py:181] Session db6b8c73-80b5-4d4d-b462-3f167fe46c66 retrieved from local cache (fallback)
+[2025-11-05 03:54:50] [INFO] [GroqRAGProcessor.py:115] Answering question: 'what are you suggestions on improving the feedbacks' for session: db6b8c73-80b5-4d4d-b462-3f167fe46c66
+[2025-11-05 03:54:50] [INFO] [GroqRAGProcessor.py:122] Vector search returned 2 documents
+[2025-11-05 03:54:50] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 0: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 03:54:50] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 1: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 03:54:50] [INFO] [GroqRAGProcessor.py:136] Graph search skipped (disabled or not requested)
+[2025-11-05 03:54:50] [INFO] [GroqRAGProcessor.py:146] Using vector-only context
+[2025-11-05 03:54:50] [DEBUG] [GroqRAGProcessor.py:149] Context length: 733 characters
+[2025-11-05 03:54:52] [INFO] [GroqRAGProcessor.py:168] Answer generated: 2040 characters, search_type: vector_only
+[2025-11-05 03:55:11] [INFO] [app.py:224] Processing query for session db6b8c73-80b5-4d4d-b462-3f167fe46c66
+[2025-11-05 03:55:11] [INFO] [ChatbotSessionManager.py:181] Session db6b8c73-80b5-4d4d-b462-3f167fe46c66 retrieved from local cache (fallback)
+[2025-11-05 03:55:11] [INFO] [GroqRAGProcessor.py:115] Answering question: 'thank you' for session: db6b8c73-80b5-4d4d-b462-3f167fe46c66
+[2025-11-05 03:55:11] [INFO] [GroqRAGProcessor.py:122] Vector search returned 2 documents
+[2025-11-05 03:55:11] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 0: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 03:55:11] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 1: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 03:55:11] [INFO] [GroqRAGProcessor.py:136] Graph search skipped (disabled or not requested)
+[2025-11-05 03:55:11] [INFO] [GroqRAGProcessor.py:146] Using vector-only context
+[2025-11-05 03:55:11] [DEBUG] [GroqRAGProcessor.py:149] Context length: 733 characters
+[2025-11-05 03:55:13] [INFO] [GroqRAGProcessor.py:168] Answer generated: 175 characters, search_type: vector_only
+[2025-11-05 03:57:32] [INFO] [app.py:169] Starting session cddc1f54-f76b-40f8-b185-7f699642acf1
+[2025-11-05 03:57:32] [WARNING] [ChatbotSessionManager.py:184] Session cddc1f54-f76b-40f8-b185-7f699642acf1 not found in either Redis or local cache
+[2025-11-05 03:57:32] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-05 03:57:36] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-05 03:57:36] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-05 03:57:36] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 03:57:36] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 03:57:36] [INFO] [app.py:184] Created 2 chunks
+[2025-11-05 03:57:36] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-05 03:57:36] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-05 03:57:36] [INFO] [ChatbotSessionManager.py:154] Session cddc1f54-f76b-40f8-b185-7f699642acf1 stored in local cache only (Redis unavailable)
+[2025-11-05 03:57:36] [INFO] [app.py:209] Session cddc1f54-f76b-40f8-b185-7f699642acf1 created successfully
+[2025-11-05 03:57:36] [INFO] [app.py:169] Starting session e018efe3-2e60-4503-8880-ba60abe99dfe
+[2025-11-05 03:57:36] [WARNING] [ChatbotSessionManager.py:184] Session e018efe3-2e60-4503-8880-ba60abe99dfe not found in either Redis or local cache
+[2025-11-05 03:57:36] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-05 03:57:38] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-05 03:57:38] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-05 03:57:38] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 03:57:38] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 03:57:38] [INFO] [app.py:184] Created 2 chunks
+[2025-11-05 03:57:38] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-05 03:57:38] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-05 03:57:38] [INFO] [ChatbotSessionManager.py:154] Session e018efe3-2e60-4503-8880-ba60abe99dfe stored in local cache only (Redis unavailable)
+[2025-11-05 03:57:38] [INFO] [app.py:209] Session e018efe3-2e60-4503-8880-ba60abe99dfe created successfully
+[2025-11-05 03:57:47] [INFO] [app.py:224] Processing query for session e018efe3-2e60-4503-8880-ba60abe99dfe
+[2025-11-05 03:57:47] [INFO] [ChatbotSessionManager.py:181] Session e018efe3-2e60-4503-8880-ba60abe99dfe retrieved from local cache (fallback)
+[2025-11-05 03:57:47] [INFO] [GroqRAGProcessor.py:115] Answering question: 'hwo is the overall feedback' for session: e018efe3-2e60-4503-8880-ba60abe99dfe
+[2025-11-05 03:57:47] [INFO] [GroqRAGProcessor.py:122] Vector search returned 2 documents
+[2025-11-05 03:57:47] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 0: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 03:57:47] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 1: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 03:57:47] [INFO] [GroqRAGProcessor.py:136] Graph search skipped (disabled or not requested)
+[2025-11-05 03:57:47] [INFO] [GroqRAGProcessor.py:146] Using vector-only context
+[2025-11-05 03:57:47] [DEBUG] [GroqRAGProcessor.py:149] Context length: 733 characters
+[2025-11-05 03:57:51] [INFO] [GroqRAGProcessor.py:168] Answer generated: 556 characters, search_type: vector_only
+[2025-11-05 03:57:59] [INFO] [app.py:224] Processing query for session e018efe3-2e60-4503-8880-ba60abe99dfe
+[2025-11-05 03:57:59] [INFO] [ChatbotSessionManager.py:181] Session e018efe3-2e60-4503-8880-ba60abe99dfe retrieved from local cache (fallback)
+[2025-11-05 03:57:59] [INFO] [GroqRAGProcessor.py:115] Answering question: 'can yoou give some suggestions' for session: e018efe3-2e60-4503-8880-ba60abe99dfe
+[2025-11-05 03:57:59] [INFO] [GroqRAGProcessor.py:122] Vector search returned 2 documents
+[2025-11-05 03:57:59] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 0: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 03:57:59] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 1: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 03:57:59] [INFO] [GroqRAGProcessor.py:136] Graph search skipped (disabled or not requested)
+[2025-11-05 03:57:59] [INFO] [GroqRAGProcessor.py:146] Using vector-only context
+[2025-11-05 03:57:59] [DEBUG] [GroqRAGProcessor.py:149] Context length: 733 characters
+[2025-11-05 03:58:00] [INFO] [GroqRAGProcessor.py:168] Answer generated: 695 characters, search_type: vector_only
+[2025-11-05 03:58:07] [INFO] [app.py:224] Processing query for session e018efe3-2e60-4503-8880-ba60abe99dfe
+[2025-11-05 03:58:07] [INFO] [ChatbotSessionManager.py:181] Session e018efe3-2e60-4503-8880-ba60abe99dfe retrieved from local cache (fallback)
+[2025-11-05 03:58:07] [INFO] [GroqRAGProcessor.py:115] Answering question: 'thank you' for session: e018efe3-2e60-4503-8880-ba60abe99dfe
+[2025-11-05 03:58:07] [INFO] [GroqRAGProcessor.py:122] Vector search returned 2 documents
+[2025-11-05 03:58:07] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 0: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 03:58:07] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 1: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 03:58:07] [INFO] [GroqRAGProcessor.py:136] Graph search skipped (disabled or not requested)
+[2025-11-05 03:58:07] [INFO] [GroqRAGProcessor.py:146] Using vector-only context
+[2025-11-05 03:58:07] [DEBUG] [GroqRAGProcessor.py:149] Context length: 733 characters
+[2025-11-05 03:58:08] [INFO] [GroqRAGProcessor.py:168] Answer generated: 240 characters, search_type: vector_only
+[2025-11-05 04:04:05] [INFO] [app.py:169] Starting session 8bc8bea2-1dd6-4ff2-ad0a-843e80b80cda
+[2025-11-05 04:04:05] [WARNING] [ChatbotSessionManager.py:184] Session 8bc8bea2-1dd6-4ff2-ad0a-843e80b80cda not found in either Redis or local cache
+[2025-11-05 04:04:05] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-05 04:04:07] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-05 04:04:07] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-05 04:04:07] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 04:04:07] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 04:04:07] [INFO] [app.py:184] Created 2 chunks
+[2025-11-05 04:04:07] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-05 04:04:07] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-05 04:04:07] [INFO] [ChatbotSessionManager.py:154] Session 8bc8bea2-1dd6-4ff2-ad0a-843e80b80cda stored in local cache only (Redis unavailable)
+[2025-11-05 04:04:07] [INFO] [app.py:209] Session 8bc8bea2-1dd6-4ff2-ad0a-843e80b80cda created successfully
+[2025-11-05 04:04:07] [INFO] [app.py:169] Starting session e2fbc6c7-c756-4df0-95b7-9303d9a0f869
+[2025-11-05 04:04:07] [WARNING] [ChatbotSessionManager.py:184] Session e2fbc6c7-c756-4df0-95b7-9303d9a0f869 not found in either Redis or local cache
+[2025-11-05 04:04:07] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-05 04:04:09] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-05 04:04:09] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-05 04:04:09] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 04:04:09] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 04:04:09] [INFO] [app.py:184] Created 2 chunks
+[2025-11-05 04:04:09] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-05 04:04:09] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-05 04:04:09] [INFO] [ChatbotSessionManager.py:154] Session e2fbc6c7-c756-4df0-95b7-9303d9a0f869 stored in local cache only (Redis unavailable)
+[2025-11-05 04:04:09] [INFO] [app.py:209] Session e2fbc6c7-c756-4df0-95b7-9303d9a0f869 created successfully
+[2025-11-05 04:04:11] [INFO] [app.py:224] Processing query for session e2fbc6c7-c756-4df0-95b7-9303d9a0f869
+[2025-11-05 04:04:11] [INFO] [ChatbotSessionManager.py:181] Session e2fbc6c7-c756-4df0-95b7-9303d9a0f869 retrieved from local cache (fallback)
+[2025-11-05 04:04:11] [INFO] [GroqRAGProcessor.py:115] Answering question: 'hello' for session: e2fbc6c7-c756-4df0-95b7-9303d9a0f869
+[2025-11-05 04:04:11] [INFO] [GroqRAGProcessor.py:122] Vector search returned 2 documents
+[2025-11-05 04:04:11] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 0: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 04:04:11] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 1: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 04:04:11] [INFO] [GroqRAGProcessor.py:136] Graph search skipped (disabled or not requested)
+[2025-11-05 04:04:11] [INFO] [GroqRAGProcessor.py:146] Using vector-only context
+[2025-11-05 04:04:11] [DEBUG] [GroqRAGProcessor.py:149] Context length: 733 characters
+[2025-11-05 04:04:12] [INFO] [GroqRAGProcessor.py:168] Answer generated: 372 characters, search_type: vector_only
+[2025-11-05 04:04:20] [INFO] [app.py:224] Processing query for session e2fbc6c7-c756-4df0-95b7-9303d9a0f869
+[2025-11-05 04:04:20] [INFO] [ChatbotSessionManager.py:181] Session e2fbc6c7-c756-4df0-95b7-9303d9a0f869 retrieved from local cache (fallback)
+[2025-11-05 04:04:20] [INFO] [GroqRAGProcessor.py:115] Answering question: 'how is the overall feedbak' for session: e2fbc6c7-c756-4df0-95b7-9303d9a0f869
+[2025-11-05 04:04:21] [INFO] [GroqRAGProcessor.py:122] Vector search returned 2 documents
+[2025-11-05 04:04:21] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 0: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 04:04:21] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 1: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 04:04:21] [INFO] [GroqRAGProcessor.py:136] Graph search skipped (disabled or not requested)
+[2025-11-05 04:04:21] [INFO] [GroqRAGProcessor.py:146] Using vector-only context
+[2025-11-05 04:04:21] [DEBUG] [GroqRAGProcessor.py:149] Context length: 733 characters
+[2025-11-05 04:04:23] [INFO] [GroqRAGProcessor.py:168] Answer generated: 608 characters, search_type: vector_only
+[2025-11-05 04:04:41] [INFO] [app.py:224] Processing query for session e2fbc6c7-c756-4df0-95b7-9303d9a0f869
+[2025-11-05 04:04:41] [INFO] [ChatbotSessionManager.py:181] Session e2fbc6c7-c756-4df0-95b7-9303d9a0f869 retrieved from local cache (fallback)
+[2025-11-05 04:04:41] [INFO] [GroqRAGProcessor.py:115] Answering question: 'any suggestions?' for session: e2fbc6c7-c756-4df0-95b7-9303d9a0f869
+[2025-11-05 04:04:41] [INFO] [GroqRAGProcessor.py:122] Vector search returned 2 documents
+[2025-11-05 04:04:41] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 0: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 04:04:41] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 1: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 04:04:41] [INFO] [GroqRAGProcessor.py:136] Graph search skipped (disabled or not requested)
+[2025-11-05 04:04:41] [INFO] [GroqRAGProcessor.py:146] Using vector-only context
+[2025-11-05 04:04:41] [DEBUG] [GroqRAGProcessor.py:149] Context length: 733 characters
+[2025-11-05 04:04:42] [INFO] [GroqRAGProcessor.py:168] Answer generated: 792 characters, search_type: vector_only
+[2025-11-05 04:05:54] [INFO] [app.py:169] Starting session b2378a31-ad58-4852-b15f-2e4ac59253ec
+[2025-11-05 04:05:54] [WARNING] [ChatbotSessionManager.py:184] Session b2378a31-ad58-4852-b15f-2e4ac59253ec not found in either Redis or local cache
+[2025-11-05 04:05:54] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-05 04:05:57] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-05 04:05:57] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-05 04:05:57] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 04:05:57] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 04:05:57] [INFO] [app.py:184] Created 2 chunks
+[2025-11-05 04:05:57] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-05 04:05:57] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-05 04:05:57] [INFO] [ChatbotSessionManager.py:154] Session b2378a31-ad58-4852-b15f-2e4ac59253ec stored in local cache only (Redis unavailable)
+[2025-11-05 04:05:57] [INFO] [app.py:209] Session b2378a31-ad58-4852-b15f-2e4ac59253ec created successfully
+[2025-11-05 04:05:57] [INFO] [app.py:169] Starting session 79af090c-d763-4f87-8847-cb1b61e762bc
+[2025-11-05 04:05:57] [WARNING] [ChatbotSessionManager.py:184] Session 79af090c-d763-4f87-8847-cb1b61e762bc not found in either Redis or local cache
+[2025-11-05 04:05:57] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-05 04:06:01] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-05 04:06:01] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-05 04:06:01] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 04:06:01] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 04:06:01] [INFO] [app.py:184] Created 2 chunks
+[2025-11-05 04:06:01] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-05 04:06:01] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-05 04:06:01] [INFO] [ChatbotSessionManager.py:154] Session 79af090c-d763-4f87-8847-cb1b61e762bc stored in local cache only (Redis unavailable)
+[2025-11-05 04:06:01] [INFO] [app.py:209] Session 79af090c-d763-4f87-8847-cb1b61e762bc created successfully
+[2025-11-05 04:06:08] [INFO] [app.py:224] Processing query for session 79af090c-d763-4f87-8847-cb1b61e762bc
+[2025-11-05 04:06:08] [INFO] [ChatbotSessionManager.py:181] Session 79af090c-d763-4f87-8847-cb1b61e762bc retrieved from local cache (fallback)
+[2025-11-05 04:06:08] [INFO] [GroqRAGProcessor.py:115] Answering question: 'hello' for session: 79af090c-d763-4f87-8847-cb1b61e762bc
+[2025-11-05 04:06:08] [INFO] [GroqRAGProcessor.py:122] Vector search returned 2 documents
+[2025-11-05 04:06:08] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 0: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 04:06:08] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 1: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 04:06:08] [INFO] [GroqRAGProcessor.py:136] Graph search skipped (disabled or not requested)
+[2025-11-05 04:06:08] [INFO] [GroqRAGProcessor.py:146] Using vector-only context
+[2025-11-05 04:06:08] [DEBUG] [GroqRAGProcessor.py:149] Context length: 733 characters
+[2025-11-05 04:06:21] [INFO] [GroqRAGProcessor.py:168] Answer generated: 316 characters, search_type: vector_only
+[2025-11-05 04:06:24] [INFO] [app.py:224] Processing query for session 79af090c-d763-4f87-8847-cb1b61e762bc
+[2025-11-05 04:06:24] [INFO] [ChatbotSessionManager.py:181] Session 79af090c-d763-4f87-8847-cb1b61e762bc retrieved from local cache (fallback)
+[2025-11-05 04:06:24] [INFO] [GroqRAGProcessor.py:115] Answering question: 'hiw' for session: 79af090c-d763-4f87-8847-cb1b61e762bc
+[2025-11-05 04:06:24] [INFO] [GroqRAGProcessor.py:122] Vector search returned 2 documents
+[2025-11-05 04:06:24] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 0: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 04:06:24] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 1: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 04:06:24] [INFO] [GroqRAGProcessor.py:136] Graph search skipped (disabled or not requested)
+[2025-11-05 04:06:24] [INFO] [GroqRAGProcessor.py:146] Using vector-only context
+[2025-11-05 04:06:24] [DEBUG] [GroqRAGProcessor.py:149] Context length: 733 characters
+[2025-11-05 04:06:25] [INFO] [GroqRAGProcessor.py:168] Answer generated: 397 characters, search_type: vector_only
+[2025-11-05 04:06:29] [INFO] [app.py:224] Processing query for session 79af090c-d763-4f87-8847-cb1b61e762bc
+[2025-11-05 04:06:29] [INFO] [ChatbotSessionManager.py:181] Session 79af090c-d763-4f87-8847-cb1b61e762bc retrieved from local cache (fallback)
+[2025-11-05 04:06:29] [INFO] [GroqRAGProcessor.py:115] Answering question: 'ok' for session: 79af090c-d763-4f87-8847-cb1b61e762bc
+[2025-11-05 04:06:29] [INFO] [GroqRAGProcessor.py:122] Vector search returned 2 documents
+[2025-11-05 04:06:29] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 0: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 04:06:29] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 1: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 04:06:29] [INFO] [GroqRAGProcessor.py:136] Graph search skipped (disabled or not requested)
+[2025-11-05 04:06:29] [INFO] [GroqRAGProcessor.py:146] Using vector-only context
+[2025-11-05 04:06:29] [DEBUG] [GroqRAGProcessor.py:149] Context length: 733 characters
+[2025-11-05 04:06:29] [INFO] [GroqRAGProcessor.py:168] Answer generated: 278 characters, search_type: vector_only
+[2025-11-05 04:06:39] [INFO] [app.py:224] Processing query for session 79af090c-d763-4f87-8847-cb1b61e762bc
+[2025-11-05 04:06:39] [INFO] [ChatbotSessionManager.py:181] Session 79af090c-d763-4f87-8847-cb1b61e762bc retrieved from local cache (fallback)
+[2025-11-05 04:06:39] [INFO] [GroqRAGProcessor.py:115] Answering question: 'give me the overall feedback' for session: 79af090c-d763-4f87-8847-cb1b61e762bc
+[2025-11-05 04:06:39] [INFO] [GroqRAGProcessor.py:122] Vector search returned 2 documents
+[2025-11-05 04:06:39] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 0: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-05 04:06:39] [DEBUG] [GroqRAGProcessor.py:124] Vector doc 1: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-05 04:06:39] [INFO] [GroqRAGProcessor.py:136] Graph search skipped (disabled or not requested)
+[2025-11-05 04:06:39] [INFO] [GroqRAGProcessor.py:146] Using vector-only context
+[2025-11-05 04:06:39] [DEBUG] [GroqRAGProcessor.py:149] Context length: 733 characters
+[2025-11-05 04:06:40] [INFO] [GroqRAGProcessor.py:168] Answer generated: 592 characters, search_type: vector_only
+[2025-11-08 04:16:46] [WARNING] [ChatbotSessionManager.py:65] Redis connection failed: Error 111 connecting to localhost:6380. Connect call failed ('127.0.0.1', 6380).. Falling back to local cache only
+[2025-11-08 04:16:46] [ERROR] [Simpleneo4jKB.py:40] Neo4j connection failed: Couldn't connect to localhost:7687 (resolved to ('127.0.0.1:7687',)):
+Failed to establish connection to ResolvedIPv4Address(('127.0.0.1', 7687)) (reason [Errno 111] Connect call failed ('127.0.0.1', 7687))
+[2025-11-08 04:16:50] [INFO] [GroqRAGProcessor.py:37] RAG Processor initialized
+[2025-11-08 04:18:45] [INFO] [app.py:163] Starting session 5e12bda3-3746-4685-897a-8d47ec1942a6
+[2025-11-08 04:18:45] [WARNING] [ChatbotSessionManager.py:177] Session 5e12bda3-3746-4685-897a-8d47ec1942a6 not found in either Redis or local cache
+[2025-11-08 04:18:45] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-08 04:18:47] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-08 04:18:47] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-08 04:18:47] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-08 04:18:47] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-08 04:18:47] [INFO] [app.py:178] Created 2 chunks
+[2025-11-08 04:18:47] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-08 04:18:47] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-08 04:18:47] [INFO] [ChatbotSessionManager.py:147] Session 5e12bda3-3746-4685-897a-8d47ec1942a6 stored in local cache only (Redis unavailable)
+[2025-11-08 04:18:47] [INFO] [app.py:204] Session 5e12bda3-3746-4685-897a-8d47ec1942a6 created successfully
+[2025-11-08 04:18:48] [INFO] [app.py:163] Starting session fa2a6da7-af52-4559-9d07-11d6607d5e3e
+[2025-11-08 04:18:48] [WARNING] [ChatbotSessionManager.py:177] Session fa2a6da7-af52-4559-9d07-11d6607d5e3e not found in either Redis or local cache
+[2025-11-08 04:18:48] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-08 04:18:47] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-08 04:18:47] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-08 04:18:47] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-08 04:18:47] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-08 04:18:47] [INFO] [app.py:178] Created 2 chunks
+[2025-11-08 04:18:48] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-08 04:18:48] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-08 04:18:48] [INFO] [ChatbotSessionManager.py:147] Session fa2a6da7-af52-4559-9d07-11d6607d5e3e stored in local cache only (Redis unavailable)
+[2025-11-08 04:18:48] [INFO] [app.py:204] Session fa2a6da7-af52-4559-9d07-11d6607d5e3e created successfully
+[2025-11-08 04:18:59] [INFO] [app.py:219] Processing query for session fa2a6da7-af52-4559-9d07-11d6607d5e3e
+[2025-11-08 04:18:59] [INFO] [ChatbotSessionManager.py:174] Session fa2a6da7-af52-4559-9d07-11d6607d5e3e retrieved from local cache (fallback)
+[2025-11-08 04:18:59] [ERROR] [app.py:236] Query failed: 'VectorStoreRetriever' object has no attribute 'get_relevant_documents'
+[2025-11-08 04:21:59] [WARNING] [ChatbotSessionManager.py:65] Redis connection failed: Error 111 connecting to localhost:6380. Connect call failed ('127.0.0.1', 6380).. Falling back to local cache only
+[2025-11-08 04:21:59] [ERROR] [Simpleneo4jKB.py:40] Neo4j connection failed: Couldn't connect to localhost:7687 (resolved to ('127.0.0.1:7687',)):
+Failed to establish connection to ResolvedIPv4Address(('127.0.0.1', 7687)) (reason [Errno 111] Connect call failed ('127.0.0.1', 7687))
+[2025-11-08 04:22:02] [INFO] [GroqRAGProcessor.py:37] RAG Processor initialized
+[2025-11-08 04:22:18] [INFO] [app.py:171] Starting session 3145a098-4ce0-4c67-a4a3-f353d8364ba9
+[2025-11-08 04:22:18] [WARNING] [ChatbotSessionManager.py:177] Session 3145a098-4ce0-4c67-a4a3-f353d8364ba9 not found in either Redis or local cache
+[2025-11-08 04:22:18] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-08 04:22:20] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-08 04:22:20] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-08 04:22:20] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-08 04:22:20] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-08 04:22:20] [INFO] [app.py:186] Created 2 chunks
+[2025-11-08 04:22:20] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-08 04:22:20] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-08 04:22:20] [INFO] [ChatbotSessionManager.py:147] Session 3145a098-4ce0-4c67-a4a3-f353d8364ba9 stored in local cache only (Redis unavailable)
+[2025-11-08 04:22:20] [INFO] [app.py:212] Session 3145a098-4ce0-4c67-a4a3-f353d8364ba9 created successfully
+[2025-11-08 04:22:20] [INFO] [app.py:171] Starting session 4e2470be-1a29-4331-93b3-6a2eed1af7ae
+[2025-11-08 04:22:20] [WARNING] [ChatbotSessionManager.py:177] Session 4e2470be-1a29-4331-93b3-6a2eed1af7ae not found in either Redis or local cache
+[2025-11-08 04:22:20] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-08 04:22:21] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-08 04:22:22] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-08 04:22:22] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-08 04:22:22] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-08 04:22:22] [INFO] [app.py:186] Created 2 chunks
+[2025-11-08 04:22:22] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-08 04:22:22] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-08 04:22:22] [INFO] [ChatbotSessionManager.py:147] Session 4e2470be-1a29-4331-93b3-6a2eed1af7ae stored in local cache only (Redis unavailable)
+[2025-11-08 04:22:22] [INFO] [app.py:212] Session 4e2470be-1a29-4331-93b3-6a2eed1af7ae created successfully
+[2025-11-08 04:22:27] [INFO] [app.py:171] Starting session 6464c1fc-bc2d-43b9-9ec5-0bd47d2e7c8a
+[2025-11-08 04:22:27] [WARNING] [ChatbotSessionManager.py:177] Session 6464c1fc-bc2d-43b9-9ec5-0bd47d2e7c8a not found in either Redis or local cache
+[2025-11-08 04:22:27] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-08 04:22:27] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-08 04:22:27] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-08 04:22:27] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-08 04:22:27] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-08 04:22:27] [INFO] [app.py:186] Created 2 chunks
+[2025-11-08 04:22:27] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-08 04:22:27] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-08 04:22:27] [INFO] [ChatbotSessionManager.py:147] Session 6464c1fc-bc2d-43b9-9ec5-0bd47d2e7c8a stored in local cache only (Redis unavailable)
+[2025-11-08 04:22:27] [INFO] [app.py:212] Session 6464c1fc-bc2d-43b9-9ec5-0bd47d2e7c8a created successfully
+[2025-11-08 04:22:27] [INFO] [app.py:171] Starting session 024d0f4a-144a-4ccb-a2ae-9de02ebd505a
+[2025-11-08 04:22:27] [WARNING] [ChatbotSessionManager.py:177] Session 024d0f4a-144a-4ccb-a2ae-9de02ebd505a not found in either Redis or local cache
+[2025-11-08 04:22:27] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-08 04:22:29] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-08 04:22:29] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-08 04:22:29] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-08 04:22:29] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-08 04:22:29] [INFO] [app.py:186] Created 2 chunks
+[2025-11-08 04:22:29] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-08 04:22:29] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-08 04:22:29] [INFO] [ChatbotSessionManager.py:147] Session 024d0f4a-144a-4ccb-a2ae-9de02ebd505a stored in local cache only (Redis unavailable)
+[2025-11-08 04:22:29] [INFO] [app.py:212] Session 024d0f4a-144a-4ccb-a2ae-9de02ebd505a created successfully
+[2025-11-08 04:22:35] [INFO] [app.py:227] Processing query for session 024d0f4a-144a-4ccb-a2ae-9de02ebd505a: 'how is the response'
+[2025-11-08 04:22:35] [INFO] [ChatbotSessionManager.py:174] Session 024d0f4a-144a-4ccb-a2ae-9de02ebd505a retrieved from local cache (fallback)
+[2025-11-08 04:22:35] [ERROR] [GroqRAGProcessor.py:240] Error in answer_question_with_tools: 'VectorStoreRetriever' object has no attribute 'get_relevant_documents'
+[2025-11-08 04:22:35] [ERROR] [app.py:253] Query processing error: 'VectorStoreRetriever' object has no attribute 'get_relevant_documents'
+[2025-11-08 04:24:52] [WARNING] [ChatbotSessionManager.py:65] Redis connection failed: Error 111 connecting to localhost:6380. Connect call failed ('127.0.0.1', 6380).. Falling back to local cache only
+[2025-11-08 04:24:52] [ERROR] [Simpleneo4jKB.py:40] Neo4j connection failed: Couldn't connect to localhost:7687 (resolved to ('127.0.0.1:7687',)):
+Failed to establish connection to ResolvedIPv4Address(('127.0.0.1', 7687)) (reason [Errno 111] Connect call failed ('127.0.0.1', 7687))
+[2025-11-08 04:24:56] [INFO] [GroqRAGProcessor.py:37] RAG Processor initialized
+[2025-11-08 04:25:06] [INFO] [app.py:171] Starting session 7f8a3bf8-c9f5-4076-afdd-e7689bd987fc
+[2025-11-08 04:25:06] [WARNING] [ChatbotSessionManager.py:177] Session 7f8a3bf8-c9f5-4076-afdd-e7689bd987fc not found in either Redis or local cache
+[2025-11-08 04:25:06] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-08 04:25:08] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-08 04:25:08] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-08 04:25:08] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-08 04:25:08] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-08 04:25:08] [INFO] [app.py:186] Created 2 chunks
+[2025-11-08 04:25:08] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-08 04:25:08] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-08 04:25:08] [INFO] [ChatbotSessionManager.py:147] Session 7f8a3bf8-c9f5-4076-afdd-e7689bd987fc stored in local cache only (Redis unavailable)
+[2025-11-08 04:25:08] [INFO] [app.py:212] Session 7f8a3bf8-c9f5-4076-afdd-e7689bd987fc created successfully
+[2025-11-08 04:25:08] [INFO] [app.py:171] Starting session 3a283162-8af8-4012-897e-287e83962a35
+[2025-11-08 04:25:08] [WARNING] [ChatbotSessionManager.py:177] Session 3a283162-8af8-4012-897e-287e83962a35 not found in either Redis or local cache
+[2025-11-08 04:25:08] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-08 04:25:10] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-08 04:25:10] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-08 04:25:10] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-08 04:25:10] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-08 04:25:10] [INFO] [app.py:186] Created 2 chunks
+[2025-11-08 04:25:10] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-08 04:25:10] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-08 04:25:10] [INFO] [ChatbotSessionManager.py:147] Session 3a283162-8af8-4012-897e-287e83962a35 stored in local cache only (Redis unavailable)
+[2025-11-08 04:25:10] [INFO] [app.py:212] Session 3a283162-8af8-4012-897e-287e83962a35 created successfully
+[2025-11-08 04:25:12] [INFO] [app.py:227] Processing query for session 3a283162-8af8-4012-897e-287e83962a35: 'hi'
+[2025-11-08 04:25:12] [INFO] [ChatbotSessionManager.py:174] Session 3a283162-8af8-4012-897e-287e83962a35 retrieved from local cache (fallback)
+[2025-11-08 04:25:12] [ERROR] [GroqRAGProcessor.py:240] Error in answer_question_with_tools: object list can't be used in 'await' expression
+[2025-11-08 04:25:12] [ERROR] [app.py:253] Query processing error: object list can't be used in 'await' expression
+[2025-11-08 04:27:34] [WARNING] [ChatbotSessionManager.py:65] Redis connection failed: Error 111 connecting to localhost:6380. Connect call failed ('127.0.0.1', 6380).. Falling back to local cache only
+[2025-11-08 04:27:34] [ERROR] [Simpleneo4jKB.py:40] Neo4j connection failed: Couldn't connect to localhost:7687 (resolved to ('127.0.0.1:7687',)):
+Failed to establish connection to ResolvedIPv4Address(('127.0.0.1', 7687)) (reason [Errno 111] Connect call failed ('127.0.0.1', 7687))
+[2025-11-08 04:27:36] [INFO] [GroqRAGProcessor.py:37] RAG Processor initialized
+[2025-11-08 04:27:39] [INFO] [app.py:171] Starting session 6b8cfa05-3610-4da8-a0d3-7baef3dd9bf5
+[2025-11-08 04:27:39] [WARNING] [ChatbotSessionManager.py:177] Session 6b8cfa05-3610-4da8-a0d3-7baef3dd9bf5 not found in either Redis or local cache
+[2025-11-08 04:27:39] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-08 04:27:40] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-08 04:27:40] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-08 04:27:40] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-08 04:27:40] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-08 04:27:40] [INFO] [app.py:186] Created 2 chunks
+[2025-11-08 04:27:41] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-08 04:27:41] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-08 04:27:41] [INFO] [ChatbotSessionManager.py:147] Session 6b8cfa05-3610-4da8-a0d3-7baef3dd9bf5 stored in local cache only (Redis unavailable)
+[2025-11-08 04:27:41] [INFO] [app.py:212] Session 6b8cfa05-3610-4da8-a0d3-7baef3dd9bf5 created successfully
+[2025-11-08 04:27:41] [INFO] [app.py:171] Starting session 9dd70f46-8103-450c-987a-5aa1ad4284e4
+[2025-11-08 04:27:41] [WARNING] [ChatbotSessionManager.py:177] Session 9dd70f46-8103-450c-987a-5aa1ad4284e4 not found in either Redis or local cache
+[2025-11-08 04:27:41] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-08 04:27:42] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-08 04:27:42] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-08 04:27:42] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-08 04:27:42] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-08 04:27:42] [INFO] [app.py:186] Created 2 chunks
+[2025-11-08 04:27:42] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-08 04:27:42] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-08 04:27:42] [INFO] [ChatbotSessionManager.py:147] Session 9dd70f46-8103-450c-987a-5aa1ad4284e4 stored in local cache only (Redis unavailable)
+[2025-11-08 04:27:42] [INFO] [app.py:212] Session 9dd70f46-8103-450c-987a-5aa1ad4284e4 created successfully
+[2025-11-08 04:27:45] [INFO] [app.py:227] Processing query for session 9dd70f46-8103-450c-987a-5aa1ad4284e4: 'hi'
+[2025-11-08 04:27:45] [INFO] [ChatbotSessionManager.py:174] Session 9dd70f46-8103-450c-987a-5aa1ad4284e4 retrieved from local cache (fallback)
+[2025-11-08 04:27:46] [ERROR] [GroqRAGProcessor.py:247] Error in answer_question_with_tools: Expected dict, got need_more
+For troubleshooting, visit: https://docs.langchain.com/oss/python/langgraph/errors/INVALID_GRAPH_NODE_RETURN_VALUE
+Traceback (most recent call last):
+  File "/home/sathwik/feedbackmanagementsystem/revamp_service/GroqRAGProcessor.py", line 231, in answer_question_with_tools
+    result_state = await self.tools_graph.ainvoke(state)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/langgraph/pregel/main.py", line 3182, in ainvoke
+    async for chunk in self.astream(
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/langgraph/pregel/main.py", line 3000, in astream
+    async for _ in runner.atick(
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/langgraph/pregel/_runner.py", line 304, in atick
+    await arun_with_retry(
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/langgraph/pregel/_retry.py", line 137, in arun_with_retry
+    return await task.proc.ainvoke(task.input, config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/langgraph/_internal/_runnable.py", line 711, in ainvoke
+    input = await step.ainvoke(input, config)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/langgraph/_internal/_runnable.py", line 473, in ainvoke
+    ret = await self.afunc(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/langgraph/pregel/_write.py", line 99, in _awrite
+    self.do_write(
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/langgraph/pregel/_write.py", line 126, in do_write
+    write(_assemble_writes(writes))
+          ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/langgraph/pregel/_write.py", line 181, in _assemble_writes
+    if ww := w.mapper(w.value):
+             ^^^^^^^^^^^^^^^^^
+  File "/home/sathwik/feedbackmanagementsystem/.venv/lib/python3.12/site-packages/langgraph/graph/state.py", line 990, in _get_updates
+    raise InvalidUpdateError(msg)
+langgraph.errors.InvalidUpdateError: Expected dict, got need_more
+For troubleshooting, visit: https://docs.langchain.com/oss/python/langgraph/errors/INVALID_GRAPH_NODE_RETURN_VALUE
+During task with name 'decision' and id '8fac46f5-8484-24d3-eed0-721cf91f3712'
+[2025-11-08 04:27:46] [ERROR] [app.py:253] Query processing error: Expected dict, got need_more
+For troubleshooting, visit: https://docs.langchain.com/oss/python/langgraph/errors/INVALID_GRAPH_NODE_RETURN_VALUE
+[2025-11-08 04:29:57] [WARNING] [ChatbotSessionManager.py:65] Redis connection failed: Error 111 connecting to localhost:6380. Connect call failed ('127.0.0.1', 6380).. Falling back to local cache only
+[2025-11-08 04:29:57] [ERROR] [Simpleneo4jKB.py:40] Neo4j connection failed: Couldn't connect to localhost:7687 (resolved to ('127.0.0.1:7687',)):
+Failed to establish connection to ResolvedIPv4Address(('127.0.0.1', 7687)) (reason [Errno 111] Connect call failed ('127.0.0.1', 7687))
+[2025-11-08 04:30:00] [INFO] [GroqRAGProcessor.py:37] RAG Processor initialized
+[2025-11-08 04:30:14] [INFO] [app.py:171] Starting session c79a0c3f-0dd4-4705-8bfd-b924334d5b64
+[2025-11-08 04:30:14] [WARNING] [ChatbotSessionManager.py:177] Session c79a0c3f-0dd4-4705-8bfd-b924334d5b64 not found in either Redis or local cache
+[2025-11-08 04:30:14] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-08 04:30:15] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-08 04:30:15] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-08 04:30:15] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-08 04:30:15] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-08 04:30:15] [INFO] [app.py:186] Created 2 chunks
+[2025-11-08 04:30:16] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-08 04:30:16] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-08 04:30:16] [INFO] [ChatbotSessionManager.py:147] Session c79a0c3f-0dd4-4705-8bfd-b924334d5b64 stored in local cache only (Redis unavailable)
+[2025-11-08 04:30:16] [INFO] [app.py:212] Session c79a0c3f-0dd4-4705-8bfd-b924334d5b64 created successfully
+[2025-11-08 04:30:16] [INFO] [app.py:171] Starting session 36fb1424-8ce2-41d1-8d47-79338b1961a6
+[2025-11-08 04:30:16] [WARNING] [ChatbotSessionManager.py:177] Session 36fb1424-8ce2-41d1-8d47-79338b1961a6 not found in either Redis or local cache
+[2025-11-08 04:30:16] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1SwSF7mJEz9Wr26DnhAJleQ40VBfrDxoJVvfyPOMLwYM/export?format=csv
+[2025-11-08 04:30:17] [DEBUG] [utils.py:94] ✅ Successfully loaded 7 rows and 4 columns
+[2025-11-08 04:30:17] [INFO] [GroqRAGProcessor.py:54] Created 2 chunks from text of length 734
+[2025-11-08 04:30:17] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 12/3/2024 22:55:55 | Name: Spoorthi | Post: Development | Resume: https://drive.google.co...
+[2025-11-08 04:30:17] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: Timestamp: 12/4/2024 15:53:49 | Name: Aniket Srivastava | Post: Development | Resume: https://drive....
+[2025-11-08 04:30:17] [INFO] [app.py:186] Created 2 chunks
+[2025-11-08 04:30:17] [INFO] [GroqRAGProcessor.py:78] QA system created with 2 chunks
+[2025-11-08 04:30:17] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-08 04:30:17] [INFO] [ChatbotSessionManager.py:147] Session 36fb1424-8ce2-41d1-8d47-79338b1961a6 stored in local cache only (Redis unavailable)
+[2025-11-08 04:30:17] [INFO] [app.py:212] Session 36fb1424-8ce2-41d1-8d47-79338b1961a6 created successfully
+[2025-11-08 04:30:33] [INFO] [app.py:227] Processing query for session 36fb1424-8ce2-41d1-8d47-79338b1961a6: 'hi'
+[2025-11-08 04:30:33] [INFO] [ChatbotSessionManager.py:174] Session 36fb1424-8ce2-41d1-8d47-79338b1961a6 retrieved from local cache (fallback)
+[2025-11-08 04:30:35] [INFO] [app.py:260] Query successful for session 36fb1424-8ce2-41d1-8d47-79338b1961a6, used tool: MCP Analysis
+[2025-11-08 04:30:52] [INFO] [app.py:227] Processing query for session 36fb1424-8ce2-41d1-8d47-79338b1961a6: 'how is the overall feedback?\'
+[2025-11-08 04:30:52] [INFO] [ChatbotSessionManager.py:174] Session 36fb1424-8ce2-41d1-8d47-79338b1961a6 retrieved from local cache (fallback)
+[2025-11-08 04:30:52] [INFO] [app.py:260] Query successful for session 36fb1424-8ce2-41d1-8d47-79338b1961a6, used tool: MCP Analysis
+[2025-11-08 04:31:31] [INFO] [app.py:171] Starting session 0b9cf591-c556-4c50-bec5-0d4095f4e198
+[2025-11-08 04:31:31] [WARNING] [ChatbotSessionManager.py:177] Session 0b9cf591-c556-4c50-bec5-0d4095f4e198 not found in either Redis or local cache
+[2025-11-08 04:31:31] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1STyEshSdfP5ilAJrjxLRRZCXnoQRYBa8fxlWJYFHPzU/export?format=csv
+[2025-11-08 04:31:33] [DEBUG] [utils.py:94] ✅ Successfully loaded 46 rows and 19 columns
+[2025-11-08 04:31:33] [INFO] [GroqRAGProcessor.py:54] Created 230 chunks from text of length 81573
+[2025-11-08 04:31:33] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 10/26/2024 10:39:10 | 1. Gained knowledge of mathematics and science required for AIML br...
+[2025-11-08 04:31:33] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: and machine learning issues.: Excellent | 5. Learned to use modern software and equipment to analyze...
+[2025-11-08 04:31:33] [DEBUG] [GroqRAGProcessor.py:58] Chunk 2 preview: as an individual and as a member or leader in diverse, multidisciplinary teams.: Excellent | 10. Abl...
+[2025-11-08 04:31:33] [INFO] [app.py:186] Created 230 chunks
+[2025-11-08 04:31:36] [INFO] [GroqRAGProcessor.py:78] QA system created with 230 chunks
+[2025-11-08 04:31:36] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-08 04:31:36] [INFO] [ChatbotSessionManager.py:147] Session 0b9cf591-c556-4c50-bec5-0d4095f4e198 stored in local cache only (Redis unavailable)
+[2025-11-08 04:31:36] [INFO] [app.py:212] Session 0b9cf591-c556-4c50-bec5-0d4095f4e198 created successfully
+[2025-11-08 04:31:36] [INFO] [app.py:171] Starting session 00aed1e0-3a19-4dbc-b83c-303209786d29
+[2025-11-08 04:31:36] [WARNING] [ChatbotSessionManager.py:177] Session 00aed1e0-3a19-4dbc-b83c-303209786d29 not found in either Redis or local cache
+[2025-11-08 04:31:36] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1STyEshSdfP5ilAJrjxLRRZCXnoQRYBa8fxlWJYFHPzU/export?format=csv
+[2025-11-08 04:31:37] [DEBUG] [utils.py:94] ✅ Successfully loaded 46 rows and 19 columns
+[2025-11-08 04:31:37] [INFO] [GroqRAGProcessor.py:54] Created 230 chunks from text of length 81573
+[2025-11-08 04:31:37] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 10/26/2024 10:39:10 | 1. Gained knowledge of mathematics and science required for AIML br...
+[2025-11-08 04:31:37] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: and machine learning issues.: Excellent | 5. Learned to use modern software and equipment to analyze...
+[2025-11-08 04:31:37] [DEBUG] [GroqRAGProcessor.py:58] Chunk 2 preview: as an individual and as a member or leader in diverse, multidisciplinary teams.: Excellent | 10. Abl...
+[2025-11-08 04:31:37] [INFO] [app.py:186] Created 230 chunks
+[2025-11-08 04:31:40] [INFO] [GroqRAGProcessor.py:78] QA system created with 230 chunks
+[2025-11-08 04:31:40] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-08 04:31:40] [INFO] [ChatbotSessionManager.py:147] Session 00aed1e0-3a19-4dbc-b83c-303209786d29 stored in local cache only (Redis unavailable)
+[2025-11-08 04:31:40] [INFO] [app.py:212] Session 00aed1e0-3a19-4dbc-b83c-303209786d29 created successfully
+[2025-11-08 04:31:45] [INFO] [app.py:227] Processing query for session 00aed1e0-3a19-4dbc-b83c-303209786d29: 'what sre the columbs present in thedataset?'
+[2025-11-08 04:31:45] [INFO] [ChatbotSessionManager.py:174] Session 00aed1e0-3a19-4dbc-b83c-303209786d29 retrieved from local cache (fallback)
+[2025-11-08 04:31:47] [INFO] [app.py:260] Query successful for session 00aed1e0-3a19-4dbc-b83c-303209786d29, used tool: MCP Analysis
+[2025-11-08 04:32:08] [INFO] [app.py:227] Processing query for session 00aed1e0-3a19-4dbc-b83c-303209786d29: 'can you also list the data types present in these columns?'
+[2025-11-08 04:32:08] [INFO] [ChatbotSessionManager.py:174] Session 00aed1e0-3a19-4dbc-b83c-303209786d29 retrieved from local cache (fallback)
+[2025-11-08 04:32:09] [INFO] [app.py:260] Query successful for session 00aed1e0-3a19-4dbc-b83c-303209786d29, used tool: MCP Analysis
+[2025-11-08 04:32:56] [INFO] [app.py:227] Processing query for session 00aed1e0-3a19-4dbc-b83c-303209786d29: 'what is most rated value in Gained knowledge of mathematics and science required for AIML branch of '
+[2025-11-08 04:32:56] [INFO] [ChatbotSessionManager.py:174] Session 00aed1e0-3a19-4dbc-b83c-303209786d29 retrieved from local cache (fallback)
+[2025-11-08 04:32:57] [INFO] [app.py:260] Query successful for session 00aed1e0-3a19-4dbc-b83c-303209786d29, used tool: Context Only
+[2025-11-08 04:33:23] [INFO] [app.py:227] Processing query for session 00aed1e0-3a19-4dbc-b83c-303209786d29: 'give me the statistics of Gained knowledge of mathematics and science required for AIML branch of En'
+[2025-11-08 04:33:23] [INFO] [ChatbotSessionManager.py:174] Session 00aed1e0-3a19-4dbc-b83c-303209786d29 retrieved from local cache (fallback)
+[2025-11-08 04:33:25] [INFO] [app.py:260] Query successful for session 00aed1e0-3a19-4dbc-b83c-303209786d29, used tool: Context Only
+[2025-11-08 04:39:10] [WARNING] [ChatbotSessionManager.py:65] Redis connection failed: Error 111 connecting to localhost:6380. Connect call failed ('127.0.0.1', 6380).. Falling back to local cache only
+[2025-11-08 04:39:10] [ERROR] [Simpleneo4jKB.py:40] Neo4j connection failed: Couldn't connect to localhost:7687 (resolved to ('127.0.0.1:7687',)):
+Failed to establish connection to ResolvedIPv4Address(('127.0.0.1', 7687)) (reason [Errno 111] Connect call failed ('127.0.0.1', 7687))
+[2025-11-08 04:39:14] [INFO] [GroqRAGProcessor.py:37] RAG Processor initialized
+[2025-11-08 04:39:27] [INFO] [app.py:171] Starting session 4d520602-0195-413a-a572-acbbf8273862
+[2025-11-08 04:39:27] [WARNING] [ChatbotSessionManager.py:177] Session 4d520602-0195-413a-a572-acbbf8273862 not found in either Redis or local cache
+[2025-11-08 04:39:27] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1STyEshSdfP5ilAJrjxLRRZCXnoQRYBa8fxlWJYFHPzU/export?format=csv
+[2025-11-08 04:39:28] [DEBUG] [utils.py:94] ✅ Successfully loaded 46 rows and 19 columns
+[2025-11-08 04:39:28] [INFO] [GroqRAGProcessor.py:54] Created 230 chunks from text of length 81573
+[2025-11-08 04:39:28] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 10/26/2024 10:39:10 | 1. Gained knowledge of mathematics and science required for AIML br...
+[2025-11-08 04:39:28] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: and machine learning issues.: Excellent | 5. Learned to use modern software and equipment to analyze...
+[2025-11-08 04:39:28] [DEBUG] [GroqRAGProcessor.py:58] Chunk 2 preview: as an individual and as a member or leader in diverse, multidisciplinary teams.: Excellent | 10. Abl...
+[2025-11-08 04:39:28] [INFO] [app.py:186] Created 230 chunks
+[2025-11-08 04:39:30] [INFO] [GroqRAGProcessor.py:78] QA system created with 230 chunks
+[2025-11-08 04:39:30] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-08 04:39:30] [INFO] [ChatbotSessionManager.py:147] Session 4d520602-0195-413a-a572-acbbf8273862 stored in local cache only (Redis unavailable)
+[2025-11-08 04:39:30] [INFO] [app.py:212] Session 4d520602-0195-413a-a572-acbbf8273862 created successfully
+[2025-11-08 04:39:30] [INFO] [app.py:171] Starting session 245e4bbe-bddb-44ac-818e-15d4514d30fc
+[2025-11-08 04:39:30] [WARNING] [ChatbotSessionManager.py:177] Session 245e4bbe-bddb-44ac-818e-15d4514d30fc not found in either Redis or local cache
+[2025-11-08 04:39:30] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1STyEshSdfP5ilAJrjxLRRZCXnoQRYBa8fxlWJYFHPzU/export?format=csv
+[2025-11-08 04:39:31] [DEBUG] [utils.py:94] ✅ Successfully loaded 46 rows and 19 columns
+[2025-11-08 04:39:31] [INFO] [GroqRAGProcessor.py:54] Created 230 chunks from text of length 81573
+[2025-11-08 04:39:31] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 10/26/2024 10:39:10 | 1. Gained knowledge of mathematics and science required for AIML br...
+[2025-11-08 04:39:31] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: and machine learning issues.: Excellent | 5. Learned to use modern software and equipment to analyze...
+[2025-11-08 04:39:31] [DEBUG] [GroqRAGProcessor.py:58] Chunk 2 preview: as an individual and as a member or leader in diverse, multidisciplinary teams.: Excellent | 10. Abl...
+[2025-11-08 04:39:31] [INFO] [app.py:186] Created 230 chunks
+[2025-11-08 04:39:35] [INFO] [GroqRAGProcessor.py:78] QA system created with 230 chunks
+[2025-11-08 04:39:35] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-08 04:39:35] [INFO] [ChatbotSessionManager.py:147] Session 245e4bbe-bddb-44ac-818e-15d4514d30fc stored in local cache only (Redis unavailable)
+[2025-11-08 04:39:35] [INFO] [app.py:212] Session 245e4bbe-bddb-44ac-818e-15d4514d30fc created successfully
+[2025-11-08 04:39:39] [INFO] [app.py:227] Processing query for session 245e4bbe-bddb-44ac-818e-15d4514d30fc: 'what are the columns present'
+[2025-11-08 04:39:39] [INFO] [ChatbotSessionManager.py:174] Session 245e4bbe-bddb-44ac-818e-15d4514d30fc retrieved from local cache (fallback)
+[2025-11-08 04:39:41] [INFO] [app.py:260] Query successful for session 245e4bbe-bddb-44ac-818e-15d4514d30fc, used tool: Context Only
+[2025-11-08 04:39:52] [INFO] [app.py:227] Processing query for session 245e4bbe-bddb-44ac-818e-15d4514d30fc: 'give me the statistics of Gained knowledge of mathematics and science required for AIML branch of En'
+[2025-11-08 04:39:52] [INFO] [ChatbotSessionManager.py:174] Session 245e4bbe-bddb-44ac-818e-15d4514d30fc retrieved from local cache (fallback)
+[2025-11-08 04:39:54] [INFO] [app.py:260] Query successful for session 245e4bbe-bddb-44ac-818e-15d4514d30fc, used tool: Context Only
+[2025-11-08 04:40:36] [INFO] [app.py:227] Processing query for session 245e4bbe-bddb-44ac-818e-15d4514d30fc: 'Gained knowledge of mathematics and science required for AIML branch of Engineering. use the tool'
+[2025-11-08 04:40:36] [INFO] [ChatbotSessionManager.py:174] Session 245e4bbe-bddb-44ac-818e-15d4514d30fc retrieved from local cache (fallback)
+[2025-11-08 04:40:38] [INFO] [app.py:260] Query successful for session 245e4bbe-bddb-44ac-818e-15d4514d30fc, used tool: Context Only
+[2025-11-08 04:52:18] [WARNING] [ChatbotSessionManager.py:65] Redis connection failed: Error 111 connecting to localhost:6380. Connect call failed ('127.0.0.1', 6380).. Falling back to local cache only
+[2025-11-08 04:52:18] [ERROR] [Simpleneo4jKB.py:40] Neo4j connection failed: Couldn't connect to localhost:7687 (resolved to ('127.0.0.1:7687',)):
+Failed to establish connection to ResolvedIPv4Address(('127.0.0.1', 7687)) (reason [Errno 111] Connect call failed ('127.0.0.1', 7687))
+[2025-11-08 04:52:21] [INFO] [GroqRAGProcessor.py:37] RAG Processor initialized
+[2025-11-08 04:52:47] [WARNING] [ChatbotSessionManager.py:65] Redis connection failed: Error 111 connecting to localhost:6380. Connect call failed ('127.0.0.1', 6380).. Falling back to local cache only
+[2025-11-08 04:52:47] [ERROR] [Simpleneo4jKB.py:40] Neo4j connection failed: Couldn't connect to localhost:7687 (resolved to ('127.0.0.1:7687',)):
+Failed to establish connection to ResolvedIPv4Address(('127.0.0.1', 7687)) (reason [Errno 111] Connect call failed ('127.0.0.1', 7687))
+[2025-11-08 04:52:50] [INFO] [GroqRAGProcessor.py:37] RAG Processor initialized
+[2025-11-08 04:53:00] [INFO] [app.py:171] Starting session 06a8a815-4b2d-4204-b869-7aa9d81611c8
+[2025-11-08 04:53:00] [WARNING] [ChatbotSessionManager.py:177] Session 06a8a815-4b2d-4204-b869-7aa9d81611c8 not found in either Redis or local cache
+[2025-11-08 04:53:00] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1STyEshSdfP5ilAJrjxLRRZCXnoQRYBa8fxlWJYFHPzU/export?format=csv
+[2025-11-08 04:53:02] [DEBUG] [utils.py:94] ✅ Successfully loaded 46 rows and 19 columns
+[2025-11-08 04:53:02] [INFO] [GroqRAGProcessor.py:54] Created 230 chunks from text of length 81573
+[2025-11-08 04:53:02] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 10/26/2024 10:39:10 | 1. Gained knowledge of mathematics and science required for AIML br...
+[2025-11-08 04:53:02] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: and machine learning issues.: Excellent | 5. Learned to use modern software and equipment to analyze...
+[2025-11-08 04:53:02] [DEBUG] [GroqRAGProcessor.py:58] Chunk 2 preview: as an individual and as a member or leader in diverse, multidisciplinary teams.: Excellent | 10. Abl...
+[2025-11-08 04:53:02] [INFO] [app.py:186] Created 230 chunks
+[2025-11-08 04:53:05] [INFO] [GroqRAGProcessor.py:78] QA system created with 230 chunks
+[2025-11-08 04:53:05] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-08 04:53:05] [INFO] [ChatbotSessionManager.py:147] Session 06a8a815-4b2d-4204-b869-7aa9d81611c8 stored in local cache only (Redis unavailable)
+[2025-11-08 04:53:05] [INFO] [app.py:212] Session 06a8a815-4b2d-4204-b869-7aa9d81611c8 created successfully
+[2025-11-08 04:53:05] [INFO] [app.py:171] Starting session 84f0b2ce-1a7e-4274-9783-2e4f8f45d009
+[2025-11-08 04:53:05] [WARNING] [ChatbotSessionManager.py:177] Session 84f0b2ce-1a7e-4274-9783-2e4f8f45d009 not found in either Redis or local cache
+[2025-11-08 04:53:05] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1STyEshSdfP5ilAJrjxLRRZCXnoQRYBa8fxlWJYFHPzU/export?format=csv
+[2025-11-08 04:53:06] [DEBUG] [utils.py:94] ✅ Successfully loaded 46 rows and 19 columns
+[2025-11-08 04:53:06] [INFO] [GroqRAGProcessor.py:54] Created 230 chunks from text of length 81573
+[2025-11-08 04:53:06] [DEBUG] [GroqRAGProcessor.py:58] Chunk 0 preview: Timestamp: 10/26/2024 10:39:10 | 1. Gained knowledge of mathematics and science required for AIML br...
+[2025-11-08 04:53:06] [DEBUG] [GroqRAGProcessor.py:58] Chunk 1 preview: and machine learning issues.: Excellent | 5. Learned to use modern software and equipment to analyze...
+[2025-11-08 04:53:06] [DEBUG] [GroqRAGProcessor.py:58] Chunk 2 preview: as an individual and as a member or leader in diverse, multidisciplinary teams.: Excellent | 10. Abl...
+[2025-11-08 04:53:06] [INFO] [app.py:186] Created 230 chunks
+[2025-11-08 04:53:09] [INFO] [GroqRAGProcessor.py:78] QA system created with 230 chunks
+[2025-11-08 04:53:09] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-08 04:53:09] [INFO] [ChatbotSessionManager.py:147] Session 84f0b2ce-1a7e-4274-9783-2e4f8f45d009 stored in local cache only (Redis unavailable)
+[2025-11-08 04:53:09] [INFO] [app.py:212] Session 84f0b2ce-1a7e-4274-9783-2e4f8f45d009 created successfully
+[2025-11-08 04:53:13] [INFO] [app.py:227] Processing query for session 84f0b2ce-1a7e-4274-9783-2e4f8f45d009: 'r give statistcal analysis of Gained knowledge of mathematics and science required for AIML branch o'
+[2025-11-08 04:53:13] [INFO] [ChatbotSessionManager.py:174] Session 84f0b2ce-1a7e-4274-9783-2e4f8f45d009 retrieved from local cache (fallback)
+[2025-11-08 04:53:16] [INFO] [app.py:260] Query successful for session 84f0b2ce-1a7e-4274-9783-2e4f8f45d009, used tool: MCP Analysis
+[2025-11-08 04:53:35] [INFO] [app.py:227] Processing query for session 84f0b2ce-1a7e-4274-9783-2e4f8f45d009: 'give statistcal analysis of Gained knowledge of mathematics and science required for AIML branch of '
+[2025-11-08 04:53:35] [INFO] [ChatbotSessionManager.py:174] Session 84f0b2ce-1a7e-4274-9783-2e4f8f45d009 retrieved from local cache (fallback)
+[2025-11-08 04:53:38] [INFO] [app.py:260] Query successful for session 84f0b2ce-1a7e-4274-9783-2e4f8f45d009, used tool: MCP Analysis
+[2025-11-08 04:59:29] [WARNING] [ChatbotSessionManager.py:65] Redis connection failed: Error 111 connecting to localhost:6380. Connect call failed ('127.0.0.1', 6380).. Falling back to local cache only
+[2025-11-08 04:59:29] [ERROR] [Simpleneo4jKB.py:40] Neo4j connection failed: Couldn't connect to localhost:7687 (resolved to ('127.0.0.1:7687',)):
+Failed to establish connection to ResolvedIPv4Address(('127.0.0.1', 7687)) (reason [Errno 111] Connect call failed ('127.0.0.1', 7687))
+[2025-11-08 04:59:45] [INFO] [app.py:171] Starting session 47327b14-6066-4efa-8351-410acd1e1391
+[2025-11-08 04:59:45] [WARNING] [ChatbotSessionManager.py:177] Session 47327b14-6066-4efa-8351-410acd1e1391 not found in either Redis or local cache
+[2025-11-08 04:59:45] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1STyEshSdfP5ilAJrjxLRRZCXnoQRYBa8fxlWJYFHPzU/export?format=csv
+[2025-11-08 04:59:46] [DEBUG] [utils.py:94] ✅ Successfully loaded 46 rows and 19 columns
+[2025-11-08 04:59:46] [INFO] [app.py:186] Created 230 chunks
+[2025-11-08 04:59:50] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-08 04:59:50] [INFO] [ChatbotSessionManager.py:147] Session 47327b14-6066-4efa-8351-410acd1e1391 stored in local cache only (Redis unavailable)
+[2025-11-08 04:59:50] [INFO] [app.py:212] Session 47327b14-6066-4efa-8351-410acd1e1391 created successfully
+[2025-11-08 04:59:50] [INFO] [app.py:171] Starting session 073f15f4-34f8-4fce-a964-95e15d11a8d3
+[2025-11-08 04:59:50] [WARNING] [ChatbotSessionManager.py:177] Session 073f15f4-34f8-4fce-a964-95e15d11a8d3 not found in either Redis or local cache
+[2025-11-08 04:59:50] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1STyEshSdfP5ilAJrjxLRRZCXnoQRYBa8fxlWJYFHPzU/export?format=csv
+[2025-11-08 04:59:51] [DEBUG] [utils.py:94] ✅ Successfully loaded 46 rows and 19 columns
+[2025-11-08 04:59:51] [INFO] [app.py:186] Created 230 chunks
+[2025-11-08 04:59:54] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-08 04:59:54] [INFO] [ChatbotSessionManager.py:147] Session 073f15f4-34f8-4fce-a964-95e15d11a8d3 stored in local cache only (Redis unavailable)
+[2025-11-08 04:59:54] [INFO] [app.py:212] Session 073f15f4-34f8-4fce-a964-95e15d11a8d3 created successfully
+[2025-11-08 05:00:08] [INFO] [app.py:227] Processing query for session 073f15f4-34f8-4fce-a964-95e15d11a8d3: 'give statistcal analysis of Gained knowledge of mathematics and science required for AIML branch of '
+[2025-11-08 05:00:08] [INFO] [ChatbotSessionManager.py:174] Session 073f15f4-34f8-4fce-a964-95e15d11a8d3 retrieved from local cache (fallback)
+[2025-11-08 05:00:12] [INFO] [app.py:260] Query successful for session 073f15f4-34f8-4fce-a964-95e15d11a8d3, used tool: MCP Analysis (Complete Dataset)
+[2025-11-08 05:00:57] [INFO] [app.py:227] Processing query for session 073f15f4-34f8-4fce-a964-95e15d11a8d3: 'what are most voted values in all the columns'
+[2025-11-08 05:00:57] [INFO] [ChatbotSessionManager.py:174] Session 073f15f4-34f8-4fce-a964-95e15d11a8d3 retrieved from local cache (fallback)
+[2025-11-08 05:01:01] [INFO] [app.py:260] Query successful for session 073f15f4-34f8-4fce-a964-95e15d11a8d3, used tool: MCP Analysis (Complete Dataset)
+[2025-11-08 05:01:53] [INFO] [app.py:227] Processing query for session 073f15f4-34f8-4fce-a964-95e15d11a8d3: 'hi'
+[2025-11-08 05:01:53] [INFO] [ChatbotSessionManager.py:174] Session 073f15f4-34f8-4fce-a964-95e15d11a8d3 retrieved from local cache (fallback)
+[2025-11-08 05:01:54] [INFO] [app.py:260] Query successful for session 073f15f4-34f8-4fce-a964-95e15d11a8d3, used tool: Context Only (Sample Data)
+[2025-11-08 05:02:19] [INFO] [app.py:227] Processing query for session 073f15f4-34f8-4fce-a964-95e15d11a8d3: 'what is the dataset about?'
+[2025-11-08 05:02:19] [INFO] [ChatbotSessionManager.py:174] Session 073f15f4-34f8-4fce-a964-95e15d11a8d3 retrieved from local cache (fallback)
+[2025-11-08 05:02:20] [INFO] [app.py:260] Query successful for session 073f15f4-34f8-4fce-a964-95e15d11a8d3, used tool: Context Only (Sample Data)
+[2025-11-08 05:02:43] [INFO] [app.py:227] Processing query for session 073f15f4-34f8-4fce-a964-95e15d11a8d3: 'give me the decription of the dataset'
+[2025-11-08 05:02:43] [INFO] [ChatbotSessionManager.py:174] Session 073f15f4-34f8-4fce-a964-95e15d11a8d3 retrieved from local cache (fallback)
+[2025-11-08 05:02:45] [INFO] [app.py:260] Query successful for session 073f15f4-34f8-4fce-a964-95e15d11a8d3, used tool: MCP Analysis (Complete Dataset)

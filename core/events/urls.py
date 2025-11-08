@@ -11,4 +11,5 @@ urlpatterns = [
     path('attended-events/', ListAttendedEvents.as_view(), name='attended-events'),
     path('student-events/', GetAllStudentsEvents.as_view(), name='student-events'),
     path('teacher-events/', GetAllTeachersEvents.as_view(), name='teacher-events'),
+    path('chat/<int:event_id>/', views.Chat.as_view(), name='chat'),
     ]
