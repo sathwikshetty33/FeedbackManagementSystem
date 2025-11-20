@@ -8,7 +8,6 @@ def get_logger(name: str = __name__) -> logging.Logger:
     if logger.handlers:
         return logger
 
-    # Ensure /logs directory exists
     log_dir = os.path.join(os.getcwd(), 'logs')
     os.makedirs(log_dir, exist_ok=True)
 

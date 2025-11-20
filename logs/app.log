@@ -2717,3 +2717,31 @@ Failed to establish connection to ResolvedIPv4Address(('127.0.0.1', 7687)) (reas
 [2025-11-08 09:42:56] [INFO] [app.py:227] Processing query for session 3ced23a5-96f4-4b7f-b518-0303fdfda5e2: 'get me the names of students who has not rated excellent in either 1 of the columns with the column '
 [2025-11-08 09:42:56] [INFO] [ChatbotSessionManager.py:174] Session 3ced23a5-96f4-4b7f-b518-0303fdfda5e2 retrieved from local cache (fallback)
 [2025-11-08 09:42:57] [INFO] [app.py:260] Query successful for session 3ced23a5-96f4-4b7f-b518-0303fdfda5e2, used tool: Context Only (Sample Data)
+[2025-11-12 13:38:47] [WARNING] [ChatbotSessionManager.py:65] Redis connection failed: Error 111 connecting to localhost:6380. Connect call failed ('127.0.0.1', 6380).. Falling back to local cache only
+[2025-11-12 13:38:47] [ERROR] [Simpleneo4jKB.py:40] Neo4j connection failed: Couldn't connect to localhost:7687 (resolved to ('127.0.0.1:7687',)):
+Failed to establish connection to ResolvedIPv4Address(('127.0.0.1', 7687)) (reason [Errno 111] Connect call failed ('127.0.0.1', 7687))
+[2025-11-12 13:39:06] [INFO] [app.py:171] Starting session dbc972f3-9325-4985-89e1-301cee8aaadb
+[2025-11-12 13:39:06] [WARNING] [ChatbotSessionManager.py:177] Session dbc972f3-9325-4985-89e1-301cee8aaadb not found in either Redis or local cache
+[2025-11-12 13:39:06] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1STyEshSdfP5ilAJrjxLRRZCXnoQRYBa8fxlWJYFHPzU/export?format=csv
+[2025-11-12 13:39:07] [DEBUG] [utils.py:94] ✅ Successfully loaded 46 rows and 19 columns
+[2025-11-12 13:39:07] [INFO] [app.py:186] Created 230 chunks
+[2025-11-12 13:39:14] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-12 13:39:14] [INFO] [ChatbotSessionManager.py:147] Session dbc972f3-9325-4985-89e1-301cee8aaadb stored in local cache only (Redis unavailable)
+[2025-11-12 13:39:14] [INFO] [app.py:212] Session dbc972f3-9325-4985-89e1-301cee8aaadb created successfully
+[2025-11-12 13:39:14] [INFO] [app.py:171] Starting session 3afc556c-f3b5-4c93-80d4-daf38af3a0ac
+[2025-11-12 13:39:14] [WARNING] [ChatbotSessionManager.py:177] Session 3afc556c-f3b5-4c93-80d4-daf38af3a0ac not found in either Redis or local cache
+[2025-11-12 13:39:14] [DEBUG] [utils.py:88]  Fetching data from: https://docs.google.com/spreadsheets/d/1STyEshSdfP5ilAJrjxLRRZCXnoQRYBa8fxlWJYFHPzU/export?format=csv
+[2025-11-12 13:39:16] [DEBUG] [utils.py:94] ✅ Successfully loaded 46 rows and 19 columns
+[2025-11-12 13:39:16] [INFO] [app.py:186] Created 230 chunks
+[2025-11-12 13:39:22] [WARNING] [Simpleneo4jKB.py:75] Graph creation skipped - Neo4j not available
+[2025-11-12 13:39:22] [INFO] [ChatbotSessionManager.py:147] Session 3afc556c-f3b5-4c93-80d4-daf38af3a0ac stored in local cache only (Redis unavailable)
+[2025-11-12 13:39:22] [INFO] [app.py:212] Session 3afc556c-f3b5-4c93-80d4-daf38af3a0ac created successfully
+[2025-11-12 13:39:30] [INFO] [app.py:227] Processing query for session 3afc556c-f3b5-4c93-80d4-daf38af3a0ac: 'tell me about the desrption of the dataset'
+[2025-11-12 13:39:30] [INFO] [ChatbotSessionManager.py:174] Session 3afc556c-f3b5-4c93-80d4-daf38af3a0ac retrieved from local cache (fallback)
+[2025-11-12 13:39:34] [INFO] [app.py:260] Query successful for session 3afc556c-f3b5-4c93-80d4-daf38af3a0ac, used tool: MCP Analysis (Complete Dataset)
+[2025-11-12 13:40:04] [INFO] [app.py:227] Processing query for session 3afc556c-f3b5-4c93-80d4-daf38af3a0ac: 'can you get me the overall stats of 2. Able to identify, formulate and solve engineering problems'
+[2025-11-12 13:40:04] [INFO] [ChatbotSessionManager.py:174] Session 3afc556c-f3b5-4c93-80d4-daf38af3a0ac retrieved from local cache (fallback)
+[2025-11-12 13:40:06] [INFO] [app.py:260] Query successful for session 3afc556c-f3b5-4c93-80d4-daf38af3a0ac, used tool: MCP Analysis (Complete Dataset)
+[2025-11-12 13:40:50] [INFO] [app.py:227] Processing query for session 3afc556c-f3b5-4c93-80d4-daf38af3a0ac: 'can you get me the ratings for every column for the student usn 1DS20AI031'
+[2025-11-12 13:40:50] [INFO] [ChatbotSessionManager.py:174] Session 3afc556c-f3b5-4c93-80d4-daf38af3a0ac retrieved from local cache (fallback)
+[2025-11-12 13:40:53] [INFO] [app.py:260] Query successful for session 3afc556c-f3b5-4c93-80d4-daf38af3a0ac, used tool: Context Only (Sample Data)
